@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=autoconf257
 version=2.57
-pkgver=1
+pkgver=2
 source[0]=autoconf-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=autoconf-2.57-versioning.patch
