@@ -9,10 +9,12 @@
 # Check the following 4 variables before running the script
 topdir=groff
 version=1.19.0
-pkgver=4
+pkgver=6
 source[0]=$topdir-1.19.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.18.1-Imakefile.patch
+patch[1]=groff-1.19-inttypes-irix53.patch
+patch[2]=groff-1.19-nroff-shell.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -45,7 +47,11 @@ build()
     (cd doc && makeinfo groff.texinfo)
     cd src/xditview
     xmkmf -a # Produces kinda broken makefiles using -mips2 -32 :(
-    make CC=cc CCOPTIONS="-xansi -n32 -mips3 -woff 1116,1174" LDPOSTLIB=
+    if [ "$(uname -sr)" == "IRIX 5.3" ]; then
+	$MAKE_PROG CC=cc CCOPTIONS="-xansi -32 -mips1" LDPOSTLIB=
+    else
+	$MAKE_PROG CC=cc CCOPTIONS="-xansi -n32 -mips3 -woff 1116,1174" LDPOSTLIB=
+    fi
 }
 
 reg install
@@ -54,12 +60,14 @@ install()
     generic_install prefix
     setdir source
     cd src/xditview
-    make DESTDIR=$stagedir install
+    $MAKE_PROG DESTDIR=$stagedir install
     setdir stage
     rm -f info/dir
     mv usr/bin/* bin
     mv usr/lib/* lib
     rm -rf usr
+    mv bin/X11/* bin
+    rmdir bin/X11
 }
 
 reg pack
