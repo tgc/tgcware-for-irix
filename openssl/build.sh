@@ -8,22 +8,19 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7c
-pkgver=3
+version=0.9.7d
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-0.9.7c-shlib.patch
+patch[0]=openssl-0.9.7d-shlib.patch
 patch[1]=openssl-0.9.7c-Configure.patch
-patch[2]=openssl-0.9.7c-doc.patch
-patch[3]=openssl-0.9.7c-can-2004-0079.patch
-patch[4]=openssl-0.9.7c-can-2004-0112.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 subsysconf=$metadir/subsys.conf
 
-sover=3 # c = 3
+sover=4 # d = 4
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
 specver="$(fix_ver $version)""$sover"
