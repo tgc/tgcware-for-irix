@@ -8,8 +8,8 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssh
-version=3.8.1p1
-pkgver=4
+version=3.9p1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -38,10 +38,10 @@ build()
     export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
     [ ! "$(gcc --version)" == "2.95.3" ] && LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
     export CPPFLAGS="-I/usr/local/include/openssl"
-    configure_args="--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix"
-    setdir source
-    ./configure $configure_args
-    $MAKE_PROG
+    export ENTROPY="--with-prngd-socket=/var/run/egd-pool"
+    configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix $ENTROPY'
+
+    generic_build
 }
 
 reg install
@@ -80,6 +80,7 @@ reg pack
 pack()
 {
     (setdir ${stagedir}${prefix}/${_mandir}; fix_man)
+    (setdir ${stagedir}${prefix}/${_mandir}; compress_man)
     lprefix=${prefix#/*}
     metainstroot=$prefix
     topinstalldir="/"
