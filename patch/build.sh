@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=patch
 version=2.5.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -17,15 +17,13 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkg metadata values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU Patch"
-
 # Define script functions and register them
 METHODS=""
 reg() {
     METHODS="$METHODS $1"
 }
+
+shortroot=1
 
 reg prep
 prep()
@@ -42,13 +40,15 @@ build()
 reg install
 install()
 {
+    metainstalldir=/
     generic_install prefix
+    doc README NEWS ChangeLog
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
