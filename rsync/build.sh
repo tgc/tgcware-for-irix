@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=rsync
-version=2.5.7
+version=2.6.3
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -17,8 +17,8 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
+# Setup configure args globally so relnotes.txt is always updated from relnotes
+set_configure_args '--prefix=${prefix} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6'
 
 # Define script functions and register them
 METHODS=""
@@ -35,6 +35,8 @@ prep()
 reg build
 build()
 {
+    export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
+    export CPPFLAGS="-I/usr/local/include"
     generic_build
 }
 
@@ -42,6 +44,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS README TODO
 }
 
 reg pack
