@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.7d
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-0.9.7d-shlib.patch
@@ -18,6 +18,10 @@ patch[1]=openssl-0.9.7c-Configure.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+# Version specific patch
+[ "$_os" == "irix53" ] && patch[2]=openssl-0.9.7d-irix53-ld.patch
+
+# Custom subsystems
 subsysconf=$metadir/subsys.conf
 
 sover=4 # d = 4

@@ -1,0 +1,11 @@
+--- openssl-0.9.7d/Makefile.org.orig	Tue Jul 27 11:27:15 2004
++++ openssl-0.9.7d/Makefile.org	Tue Jul 27 11:28:16 2004
+@@ -457,7 +457,7 @@
+ 			libs="$(LIBKRB5) $$libs"; \
+ 		fi; \
+ 		( WHOLELIB="-all lib$$i.a -notall"; \
+-		  (${CC} -v 2>&1 | grep gcc) > /dev/null && WHOLELIB="-Wl,-all,lib$$i.a,-notall"; \
++		  (${CC} -v 2>&1 | grep gcc) > /dev/null && WHOLELIB="-Wl,-all,lib$$i.a"; \
+ 		  set -x; ${CC} ${SHARED_LDFLAGS} \
+ 			-shared -o lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+ 			-Wl,-rpath,@LIBDIR@ \
