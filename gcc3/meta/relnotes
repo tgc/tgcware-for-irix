@@ -1,0 +1,52 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+No special build variables where set
+
+compiler and version:
+gcc 2.95.3
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+./configure --prefix=/usr/local/%%SOURCE_AND_VER%% --enable-languages=c,c++ --disable-nls --disable-multilib
+make bootstrap
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+Make bootstrap failed on Irix initially with this error:
+
+make[3]: Entering directory `/usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/objdir/gcc/fixinc'
+/bin/sh /usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gcc-3.4.1/gcc/fixinc/genfixes machname.h
+Forbidden identifiers: 
+gcc -c -DIN_GCC -DHAVE_CONFIG_H -g -DIN_GCC -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -pedantic -Wno-long-long -Wno-error -DHAVE_CONFIG_H -DGENERAT
+OR_FILE  -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -pedantic -Wno-long-long  -Wno-error -I. -I.. -I/usr/people/tgc/build/athena-buildpkg/buildpkg/g
+cc3/src/gcc-3.4.1/gcc/fixinc -I/usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gcc-3.4.1/gcc/fixinc/.. -I/usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gc
+c-3.4.1/gcc/fixinc/../config -I/usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gcc-3.4.1/gcc/fixinc/../../include /usr/people/tgc/build/athena-buildpkg/buildpkg/gc
+c3/src/gcc-3.4.1/gcc/fixinc/fixincl.c
+In file included from /usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gcc-3.4.1/gcc/fixinc/fixlib.h:36,
+                 from /usr/people/tgc/build/athena-buildpkg/buildpkg/gcc3/src/gcc-3.4.1/gcc/fixinc/fixincl.c:24:
+machname.h:1: warning: string constant runs past end of line
+machname.h:1: unterminated string or character constant
+machname.h:1: possible real start of unterminated constant
+
+The problem is that genfixes fails and creates a machname.h that is broken.
+
+After looking at genfixes and why it fails I deemed the below hack to be acceptable for the moment.
+As a temporary hack I did:
+echo "#undef MN_NAME_PAT" > $srcdir/objdir/gcc/fixinc/machname.h
+and then continued the build.
