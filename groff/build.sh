@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=groff
 version=1.19
-pkgver=11
+pkgver=12
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.18.1-Imakefile.patch
