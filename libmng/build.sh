@@ -3,29 +3,24 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=libmng
-version=1.0.4
+version=1.0.9
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="MNG support library"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 reg prep
 prep()
@@ -36,17 +31,19 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-Wl,-rpath,/usr/local/lib"
+    # We need sed, automake, autoconf and libtool for this one
     setdir source
-    ./configure --prefix=$prefix --disable-nls --with-zlib=/usr/local \
-    --with-jpeg=/usr/local
-    $MAKE_PROG
+    $GSED "s/\r//" unmaintained/autogen.sh > unmaintained/autogen.sh.unix
+    $GSED "s/\.\/configure/#\.\/configure/" unmaintained/autogen.sh.unix > unmaintained/autogen.sh
+    $SHELL unmaintained/autogen.sh
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    doc doc/libmng.txt doc/doc.readme doc/*.png
 }
 
 reg pack
@@ -64,42 +61,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
