@@ -1,0 +1,26 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export ac_cv_lib_ncurses_initscr=no
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------
+lesspipe.sh from Fedora Core 2 was added as a bonus.
