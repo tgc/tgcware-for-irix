@@ -8,18 +8,14 @@
 #
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.5
-pkgver=3
+version=1.2.8
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libpng-1.2.5-makefile.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="PNG support library"
 
 # Build system is *horrible* for libpng
 # The makefile for IRIX/gcc was broken
@@ -48,9 +44,13 @@ build()
 reg install
 install()
 {
+    clean stage
     mkdir -p $stagedir$prefix
     setdir source
     $MAKE_PROG DESTDIR=$stagedir install
+    custom_install=1
+    generic_install
+    doc CHANGES README TODO example.c libpng.txt
 }
 
 reg pack
