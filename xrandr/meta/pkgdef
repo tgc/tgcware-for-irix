@@ -9,6 +9,7 @@ shortdesc="Client library for the X Randr extension"
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
+$_docdir
 
 [devel]
 subsys=sw.dev
@@ -17,5 +18,4 @@ $_includedir
 $_libdir/*.so
 $_libdir/*.a
 $_libdir/pkgconfig/*.pc
-$_docdir
 
