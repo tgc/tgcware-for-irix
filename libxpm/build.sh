@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=xpm
 version=3.4k
-pkgver=4
+pkgver=5
 source[0]=xpm-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libxpm-3.4k-shlib.patch
@@ -52,6 +52,8 @@ install()
     ln -s libXpm.so.4.11 libXpm.so.4
     ln -s libXpm.so.4.11 libXpm.so
     doc doc/xpm.PS.gz FAQ.html README.html
+    custom_install=1
+    generic_install
 }
 
 reg pack
