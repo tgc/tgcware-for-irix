@@ -15,7 +15,7 @@ source[0]=bash-$version.tar.gz
 #patch[0]=
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Override pkginfo information
 #pkgname=$pkgprefixbash2

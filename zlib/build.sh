@@ -16,7 +16,7 @@ patch[0]=zlib-1.1.4-use_cc.patch
 patch[1]=zlib-1.1.4-vsnprintf.patch
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc

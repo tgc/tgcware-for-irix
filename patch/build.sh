@@ -6,7 +6,6 @@
 # The concept of "method" registering and the logic that implements it was shamelessly
 # stolen from jhlj's Compile.sh script :)
 #
-set -x
 # Check the following 4 variables before running the script
 topdir=patch
 version=2.5.4
@@ -16,7 +15,7 @@ source[0]=$topdir-$version.tar
 #patch[0]=
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Fill in pkg metadata values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc

@@ -55,7 +55,7 @@ patch[34]=6.2.055
 patchcount=${#patch[@]}
 
 # Source function library
-. ${HOME}/buildpkg/scripts/buildpkg.functions
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # We need to override this
 topsrcdir=vim62
