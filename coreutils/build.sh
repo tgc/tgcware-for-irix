@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=coreutils
 version=5.2.1
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -41,6 +41,7 @@ install()
     generic_install DESTDIR
     $RM ${stagedir}${prefix}/${_infodir}/dir
     $RM ${stagedir}${prefix}/${_libdir}/charset.alias
+    doc NEWS TODO ChangeLog
 }
 
 reg pack

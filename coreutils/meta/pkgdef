@@ -2,7 +2,8 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-shortdesc="GNU core utilities - commonly used utility applications"
+pkgvendor="http://www.gnu.org/software/coreutils/"
+shortdesc="Commonly used utility applications"
 
 [base]
 subsys=sw.base
