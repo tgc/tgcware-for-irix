@@ -10,12 +10,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=samba
-version=3.0.11
+version=3.0.13
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=samba-3.0.11-ld.patch
-patch[1]=clitar.patch
+patch[1]=samba-3.0.13-header.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -29,6 +29,7 @@ set_configure_args '\
 	--with-libsmbclient \
 	--with-ldap \
 	--with-ads \
+	--with-cups \
 	--prefix=$prefix \
 	--with-lockdir=${prefix}/var/locks \
 	--with-piddir=${prefix}/var/run \
@@ -53,7 +54,10 @@ prep()
 reg build
 build()
 {
-  generic_build source
+#  generic_build source
+    setdir source
+    cd source
+    $MAKE_PROG
 }
 
 reg install
