@@ -2,7 +2,8 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-shortdesc="GNU sed"
+pkgvendor="http://www.gnu.org/software/sed/sed.html"
+shortdesc="A stream-oriented non-interactive text editor"
 
 [base]
 subsys=sw.base

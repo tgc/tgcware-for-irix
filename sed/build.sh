@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=sed
-version=4.1.1
+version=4.1.2
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -32,6 +32,8 @@ prep()
 reg build
 build()
 {
+    export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+    export CPPFLAGS="-I/usr/local/include"
     generic_build
 }
 
