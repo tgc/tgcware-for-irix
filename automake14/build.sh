@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=automake14
 version=1.4-p5
-pkgver=2
+pkgver=3
 source[0]=automake-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -39,7 +39,7 @@ reg build
 build()
 {
     setdir source
-    ./configure --prefix=/usr/local --program-suffix=-1.4 --disable-nls
+    ./configure --prefix=/usr/local --disable-nls
     $MAKE_PROG
 }
 
