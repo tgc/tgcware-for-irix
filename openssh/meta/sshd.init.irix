@@ -25,7 +25,7 @@ check_pid_dir()
 {
 	if [ ! -d /var/run ]; then
 		mkdir -p /var/run
-		chown root:sys /var/run
+		chown root.sys /var/run
 		chmod 755 /var/run
 	fi
 }

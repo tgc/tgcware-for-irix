@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=3.8.1p1
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=

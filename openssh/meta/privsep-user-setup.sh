@@ -58,7 +58,7 @@ do_create()
 
     # Create homedir
     mkdir -p /var/empty/sshd
-    chown ${ssh_uid}:${ssh_gid} /var/empty/sshd
+    chown ${ssh_uid}.${ssh_gid} /var/empty/sshd
 }
 
 # Make sure the sshd user doesn't show up on the clogin screen
