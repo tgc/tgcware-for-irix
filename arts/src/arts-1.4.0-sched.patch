@@ -1,0 +1,12 @@
+--- arts-1.4.0.hacked/mcop_mt/threads_posix.cc.sched	Mon Mar 21 11:25:34 2005
++++ arts-1.4.0.hacked/mcop_mt/threads_posix.cc	Mon Mar 21 11:27:53 2005
+@@ -27,6 +27,9 @@
+ /* only compile this if we have libpthread available */
+ #ifdef HAVE_LIBPTHREAD
+ 
++/* SCHED_FIFO and friends are here on Irix 6.2 */
++#include <sys/sched.h>
++
+ #include <gsl/gslconfig.h>
+ 
+ #include <sys/types.h>

@@ -1,0 +1,104 @@
+--- arts-1.4.0.hacked/flow/audioiosgi.cc.orig	Mon Mar 21 09:29:32 2005
++++ arts-1.4.0.hacked/flow/audioiosgi.cc	Mon Mar 21 16:48:33 2005
+@@ -2,6 +2,9 @@
+ 
+     Copyright (C) 2001 Carsten Kroll
+                        ckroll@pinnaclesys.com
++    Irix < 6.5 support is
++    Copyright (C) 2005 Tom G. Christensen
++			arts@jupiterrise.com
+ 
+     This library is free software; you can redistribute it and/or
+     modify it under the terms of the GNU Library General Public
+@@ -30,6 +33,29 @@
+ #ifdef HAVE_IRIX
+ 
+ #include <dmedia/audio.h>
++
++/**
++ * If we're on Irix < 6.5 then we're using the old style dmedia API
++ */
++#ifndef AL_RESOURCE /* as a test whether we use the old IRIX audio libraries */
++#define OLD_IRIX_AUDIO
++#define alClosePort(x) ALcloseport(x)
++#define alFreeConfig(x) ALfreeconfig(x)
++#define alGetFillable(x) ALgetfillable(x)
++#define alNewConfig() ALnewconfig()
++#define alOpenPort(x,y,z) ALopenport(x,y,z)
++#define alSetChannels(x,y) ALsetchannels(x,y)
++#define alSetQueueSize(x,y) ALsetqueuesize(x,y)
++#define alGetQueueSize(x) ALgetqueuesize(x)
++#define alSetSampFmt(x,y) ALsetsampfmt(x,y)
++#define alSetWidth(x,y) ALsetwidth(x,y)
++#define alSetFillPoint(x,y) ALsetfillpoint(x,y)
++#define alGetFilled(x) ALgetfilled(x)
++#define alGetFD(x) ALgetfd(x)
++#define alWriteFrames(x,y,z) ALwritesamps(x,y,z)
++#define alReadFrames(x,y,z) ALreadsamps(x,y,z)
++#endif
++
+ #include <sys/types.h>
+ #include <sys/ioctl.h>
+ #include <sys/time.h>
+@@ -112,7 +138,12 @@
+ 		_error = "invalid direction";
+ 		return false;
+ 	}
++
++#ifdef OLD_IRIX_AUDIO
++	framesz=((_format & ~1) >> 3);
++#else
+ 	framesz=((_format & ~1) >> 3) * _channels;
++#endif
+ 
+ 	audioconfig = alNewConfig();
+ 	alSetSampFmt(audioconfig,AL_SAMPFMT_TWOSCOMP);
+@@ -155,6 +186,14 @@
+ 	 * Attempt to set a crystal-based sample-rate on the
+ 	 * given device.
+ 	 */
++#ifdef OLD_IRIX_AUDIO
++	long x[2];
++	x[0]=AL_OUTPUT_RATE;
++	x[1]=_samplingRate; /* old Irix automatically picks nearest supported rate */
++	if (ALsetparams(AL_DEFAULT_DEVICE,x, 2)<0) {
++		_error="setparams failed: ";
++		_error+=oserror();
++#else
+ 	ALpv x[2];
+ 	x[0].param = AL_MASTER_CLOCK;
+ 	x[0].value.i = AL_CRYSTAL_MCLK_TYPE;
+@@ -163,21 +202,33 @@
+ 	if (alSetParams(alGetResource(audio_port),x, 2)<0) {
+ 		_error="setparams failed: ";
+ 		_error+=alGetErrorString(oserror());
++#endif
+ 		close();
+ 		return false;
+ 	}
+ 	if (_direction == 3)
++#ifdef OLD_IRIX_AUDIO
++		x[0]=AL_INPUT_RATE;
++		if (ALsetparams(AL_DEFAULT_DEVICE,x, 2)<0) {
++		    _error="setparams failed: ";
++		    _error+=oserror();
++#else
+ 		if (alSetParams(alGetResource(audio_port1),x, 2)<0) {
+ 			_error="setparams failed: ";
+ 			_error+=alGetErrorString(oserror());
++#endif
+ 			close();
+ 			return false;
+ 		}
++#ifdef OLD_IRIX_AUDIO
++	/* Do nothing */
++#else
+ 	if (x[1].sizeOut < 0) {
+ 		_error="rate was invalid";
+ 		close();
+ 		return false;
+ 	}
++#endif
+ 
+ 	alSetFillPoint(audio_port,(alGetQueueSize(audioconfig)*5)/10) ;//50 %
+ 	if (_direction == 3)
