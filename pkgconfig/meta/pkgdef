@@ -1,0 +1,18 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.freedesktop.org/Software/pkgconfig"
+shortdesc="A system for managing library compile/link flags"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+

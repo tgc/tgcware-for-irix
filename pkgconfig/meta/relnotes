@@ -1,0 +1,25 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CC=gcc
+export CPPFLAGS="-I/usr/local/lib"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------

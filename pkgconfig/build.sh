@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=pkgconfig
 version=0.15.0
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -17,9 +17,10 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="pkgconfig"
+# Global settings
+export CC=gcc
+export CPPFLAGS="-I/usr/local/lib"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 # Define script functions and register them
 METHODS=""
@@ -36,17 +37,14 @@ prep()
 reg build
 build()
 {
-    export CC=gcc
-    export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-    setdir source
-    ./configure --prefix=$prefix --disable-nls
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS README
 }
 
 reg pack
