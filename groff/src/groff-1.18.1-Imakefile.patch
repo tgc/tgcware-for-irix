@@ -1,5 +1,5 @@
---- groff-1.18.1/src/xditview/Imakefile.old	2003-08-03 15:23:55.020000000 +0000
-+++ groff-1.18.1/src/xditview/Imakefile	2003-08-03 15:24:13.640000000 +0000
+--- groff-1.18.1/src/xditview/Imakefile.in.old	2003-08-03 15:23:55.020000000 +0000
++++ groff-1.18.1/src/xditview/Imakefile.in	2003-08-03 15:24:13.640000000 +0000
 @@ -73,8 +73,6 @@
  DEVDIR = $(top_builddir)/font
  MKINSTALLDIRS = $(top_srcdir)/mkinstalldirs

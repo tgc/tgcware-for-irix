@@ -8,9 +8,9 @@
 #
 # Check the following 4 variables before running the script
 topdir=groff
-version=1.18.1
-pkgver=3
-source[0]=$topdir-$version.tar.gz
+version=1.19.0
+pkgver=4
+source[0]=$topdir-1.19.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.18.1-Imakefile.patch
 
@@ -20,6 +20,8 @@ patch[0]=groff-1.18.1-Imakefile.patch
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
 name="GNU Groff"
+
+topsrcdir=$topdir-1.19
 
 # Define script functions and register them
 METHODS=""
