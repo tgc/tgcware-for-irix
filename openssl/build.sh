@@ -44,7 +44,9 @@ build()
 reg install
 install()
 {
-    generic_install INSTALL_PREFIX
+#    generic_install INSTALL_PREFIX
+	setdir source
+	$MAKE_PROG MAKE='gmake -f Makefile.ssl' INSTALL_PREFIX=$stagedir install
 }
 
 reg pack
