@@ -1,0 +1,41 @@
+diff -ur rxvt-2.7.6/src/command.c rxvt-2.7.6-new/src/command.c
+--- rxvt-2.7.6/src/command.c	Tue Feb 25 13:29:15 2003
++++ rxvt-2.7.6-new/src/command.c	Tue Feb 25 13:27:23 2003
+@@ -2260,8 +2260,11 @@
+      * rxvt_menubar_dispatch() violates the constness of the string,
+      * so do it here
+      */
+-	    if (arg == XTerm_Menu)
++	    if (arg == XTerm_Menu) {
++#if 0 /* SECURITY */		    
+ 		rxvt_menubar_dispatch(r, (char *)s);
++#endif
++	    }
+ 	    else
+ 		rxvt_xterm_seq(r, arg, (char *)s, eh);
+ 	    free(s);
+@@ -2300,6 +2303,7 @@
+ 
+     assert(str != NULL);
+     switch (op) {
++	    
+     case XTerm_name:
+ 	rxvt_set_title(r, str);
+     /* FALLTHROUGH */
+@@ -2375,12 +2379,15 @@
+     case XTerm_font:
+ 	rxvt_change_font(r, 0, str);
+ 	break;
++#if 0 /* SECURITY! */
+     case XTerm_dumpscreen:	/* no error notices */
+ 	if ((fd = open(str, O_RDWR | O_CREAT | O_EXCL, 0600)) >= 0) {
+ 	    rxvt_scr_dump(r, fd);
+ 	    close(fd);
+ 	}
+ 	break;
++#endif
++	
+     }
+ }
+ /*----------------------------------------------------------------------*/
+
