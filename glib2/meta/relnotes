@@ -1,0 +1,34 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+libiconv
+gettext
+
+ERRORS/MISCELLANEOUS
+--------------------
+I built glib2 without getpwuid_r which means a number of
+g_* functions are not thread safe.
+The alternative is linking everything with -lpthread since
+getpwuid_r *is* available but only when linking with
+the thread libraries.
