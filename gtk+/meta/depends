@@ -1,0 +1,2 @@
+sw.lib tgc_gettext.sw.lib 01400007 maxint
+sw.lib tgc_glib.sw.lib 12100005 maxint
