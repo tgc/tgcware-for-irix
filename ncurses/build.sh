@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=ncurses
 version=5.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -18,7 +18,8 @@ source[0]=$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Set new configure args
+# Global settings
+export LD="ld -n32 -rpath $prefix"
 set_configure_args '--prefix=$prefix --with-shared --without-debug --with-install-prefix=${stagedir} --with-manpage-symlinks --disable-rpath --enable-symlinks --with-manpage-format=normal --with-libtool'
 
 reg prep
@@ -30,7 +31,6 @@ prep()
 reg build
 build()
 {
-    export LD="ld -n32 -rpath $prefix"
     generic_build
 }
 

@@ -29,6 +29,5 @@ subsys=sw.dev
 files(-,root,sys)
 $_includedir
 $_libdir/*.a
-$_libdir/*.la
 $_libdir/*.so
 
