@@ -1,0 +1,36 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+Everything and the kitchen sink :)
+
+ERRORS/MISCELLANEOUS
+--------------------
+Lots of little quirks to handle when building on an old system like
+Irix 6.2.
+Most of the patches are trivial. Some are the right solutions and some
+are just quick and dirty hacks.
+I'm quite proud of the trio patch. I think it's pretty clean and
+a good example of how using trio for *printf functions should be done.
+
+The worst problem was the socklen_t crap. There seems to be some 
+inconsistency and while the configure scripts know to check for socklen_t
+the alternative (kde_socklen_t) is used far from everywhere.

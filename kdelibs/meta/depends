@@ -1,0 +1,27 @@
+sw.base sw.lib auto
+sw.lib sw.base auto
+sw.lib tgc_xrender.sw.lib 08400001 maxint
+sw.lib tgc_libart_lgpl.sw.lib 23170001 maxint
+sw.lib tgc_arts.sw.lib 14000002 maxint
+sw.lib tgc_audiofile.sw.lib 2600001 maxint
+sw.lib tgc_openssl097.sw.lib 09750001 maxint
+sw.lib tgc_cups.sw.lib 11230001 maxint
+sw.lib tgc_gettext.sw.lib 01410007 maxint
+sw.lib tgc_glib2.sw.lib 26100002 maxint
+sw.lib tgc_libiconv.sw.lib 19200006 maxint
+sw.lib tgc_libidn.sw.lib 05130001 maxint
+sw.lib tgc_libjpeg.sw.lib 60000005 maxint
+sw.lib tgc_libmad.sw.lib 01510001 maxint
+sw.lib tgc_libogg.sw.lib 11200001 maxint
+sw.lib tgc_pcre.sw.lib 50000002 maxint
+sw.lib tgc_libpng.sw.lib 12800001 maxint
+sw.lib tgc_libvorbis.sw.lib 11000001 maxint
+sw.lib tgc_qt.sw.lib 33400001 maxint
+sw.lib tgc_trio.sw.lib 11000004 maxint
+sw.lib tgc_zlib.sw.lib 12200001 maxint
+sw.lib tgc_bzip2.sw.lib 10200008 maxint
+sw.lib tgc_jasper.sw.lib 17010001 maxint
+sw.lib tgc_krb5.sw.lib 14000002 maxint
+sw.lib tgc_libxml2.sw.lib 26170001 maxint
+sw.lib tgc_libxslt.sw.lib 11120001 maxint
+sw.lib tgc_tiff.sw.lib 37100001 maxint
