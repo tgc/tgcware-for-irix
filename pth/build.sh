@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=pth
 version=2.0.0
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -35,7 +35,9 @@ prep()
 reg build
 build()
 {
-    generic_build
+    setdir source
+    ./configure --prefix=/usr/local --enable-pthread
+    $MAKE_PROG
 }
 
 reg install
