@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=gccrt
 version=1.0
-pkgver=1
+pkgver=2
 # If there are no patches, simply comment this
 #patch[0]=
 
