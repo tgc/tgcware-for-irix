@@ -1,0 +1,36 @@
+appicon_captions_maxprotect.diff  -  Don't cover captions when maximizing windows
+
+See the screenshot at:
+
+    http://www.heily.com/mark/code_samples/appicon_captions_maxprotect.png
+
+For use with the appicon_captions patch at:
+
+ http://www.heily.com/mark/code_samples/appicon_captions.diff  (patch)
+ http://www.heily.com/mark/code_samples/appicon_captions.png   (screenshot)
+
+Usage:
+
+	In WPrefs.app, disable the option entitled "When maximizing, don't cover icons"
+	Restart wmaker
+	Maximize a window with a captioned appicon
+
+---cut here---cut here-----------cut here---cut here----
+--- wm/src/actions.c.orig	Sat Feb 16 18:46:54 2002
++++ wm/src/actions.c	Sat Feb 16 19:07:16 2002
+@@ -432,6 +432,7 @@
+     WArea usableArea = wwin->screen_ptr->totalUsableArea;
+     WArea totalArea;
+ 
++    #define CAPTION_HEIGHT ( WMFontHeight(wwin->screen_ptr->clip_title_font) + 3 )
+ 
+     if (WFLAGP(wwin, no_resizable))
+ 	return;
+@@ -498,6 +499,7 @@
+ 	    new_y -= wwin->frame->top_width;
+ 	    new_height += wwin->frame->bottom_width - 1;
+ 	}
++      new_height -= CAPTION_HEIGHT;
+     } else {
+ 	new_y = wwin->frame_y;
+ 	new_height = wwin->frame->core->height;

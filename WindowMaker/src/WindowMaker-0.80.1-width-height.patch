@@ -1,0 +1,19 @@
+--- WindowMaker-0.80.1/wrlib/raster.c.width-height	2002-01-08 08:45:34.000000000 -0500
++++ WindowMaker-0.80.1/wrlib/raster.c	2002-11-22 13:59:36.000000000 -0500
+@@ -42,6 +42,16 @@
+ RCreateImage(unsigned width, unsigned height, int alpha)
+ {
+     RImage *image=NULL;
++
++#define BIG_INT 16000000
++    
++    if (width <= 0 ||
++        height <= 0 ||
++        width > ((BIG_INT/4) / height + 4) ||
++        height > ((BIG_INT/4) / width + 4)) {
++      RErrorCode = RERR_NOMEMORY;
++      return NULL;
++    }
+     
+     assert(width>0 && height>0);
+ 
