@@ -9,10 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=rdate
 version=990821
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=rdate-990821-include.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions

@@ -1,0 +1,10 @@
+--- rdate-990821/rdate.c.orig	Wed Dec 24 15:44:14 2003
++++ rdate-990821/rdate.c	Wed Dec 24 15:48:44 2003
+@@ -10,6 +10,7 @@
+ #include <string.h>
+ #include <signal.h>
+ #include <setjmp.h>
++#include <stdlib.h>
+ 
+ /* difference between Unix time and net time */
+ #define BASE1970	2208988800UL
