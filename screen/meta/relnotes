@@ -1,0 +1,36 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+No special build variables where set
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+# %%CONFIGURE%%
+# make LIBS="-lelf"
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+You'll note that I'm overriding the LIBS variable during make.
+This is to avoid linking with -lsun -lcrypt as they don't provide
+any symbols needed.
+
+The right terminfo file should be automatically added to the terminfo
+database during installation.
