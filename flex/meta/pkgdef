@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnu.org/software/flex/flex.html"
+shortdesc="Generates text-scanning programs"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.a
+

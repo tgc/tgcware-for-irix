@@ -1,0 +1,103 @@
+diff -r -c4 flex-2.5.4/flex.skl flex-2.5.4P/flex.skl
+*** flex-2.5.4/flex.skl	Wed Sep 11 01:58:54 1996
+--- flex-2.5.4P/flex.skl	Thu Oct 24 19:25:30 2002
+***************
+*** 969,976 ****
+--- 969,977 ----
+  %*
+  
+  
+  %-
++ #ifndef YY_NO_INPUT
+  #ifdef __cplusplus
+  static int yyinput()
+  #else
+  static int input()
+***************
+*** 1044,1052 ****
+  %% update BOL and yylineno
+  
+  	return c;
+  	}
+! 
+  
+  %-
+  #ifdef YY_USE_PROTOS
+  void yyrestart( FILE *input_file )
+--- 1045,1055 ----
+  %% update BOL and yylineno
+  
+  	return c;
+  	}
+! %-
+! #endif /* YY_NO_INPUT */
+! %*
+  
+  %-
+  #ifdef YY_USE_PROTOS
+  void yyrestart( FILE *input_file )
+diff -r -c4 flex-2.5.4/initscan.c flex-2.5.4P/initscan.c
+*** flex-2.5.4/initscan.c	Sun Jul 27 04:32:18 1997
+--- flex-2.5.4P/initscan.c	Tue Oct 15 11:51:22 2002
+***************
+*** 3127,3134 ****
+--- 3127,3135 ----
+  	}
+  #endif	/* ifndef YY_NO_UNPUT */
+  
+  
++ #ifndef YY_NO_INPUT
+  #ifdef __cplusplus
+  static int yyinput()
+  #else
+  static int input()
+***************
+*** 3199,3206 ****
+--- 3200,3208 ----
+  	yy_current_buffer->yy_at_bol = (c == '\n');
+  
+  	return c;
+  	}
++ #endif	/* ifndef YY_NO_INPUT */
+  
+  
+  #ifdef YY_USE_PROTOS
+  void yyrestart( FILE *input_file )
+diff -r -c4 flex-2.5.4/skel.c flex-2.5.4P/skel.c
+*** flex-2.5.4/skel.c	Wed Sep 11 02:00:38 1996
+--- flex-2.5.4P/skel.c	Thu Oct 24 19:25:32 2002
+***************
+*** 974,981 ****
+--- 974,982 ----
+    "%*",
+    "",
+    "",
+    "%-",
++   "#ifndef YY_NO_INPUT",
+    "#ifdef __cplusplus",
+    "static int yyinput()",
+    "#else",
+    "static int input()",
+***************
+*** 1049,1057 ****
+    "%% update BOL and yylineno",
+    "",
+    "	return c;",
+    "	}",
+!   "",
+    "",
+    "%-",
+    "#ifdef YY_USE_PROTOS",
+    "void yyrestart( FILE *input_file )",
+--- 1050,1060 ----
+    "%% update BOL and yylineno",
+    "",
+    "	return c;",
+    "	}",
+!   "%-",
+!   "#endif /* YY_NO_INPUT */",
+!   "%*",
+    "",
+    "%-",
+    "#ifdef YY_USE_PROTOS",
+    "void yyrestart( FILE *input_file )",

@@ -9,18 +9,18 @@
 # Check the following 4 variables before running the script
 topdir=flex
 version=2.5.4a
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=flex-2.5.4a-skel.patch
+patch[1]=flex-2.5.4a-gcc3.patch
+patch[2]=flex-2.5.4a-gcc31.patch
+patch[3]=flex-2.5.4a2.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU Flex"
-
+shortroot=1
 topsrcdir=$topdir-2.5.4
 
 # Define script functions and register them
@@ -38,6 +38,8 @@ prep()
 reg build
 build()
 {
+    setdir source
+    autoconf
     generic_build
 }
 
@@ -45,12 +47,13 @@ reg install
 install()
 {
     generic_install prefix
+    doc COPYING NEWS
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
