@@ -9,13 +9,16 @@
 # Check the following 4 variables before running the script
 topdir=zlib
 version=1.2.1.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# New default configure args
+set_configure_args '--shared --prefix=$prefix'
 
 # Define script functions and register them
 METHODS=""
@@ -32,7 +35,6 @@ prep()
 reg build
 build()
 {
-    set_configure_args '--shared --prefix=$prefix'
     export LDSHARED="gcc -shared -rpath ${prefix}/${_libdir}"
     generic_build
     setdir source
