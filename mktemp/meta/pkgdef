@@ -1,0 +1,19 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.mktemp.org/"
+shortdesc="Creates temporary files safely"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+

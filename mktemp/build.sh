@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=mktemp
 version=1.5
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -42,10 +42,13 @@ build()
 reg install
 install()
 {
-    INSTALL="/usr/local/bin/install -c"
+    clean stage
     setdir source
-    $INSTALL -D -m 0555 -s mktemp $stagedir$prefix/bin/mktemp
-    $INSTALL -D -m 0444 mktemp.man $stagedir$prefix/man/man1/mktemp.1
+    ${GINSTALL} -D -m 0555 -s mktemp ${stagedir}${prefix}/bin/mktemp
+    ${GINSTALL} -D -m 0444 mktemp.man ${stagedir}${prefix}/${_mandir}/man1/mktemp.1
+    custom_install=1
+    generic_install
+    doc README RELEASE_NOTES LICENSE
 }
 
 reg pack
