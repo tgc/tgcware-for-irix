@@ -1,0 +1,59 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+
+export LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
+export CPPFLAGS="-I/usr/local/include/openssl"
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+prefix=/usr/local
+# ./configure --prefix=$prefix --sysconfdir=$prefix/etc/ssh --with-prngd-socket=/var/run/egd-pool \
+    --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=cat --disable-suid-ssh \
+    --without-rsh --with-privsep-user=sshd \
+    --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix
+# make LIBS="-lcrypto -lz"
+
+KNOWN DEPENDANCIES
+------------------
+prngd (/var/run/egdpool)
+zlib 1.1.4 (libz.so.1.1.4)
+openssl 0.9.7d (libcrypto.so.0.9.7.4)
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+I added -static-libgcc to LDFLAGS to avoid a dependency on libgcc_s.so.1
+
+Configuration files are marked config(noupdate) which means any existing
+versions are preserved.
+A copy of the default configuration files are available in
+/usr/local/share/doc/openssh-3.8.1p1/samples
+
+Privilege seperation is enabled by default thus sshd startup will fail until
+a suitable user has been created.
+This user should be called 'sshd' and belong to its own seperate group.
+In /usr/local/share/doc/openssh-3.8.1p1/contrib there is a script called
+privsep-user-setup.sh which will attempt to setup such a user.
+It requires uid and gid as input ie. ./privsep-user-setup.sh 74 74
+to use uid=74 and gid=74.
+The 'sshd' user will have its homedir in /var/empty/sshd.
+
+The daemon is controlled via /etc/init.d/tgc_sshd and automatic startup
+can be configured in the usual way with chkconfig.
+
+It is *very* important that prngd be running to provide entropy otherwise
+openssh will fall back to weak internally generated random entropy.

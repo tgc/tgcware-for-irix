@@ -1,57 +1,101 @@
 #!/bin/sh
-
-# Script to control ssh server start/stop
-# History:
-#   Please see CVS for history information
+##
+## Start or stop the SSHD daemon
+##
+## Set custom options in /etc/config/tgc_sshd.options to override
+## default configuration
 
 IS_ON=/etc/chkconfig
 SSHD=/usr/local/sbin/sshd
+CONFIG=/etc/config/tgc_sshd.options
+KEYGEN=/usr/local/bin/ssh-keygen
+RSA1_KEY=/usr/local/etc/ssh/ssh_host_key
+RSA_KEY=/usr/local/etc/ssh/ssh_host_rsa_key
+DSA_KEY=usr/local/etc/ssh/ssh_host_dsa_key
 
-if $IS_ON verbose ; then
+pidfile=/var/run/sshd.pid
+
+if $IS_ON verbose; then
     ECHO=echo
-else            # For a quiet startup and shutdown
+else
     ECHO=:
 fi
 
-pidfile=/var/run/sshd.pid
-desc="sshd"
+check_pid_dir()
+{
+	if [ ! -d /var/run ]; then
+		mkdir -p /var/run
+		chown root:sys /var/run
+		chmod 755 /var/run
+	fi
+}
 
-mode=$1
+do_hostkeygen()
+{
+	if [ ! -s $RSA1_KEY ]; then
+		$ECHO "Generating $RSA1_KEY: "
+		$KEYGEN -q -t rsa1 -f $RSA1_KEY -N '' > /dev/null 2>&1
+	fi
+	if [ ! -s $RSA_KEY ]; then
+		$ECHO "Generating $RSA_KEY: "
+		$KEYGEN -q -t rsa -f $RSA_KEY -N '' > /dev/null 2>&1
+	fi
+	if [ ! -s $DSA_KEY ]; then
+		$ECHO "Generating $DSA_KEY: "
+		$KEYGEN -q -t dsa -f $DSA_KEY -N '' > /dev/null 2>&1
+	fi
+}
 
-set `/usr/bin/whoami`
-
-if [ $1 = "root" ]; then
-
-case $mode in
-
-    'start')
-	    if [ -r $pidfile ]; then
-		$ECHO "A pidfile was found, trying to stop $desc first"
-		$0 stop
+kill_sshd()
+{
+	if [ -r $pidfile ]; then
+	    sshd_pid=`cat $pidfile`
+	    ps -p $sshd_pid | grep sshd > /dev/null
+	    if [ $? -eq 0 ]; then
+		/usr/bin/kill -15 -$sshd_pid
 	    fi
-	    if $IS_ON sshd && test -x $SSHD; then
-		$ECHO "Starting $desc" 
-		$SSHD
-	    fi
-	    ;;
-    'stop')
-	    if [ -r $pidfile ]; then
-		$ECHO "Stopping $desc"
-		kill `cat $pidfile`
+	fi
+}
+
+case "$1" in
+    start)
+	kill_sshd
+	if $IS_ON sshd && test -x $SSHD; then
+	    $ECHO "Starting sshd:\c"
+	    do_hostkeygen
+	    check_pid_dir
+	    if [ -r $CONFIG ]; then
+	       $SSHD `cat $CONFIG`
 	    else
-		$ECHO "$desc already stopped (no pid file found)"
+	       $SSHD
 	    fi
-	    ;;
-    'restart')
-	    $0 stop
-	    $0 start
-	    ;;
+	    $ECHO "."
+	fi
+	;;
+
+    restart)
+	kill_sshd
+	if $IS_ON sshd && test -x $SSHD; then
+	    $ECHO "Starting sshd:\c"
+	    do_hostkeygen
+	    check_pid_dir
+	    if [ -r $CONFIG ]; then
+	       $SSHD `cat $CONFIG`
+	    else
+	       $SSHD
+	    fi
+	    $ECHO "."
+	fi
+	;;
+
+    stop)
+	$ECHO "Stopping sshd."
+	kill_sshd
+	exit 0
+	;;
+
     *)
-	    echo "Usage: $0 {start|stop|restart}"
-	    ;;
-esac 
+	echo "usage: $0 {start|stop|restart}"
+	;;
+esac
 
-else
-  echo "$0: this script must be run as root... fatal error"
-
-fi
