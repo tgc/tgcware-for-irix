@@ -1,0 +1,11 @@
+--- gcc-3.4.3/gcc/aclocal.m4.rpath	Sat Nov 13 16:36:13 2004
++++ gcc-3.4.3/gcc/aclocal.m4	Sat Nov 13 16:37:21 2004
+@@ -585,7 +585,7 @@
+ [  --with-libiconv-prefix=DIR  search for libiconv in DIR/include and DIR/lib], [
+     for dir in `echo "$withval" | tr : ' '`; do
+       if test -d $dir/include; then CPPFLAGS="$CPPFLAGS -I$dir/include"; fi
+-      if test -d $dir/lib; then am_cv_lib_iconv_ldpath="-L$dir/lib"; fi
++      if test -d $dir/lib; then am_cv_lib_iconv_ldpath="-L$dir/lib -Wl,-rpath,$dir/lib"; fi
+     done
+    ])
+ 

@@ -1,0 +1,19 @@
+--- gcc-3.4.3/gcc/fixinc/genfixes.orig	Fri Nov 12 14:29:57 2004
++++ gcc-3.4.3/gcc/fixinc/genfixes	Fri Nov 12 14:34:45 2004
+@@ -91,11 +91,12 @@
+   # Note dependency on ASCII. \040 = space, \011 = tab, \012 = newline.
+   # tr ' ' '\n' is, alas, not portable.
+ 
+-  tr -s '\040\011' '\012\012' < ../specs |
+-    sed -n 's/^.*-D\([a-zA-Z_][a-zA-Z0-9_]*\).*$/\1/p' |
+-    sort -u > mn.T
++  echo | ../cc1 -quiet -dM -E - |
++    sed -n 's/^#define \([a-zA-Z][a-zA-Z0-9_]*\).*/\1/p' > mn.T
++  tr -s '\040\011' '\012\012' < ../specs | 
++    sed -n 's/^.*-D\([a-zA-Z_][a-zA-Z0-9_]*\).*/\1/p' >> mn.T
+ 
+-  if grep -v '^_[_A-Z]' mn.T > mn.U
++  if sort -u mn.T | grep -v '^_[_A-Z]' mn.T > mn.U
+   then
+     echo "Forbidden identifiers: `tr '\012' ' ' <mn.U`" >&2
+     sed 's/^/\\\\</; s/$/\\\\>/' <mn.U | tr '\012' '|' > mn.V

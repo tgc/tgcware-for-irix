@@ -2,7 +2,8 @@
 pkgname="${pkgprefix}gcc${abbrev_ver}"
 name="gcc"
 pkgver="$pkgver"
-shortdesc="GNU compiler suite"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="GNU Compiler Collection"
 
 [base]
 subsys=sw.base
@@ -21,9 +22,4 @@ ${iprefix}/$_mandir
 subsys=man.info
 files(-,root,sys)
 ${iprefix}/$_infodir
-
-[lib]
-subsys=sw.lib
-files(-,root,sys)
-$_libdir/*.so.*
 

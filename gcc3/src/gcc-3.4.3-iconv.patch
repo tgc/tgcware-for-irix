@@ -1,0 +1,22 @@
+--- gcc-3.4.3.hacked/gcc/aclocal.m4.iconv	Fri Nov 12 22:56:19 2004
++++ gcc-3.4.3.hacked/gcc/aclocal.m4	Fri Nov 12 22:56:31 2004
+@@ -602,7 +602,7 @@
+       am_cv_func_iconv=yes)
+     if test "$am_cv_func_iconv" != yes; then
+       am_save_LIBS="$LIBS"
+-      LIBS="$LIBS $am_cv_libiconv_ldpath -liconv"
++      LIBS="$LIBS $am_cv_lib_iconv_ldpath -liconv"
+       AC_TRY_LINK([#include <stdlib.h>
+ #include <iconv.h>],
+         [iconv_t cd = iconv_open("","");
+--- gcc-3.4.3.hacked/libjava/acinclude.m4.iconv	Fri Nov 12 22:56:38 2004
++++ gcc-3.4.3.hacked/libjava/acinclude.m4	Fri Nov 12 22:56:55 2004
+@@ -177,7 +177,7 @@
+       am_cv_func_iconv=yes)
+     if test "$am_cv_func_iconv" != yes; then
+       am_save_LIBS="$LIBS"
+-      LIBS="$LIBS $am_cv_libiconv_ldpath -liconv"
++      LIBS="$LIBS $am_cv_lib_iconv_ldpath -liconv"
+       AC_TRY_LINK([#include <stdlib.h>
+ #include <iconv.h>],
+         [iconv_t cd = iconv_open("","");
