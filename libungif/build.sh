@@ -9,11 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=libungif
 version=4.1.0b1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libungif-4.1.0-stdarg.patch
 patch[1]=libungif-CVS.patch
+patch[2]=libungif-4.1.0b1-include.patch
+patch[3]=libungif-4.1.0b1-gif2iris.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
