@@ -4,7 +4,7 @@ name="$topdir"
 pkgver="$pkgver"
 
 [base]
-subsys=sw.base
+subsys=sw.eoe
 files(-,root,sys)
 $_bindir/screen
 $_sharedir
@@ -13,7 +13,7 @@ files(4755,root,sys)
 $_bindir/screen-*
 
 [man]
-subsys=man.manpages
+subsys=man.man
 files(-,root,sys)
 $_mandir
 $_infodir
