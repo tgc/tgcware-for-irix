@@ -11,6 +11,8 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 Configure:
 %%CONFIGURE%%

@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=gettext
 version=0.14.1
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -32,6 +32,7 @@ prep()
 reg build
 build()
 {
+    export CPPFLAGS="-I/usr/local/include"
     export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
     set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/local'
     generic_build
