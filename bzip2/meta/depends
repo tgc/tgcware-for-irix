@@ -1,2 +1,1 @@
-sw.lib tgc_gccrt.sw.lib 10000000 maxint
-sw.base tgc_bzip2.sw.lib 1020000 10999999
+sw.base sw.lib auto
