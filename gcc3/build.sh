@@ -7,7 +7,7 @@
 # stolen from jhlj's Compile.sh script :)
 #
 # Check the following 4 variables before running the script
-topdir=gcc3
+topdir=gcc
 version=3.3
 pkgver=1
 source[0]=gcc-3.3.tar.bz2
@@ -26,8 +26,8 @@ source[0]=gcc-3.3.tar.bz2
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
 name="GNU GCC" 
+pkgname=$pkgprefixgcc33
 
-topsrcdir=gcc-$version
 topinstalldir=/usr/local/gcc-$version
 prefix=$topinstalldir
 
@@ -49,7 +49,7 @@ build()
     setdir $srcdir
     mkdir -p objdir
     setdir $srcdir/objdir
-    $srcdir/$topsrcdir/configure --prefix=$prefix --with-gnu-as --with-as=/usr/local/bin/as --enable-languages=c,c++ --disable-nls
+    $srcdir/$topsrcdir/configure --prefix=$prefix --enable-languages=c,c++ --disable-nls
     $MAKE_PROG bootstrap
 }
 
