@@ -1,0 +1,82 @@
+#!/usr/local/bin/bash
+#
+# This is a generic build.sh script
+# It can be used nearly unmodified with many packages
+# 
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
+#
+###########################################################
+# Check the following 4 variables before running the script
+topdir=krb5
+version=1.4
+pkgver=1
+source[0]=$topdir-$version.tar.gz
+# If there are no patches, simply comment this
+#patch[0]=
+
+# Source function library
+. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# Global settings
+kerbdir=krb5
+prefix=${prefix}/${kerbdir}
+set_configure_args '--prefix=$prefix --without-krb4 --disable-ipv6 --disable-thread-support'
+
+reg prep
+prep()
+{
+    generic_prep
+}
+
+reg build
+build()
+{
+    generic_build src
+}
+
+reg install
+install()
+{
+    ${GSED} -i '/^INSTALL_SETUID/s/ -o root//g' ${srcdir}/${topsrcdir}/src/clients/ksu/Makefile
+    generic_install DESTDIR src
+    ${MKDIR} -p ${stagedir}${topinstalldir}/${_bindir}
+    ${MV} ${stagedir}${prefix}/${_bindir}/krb5-config ${stagedir}${topinstalldir}/${_bindir}
+    # Fix manpage name
+    ${MV} ${stagedir}${prefix}/${_mandir}/man5/.k5login.5 ${stagedir}${prefix}/${_mandir}/man5/dot.k5login.5
+    (
+	setdir ${stagedir}${prefix}/${_mandir}/man8
+	${RM} -f kadmin.local.8
+	$LN -s kadmin.8 kadmin.local.8
+    )
+    (
+	setdir source
+	cd doc
+# Info files are somewhat broken
+#	for i in *.texinfo; do
+#	    makeinfo $i
+#	done
+#	${MKDIR} -p ${stagedir}${topinstalldir}/${_infodir}
+#	${GINSTALL} -m 644 *.info ${stagedir}${topinstalldir}/${_infodir}
+	${MKDIR} -p ${stagedir}${topinstalldir}/${_vdocdir}/html
+	${GINSTALL} -m 644 *.ps ${stagedir}${topinstalldir}/${_vdocdir}
+	${GINSTALL} -m 644 *.html ${stagedir}${topinstalldir}/${_vdocdir}/html
+    )
+}
+
+reg pack
+pack()
+{
+    generic_pack
+}
+
+reg distclean
+distclean()
+{
+    clean distclean
+}
+
+###################################################
+# No need to look below here
+###################################################
+build_sh $*
