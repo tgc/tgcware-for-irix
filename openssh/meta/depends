@@ -1,5 +1,5 @@
 sw.base tgc_prngd.sw.base 09290003 maxint
-sw.base tgc_zlib.sw.lib 12110001 12999999
+sw.base tgc_zlib.sw.lib 12200001 12999999
 sw.base tgc_openssl097.sw.lib 09750001 09799999
 sw.clients sw.base auto
 sw.server sw.base auto

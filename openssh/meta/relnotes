@@ -19,8 +19,8 @@ Configure:
 
 KNOWN DEPENDENCIES
 ------------------
-openssl 0.9.7
-zlib 1.2.1.1
+openssl
+zlib 
 prngd
 
 ERRORS/MISCELLANEOUS
