@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=4
+pkgver=5
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
@@ -41,7 +41,7 @@ build()
     export LDFLAGS='-rpath /usr/local/lib'
     export INSTALL="/usr/local/bin/install -c -D"
     setdir source
-    ./configure $configure_args
+    ./configure $(_upls $configure_args)
     LD_LIBRARY_PATH=$PWD $MAKE_PROG test
     $MAKE_PROG
 }
