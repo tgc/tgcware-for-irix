@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=gcc2
 version=2.95.3
-pkgver=1
+pkgver=2
 source[0]=gcc-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -52,11 +52,19 @@ install()
 {
     setdir $srcdir/objdir
     $MAKE_PROG prefix=$stagedir install
+    setdir stage
+    mkdir gcc-$version
+    mv * gcc-$version
+    mkdir lib
+    cp gcc-$version/lib/libstdc++*.so.* lib
 }
 
 reg pack
 pack()
 {
+    topinstalldir=/usr/local
+    catman=0
+    subsysconf=$metadir/subsys.conf
     generic_pack shortroot
 }
 
