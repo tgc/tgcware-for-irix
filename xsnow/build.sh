@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=xsnow
 version=1.42
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=xsnow-1.42-misc.patch
@@ -53,6 +53,8 @@ install()
     cp xsnow ${stagedir}${prefix}/${_bindir}
     cp xsnow.man ${stagedir}${prefix}/${_mandir}/man1/xsnow.1
     doc README
+    custom_install=1
+    generic_install
 }
 
 reg pack
