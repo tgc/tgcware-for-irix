@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=flex
 version=2.5.4a
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
