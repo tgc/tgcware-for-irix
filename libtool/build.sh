@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=libtool
 version=1.4.3
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -45,6 +45,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    rm -f $stagedir$prefix/info/dir
 }
 
 reg pack
