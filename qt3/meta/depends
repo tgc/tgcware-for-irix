@@ -1,0 +1,11 @@
+sw.base sw.lib auto
+sw.lib tgc_fontconfig.sw.lib 22300001 maxint
+sw.lib tgc_freetype.sw.lib 21900001 maxint
+sw.lib tgc_libXcursor.sw.lib 11200001 maxint
+sw.lib tgc_libXrandr.sw.lib 10200003 maxint
+sw.lib tgc_libmng.sw.lib 10900001 maxint
+sw.lib tgc_libpng.sw.lib 12800001 maxint
+sw.lib tgc_xft.sw.lib 21200001 maxint
+sw.lib tgc_xrender.sw.lib 08400001 maxint
+sw.lib tgc_zlib.sw.lib 12200001 maxint
+sw.lib tgc_libjpeg.sw.lib 60000005 maxint

@@ -1,0 +1,38 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+libxft
+fontconfig
+freetype
+xrender
+xrandr
+xcursor
+libz
+libpng
+libjpeg
+libmng
+
+ERRORS/MISCELLANEOUS
+--------------------
+Packaging could be improved.
+Manpages are not formatted like usual - the .so style linking
+needs to be converted to symlinks for that to happen.
