@@ -8,9 +8,9 @@
 #
 # Check the following 4 variables before running the script
 topdir=perl5
-version=5.6.1
+version=5.8.0
 pkgver=1
-source[0]=perl-$version.tar.gz
+source[0]=perl-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -19,6 +19,7 @@ source[0]=perl-$version.tar.gz
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
+pkgname=tgc_perl580
 name="Perl"
 
 topsrcdir=perl-$version
@@ -40,27 +41,29 @@ prep()
 reg build
 build()
 {
-	setdir source
-	sh Configure -Dcc=gcc -Dprefix=/usr/local/perl-5.6.1 -Uinstallusrbinperl -des	
-	$MAKE_PROG
-	$MAKE_PROG test
+    setdir source
+    sh Configure -Dcc=gcc -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen <tom.christensen@get2net.dk>' -Dperladmin=root@localhost -Dinstallprefix=$stagedir$prefix -Dman3ext=3pm -Uinstallusrbinperl -Dpage='/usr/bin/more' -des	
+    $MAKE_PROG
+    $MAKE_PROG test
 }
 
 reg install
 install()
 {
-	echo "Unable to install this direcly to a staging area"
-	echo "Will attempt installation to $prefix"
-	clean stage
-	setdir source
-	$MAKE_PROG install
-	setdir stage
-	mkdir -p $stagedir$prefix
-	mv $prefix $stagedir/usr/local
-	$STRIP $stagedir$prefix/bin/perl
-	$STRIP $stagedir$prefix/bin/perl5.6.1
-	$STRIP $stagedir$prefix/bin/a2p
-	chown -R tgc:user *
+    #generic_install UNKNOWN
+    new_perl_lib=$stagedir$prefix/lib/$version
+    new_arch_lib=$stagedir$prefix/lib/$version/`uname -m`-irix
+    new_perl_flags="export LD_LIBRARY_PATH=$new_arch_lib/CORE; export PERL5LIB=$new_perl_lib;"
+    new_perl="$stagedir$prefix/bin/perl"
+    echo "new_perl = $new_perl"
+    # fix the packlist and friends
+    $new_perl -i -p -e "s|$stagedir||g;" $stagedir$prefix/lib/$version/`uname -m`-irix/.packlist
+    for i in $stagedir$prefix/bin/*
+    do
+	if [ ! -z "`head -1 $i|grep perl`" ]; then
+	    $new_perl -i -p -e "s|$stagedir||g;" $i
+	fi
+    done
 }
 
 reg pack
