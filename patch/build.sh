@@ -40,7 +40,6 @@ build()
 reg install
 install()
 {
-    metainstalldir=/
     generic_install prefix
     doc README NEWS ChangeLog
 }
