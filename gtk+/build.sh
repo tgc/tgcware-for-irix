@@ -3,31 +3,38 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=gtk+
 version=1.2.10
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gtk+-1.2.10-bellvolume.patch
+patch[1]=gtk+-1.2.10-clistfocusrow.patch
+patch[2]=gtk+-1.2.10-deletedir.patch
+patch[3]=gtk+-1.2.10-dndorder.patch
+patch[4]=gtk+-1.2.10-expose.patch
+patch[5]=gtk+-1.2.10-focus.patch
+patch[6]=gtk+-1.2.10-localecrash.patch
+patch[7]=gtk+-1.2.10-missingchar.patch
+patch[8]=gtk+-1.2.10-pixmapref.patch
+patch[9]=gtk+-1.2.10-themeswitch.patch
+patch[10]=gtk+-1.2.10-troughpaint.patch
+patch[11]=gtk+-1.2.6-ahiguti.patch
+patch[12]=gtk+-1.2.8-wrap-alnum.patch
+patch[13]=gtk+-underquoted.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="gtk+"
-
-pkgname=tgc_gtk
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+set_configure_args '--prefix=$prefix --enable-static=no'
 
 reg prep
 prep()
@@ -38,17 +45,18 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
-    setdir source
-    ./configure --prefix=$prefix --disable-nls --enable-static=no
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    rm -f $stagedir$prefix/info/dir
+    doc AUTHORS COPYING ChangeLog NEWS README TODO
+    doc docs/html
+    doc examples
+    ${MV} ${stagedir}${prefix}/${_vdocdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
+    ${RMDIR} ${stagedir}${prefix}/${_vdocdir}/docs
 }
 
 reg pack
@@ -66,42 +74,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
