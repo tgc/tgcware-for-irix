@@ -1,0 +1,22 @@
+--- libungif-4.1.0b1/configure.in.varg	Thu Jul 27 14:28:17 2000
++++ libungif-4.1.0b1/configure.in	Thu Jul 27 14:28:38 2000
+@@ -48,7 +48,7 @@
+ dnl Checks for header files.
+ AC_HEADER_STDC
+ AC_CHECK_HEADERS(fcntl.h)
+-AC_CHECK_HEADERS(varargs.h)
++AC_CHECK_HEADERS(stdarg.h)
+ 
+ dnl Checks for typedefs, structures, and compiler characteristics.
+ AC_C_CONST
+--- libungif-4.1.0b1/configure.varg	Thu Jul 27 14:28:21 2000
++++ libungif-4.1.0b1/configure	Thu Jul 27 14:28:41 2000
+@@ -3247,7 +3247,7 @@
+ fi
+ done
+ 
+-for ac_hdr in varargs.h
++for ac_hdr in stdarg.h
+ do
+ ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6

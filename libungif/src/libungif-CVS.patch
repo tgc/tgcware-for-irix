@@ -1,0 +1,142 @@
+diff -urN --exclude CVS --exclude .cvsignore libungif-4.1.0b1/TODO libungif/TODO
+--- libungif-4.1.0b1/TODO	Sat Feb 12 14:21:11 2000
++++ libungif/TODO	Thu Feb 24 16:36:36 2000
+@@ -1,6 +1,10 @@
++Make sure all malloc calls check their return value.
++
++=======
+ Merge in all the changes that accumulated while I was gone.
+ (Point your mail reader at libungif.mail to see these messages.)
+ 
++=======
+ Besides fixing bugs, what's really needed is for someone to work out how to
+ calculate a colormap for writing gifs from rgb sources.  Right now, an rgb
+ source that has only two colors (b/w) is being converted into an 8 bit gif....
+diff -urN --exclude CVS --exclude .cvsignore libungif-4.1.0b1/lib/dgif_lib.c libungif/lib/dgif_lib.c
+--- libungif-4.1.0b1/lib/dgif_lib.c	Tue Feb  8 02:00:26 2000
++++ libungif/lib/dgif_lib.c	Thu Mar  9 19:05:48 2000
+@@ -24,6 +24,10 @@
+ #include <sys/stat.h>
+ #endif /* __MSDOS__ */
+ 
++#ifdef HAVE_IO_H
++#include <io.h>
++#endif
++
+ #ifndef __MSDOS__
+ #include <stdlib.h>
+ #endif
+@@ -61,9 +65,9 @@
+     GifFileType *GifFile;
+ 
+     if ((FileHandle = open(FileName, O_RDONLY
+-#ifdef __MSDOS__
++#if defined(__MSDOS__) || defined(_OPEN_BINARY)
+ 			           | O_BINARY
+-#endif /* __MSDOS__ */
++#endif /* __MSDOS__ || _OPEN_BINARY */
+ 			                     )) == -1) {
+ 	_GifError = D_GIF_ERR_OPEN_FAILED;
+ 	return NULL;
+@@ -87,15 +91,16 @@
+     GifFilePrivateType *Private;
+     FILE *f;
+ 
+-    if ((GifFile = (GifFileType *) malloc(sizeof(GifFileType))) == NULL) {
++    GifFile = (GifFileType *) malloc(sizeof(GifFileType));
++    if (GifFile == NULL) {
+         _GifError = D_GIF_ERR_NOT_ENOUGH_MEM;
+         return NULL;
+     }
+ 
+     memset(GifFile, '\0', sizeof(GifFileType));
+ 
+-    if ((Private = (GifFilePrivateType *) malloc(sizeof(GifFilePrivateType)))
+-    == NULL) {
++    Private = (GifFilePrivateType *) malloc(sizeof(GifFilePrivateType));
++    if (Private == NULL) {
+         _GifError = D_GIF_ERR_NOT_ENOUGH_MEM;
+         free((char *) GifFile);
+         return NULL;
+@@ -160,15 +165,16 @@
+     GifFileType *GifFile;
+     GifFilePrivateType *Private;
+ 
+-
+-    if ((GifFile = (GifFileType *) malloc(sizeof(GifFileType))) == NULL) {
++    GifFile = (GifFileType *) malloc(sizeof(GifFileType));
++    if (GifFile == NULL) {
+ 	  _GifError = D_GIF_ERR_NOT_ENOUGH_MEM;
+ 	  return NULL;
+     }
+ 
+     memset(GifFile, '\0', sizeof(GifFileType));
+ 
+-    if (!(Private = (GifFilePrivateType*) malloc(sizeof(GifFilePrivateType)))){
++    Private = (GifFilePrivateType*) malloc(sizeof(GifFilePrivateType));
++    if (!Private){
+ 	  _GifError = D_GIF_ERR_NOT_ENOUGH_MEM;
+ 	  free((char *) GifFile);
+ 	  return NULL;
+@@ -342,6 +348,11 @@
+ 	    GifFile->Image.ColorMap->Colors[i].Blue = Buf[2];
+ 	}
+     }
++    else if (GifFile->Image.ColorMap)
++    {
++        FreeMapObject(GifFile->Image.ColorMap);
++        GifFile->Image.ColorMap = NULL;
++    }
+ 
+     if (GifFile->SavedImages) {
+ 	    if ((GifFile->SavedImages = (SavedImage *)realloc(GifFile->SavedImages,
+@@ -554,7 +565,7 @@
+     if (GifFile->SavedImages)
+     {
+ 	FreeSavedImages(GifFile);
+-	GifFile = NULL;
++	GifFile->SavedImages = NULL;
+     }
+ 
+     free(GifFile);
+diff -urN --exclude CVS --exclude .cvsignore libungif-4.1.0b1/lib/egif_lib.c libungif/lib/egif_lib.c
+--- libungif-4.1.0b1/lib/egif_lib.c	Tue Feb  8 02:00:26 2000
++++ libungif/lib/egif_lib.c	Thu Mar  9 00:18:35 2000
+@@ -30,6 +30,10 @@
+ #endif
+ #endif /* __MSDOS__ */
+ 
++#ifdef HAVE_IO_H
++#include <io.h>
++#endif
++
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+diff -urN --exclude CVS --exclude .cvsignore libungif-4.1.0b1/lib/gif_font.c libungif/lib/gif_font.c
+--- libungif-4.1.0b1/lib/gif_font.c	Sun Feb  6 17:45:07 2000
++++ libungif/lib/gif_font.c	Thu Mar  9 00:17:40 2000
+@@ -255,8 +255,8 @@
+ 		 x + border + (leadspace * GIF_FONT_WIDTH),
+ 		 y + border + (GIF_FONT_HEIGHT * i++),
+ 		 cp, fg);
+-    } while
+-	(cp = strtok((char *)NULL, "\r\n"));
++	cp = strtok((char *)NULL, "\r\n");
++    } while (cp);
+ 
+     /* outline the box */
+     DrawBox(Image,
+diff -urN --exclude CVS --exclude .cvsignore libungif-4.1.0b1/lib/gifalloc.c libungif/lib/gifalloc.c
+--- libungif-4.1.0b1/lib/gifalloc.c	Sun Feb  6 17:45:07 2000
++++ libungif/lib/gifalloc.c	Sat Dec 16 01:03:14 2000
+@@ -138,7 +138,7 @@
+      */
+     while (ColorIn1->Colors[CrntSlot-1].Red == 0
+ 	   && ColorIn1->Colors[CrntSlot-1].Green == 0
+-	   && ColorIn1->Colors[CrntSlot-1].Red == 0)
++	   && ColorIn1->Colors[CrntSlot-1].Blue == 0)
+ 	CrntSlot--;
+ 
+     /* Copy ColorIn2 to ColorUnionSize (use old colors if they exist): */
+
