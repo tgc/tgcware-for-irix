@@ -1,53 +1,31 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
+Environment:
 
-prefix=/usr/local
+Configure:
+sed -e "s;@LIBDIR@;/usr/local/lib;g" Makefile.org > Makefile.new
+mv -f Makefile.new Makefile.org
 
-# sed -e "s;@LIBDIR@;${prefix}/lib;g" Makefile.org > Makefile.new
-# mv -f Makefile.new Makefile.org
-# ./config --prefix=$prefix --openssldir=$prefix/ssl shared
+%%CONFIGURE%%
 
-sover=4
-baseversion=0.9.7
-major=$(grep ^SHLIB_MAJOR Makefile)
-minor=$(grep ^SHLIB_MINOR Makefile)
-# sed -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-    -e "s;${minor};SHLIB_MINOR=${sover};g" Makefile > Makefile.new
-# mv Makefile.new Makefile
-# sed -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-    -e "s;${minor};SHLIB_MINOR=${sover};g" Makefile.ssl > Makefile.new
-# mv Makefile.new Makefile.ssl
-# make LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all build-shared
-# make LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all link-shared do_irix-shared
-
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-prngd or egd should be available to provide entropy.
+prngd or egd should be available to provide entropy through
+/var/run/egd-pool
 
 ERRORS/MISCELLANEOUS
 --------------------
 
-Shared libraries have been built with an extra minor number corresponding
-to the subrelease (ie d=4).
-I deemed this necessary since binary compatibility between releases is not
-guaranteed by openssl developers.
-This means that 0.9.7c may not necessarily be binary compatible with 0.9.7d.
-
-Please see the INSTALL document for further information on this issue.
+Cross your fingers that the openssl developers won't release a new
+binary incompatible minor version.
+Please see the INSTALL document for further information on that issue.

@@ -2,6 +2,7 @@
 pkgname="${pkgprefix}${topdir}${abbrev_ver}"
 name="$topdir"
 pkgver="$pkgver"
+pkgvendor="http://www.openssl.org"
 shortdesc="SSL/TLS toolkit"
 
 [base]

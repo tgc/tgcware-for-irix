@@ -8,12 +8,11 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssl
-version=0.9.7d
-pkgver=3
+version=0.9.7e
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-0.9.7d-shlib.patch
-patch[1]=openssl-0.9.7c-Configure.patch
+patch[0]=openssl-0.9.7e-fips_rand.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -24,10 +23,10 @@ patch[1]=openssl-0.9.7c-Configure.patch
 # Custom subsystems
 subsysconf=$metadir/subsys.conf
 
-sover=4 # d = 4
-abbrev_ver=$(echo $version|$SED -e 's/\.//g')
+sover=5 # e = 5
+abbrev_ver=$(echo $version|$SED -e 's/\.//g' -e 's/[a-zA-Z]//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
-specver="$(fix_ver "${version}${sover}${pkgver}")"
+specver="$(fix_ver "${version}${sover}-${pkgver}")"
 
 # Define script functions and register them
 METHODS=""
@@ -44,34 +43,38 @@ prep()
 reg build
 build()
 {
+    global_config_args="--prefix=$prefix --openssldir=$prefix/ssl no-fips shared"
+    if [ "$_os" = "irix53" ]; then
+	configure_args="irix-mips1-gcc $global_config_args"
+    fi
+    if [ "$_os" = "irix62" ]; then
+	configure_args="irix-mips3-gcc $global_config_args"
+    fi
+    set_configure_args "$configure_args"
+
     setdir source
     $SED -e "s;@LIBDIR@;${prefix}/lib;g" Makefile.org > Makefile.new
     $MV -f Makefile.new Makefile.org
 
-    ./config --prefix=$prefix --openssldir=$prefix/ssl shared
+    ./Configure $configure_args
 
-    major=$(grep ^SHLIB_MAJOR Makefile)
-    minor=$(grep ^SHLIB_MINOR Makefile)
-    $SED -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-	-e "s;${minor};SHLIB_MINOR=${sover};g" Makefile > Makefile.new
-    $MV Makefile.new Makefile
-    $SED -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
-	-e "s;${minor};SHLIB_MINOR=${sover};g" Makefile.ssl > Makefile.new
-    $MV Makefile.new Makefile.ssl
-    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all build-shared
-    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all link-shared do_irix-shared
+    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all
 }
 
 reg install
 install()
 {
+    clean stage
     setdir source
     $MAKE_PROG INSTALL_PREFIX=$stagedir LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" install
-    setdir $stagedir$prefix/lib
+    setdir ${stagedir}${prefix}/${_libdir}
     chmod a+x pkgconfig
-    rmdir $stagedir$prefix/ssl/lib
-    $MV $stagedir$prefix/ssl/man $stagedir$prefix
-    setdir $stagedir$prefix/man
+    ${RM} -f libfips* lib*.so.0
+    ${RM} -f lib*.so
+    ${LN} -s libssl.so.$baseversion libssl.so
+    ${LN} -s libcrypto.so.$baseversion libcrypto.so
+    $MV ${stagedir}${prefix}/ssl/${_mandir} ${stagedir}${prefix}
+    setdir ${stagedir}${prefix}/${_mandir}
     for j in $($LS -1d man?)
     do
 	cd $j
@@ -88,15 +91,23 @@ install()
 	cd ..
     done
     doc README CHANGES FAQ INSTALL LICENSE NEWS
+    custom_install=1
+    generic_install
 }
 
 reg pack
 pack()
 {
+    # Arrgh! This is a mess :(
     clean meta
-    setdir ${stagedir}${topinstalldir}/man      
+    setdir ${stagedir}${prefix}/man      
     fix_man
-    setdir ${stagedir}${topinstalldir}
+    compress_man
+    setdir ${stagedir}${prefix}
+    metaprefix=${metainstalldir##$topinstalldir}
+    metaprefix="${metaprefix#/*}"
+    [ ! -z "$metaprefix" ] && metaprefix="${metaprefix}/"
+    [ ! "$metainstalldir" == "/" ] && metainstalldir="${metainstalldir}/"
     auto_src
     auto_rel
     create_idb
