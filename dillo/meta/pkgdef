@@ -1,0 +1,12 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.dillo.org"
+shortdesc="Small and fast webbrowser"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+*
+

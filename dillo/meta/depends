@@ -1,0 +1,7 @@
+sw.base tgc_glib.sw.lib 12100005 maxint
+sw.base tgc_gtk.sw.lib 12100003 maxint
+sw.base tgc_libiconv.sw.lib 19200006 maxint
+sw.base tgc_libjpeg.sw.lib 60000005 maxint
+sw.base tgc_libpng.sw.lib 12800001 maxint
+sw.base tgc_zlib.sw.lib 12200001 maxint
+sw.base tgc_openssl097.sw.lib 09750001 maxint
