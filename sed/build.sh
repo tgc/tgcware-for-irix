@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=sed
-version=4.0.8
+version=4.1.1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -16,10 +16,6 @@ source[0]=$topdir-$version.tar.gz
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU sed"
 
 # Define script functions and register them
 METHODS=""
@@ -43,7 +39,9 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    $RM -f ${stagedir}${prefix}/${_infodir}/dir
+    $RM -rf ${stagedir}${prefix}/${_libdir}
+    doc NEWS ChangeLog BUGS
 }
 
 reg pack

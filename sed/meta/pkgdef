@@ -1,0 +1,23 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+shortdesc="GNU sed"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+${_sharedir}/locale
+$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+$_infodir
+
