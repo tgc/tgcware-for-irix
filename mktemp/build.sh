@@ -9,12 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=mktemp
 version=1.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=mktemp-1.5-irix.patch
-patch[1]=mktemp-1.5-mkdtemp.patch
-patch[2]=mktemp-1.5-progname.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -38,22 +36,22 @@ prep()
 reg build
 build()
 {
-    setdir source
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
 install()
 {
-    generic_install DESTDIR
-    setdir stage
-    chown -R tgc:user *
+    INSTALL="/usr/local/bin/install -c"
+    setdir source
+    $INSTALL -D -m 0555 -s mktemp $stagedir$prefix/bin/mktemp
+    $INSTALL -D -m 0444 mktemp.man $stagedir$prefix/man/man1/mktemp.1
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
