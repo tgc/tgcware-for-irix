@@ -1,0 +1,32 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+libogg
+
+ERRORS/MISCELLANEOUS
+--------------------
+getopt stuff was broken for the case where gnugetopt lib (FreeBSD ports thing) was
+not available and the system getopt.h was missing getopt_long.
+The getopt_long GNU compat stuff was already included but only activated for WIN32.
+I created a patch to activate it even if we're not running on WIN32.

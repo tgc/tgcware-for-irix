@@ -1,0 +1,46 @@
+--- speex-1.0.4.hacked/src/Makefile.am.orig	Fri Feb 25 14:06:57 2005
++++ speex-1.0.4.hacked/src/Makefile.am	Fri Feb 25 14:13:24 2005
+@@ -18,7 +18,7 @@
+ bin_PROGRAMS = speexenc speexdec
+ 
+ speexenc_SOURCES = speexenc.c wav_io.c
+-speexenc_LDADD = $(top_builddir)/libspeex/libspeex.la $(OGG_LDFLAGS) $(OGG_LIBS)
++speexenc_LDADD = $(top_builddir)/libspeex/libspeex.la $(OGG_LDFLAGS) $(OGG_LIBS) $(LIBOBJS)
+ 
+ speexdec_SOURCES = speexdec.c wav_io.c
+-speexdec_LDADD = $(top_builddir)/libspeex/libspeex.la $(OGG_LDFLAGS) $(OGG_LIBS)
++speexdec_LDADD = $(top_builddir)/libspeex/libspeex.la $(OGG_LDFLAGS) $(OGG_LIBS) $(LIBOBJS)
+--- speex-1.0.4.hacked/configure.in.orig	Sat Feb 26 13:23:45 2005
++++ speex-1.0.4.hacked/configure.in	Sat Feb 26 13:37:59 2005
+@@ -50,7 +50,11 @@
+ AC_SUBST(src)
+ 
+ AC_CHECK_LIB(m, sin)
++
+ AC_CHECK_LIB(gnugetopt, getopt_long)
++
++dnl check for getopt in standard library
++adl_FUNC_GETOPT_LONG
+ 
+ AC_DEFINE_UNQUOTED(SPEEX_VERSION, "${SPEEX_VERSION}")
+ AC_DEFINE_UNQUOTED(SPEEX_MAJOR_VERSION, ${SPEEX_MAJOR_VERSION})
+--- speex-1.0.4.hacked/acinclude.m4.orig	Fri Feb 25 14:02:12 2005
++++ speex-1.0.4.hacked/acinclude.m4	Sat Feb 26 13:25:03 2005
+@@ -82,3 +82,17 @@
+ 
+ ])
+ 
++AC_DEFUN([adl_FUNC_GETOPT_LONG],
++     [AC_PREREQ(2.49)dnl
++      # clean out junk possibly left behind by a previous configuration
++      rm -f src/getopt.h
++      # Check for getopt_long support
++      AC_CHECK_HEADERS([getopt.h])
++      AC_CHECK_FUNCS([getopt_long],,
++       [# FreeBSD has a gnugetopt library for this
++        AC_CHECK_LIB([gnugetopt],[getopt_long],[AC_DEFINE([HAVE_GETOPT_LONG])],
++         [# use the GNU replacement
++          AC_LIBOBJ(getopt)
++          AC_LIBOBJ(getopt1)
++          AC_CONFIG_LINKS([src/getopt.h:src/getopt_win.h])])])])
++
