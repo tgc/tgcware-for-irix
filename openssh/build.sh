@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=3.9p1
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -47,6 +47,8 @@ reg install
 install()
 {
     clean stage
+    $RM -f $metadir/ops
+
     setdir source
     $MAKE_PROG DESTDIR=${stagedir} install-nokeys
     $MKDIR -p ${stagedir}/${_sysconfdir}/init.d
@@ -61,12 +63,13 @@ install()
     (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_sshd S98tgc_sshd)
     # Don't run by default
     echo "off" > ${stagedir}/${_sysconfdir}/config/tgc_sshd
+    # Preserve existing on/off setting
+    echo "${_sysconfdir}/config/tgc_sshd" >> $metadir/ops
 
     custom_install=1
     generic_install
     doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README README.privsep README.smartcard RFC.nroff TODO WARNING.RNG
 
-    $RM -f $metadir/ops
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do $CP $i $i.default; echo "${prefix#/*}/${_sysconfdir}/ssh/$i config(noupdate)" >> $metadir/ops; done
     setdir ${stagedir}${prefix}
