@@ -1,0 +1,14 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://freedesktop.org"
+shortdesc="Various extension headers for xlibs from freedesktop.org"
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/pkgconfig/*.pc
+$_sharedir
+
