@@ -68,7 +68,7 @@ chown root:sys /etc/init.d/sshd
 chmod 744 /etc/init.d/sshd
 
 # Install new *symlinks*
-ln -sf /etc/init.d/sshd /etc/rc0.d/K16sshd.local
+ln -sf /etc/init.d/sshd /etc/rc0.d/K16sshd
 ln -sf /etc/init.d/sshd /etc/rc2.d/S81sshd
 
 echo "on" > /etc/config/sshd
@@ -133,14 +133,18 @@ else
     echo "no"
     echo "  Attempting to create sshd user (uid=$SSHID, gid=$SSHID)"
     if [ ! -z $PASSMGMT ]; then
-	$PASSMGMT -a -u $SSHID -g $SSHID -c "sshd privsep" -h /var/empty/sshd -s /bin/false sshd
+	    $PASSMGMT -a -u $SSHID -g $SSHID -c "sshd privsep" -h /var/empty/sshd -s /bin/false sshd
 	else # crap, we need to do it the hard way :(
-		echo "sshd:*:$SSHID:$SSHID:sshd privsep:/var/empty/sshd:/bin/false" >> /etc/passwd
+	    echo "sshd:*:$SSHID:$SSHID:sshd privsep:/var/empty/sshd:/bin/false" >> /etc/passwd
 	fi
 fi
 
+# Make sure the sshd user doesn't show up on the clogin screen
+# Checking is minimal...
+[ -r /var/Cadmin/clogin.conf ] && echo sshd:noshow >> /var/Cadmin/clogin.conf
+
 # FIXME Other stuff about the user/group situation should probably be checked
-# FIXME like the homedir and shell of the sshd user
+# FIXME like the homedir and shell of an existing sshd user
 
 # Notice how the ssh host keys are not associated with the SBossh package.
 # I find that convenient as I'm sure that they don't disappear if someone
