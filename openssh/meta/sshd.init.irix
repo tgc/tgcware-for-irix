@@ -60,7 +60,7 @@ kill_sshd()
 case "$1" in
     start)
 	kill_sshd
-	if $IS_ON sshd && test -x $SSHD; then
+	if $IS_ON tgc_sshd && test -x $SSHD; then
 	    $ECHO "Starting sshd:\c"
 	    do_hostkeygen
 	    check_pid_dir
@@ -75,7 +75,7 @@ case "$1" in
 
     restart)
 	kill_sshd
-	if $IS_ON sshd && test -x $SSHD; then
+	if $IS_ON tgc_sshd && test -x $SSHD; then
 	    $ECHO "Starting sshd:\c"
 	    do_hostkeygen
 	    check_pid_dir
