@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=groff
 version=1.19
-pkgver=12
+pkgver=13
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.18.1-Imakefile.patch
@@ -57,13 +57,13 @@ install()
     setdir source
     cd src/xditview
     $MAKE_PROG DESTDIR=$stagedir install
-    setdir stage
+    setdir ${stagedir}${prefix}
     ${RM} -f info/dir
-    ${MV} usr/bin/* bin
-    ${MV} usr/lib/* lib
-    ${RM} -rf usr
-    ${MV} bin/X11/* bin
-    ${RMDIR} bin/X11
+    ${MV} ../lib/* lib
+    ${MV} ../bin/X11/* bin
+    ${RMDIR} ../bin/X11
+    ${RMDIR} ../bin
+    ${RMDIR} ../lib
     custom_install=1
     generic_install
     doc ChangeLog NEWS PROBLEMS PROJECTS TODO
