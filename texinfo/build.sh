@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=texinfo
 version=4.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -43,6 +43,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    $RM -f $stagedir$prefix/info/dir
 }
 
 reg pack
