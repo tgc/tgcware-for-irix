@@ -1,9 +1,9 @@
 [common]
-pkgname="$pkgprefix""$topdir"
+pkgname="$pkgprefix""xrender"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://http://www.freedesktop.org/software/fontconfig/releases/"
-shortdesc="X Render extension library"
+shortdesc="Client library for the X Rendering Extension protocol"
 
 [lib]
 subsys=sw.lib

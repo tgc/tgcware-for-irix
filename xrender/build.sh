@@ -8,10 +8,10 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=xrender
-version=0.8.3
+topdir=libXrender
+version=0.8.4
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
