@@ -1,0 +1,27 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnupg.org"
+shortdesc="A general-purpose cryptography library"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_docdir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+$_infodir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_bindir
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_sharedir/aclocal
+
