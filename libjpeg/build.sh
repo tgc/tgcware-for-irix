@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=3
+pkgver=4
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
@@ -19,11 +19,9 @@ patch[2]=libjpeg-6b-soname.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="libjpeg"
-
+shortroot=1
 topsrcdir=jpeg-$version
+set_configure_args '--prefix=$prefix --disable-static --enable-shared'
 
 # Define script functions and register them
 METHODS=""
@@ -41,8 +39,9 @@ reg build
 build()
 {
     export LDFLAGS='-rpath /usr/local/lib'
+    export INSTALL="/usr/local/bin/install -c -D"
     setdir source
-    ./configure --prefix=$prefix --disable-static --enable-shared
+    ./configure $configure_args
     LD_LIBRARY_PATH=$PWD $MAKE_PROG test
     $MAKE_PROG
 }
@@ -51,12 +50,13 @@ reg install
 install()
 {
     generic_install prefix
+    doc README usage.doc
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
