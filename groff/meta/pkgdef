@@ -3,7 +3,7 @@ pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.gnu.org/software/groff/groff.html"
-shortdesc="GNU groff"
+shortdesc="Document formatting system"
 
 [base]
 subsys=sw.base
