@@ -1,0 +1,10 @@
+--- kdelibs-3.4.0/kdeprint/driverparse.h.noconfig	Sun Mar 27 22:44:57 2005
++++ kdelibs-3.4.0/kdeprint/driverparse.h	Sun Mar 27 22:45:09 2005
+@@ -21,6 +21,7 @@
+ #define DRIVERPARSE_H
+ 
+ #include <stdio.h>
++#include <config.h>
+ 
+ void registerHandler(const char *name, void(*initf)(const char*), int(*parsef)(const char*, FILE*));
+ void initFoomatic(void);

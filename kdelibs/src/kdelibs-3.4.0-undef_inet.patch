@@ -1,0 +1,17 @@
+--- kdelibs-3.4.0/kdecore/netsupp.h.undef_inet	Sat Mar 26 16:16:21 2005
++++ kdelibs-3.4.0/kdecore/netsupp.h	Sat Mar 26 16:18:17 2005
+@@ -31,6 +31,14 @@
+ #include <netdb.h>
+ //#include "ksockaddr.h"
+ 
++
++/* Irix 6.2 is nasty. It's got AF_INET6 defined and libc
++ * has inet_ntop and inet_pton but they're not declared anywhere
++ * Let's try these prototypes and hope the libc stubs doesn't do something nasty
++ */
++const char * inet_ntop (int af, const void *src, char *dst, size_t cnt);
++int inet_pton (int af, const char *src, void *dst);
++
+ /*
+  * Seems some systems don't know about AF_LOCAL
+  */

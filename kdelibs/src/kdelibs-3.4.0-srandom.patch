@@ -1,0 +1,11 @@
+--- kdelibs-3.4.0/acinclude.m4.orig	Wed Mar 23 15:53:55 2005
++++ kdelibs-3.4.0/acinclude.m4	Wed Mar 23 15:54:04 2005
+@@ -2287,7 +2287,7 @@
+ 		[RANDOM])
+ 
+ 	KDE_CHECK_FUNC_EXT(srandom, [
+-#include <stdlib.h>
++#include <math.h>
+ ], 
+ 		[
+ srandom(27);

@@ -1,0 +1,10 @@
+--- kdelibs-3.4.0/kdecore/netsupp.h.getnameinfo	2005-03-26 19:12:55.820395427 +0100
++++ kdelibs-3.4.0/kdecore/netsupp.h	2005-03-26 19:13:11.577231875 +0100
+@@ -262,6 +262,7 @@
+ 			 char *host, size_t hostlen,
+ 			 char *serv, size_t servlen,
+ 			 int flags);
++  int getnameinfo(const sockaddr*, int, char*, size_t, char*, size_t, int);
+ }
+ 
+ # define getaddrinfo	KDE::getaddrinfo

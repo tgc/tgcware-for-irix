@@ -1,0 +1,11 @@
+--- kdelibs-3.4.0/kio/misc/kpac/script.cpp.in_addr_t	2005-03-27 13:22:18.381318391 +0200
++++ kdelibs-3.4.0/kio/misc/kpac/script.cpp	2005-03-27 13:24:28.352293028 +0200
+@@ -17,6 +17,8 @@
+    Boston, MA 02111-1307, USA.
+ */
+ 
++/* Irix 6.2 lacks in_addr_t */
++typedef unsigned long in_addr_t;
+ 
+ #include <cstdlib>
+ #include <vector>

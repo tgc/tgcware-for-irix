@@ -1,0 +1,28 @@
+--- kdelibs-3.4.0/kimgio/rgb.cpp.nameclash	Sun Mar 27 19:40:54 2005
++++ kdelibs-3.4.0/kimgio/rgb.cpp	Sun Mar 27 19:43:51 2005
+@@ -33,10 +33,10 @@
+ 
+ KDE_EXPORT void kimgio_rgb_read(QImageIO *io)
+ {
+-	SGIImage sgi(io);
++	SGIImage sgimg(io);
+ 	QImage img;
+ 
+-	if (!sgi.readImage(img)) {
++	if (!sgimg.readImage(img)) {
+ 		io->setImage(0);
+ 		io->setStatus(-1);
+ 		return;
+@@ -49,10 +49,10 @@
+ 
+ KDE_EXPORT void kimgio_rgb_write(QImageIO *io)
+ {
+-	SGIImage sgi(io);
++	SGIImage sgimg(io);
+ 	QImage img = io->image();
+ 
+-	if (!sgi.writeImage(img))
++	if (!sgimg.writeImage(img))
+ 		io->setStatus(-1);
+ 
+ 	io->setStatus(0);

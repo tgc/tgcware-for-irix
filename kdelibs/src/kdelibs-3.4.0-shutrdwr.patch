@@ -1,0 +1,12 @@
+--- kdelibs-3.4.0/kioslave/ftp/ftp.cc.shutrdwr	Sun Mar 27 20:18:42 2005
++++ kdelibs-3.4.0/kioslave/ftp/ftp.cc	Sun Mar 27 20:19:59 2005
+@@ -63,6 +63,9 @@
+ #include <kremoteencoding.h>
+ #include <klargefile.h>
+ 
++/* Irix 6.2 doesn't define SHUT_RD, SHUT_WR and SHUT_RDWR in socket.h */
++#define SHUT_RDWR 2
++
+ #ifdef HAVE_STRTOLL
+   #define charToLongLong(a) strtoll(a, 0, 10)
+ #else
