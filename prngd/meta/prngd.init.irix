@@ -13,7 +13,14 @@ POOLFILE=egd-pool
 
 mode=$1
 
-set `/usr/bin/id -u`
+case `uname -r` in
+	'5.3')
+		set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
+		;;
+	*)	set `/usr/bin/id -u`
+		;;
+esac
+
 if [ $1 = "0" ]; then
 
 check_pooldir()

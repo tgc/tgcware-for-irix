@@ -1,0 +1,101 @@
+diff -urN prngd-0.9.27.orig/Makefile prngd-0.9.27.irix53/Makefile
+--- prngd-0.9.27.orig/Makefile	Wed Dec 18 14:42:10 2002
++++ prngd-0.9.27.irix53/Makefile	Wed Jul 30 14:15:40 2003
+@@ -92,6 +92,12 @@
+ # CFLAGS=-O3 -Wall -DNEXTSTEP -D_POSIX_SOURCE
+ # LDFLAGS=-L../ossh/openbsd-compat/ -lopenbsd-compat
+ 
++# IRIX 5.3 w/gcc ("Tom G. Christensen" <tom.christensen@get2net.dk>)
++# CFLAGS=-O3 -Wall -DIRIX53
++
++# IRIX 5.3 w/cc ("Tom G. Christensen" <tom.christensen@get2net.dk>)
++# CFLAGS=-O2 -fullwarn -DIRIX53
++
+ # IRIX 6.2 w/gcc ("Michael Weiser" <michael@weiser.saale-net.de>)
+ # CFLAGS=-O3 -Wall -DIRIX62
+ 
+diff -urN prngd-0.9.27.orig/config.h prngd-0.9.27.irix53/config.h
+--- prngd-0.9.27.orig/config.h	Wed Dec 18 14:42:10 2002
++++ prngd-0.9.27.irix53/config.h	Wed Jul 30 14:27:06 2003
+@@ -188,6 +188,20 @@
+ #define PATH_SYSLOG     "/private/adm/messages"
+ #endif
+ 
++#ifdef IRIX53
++#define HAVE_GETRUSAGE
++#define NEED_SYS_SELECT_H
++#define NEED_BSTRING_H
++#define O_RSYNC 0
++#define SOCKLEN_T       int
++#define PATH_TMP        "/tmp"
++#define PATH_VAR_TMP	"/var/tmp"
++#define PATH_PASSWD     "/etc/passwd"
++#define PATH_WTMP       "/var/adm/wtmpx"
++#define PATH_UTMP       "/var/adm/utmpx"
++#define PATH_SYSLOG     "/var/adm/SYSLOG"
++#endif
++
+ #ifdef IRIX62
+ #define HAVE_GETRUSAGE
+ #define SOCKLEN_T       int
+diff -urN prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.27.irix53/contrib/IRIX-53/prngd.conf.irix-53
+--- prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53
++++ prngd-0.9.27.irix53/contrib/IRIX-53/prngd.conf.irix-53	Wed Jul 30 14:15:40 2003
+@@ -0,0 +1,43 @@
++# entropy gathering commands
++# Irix 5.3, contributed by Tom G. Christensen <tom.christensen@get2net.dk>
++
++# Format is: "program-name args" path rate
++
++# The "rate" represents the number of bits of usuable entropy per 
++# byte of command output. Be conservative.
++
++"ls -alni /var/adm" /usr/bin/ls 0.02
++"ls -alni /var/mail" /usr/bin/ls 0.02
++"ls -alni /var/spool/mqueue" /usr/bin/ls 0.02
++"ls -alni /proc" /usr/bin/ls 0.02
++"ls -alni /tmp" /usr/bin/ls 0.02
++
++"netstat -an" /usr/etc/netstat 0.05
++"netstat -in" /usr/etc/netstat 0.05
++"netstat -rn" /usr/etc/netstat 0.02
++"netstat -an" /usr/etc/netstat 0.05
++"netstat -s" /usr/etc/netstat 0.02
++"netstat -is" /usr/etc/netstat 0.02
++"netstat -m" /usr/etc/netstat 0.02
++
++#"arp -a -n" /usr/etc/arp 0.02
++
++#"ifconfig -a" /usr/etc/ifconfig 0.02
++
++"ps -al" /usr/bin/ps 0.03
++"ps -efl" /usr/bin/ps 0.03
++
++"w" /usr/bsd/w 0.05
++
++"who" /usr/bin/who 0.01
++
++"last" /usr/bsd/last 0.01
++
++"df" /usr/bin/df 0.01
++"df -i" /usr/bin/df 0.01
++
++"uptime" /usr/bsd/uptime 0.01
++
++"ipcs -a" /usr/bin/ipcs 0.01
++
++"tail -200 /var/adm/SYSLOG" /usr/bin/tail 0.01
+diff -urN prngd-0.9.27.orig/prngd.h prngd-0.9.27.irix53/prngd.h
+--- prngd-0.9.27.orig/prngd.h	Fri May 17 21:18:37 2002
++++ prngd-0.9.27.irix53/prngd.h	Wed Jul 30 14:28:41 2003
+@@ -23,6 +23,10 @@
+ int vsnprintf(char *str, size_t count, const char *fmt, va_list args);
+ #endif /* !HAVE_SNPRINTF */
+ 
++#ifdef NEED_BSTRING_H
++#include <bstring.h>
++#endif /* NEED_BSTRING_H */
++
+ typedef struct {
+   double rate;
+   unsigned int badness;

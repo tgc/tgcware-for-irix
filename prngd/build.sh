@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/local/bash/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,10 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.27
-pkgver=5
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=prngd-irix53-support.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -36,7 +36,7 @@ reg build
 build()
 {
 	setdir source
-	make CC=gcc CFLAGS="-O3 -Wall -DIRIX62" DEFS='-DRANDSAVENAME=\"/usr/local/etc/prngd/prngd-seed\" -DCONFIGFILE=\"/usr/local/etc/prngd/prngd.conf\"'
+	make CC=gcc CFLAGS="-O3 -Wall -DIRIX53" DEFS='-DRANDSAVENAME=\"/usr/local/etc/prngd/prngd-seed\" -DCONFIGFILE=\"/usr/local/etc/prngd/prngd.conf\"'
 	$MAKE_PROG
 }
 
@@ -50,7 +50,7 @@ install()
 	mkdir -p $stagedir/man/man1
 	cp prngd $stagedir/sbin
 	cp prngd.man $stagedir/man/man1/prngd.1
-	cp contrib/IRIX-65/prngd.conf.irix-65 $stagedir/etc/prngd/prngd.conf
+	cp contrib/IRIX-53/prngd.conf.irix-53 $stagedir/etc/prngd/prngd.conf
 	chmod 744 $stagedir/sbin/prngd
 	chmod 644 $stagedir/man/man1/*
 	cp $metadir/prngd.init.irix $stagedir/etc/prngd/prngd.init-sample
