@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=pkgconfig
 version=0.15.0
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -37,9 +37,9 @@ reg build
 build()
 {
     export CC=gcc
-    export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+    export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
     setdir source
-    ./configure --prefix=$prefix --disable-nls --enable-static=no
+    ./configure --prefix=$prefix --disable-nls
     $MAKE_PROG
 }
 
