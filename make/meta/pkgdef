@@ -2,9 +2,10 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
+shortdesc="GNU make"
 
 [base]
-subsys=sw.eoe
+subsys=sw.base
 files(-,root,sys)
 $_bindir
 $_sharedir
@@ -13,4 +14,9 @@ $_sharedir
 subsys=man.man
 files(-,root,sys)
 $_mandir
+
+[info]
+subsys=man.info
+files(-,root,sys)
 $_infodir
+

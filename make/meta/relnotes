@@ -1,0 +1,29 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+No special build variables where set
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE FLAGS
+---------------
+
+%%CONFIGURE%%
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+MISCELLANEOUS
+--------------------
+none
