@@ -1,0 +1,12 @@
+diff -u autoconf-2.53/configure~ autoconf-2.53/configure
+--- autoconf-2.53/configure~	Tue Mar 12 15:00:43 2002
++++ autoconf-2.53/configure	Tue Mar 12 15:00:43 2002
+@@ -1390,7 +1390,7 @@
+ fi
+ 
+ # Define the identity of the package.
+- PACKAGE=autoconf
++ PACKAGE=autoconf-2.53
+  VERSION=2.53
+ 
+ 
