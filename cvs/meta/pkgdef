@@ -2,7 +2,8 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-shortdesc="version control system"
+pkgvendor="http://www.cvshome.org"
+shortdesc="Version control system"
 
 [base]
 subsys=sw.base

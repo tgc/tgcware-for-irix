@@ -1,4 +1,4 @@
-#!/usr/local/bash/bin/bash
+#!/usr/local/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -8,14 +8,17 @@
 #
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.17
-pkgver=2
+version=1.11.18
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# install target is shallow
+shortroot=1
 
 # Define script functions and register them
 METHODS=""
@@ -41,16 +44,13 @@ install()
 {
     generic_install prefix
     setdir source
-    shortroot=1
     doc FAQ README NEWS doc/*.ps
-    $RM -f ${stagedir}/${_infodir}/dir
+    $RM -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
 pack()
 {
-    shortroot=1
-    metainstalldir=/
     generic_pack
 }
 
