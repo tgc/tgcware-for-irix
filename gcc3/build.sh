@@ -8,27 +8,20 @@
 #
 # Check the following 4 variables before running the script
 topdir=gcc
-version=3.3
-pkgver=1
-source[0]=gcc-3.3.tar.bz2
+version=3.4.1
+pkgver=3
+source[0]=$topdir-$version.tar.bz2
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # If there are no patches, simply comment this
-#patch[0]=$srcfiles/gcc-3.1-3.1.1.diff
-#patch[1]=$srcfiles/gcc-3.1.1-3.2.diff
-#patch[2]=$srcfiles/gcc-3.2-3.2.1.diff
-#patch[3]=$srcfiles/gcc-3.2.1-3.2.2.diff
-#patch[3]=$srcfiles/gcc-3.2.2-3.2.3.diff
+#patch[0]=
 
+# Define abbreviated version number
+abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU GCC" 
-pkgname=$pkgprefixgcc33
-
-topinstalldir=/usr/local/gcc-$version
+topinstalldir=/usr/local/$topdir-$version
 prefix=$topinstalldir
 
 # Define script functions and register them
@@ -46,22 +39,36 @@ prep()
 reg build
 build()
 {
+    # Default to mips3, n32 ABI. No other ABI's available (--disable-multilib turns off o32 & n64)
+    configure_args="--prefix=$prefix --enable-languages=c,c++ --disable-nls --disable-multilib"
     setdir $srcdir
     mkdir -p objdir
     setdir $srcdir/objdir
-    $srcdir/$topsrcdir/configure --prefix=$prefix --enable-languages=c,c++ --disable-nls
+    $srcdir/$topsrcdir/configure $configure_args
+    $MAKE_PROG bootstrap
+    # Horrible horrible hack for Irix 6.2...
+    echo "#undef MN_NAME_PAT" > $srcdir/objdir/gcc/fixinc/machname.h
     $MAKE_PROG bootstrap
 }
 
 reg install
 install()
 {
-    generic_install DESTDIR
+    lprefix=/usr/local
+    setdir $srcdir/objdir
+    $MAKE_PROG DESTDIR=$stagedir install
+    $MKDIR ${stagedir}${lprefix}/${_libdir}
+    $CP ${stagedir}${lprefix}/gcc-$version/$_libdir/*.so.* ${stagedir}${lprefix}/${_libdir}
+    setdir ${stagedir}${lprefix}/${_libdir}
+    $LN -sf libstdc++.so.7.1 libstdc++.so.7
+    $RM -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
 pack()
 {
+    topinstalldir=/usr/local
+    iprefix=$topdir-$version
     generic_pack
 }
 
