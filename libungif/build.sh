@@ -8,21 +8,21 @@
 #
 # Check the following 4 variables before running the script
 topdir=libungif
-version=4.1.0b1
-pkgver=2
+version=4.1.3
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=libungif-4.1.0-stdarg.patch
-patch[1]=libungif-CVS.patch
-patch[2]=libungif-4.1.0b1-include.patch
-patch[3]=libungif-4.1.0b1-gif2iris.patch
+if [ "$_os" = "irix53" ]; then
+    patch[0]=libungif-4.1.0b1-include.patch
+    patch[1]=libungif-4.1.0b1-gif2iris.patch
+fi    
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="libungif"
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 # Define script functions and register them
 METHODS=""
@@ -39,23 +39,14 @@ prep()
 reg build
 build()
 {
-    # we need automake & aclocal, prepare temporary links in $HOME/bin
-    ln -s /usr/local/bin/automake-1.6 $HOME/bin/automake
-    ln -s /usr/local/bin/aclocal-1.6 $HOME/bin/aclocal
-    export LDFLAGS="-Wl,-rpath,/usr/local/lib"
-    export CXXFLAGS="-L/usr/local/lib"
-    setdir source
-    autoreconf-2.57 --install --force
-    ./configure --prefix=$prefix
-    $MAKE_PROG
-    rm -f $HOME/bin/automake
-    rm -f $HOME/bin/aclocal
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS BUGS README TODO
 }
 
 reg pack
