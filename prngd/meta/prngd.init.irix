@@ -6,6 +6,14 @@
 # 28/07-2003 - tgc
 # - Updated for use with Irix
 
+IS_ON=/etc/chkconfig
+
+if $IS_ON verbose ; then
+    ECHO=echo
+else            # For a quiet startup and shutdown
+    ECHO=:
+fi
+
 DESC="prngd"
 PRNGD_BIN=/usr/local/sbin/prngd
 POOLDIR=/var/run
@@ -13,11 +21,12 @@ POOLFILE=egd-pool
 
 mode=$1
 
-case `uname -r` in
-	'5.3')
+case `uname -sr` in
+    'IRIX 5.3')
 		set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
 		;;
-	*)	set `/usr/bin/id -u`
+    *)
+		set `/usr/bin/id -u`
 		;;
 esac
 
@@ -33,22 +42,26 @@ check_pooldir()
 }
 
 case $mode in
-
-'start' ) echo "Starting $DESC"
+    'start')
+	    if $IS_ON prngd && test -x $PRNGD_BIN; then
+		$ECHO "Starting $DESC"
 		check_pooldir
 		$PRNGD_BIN $POOLDIR/$POOLFILE
-          ;;
-'stop' )	echo "Stopping $DESC"
-			$PRNGD_BIN -k $POOLDIR/$POOLFILE
-		;;
-'restart') $0 stop
-           $0 start
-           ;;
-*) echo "Usage: $0 {start|stop|restart}"
+	    fi
+	    ;;
+    'stop')
+	    $ECHO "Stopping $DESC"
+	    $PRNGD_BIN -k $POOLDIR/$POOLFILE
+	    ;;
+    'restart')
+	    $0 stop
+	    $0 start
+	    ;;
+    *)
+	    echo "Usage: $0 {start|stop|restart}"
+	    ;;
 esac 
 
 else
   echo "$0: this script must be run as root... fatal error"
-
 fi
-
