@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=zlib
 version=1.1.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=zlib-1.1.4-use_cc.patch
@@ -36,25 +36,25 @@ prep()
 reg build
 build()
 {
-	export CC=gcc
-	export CFLAGS="-Wall -ansi -O3"
-	setdir source
-	./configure --shared --prefix=$prefix
-	$MAKE_PROG test
+    export CC=gcc
+    export CFLAGS="-Wall -ansi -O3"
+    setdir source
+    ./configure --shared --prefix=$prefix
+    $MAKE_PROG test
 }
 
 reg install
 install()
 {
     generic_install prefix
-	setdir source
-	mkdir -p $stagedir/man/man3
-	cp zlib.3 $stagedir/man/man3
-	mkdir -p $stagedir/doc/$topdir-$version
-	for i in "README ChangeLog algorithm.txt minigzip.c example.c"
-	do
-		cp $i $stagedir/doc/$topdir-$version
-	done
+    setdir source
+    mkdir -p $stagedir/man/man3
+    cp zlib.3 $stagedir/man/man3
+    mkdir -p $stagedir/doc/$topdir-$version
+    for i in "README ChangeLog algorithm.txt minigzip.c example.c"
+    do
+	    cp $i $stagedir/doc/$topdir-$version
+    done
 }
 
 reg pack
