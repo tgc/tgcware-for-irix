@@ -7,7 +7,7 @@
 # stolen from jhlj's Compile.sh script :)
 #
 # Check the following 4 variables before running the script
-topdir=bash2
+topdir=bash
 version=2.05b
 pkgver=2
 source[0]=bash-$version.tar.gz
@@ -16,16 +16,6 @@ source[0]=bash-$version.tar.gz
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Override pkginfo information
-#pkgname=$pkgprefixbash2
-name="bash - GNU Bourne-Again SHell"
-pkgcat="application"
-pkgvendor="http://www.gnu.org"
-pkgdesc="Bash is an sh-compatible language interpreter"
-
-# override topsrcdir
-topsrcdir=bash-$version
 
 # Define script functions and register them
 METHODS=""
@@ -49,6 +39,8 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc AUTHORS CHANGES COMPAT NEWS POSIX RBASH README
+    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
