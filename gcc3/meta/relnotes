@@ -28,4 +28,4 @@ I've provided a patch to fix this. The patch is based on
 http://gcc.gnu.org/ml/gcc-patches/2004-08/msg02371.html
 
 There where also problems linking with GNU libiconv. This turned out to be
-a typo in the aclocal.m4 file.
+a typo in the aclocal.m4 file. Patch is included.
