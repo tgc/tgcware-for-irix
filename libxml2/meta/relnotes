@@ -5,6 +5,9 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
@@ -24,61 +27,3 @@ libiconv
 
 ERRORS/MISCELLANEOUS
 --------------------
-Irix 6.2:
-make check completed with errors, see output below:
-
-## XML regression tests
-## XML regression tests on memory
-## XML entity subst regression tests
-## XML Namespaces regression tests
-## xml:id regression tests
-## Error cases regression tests
-## Error cases stream regression tests
-## Running the API regression tests this may take a little while
-xmlRegisterCharEncodingHandler: NULL handler !
-make[2]: *** [APItests] Segmentation fault (core dumped)
-## Reader regression tests
-## Reader on memory regression tests
-## Walker regression tests
-## Reader entities substitution regression tests
-## SAX callbacks regression tests
-## XML push regression tests
-## HTML regression tests
-## Push HTML regression tests
-## HTML SAX regression tests
-## Push HTML SAX regression tests
-## Valid documents regression tests
-## Validity checking regression tests
-## General documents valid regression tests
-## URI module regression tests
-## XPath regression tests
-## XPointer regression tests
-## XInclude regression tests
-## XInclude xmlReader regression tests
-## C14N and XPath regression tests
-## Scripts regression tests
-## Some of the base computations may be different if srcdir != .
-## Catalog regression tests
-## Add and del operations on XML Catalogs
-## Regexp regression tests
-## Automata regression tests
-## Schemas regression tests
-## Relax-NG regression tests
-docbook_0 result
-0a1,6 > ./test/relaxng/docbook_0.xml:16: warning: failed to load external entity "test/dtd/4.1.2/docbookx.dtd" > ]> > ^ > ./test/relaxng/docbook_0.xml:1864: parser error : Entity 'copy' not defined > <sgmltag>&amp;copy;</sgmltag> &mdash; copyright sign (&copy;) > ^
-## Relax-NG streaming regression tests
-docbook_0 result
-0a1 > Expand failed ! 1c1,33 < ./test/relaxng/docbook_0.xml validates --- > ./test/relaxng/docbook_0.xml:16: warning: failed to load external entity "test/dtd/4.1.2/docbookx.dtd" > ]> > ^ > ./test/relaxng/docbook_0.xml:1864: parser error : Entity 'copy' not defined > <sgmltag>&amp;copy;</sgmltag> &mdash; copyright sign (&copy;) > ^ > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element emphasis there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element sgmltag there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element para there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element itemizedlist there > Relax-NG validity error : Did not expect element listitem there > Relax-NG validity error : Did not expect element para there > Relax-NG validity error : Did not expect element sgmltag there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element listitem there > Relax-NG validity error : Did not expect element para there > Relax-NG validity error : Did not expect element sgmltag there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element listitem there > Relax-NG validity error : Did not expect element para there > Relax-NG validity error : Did not expect element sgmltag there > Relax-NG validity error : Did not expect text in element TODO content > Relax-NG validity error : Did not expect element listitem there > Relax-NG validity error : Did not expect element para there > Relax-NG validity error : Did not expect element sgmltag there > ./test/relaxng/docbook_0.xml fails to validate > ./test/relaxng/docbook_0.xml : failed to parse
-## Threaded regression tests
-## generating dba100000.xml
-## Timing tests to try to detect performance
-## as well a memory usage breakage when streaming
-## 1/ using the file interface
-## 2/ using the memory interface
-## 3/ repeated DOM parsing
-## 4/ repeated DOM validation
-Parsing took 10375 ms
-Parsing took 10129 ms
-100 iterations took 16839 ms
-100 iterations took 34874 ms
-

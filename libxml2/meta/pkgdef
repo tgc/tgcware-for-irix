@@ -38,7 +38,6 @@ $_bindir/xml2-config
 $_includedir
 $_libdir/*.so
 $_libdir/*.a
-$_libdir/*.la
 $_libdir/xml2Conf.sh
 $_libdir/pkgconfig/*.pc
 $_sharedir/aclocal
