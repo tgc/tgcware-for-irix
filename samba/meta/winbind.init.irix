@@ -1,0 +1,82 @@
+#!/bin/sh
+##
+## Start or stop the Samba winbind daemon
+##
+## Set custom options in /etc/config/tgc_samba.options to override
+## default configuration
+
+IS_ON=/etc/chkconfig
+WINBINDD=/usr/local/sbin/winbindd
+OPTIONS=/etc/config/tgc_samba.options
+CONFIG=/usr/local/etc/samba/smb.conf
+
+pidfile_winbindd=/usr/local/var/run/winbind.pid
+
+# Source config
+if [ -f $OPTIONS ]; then
+    . $OPTIONS
+fi
+
+# If there is no smb.conf then we cannot continue
+[ -f $CONFIG ] || exit 0
+
+if $IS_ON verbose; then
+    ECHO=echo
+else
+    ECHO=:
+fi
+
+# params: $1 = signal to send
+signal_winbindd()
+{
+  if [ -r $pidfile_winbindd ]; then
+    winbindd_pid=`cat $pidfile_winbindd`
+    ps -p $winbindd_pid | grep winbindd > /dev/null
+    if [ $? -eq 0 ]; then
+      /usr/bin/kill -$1 -$winbindd_pid
+    fi
+  fi
+}
+
+start_winbind()
+{
+  if $IS_ON tgc_winbind && test -x $WINBINDD; then
+    $ECHO "Starting Winbind services:\c"
+    $WINBINDD $WINBINDDOPTIONS
+    $ECHO " winbindd\c"
+    $ECHO "."
+  fi
+}
+
+
+case "$1" in
+    start)
+	signal_winbindd 15
+	start_winbind
+	;;
+
+    restart)
+	signal_winbindd 15
+	start_winbind
+	;;
+
+    reload)
+	if [ -r $pidfile_winbind ]; then
+	  $ECHO "Reloading smb.conf file:\c"
+	  signal_winbindd HUP
+	  $ECHO "."
+	fi
+	;;
+	
+    stop)
+	$ECHO "Stopping Winbind services:\c"
+	signal_winbindd 15
+	$ECHO " winbindd."
+	exit 0
+	;;
+
+    *)
+	echo "usage: $0 {start|stop|reload|restart}"
+	;;
+esac
+

@@ -1,0 +1,46 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -rpath /usr/local/include"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+common:
+krb5
+openldap
+libiconv
+popt
+
+client additional:
+readline
+ncurses
+
+ERRORS/MISCELLANEOUS
+--------------------
+This package was heavily inspired by the Samba package redhat uses
+for Fedora Core 3 which is why the subsystems deviate from my normal
+standard.
+
+SWAT is not automatically added to inetd. To do this run the included
+startswat.sh script. To remove it again use the removeswat.sh script.
+
+The clitar patch fixes a build issue when building against krb5 1.4. It was
+pulled from the samba bugzilla and will be in the next upstream release.
+The -ld patch simply hardcodes LD=ld -n32 to force linking n32 objects.

@@ -1,0 +1,11 @@
+--- samba-3.0.11/source/configure.orig	Sun Mar 13 11:42:25 2005
++++ samba-3.0.11/source/configure	Sun Mar 13 11:43:00 2005
+@@ -21763,7 +21763,7 @@
+ 			BLDSHARED="true"
+ 			LDSHFLAGS="-set_version sgi1.0 -shared"
+ 			SONAMEFLAG="-soname "
+-			SHLD="\${LD}"
++			SHLD="ld -n32"
+ 			if test "${GCC}" = "yes"; then
+ 				PICFLAGS="-fPIC"
+ 			else

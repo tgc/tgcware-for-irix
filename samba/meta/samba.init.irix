@@ -1,0 +1,104 @@
+#!/bin/sh
+##
+## Start or stop the Samba smb and nmb daemons
+##
+## Set custom options in /etc/config/tgc_samba.options to override
+## default configuration
+
+IS_ON=/etc/chkconfig
+SMBD=/usr/local/sbin/smbd
+NMBD=/usr/local/sbin/nmbd
+OPTIONS=/etc/config/tgc_samba.options
+CONFIG=/usr/local/etc/samba/smb.conf
+
+pidfile_smbd=/usr/local/var/run/smbd.pid
+pidfile_nmbd=/usr/local/var/run/nmbd.pid
+
+# Source config
+if [ -f $OPTIONS ]; then
+    . $OPTIONS
+fi
+
+# If there is no smb.conf then we cannot continue
+[ -f $CONFIG ] || exit 0
+
+if $IS_ON verbose; then
+    ECHO=echo
+else
+    ECHO=:
+fi
+
+kill_smbd()
+{
+  if [ -r $pidfile_smbd ]; then
+    smbd_pid=`cat $pidfile_smbd`
+    ps -p $smbd_pid | grep smbd > /dev/null
+    if [ $? -eq 0 ]; then
+      /usr/bin/kill -15 -$smbd_pid
+    fi
+  fi
+}
+
+kill_nmbd()
+{
+  if [ -r $pidfile_nmbd ]; then
+    nmbd_pid=`cat $pidfile_nmbd`
+    ps -p $nmbd_pid | grep nmbd > /dev/null
+    if [ $? -eq 0 ]; then
+      /usr/bin/kill -15 -$nmbd_pid
+    fi
+  fi
+}
+
+start_samba()
+{
+  if $IS_ON tgc_samba && test -x $SMBD && test -x $NMBD; then
+    $ECHO "Starting Samba services:\c"
+    $SMBD $SMBDOPTIONS
+    $ECHO " smbd\c"
+    $NMBD $NMBDOPTIONS
+    $ECHO " nmbd\c"
+    $ECHO "."
+  fi
+}
+
+
+case "$1" in
+    start)
+	kill_smbd
+	kill_nmbd
+	start_samba
+	;;
+
+    restart)
+	kill_smbd
+	kill_nmbd
+	start_samba
+	;;
+
+    reload)
+	if [ -r $pidfile_smbd ]; then
+	  $ECHO "Reloading smb.conf file:\c"
+	  smbd_pid=`cat $pidfile_smbd`
+	  ps -p $smbd_pid | grep smbd > /dev/null
+	  if [ $? -eq 0 ]; then
+	    /usr/bin/kill -HUP -$smbd_pid
+	  fi
+	  $ECHO "."
+	fi
+	;;
+	
+    stop)
+	$ECHO "Stopping Samba services:\c"
+	kill_smbd
+	$ECHO " smbd\c"
+	kill_nmbd
+	$ECHO " nmbd."
+	exit 0
+	;;
+
+    *)
+	echo "usage: $0 {start|stop|reload|restart}"
+	;;
+esac
+
