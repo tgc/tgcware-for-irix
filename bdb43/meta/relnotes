@@ -1,0 +1,29 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export bdbdir=BerkeleyDB.4.3
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/$bdbdir/lib -Wl,-rpath,/usr/local/$bdbdir/lib"
+export CC=gcc
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------
