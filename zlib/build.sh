@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=zlib
 version=1.1.4
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=zlib-1.1.4-vsnprintf.patch
@@ -34,7 +34,7 @@ build()
 {
     export CC=gcc
     export CFLAGS="-Wall -ansi -O3"
-    export LDSHARED="gcc -shared -static-libgcc"
+    [ ! "$(gcc --version)" == "2.95.3" ] && export LDSHARED="gcc -shared -static-libgcc"
     setdir source
     ./configure --prefix=$prefix
     $MAKE_PROG test
