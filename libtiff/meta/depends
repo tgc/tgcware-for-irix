@@ -1,0 +1,4 @@
+sw.base sw.lib auto
+sw.dev sw.lib auto
+sw.lib tgc_libjpeg.sw.lib 60000001 69999999
+sw.lib tgc_zlib.sw.lib 12200001 maxint
