@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=3.8.1p1
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -35,7 +35,8 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
+    export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
+    [ ! "$(gcc --version)" == "2.95.3" ] && LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
     export CPPFLAGS="-I/usr/local/include/openssl"
     configure_args="--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix"
     setdir source
@@ -56,6 +57,7 @@ install()
 
     # Install initscript
     $CP $metadir/sshd.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_sshd
+    chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_sshd
     (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_sshd K02tgc_sshd)
     (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_sshd S98tgc_sshd)
     # Don't run by default

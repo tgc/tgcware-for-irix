@@ -11,7 +11,7 @@ SOURCE/VERSION
 BUILD ENVIRONMENT
 -----------------
 
-export LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
+export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
 export CPPFLAGS="-I/usr/local/include/openssl"
 
 compiler and version:
@@ -35,8 +35,6 @@ openssl 0.9.7d (libcrypto.so.0.9.7.4)
 
 ERRORS/MISCELLANEOUS
 --------------------
-
-I added -static-libgcc to LDFLAGS to avoid a dependency on libgcc_s.so.1
 
 Configuration files are marked config(noupdate) which means any existing
 versions are preserved.

@@ -11,7 +11,7 @@ CONFIG=/etc/config/tgc_sshd.options
 KEYGEN=/usr/local/bin/ssh-keygen
 RSA1_KEY=/usr/local/etc/ssh/ssh_host_key
 RSA_KEY=/usr/local/etc/ssh/ssh_host_rsa_key
-DSA_KEY=usr/local/etc/ssh/ssh_host_dsa_key
+DSA_KEY=/usr/local/etc/ssh/ssh_host_dsa_key
 
 pidfile=/var/run/sshd.pid
 
