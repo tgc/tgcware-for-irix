@@ -1,0 +1,20 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.underbit.com/products/mad/"
+shortdesc="A high-quality MPEG audio decoder"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+
