@@ -8,8 +8,8 @@
 #
 # Check the following 4 variables before running the script
 topdir=libtool
-version=1.4.3
-pkgver=2
+version=1.5.10
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -17,9 +17,9 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="Libtool"
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 # Define script functions and register them
 METHODS=""
@@ -36,16 +36,15 @@ prep()
 reg build
 build()
 {
-    setdir source
-    ./configure --prefix=$prefix --enable-static=no --disable-nls
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    rm -f $stagedir$prefix/info/dir
+    rm -f ${stagedir}${prefix}/${_infodir}/dir
+    doc README NEWS TODO
 }
 
 reg pack
