@@ -19,7 +19,6 @@ KNOWN DEPENDENCIES
 ------------------
 libintl.so.4
 libiconv.so.3
-libgcc_s.so.1
 
 ERRORS/MISCELLANEOUS
 --------------------
