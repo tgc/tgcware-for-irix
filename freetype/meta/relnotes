@@ -1,0 +1,32 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CFLAGS="-fno-strict-aliasing"
+export CXXFLAGS="-fno-strict-aliasing"
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+zlib
+
+ERRORS/MISCELLANEOUS
+--------------------
+The -fno-strict-aliasing was added after reading the freetype.spec file
+from Fedora Core 3. Apparently buggy code is the result without it.
