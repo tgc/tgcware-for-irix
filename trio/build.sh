@@ -9,17 +9,15 @@
 # Check the following 4 variables before running the script
 topdir=trio
 version=1.10
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=trio-1.10-destdir.patch
 patch[1]=trio-1.10-cvs-makefile.patch
+patch[2]=trio-1.10-shlib.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
 
 # Define script functions and register them
 METHODS=""
@@ -36,9 +34,7 @@ prep()
 reg build
 build()
 {
-    setdir source
-    ./configure --prefix=/usr/local
-    $MAKE_PROG CFLAGS="-O2"
+    generic_build
 }
 
 reg install

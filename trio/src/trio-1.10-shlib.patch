@@ -1,0 +1,55 @@
+--- trio-1.10/Makefile.in.orig	Wed Mar 23 19:45:17 2005
++++ trio-1.10/Makefile.in	Wed Mar 23 19:47:30 2005
+@@ -1,6 +1,6 @@
+ SHELL	= @SHELL@
+ CC	= @CC@
+-CFLAGS	= @CFLAGS@ -DDEBUG
++CFLAGS	= @CFLAGS@ -DDEBUG -fPIC
+ OBJS	= triostr.o trio.o trionan.o
+ TARGETLIB	= libtrio.a
+ TARGETINCS	= trio.h triop.h triodef.h trionan.h triostr.h
+@@ -14,6 +14,13 @@
+ PURIFY = purify
+ PURIFYOPTIONS = -chain-length=16 -first-only=YES
+ 
++# Shared library stuff
++SHLIB_MAJOR	= 1
++SHLIB_MINOR	= 10
++SHTARGETLIBBASE = libtrio.so
++SHTARGETLIB	= $(SHTARGETLIBBASE).${SHLIB_MAJOR}.${SHLIB_MINOR}
++SHLDFLAGS	= -shared -Wl,-soname,libtrio.so.${SHLIB_MAJOR}
++
+ # Installation settings
+ INSTALL		= @INSTALL@
+ INSTALL_DATA	= @INSTALL_DATA@
+@@ -23,15 +30,18 @@
+ includedir	= @includedir@
+ libdir		= @libdir@
+ 
+-all: $(TARGETLIB) $(TARGET) regression
++all: $(TARGETLIB) $(TARGET) regression $(SHTARGETLIB)
+ 
+ test:
+ 	./regression
+ 
+-install:	$(TARGETLIB)
++install:	$(TARGETLIB) $(SHLIBTARGET)
+ 	$(MKDIR) $(DESTDIR)$(libdir)
+ 	$(MKDIR) $(DESTDIR)$(includedir)
+ 	$(INSTALL_DATA) $(TARGETLIB) $(DESTDIR)$(libdir)/$(TARGETLIB)
++	$(INSTALL_DATA) $(SHTARGETLIB) $(DESTDIR)$(libdir)
++	(cd $(DESTDIR)$(libdir); ln -s $(SHTARGETLIB) $(SHTARGETLIBBASE).$(SHLIB_MAJOR))
++	(cd $(DESTDIR)$(libdir); ln -s $(SHTARGETLIBBASE).$(SHLIB_MAJOR) $(SHTARGETLIBBASE))
+ 	for i in $(TARGETINCS);do \
+ 	(set -x;$(INSTALL_DATA) $$i $(DESTDIR)$(includedir)); \
+ 	done
+@@ -54,6 +64,9 @@
+ $(TARGETLIB): $(OBJS)
+ 	$(AR) ruv $(TARGETLIB) $(OBJS)
+ 	$(RANLIB) $(TARGETLIB)
++
++$(SHTARGETLIB): $(TARGETLIB)
++	$(CC) $(CFLAGS) $(SHLDFLAGS) -o $(SHTARGETLIB) $(OBJS)
+ 
+ doc::
+ 	$(GENDOC) doc/trio.cfg
