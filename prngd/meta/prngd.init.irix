@@ -18,7 +18,7 @@ check_pooldir()
 	if [ ! -d $POOLDIR ]; then
 		mkdir -p $POOLDIR
 		chmod 755 $POOLDIR
-		chown root:sys $POOLDIR
+		chown root.sys $POOLDIR
 	fi
 }
 
