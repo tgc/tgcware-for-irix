@@ -4,41 +4,58 @@
 # History:
 #   Please see CVS for history information
 
+IS_ON=/etc/chkconfig
+SSHD=/usr/local/sbin/sshd
+
+if $IS_ON verbose ; then
+    ECHO=echo
+else            # For a quiet startup and shutdown
+    ECHO=:
+fi
+
 pidfile=/var/run/sshd.pid
 desc="sshd"
 
 mode=$1
 
-case `uname -r` in
-        '5.3')
-                set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
-                ;;
-        *)      set `/usr/bin/id -u`
-                ;;
+case `uname -sr` in
+    'IRIX 5.3')
+	    set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
+	    ;;
+    *)
+	    set `/usr/bin/id -u`
+	    ;;
 esac
 
 if [ $1 = "0" ]; then
 
 case $mode in
 
-'start' ) if [ -r $pidfile ]; then
-	    echo "A pidfile was found, trying to stop $desc first"
+    'start')
+	    if [ -r $pidfile ]; then
+		$ECHO "A pidfile was found, trying to stop $desc first"
+		$0 stop
+	    fi
+	    if $IS_ON sshd && test -x $SSHD; then
+		$ECHO "Starting $desc" 
+		$SSHD
+	    fi
+	    ;;
+    'stop')
+	    if [ -r $pidfile ]; then
+		$ECHO "Stopping $desc"
+		kill `cat $pidfile`
+	    else
+		$ECHO "$desc already stopped (no pid file found)"
+	    fi
+	    ;;
+    'restart')
 	    $0 stop
-	  fi
-	  echo "Starting $desc" 
-	  /usr/local/sbin/sshd
-  	  ;;
-'stop' ) if [ -r $pidfile ]; then
-	    echo "Stopping $desc"
-	    kill `cat $pidfile`
-	 else
-	    echo "$desc already stopped (no pid file found)"
-	 fi
-	 ;;
-'restart') $0 stop
-	   $0 start
-	   ;;
-*) echo "Usage: $0 {start|stop|restart}"
+	    $0 start
+	    ;;
+    *)
+	    echo "Usage: $0 {start|stop|restart}"
+	    ;;
 esac 
 
 else
