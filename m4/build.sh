@@ -8,20 +8,16 @@
 #
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.1
+version=1.4.2
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=m4-1.4.1-sec.patch
-patch[1]=m4-1.4.1-configure.patch
+#patch[0]=m4-1.4.1-sec.patch
+#patch[1]=m4-1.4.1-configure.patch
 
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU m4"
 
 # Define script functions and register them
 METHODS=""
@@ -38,22 +34,25 @@ prep()
 reg build
 build()
 {
-    setdir source
-    autoreconf -f
     generic_build
 }
 
 reg install
 install()
 {
+    clean stage
     setdir source
-    $MAKE_PROG prefix=$stagedir INSTALL_DATA="/usr/local/bin/install -c -m644" install
+    ${MKDIR} -p ${stagedir}${prefix}
+    $MAKE_PROG prefix=${stagedir}${prefix} INSTALL_DATA="$GINSTALL -c -m644" install
+    custom_install=1
+    generic_install DESTDIR
+    doc ChangeLog NEWS README
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean
