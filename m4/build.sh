@@ -8,11 +8,13 @@
 #
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4
+version=1.4.1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=
+patch[0]=m4-1.4.1-sec.patch
+patch[1]=m4-1.4.1-configure.patch
+
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -36,13 +38,16 @@ prep()
 reg build
 build()
 {
+    setdir source
+    autoreconf -f
     generic_build
 }
 
 reg install
 install()
 {
-    generic_install prefix
+    setdir source
+    $MAKE_PROG prefix=$stagedir INSTALL_DATA="/usr/local/bin/install -c -m644" install
 }
 
 reg pack
