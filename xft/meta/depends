@@ -1,0 +1,5 @@
+sw.lib tgc_fontconfig.sw.lib 22300001 maxint
+sw.lib tgc_freetype.sw.lib 21900001 maxint
+sw.lib tgc_zlib.sw.lib 12200001 maxint
+sw.lib tgc_xrender.sw.lib 08300001 maxint
+sw.devel sw.lib auto

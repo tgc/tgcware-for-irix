@@ -1,0 +1,27 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.freedesktop.org/software/fontconfig/releases/"
+shortdesc="Connects X applications with freetype"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/?a?3
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_bindir
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig/*.pc
+
