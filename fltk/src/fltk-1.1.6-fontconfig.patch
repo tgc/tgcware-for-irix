@@ -1,0 +1,12 @@
+--- fltk-1.1.6/test/Makefile.borked	Fri Mar 25 15:00:56 2005
++++ fltk-1.1.6/test/Makefile	Fri Mar 25 15:02:34 2005
+@@ -237,6 +237,9 @@
+ 	$(POSTBUILD) $@ ../FL/mac.r
+ 
+ fonts$(EXEEXT): fonts.o
++	echo Linking $@...
++	$(CXX) -I.. $(CXXFLAGS) -o $@ $< $(LINKFLTKFORMS) $(LDLIBS) -lfontconfig
++	$(POSTBUILD) $@ ../FL/mac.r
+ 
+ forms$(EXEEXT): forms.o
+ 	echo Linking $@...
