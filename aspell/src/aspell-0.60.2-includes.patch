@@ -1,0 +1,22 @@
+--- aspell-0.60.2.hacked/common/posib_err.cpp.includes	Thu Mar 24 11:52:10 2005
++++ aspell-0.60.2.hacked/common/posib_err.cpp	Thu Mar 24 11:52:20 2005
+@@ -4,6 +4,8 @@
+ // license along with this library if you did not you can find
+ // it at http://www.gnu.org/.
+ 
++#include <settings.h>
++
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <assert.h>
+--- aspell-0.60.2.hacked/common/string.cpp.includes	Thu Mar 24 11:51:50 2005
++++ aspell-0.60.2.hacked/common/string.cpp	Thu Mar 24 11:51:59 2005
+@@ -4,6 +4,8 @@
+ // license along with this library if you did not you can find
+ // it at http://www.gnu.org/.
+ 
++#include <settings.h>
++
+ #include <stdarg.h>
+ #include <stdio.h>
+ 

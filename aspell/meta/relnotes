@@ -1,0 +1,34 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+trio
+
+ERRORS/MISCELLANEOUS
+--------------------
+For some bizarre reason that I'm unable to figure out the gettext in libintl
+test fails. Code is exactly the same as in lftp where it works. Go figure.
+This means that NLS is currently disabled.
+
+Added support for building with trio for snprint/vsnprint support which the code
+depends on.
