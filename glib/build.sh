@@ -9,13 +9,15 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=1.2.10
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+subsysconf=$metadir/subsys.conf
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
@@ -45,6 +47,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    rm $stagedir$prefix/info/dir
 }
 
 reg pack
