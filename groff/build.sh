@@ -9,8 +9,8 @@
 # Check the following 4 variables before running the script
 topdir=groff
 version=1.19
-pkgver=9
-source[0]=$topdir-1.19.tar.gz
+pkgver=11
+source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.18.1-Imakefile.patch
 patch[1]=groff-1.19-inttypes-irix53.patch
@@ -19,13 +19,14 @@ patch[2]=groff-1.19-nroff-shell.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-topsrcdir=$topdir-1.19
-
 # Define script functions and register them
 METHODS=""
 reg() {
     METHODS="$METHODS $1"
 }
+
+# This package has a shallow stagedir
+shortroot=1
 
 reg prep
 prep()
@@ -57,20 +58,20 @@ install()
     cd src/xditview
     $MAKE_PROG DESTDIR=$stagedir install
     setdir stage
-    rm -f info/dir
-    mv usr/bin/* bin
-    mv usr/lib/* lib
-    rm -rf usr
-    mv bin/X11/* bin
-    rmdir bin/X11
+    ${RM} -f info/dir
+    ${MV} usr/bin/* bin
+    ${MV} usr/lib/* lib
+    ${RM} -rf usr
+    ${MV} bin/X11/* bin
+    ${RMDIR} bin/X11
     custom_install=1
     generic_install
+    doc ChangeLog NEWS PROBLEMS PROJECTS TODO
 }
 
 reg pack
 pack()
 {
-    shortroot=1
     generic_pack
 }
 
