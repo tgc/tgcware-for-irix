@@ -1,0 +1,26 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://freedesktop.org"
+shortdesc="Client-side cursor loading library for X"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_docdir
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/?a?3
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig/*.pc
+
