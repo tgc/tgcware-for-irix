@@ -1,0 +1,25 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+make CC=gcc CCOPTIONS="-I/usr/local/include" SYS_LIBRARIES="-lm -Wl,-rpath,/usr/local/lib -L/usr/local/lib -lXpm" LDPOSTLIB= STD_INCLUDES=
+
+KNOWN DEPENDENCIES
+------------------
+xpm
+
+ERRORS/MISCELLANEOUS
+--------------------
+The -misc patch was taken from the xsnow-1.42-14 src.rpm found in FC2.
+snprintf was supplied by a copy of bsd-snprintf.c from openssh.

@@ -1,19 +1,55 @@
---- xsnow-1.42/xsnow.c~	Sun Dec 16 00:44:47 2001
-+++ xsnow-1.42/xsnow.c	Fri Dec 21 12:54:47 2001
-@@ -766,16 +766,38 @@
- 				if ((RunCounter % SantaUpdateFactor) == 0) UpdateSanta();
- 			}
- 		}
--		XDestroyRegion(Wr);
--		XDestroyRegion(snscr);
--		XDestroyRegion(sar);
--		XDestroyRegion(PrevWr);
--		XDestroyRegion(WDR);
--		XDestroyRegion(rscrr);
--		XClearWindow(display, rootWin);
--		XCloseDisplay(display);
--		exit(0);
-+		finish();
+--- xsnow-1.42/xsnow.c.orig	2001-12-16 00:44:47.000000000 +0100
++++ xsnow-1.42/xsnow.c	2004-02-24 21:12:31.670634766 +0100
+@@ -227,7 +227,7 @@
+ #include <X11/xpm.h>
+ /**** V R O O T ****/
+ /* For vroot.h see the credits at the beginning of Xsnow */
+-/***#include <X11/vroot.h>   /* if vroot.h installed in /usr/include/X11 ***/
++/***#include <X11/vroot.h>  */ /* if vroot.h installed in /usr/include/X11 ***/
+ /* replaced by ToonGetRootWindow 
+ 	#include "vroot.h" 
+ 	#include "toon.h"
+@@ -321,6 +321,7 @@
+ unsigned int RunCounter = 0;
+ int SantaUpdateFactor = 3;
+ /* Forward decls */
++void finish();
+ void Usage();
+ void SigHandler();
+ void SigHupHandler();
+@@ -374,6 +375,7 @@
+ int ac;
+ char *av[];
+ {
++		XExposeEvent event;
+ 		XGCValues xgcv;
+ 		int ax;
+ 		char *arg;
+@@ -383,7 +385,6 @@
+ 		int Exposed;
+ 		int ConfigureNotified;
+ 		int i; 
+-		int x,y;
+ 		Window root; /* used in getgeometry call */
+ 		int winX, winY;
+ 		unsigned int winHeight, winWidth;
+@@ -773,9 +774,50 @@
+ 		XDestroyRegion(WDR);
+ 		XDestroyRegion(rscrr);
+ 		XClearWindow(display, rootWin);
++		/* Send an expose event so that any apps that draw to the window can
++			redraw them */
++		event.type = Expose;
++		event.send_event = True;
++		event.display = display;
++		event.window = rootWin;
++		event.x = 0;
++		event.y = 0;
++		event.width = display_width;
++		event.height = display_height;
++		XSendEvent(display, rootWin, False, Expose, (XEvent *) &event);
+ 		XCloseDisplay(display);
+ 		exit(0);
  }		/* End of the snow */
 +
 +
@@ -48,3 +84,75 @@
  /* ------------------------------------------------------------------ */ 
  #define USEPRT(msg) fprintf(stderr, msg)
  void
+@@ -906,16 +948,15 @@
+ }
+ 	 
+ void
+-UpdateSnowflake(rx)
+-int rx;
++UpdateSnowflake(int rx)
+ {
+ Snow *snow;
+-int NewX;
+-int NewY;
+-int tmp_x;
+-int TouchDown;
+-int InVisible;
+-int NoErase;
++int NewX = 0;
++int NewY = 0;
++int tmp_x = 0;
++int TouchDown = 0;
++int InVisible = 0;
++int NoErase = 0;
+ 	snow = &snowflakes[rx];
+ 	NoErase = 0;  
+ 	if (!snow->active) {
+@@ -1058,7 +1099,6 @@
+ void InitSantaPixymaps()
+ {
+ 	int rc;
+-	char t[255];
+ 	#if debug
+ 	printf("InitSantaPixymaps: SantaSize=%d Rudolf=%d\n", SantaSize,Rudolf);
+ 	#endif
+@@ -1135,7 +1175,6 @@
+ UpdateSanta()
+ {
+ int Visible;
+-int tmp_x;
+ static int SantaXWindXcel = 0;
+ 	if (SantaVisible) EraseSanta();
+ 	if (wind) {
+@@ -1282,12 +1321,9 @@
+ 		unsigned int nChildren;
+ 		Window dummy;
+ 		XWindowAttributes wa;
+-		int wx;
+-		XRectangle CatchRect;
+-		XRectangle AllowRect;
+ 		XRectangle WinRect;
++		int wx;
+ 		int winX, winY;
+-		int NouMoe;
+ 		unsigned int winHeight, winWidth;
+ 		unsigned int depth;
+ 			 
+@@ -1327,7 +1363,7 @@
+ 				if (wa.map_state == IsViewable) {
+ 						XGetGeometry(display, children[wx], &dummy, &winX, &winY,
+ 								&winWidth, &winHeight, &borderWidth, &depth);
+-						/*if (winWidth == 1280) continue;  /* debug */
++						/*if (winWidth == 1280) continue; */ /* debug */
+ 						#if debug
+ 						printf("\nw x:%d y:%d w:%d h:%d - bw:%d d:%d \n", winX,winY,winWidth,winHeight,borderWidth,depth);
+ 						#endif
+@@ -1438,8 +1474,6 @@
+ }		
+ void HEAr(int X,int Y,int W, int H) {
+ int AddX,AddY;
+-int ClearX, ClearY;
+-/*return;		/* DEBUG */
+ 	AddX = X - MaxSnowFlakeHeight;
+ 	AddY = Y - MaxWinSnowDepth;
+ 	AddRect.height = H +  MaxWinSnowDepth;
