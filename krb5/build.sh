@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=krb5
 version=1.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -62,6 +62,9 @@ install()
 	${GINSTALL} -m 644 *.ps ${stagedir}${topinstalldir}/${_vdocdir}
 	${GINSTALL} -m 644 *.html ${stagedir}${topinstalldir}/${_vdocdir}/html
     )
+
+    # Fix rpath flag in krb5-config
+    ${GSED} -i "/^RPATH_FLAG/s/=.*/='-rpath '/g" ${stagedir}${topinstalldir}/${_bindir}/krb5-config
 }
 
 reg pack
