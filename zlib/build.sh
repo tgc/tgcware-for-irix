@@ -9,17 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=zlib
 version=1.1.4
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=zlib-1.1.4-use_cc.patch
-patch[1]=zlib-1.1.4-vsnprintf.patch
+patch[0]=zlib-1.1.4-vsnprintf.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
 
 # Define script functions and register them
 METHODS=""
@@ -38,7 +34,10 @@ build()
 {
     export CC=gcc
     export CFLAGS="-Wall -ansi -O3"
+    export LDSHARED="gcc -shared -static-libgcc"
     setdir source
+    ./configure --prefix=$prefix
+    $MAKE_PROG test
     ./configure --shared --prefix=$prefix
     $MAKE_PROG test
 }
@@ -48,19 +47,18 @@ install()
 {
     generic_install prefix
     setdir source
-    mkdir -p $stagedir/man/man3
-    cp zlib.3 $stagedir/man/man3
-    mkdir -p $stagedir/doc/$topdir-$version
-    for i in "README ChangeLog algorithm.txt minigzip.c example.c"
-    do
-	    cp $i $stagedir/doc/$topdir-$version
-    done
+    $MKDIR -p ${stagedir}/${_mandir}/man3
+    $CP zlib.3 ${stagedir}/${_mandir}/man3
+    $CP libz.a ${stagedir}/${_libdir}
+    doc README ChangeLog algorithm.txt minigzip.c example.c
+    setdir stage
+    $MV ${_includedir} ${_libdir} ${_mandir} ${stagedir}${prefix}
 }
 
 reg pack
 pack()
 {
-    generic_pack shortroot
+    generic_pack
 }
 
 reg distclean

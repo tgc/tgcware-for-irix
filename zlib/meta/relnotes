@@ -1,0 +1,33 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+
+export CC=gcc
+export CFLAGS="-Wall -ansi -O3"
+export LDSHARED="gcc -shared -static-libgcc"
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+# ./configure --prefix=/usr/local
+# ./configure --shared --prefix=/usr/local
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+ERRORS/MISCELLANEOUS
+--------------------
+none
