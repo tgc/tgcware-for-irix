@@ -1,0 +1,13 @@
+--- cups-1.1.23/config-scripts/cups-directories.m4.please-respect-me-when-i-tell-configure-where-libs-should-be-placed-thank-you-very-much	Fri Mar 25 15:43:48 2005
++++ cups-1.1.23/config-scripts/cups-directories.m4	Fri Mar 25 15:43:58 2005
+@@ -85,10 +85,6 @@
+ 	libdir="$exec_prefix/lib"
+ fi
+ 
+-if test "$uname" = "IRIX" -a $uversion -ge 62; then
+-	libdir="$exec_prefix/lib32"
+-fi
+-
+ dnl Fix "fontpath" variable...
+ if test "x$fontpath" = "x"; then
+ 	fontpath="$datadir/cups/fonts"
