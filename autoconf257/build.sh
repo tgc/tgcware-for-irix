@@ -9,10 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=autoconf257
 version=2.57
-pkgver=2
+pkgver=3
 source[0]=autoconf-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=autoconf-2.57-versioning.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -39,7 +39,7 @@ reg build
 build()
 {
     setdir source
-    ./configure --prefix=$prefix --program-suffix=-$version
+    ./configure --prefix=$prefix
     $MAKE_PROG
 }
 
@@ -47,7 +47,10 @@ reg install
 install()
 {
     generic_install DESTDIR
-    rm -f $stagedir$prefix/info/dir
+    $RM -f $stagedir$prefix/info/dir
+    $RM -f $stagedir$prefix/info/standards*
+    gzip -9nf $stagedir$prefix/info/autoconf.info*
+    doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO
 }
 
 reg pack
