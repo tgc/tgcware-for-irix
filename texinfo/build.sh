@@ -8,18 +8,14 @@
 #
 # Check the following 4 variables before running the script
 topdir=texinfo
-version=4.6
-pkgver=2
+version=4.7
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU texinfo"
 
 # Define script functions and register them
 METHODS=""
@@ -43,7 +39,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    $RM -f ${stagedir}${prefix}/${_infodir}/dir
+    doc NEWS ChangeLog INTRODUCTION TODO
 }
 
 reg pack
