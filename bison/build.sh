@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=bison
-version=1.35
+version=1.875
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -43,6 +43,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    $RM -f $stagedir$prefix/info/dir
 }
 
 reg pack
