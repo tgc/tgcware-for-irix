@@ -1,0 +1,38 @@
+--- mktemp-1.5/mktemp.c.f	2003-08-03 12:21:10.840000000 +0000
++++ mktemp-1.5/mktemp.c	2003-08-03 12:23:00.750000000 +0000
+@@ -66,6 +66,35 @@
+ 	exit(1);
+ }
+ 
++
++
++#ifndef HAVE_MKDTEMP
++static char * mkdtemp (char *template)
++{
++    char temp[strlen(template) + 1];
++    int ret;
++
++    while (1) {
++        strcpy(temp, template);
++        if (mktemp(temp) == NULL) {
++            return NULL;
++        }
++        ret = mkdir(temp, 0700);
++        /* success, return the name of the new directory */
++        if (ret == 0) {
++            strcpy(template, temp);
++            return template;
++        }
++        /* failed because directory existed already -- just try again */
++        if ((ret == -1) && (errno == EEXIST))
++            continue;
++        /* failed for any other reason, return the name of the directory we tried to create */
++        strcpy(template, temp);
++        return NULL;
++    }
++}
++#endif
++
+ int
+ main(argc, argv)
+ 	int argc;

@@ -1,0 +1,39 @@
+diff -urN mktemp-1.5.orig/mktemp.c mktemp-1.5/mktemp.c
+--- mktemp-1.5.orig/mktemp.c	2003-08-03 12:34:44.500000000 +0000
++++ mktemp-1.5/mktemp.c	2003-08-03 12:37:04.720000000 +0000
+@@ -41,8 +41,6 @@
+ #include <errno.h>
+ #include <stdarg.h>
+ 
+-extern char *__progname;
+-
+ void err(int somecode, char * message, ...) {
+     va_list arglist;
+ 
+@@ -59,10 +57,10 @@
+ }
+ 
+ void
+-usage()
++usage(char *arg)
+ {
+ 	(void) fprintf(stderr, "Usage: %s [-d] [-q] [-u] template\n",
+-	    __progname);
++	    arg);
+ 	exit(1);
+ }
+ 
+@@ -116,11 +114,11 @@
+ 			break;
+ 		case '?':
+ 		default:
+-			usage();
++			usage(argv[0]);
+ 	}
+ 
+ 	if (argc - optind != 1)
+-		usage();
++		usage(argv[0]);
+ 
+ 	if ((template = strdup(argv[optind])) == NULL) {
+ 		if (qflag)
