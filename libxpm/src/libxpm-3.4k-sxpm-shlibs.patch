@@ -1,0 +1,22 @@
+--- xpm-3.4k/sxpm/Makefile.noX.orig	Sat Dec 11 11:37:35 2004
++++ xpm-3.4k/sxpm/Makefile.noX	Sat Dec 11 11:38:57 2004
+@@ -37,8 +37,8 @@
+ # where the X11 libs are
+ XLIBDIRS= -L/usr/X11/lib
+ 
+-LIBDIRS= -L../lib
+-LIBS= -lXpm -lXext -lXt -lX11
++LIBXPM= -L../lib -lXpm
++LIBS= -lXext -lXt -lX11
+ 
+ CC = gcc
+ RM = rm -f
+@@ -62,7 +62,7 @@
+ 	$(RM) *.o sxpm
+ 
+ sxpm: $(OBJS)
+-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBDIRS) $(XLIBDIRS) $(LIBS) -o sxpm
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBXPM) $(XLIBDIRS) $(LIBS) -o sxpm
+ 
+ install:
+ 	$(MKDIR) -p $(DESTDIR)$(BINDIR)

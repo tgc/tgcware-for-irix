@@ -1,0 +1,28 @@
+diff -urN xpm-3.4k.orig//lib/XpmI.h xpm-3.4k/lib/XpmI.h
+--- xpm-3.4k.orig//lib/XpmI.h	Thu Mar 19 20:51:00 1998
++++ xpm-3.4k/lib/XpmI.h	Sat Dec 11 11:21:31 2004
+@@ -34,6 +34,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include "size_max.h"
++
+ /*
+  * The code related to FOR_MSW has been added by
+  * HeDu (hedu@cul-ipn.uni-kiel.de) 4/94
+diff -urN xpm-3.4k.orig//lib/size_max.h xpm-3.4k/lib/size_max.h
+--- xpm-3.4k.orig//lib/size_max.h
++++ xpm-3.4k/lib/size_max.h	Sat Dec 11 11:21:07 2004
+@@ -0,0 +1,12 @@
++/*
++ * If we don't have SIZE_MAX in the system includes
++ * we'll have to define it ourselves
++ * See: http://sourceforge.net/mailarchive/forum.php?thread_id=5800875&forum_id=41383
++ */
++
++#ifdef NEEDS_SIZE_MAX
++#include <limits.h>
++#include <stddef.h>
++#define SIZE_MAX ((sizeof(size_t) >= sizeof(unsigned long)) ? ULONG_MAX : ((sizeof(size_t) >= sizeof(unsigned int)) ? UINT_MAX : ((sizeof(size_t) >= sizeof(unsigned short)) ? USHRT_MAX : UCHAR_MAX)))
++#endif
++

@@ -1,0 +1,22 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------
+Patches for CAN-2004-687 & CAN-2004-688 have been applied.
