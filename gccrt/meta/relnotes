@@ -1,0 +1,25 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+No special build variables where set
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+ERRORS/MISCELLANEOUS
+--------------------
+This is the shared libraries from various gcc versions which packages may
+need at runtime.

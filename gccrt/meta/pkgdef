@@ -1,0 +1,11 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+shortdesc="gcc shared libraries"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+
