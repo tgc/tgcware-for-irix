@@ -12,7 +12,7 @@ version=1.0.2
 pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=bzip2-makefile.patch # cp -f doesn't work on Irix 5.3
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
