@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=bzip2
 version=1.0.2
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=bzip2-makefile.patch # cp -f doesn't work on Irix 5.3
@@ -45,9 +45,9 @@ install()
 {
     generic_install PREFIX
     setdir source
-    cp libbz2.so* $stagedir/lib
-    rm $stagedir/lib/libbz2.a
-    cd $stagedir/lib
+    $CP libbz2.so* $stagedir/lib
+    $RM $stagedir/lib/libbz2.a
+    setdir $stagedir/lib
     ln -sf libbz2.so.1.0.2 libbz2.so.1.0
     ln -sf libbz2.so.1.0 libbz2.so
 }
