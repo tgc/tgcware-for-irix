@@ -8,9 +8,9 @@
 #
 # Check the following 4 variables before running the script
 topdir=zlib
-version=1.2.1.1
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.2.2
+pkgver=1
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -35,7 +35,7 @@ prep()
 reg build
 build()
 {
-    export LDSHARED="gcc -shared -rpath ${prefix}/${_libdir}"
+    export LDSHARED="gcc -shared -rpath ${prefix}/${_libdir} -Wl,-soname,libz.so.1"
     generic_build
     setdir source
     $MAKE_PROG test

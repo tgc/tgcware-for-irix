@@ -11,7 +11,7 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export LDSHARED="gcc -shared -rpath /usr/local/lib"
+export LDSHARED="gcc -shared -rpath /usr/local/lib -Wl,-soname,libz.so.1"
 
 Configure:
 %%CONFIGURE%%
