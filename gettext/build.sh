@@ -9,18 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=gettext
 version=0.14.1
-pkgver=1
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-subsysconf=$metadir/subsys.conf
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
 
 # Define script functions and register them
 METHODS=""
@@ -38,16 +33,24 @@ reg build
 build()
 {
     export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-    setdir source
-    ./configure --prefix=$prefix --mandir=$prefix/man
-    $MAKE_PROG
+    set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/local'
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/$_infodir/dir
+    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
+    ${RM} -f ${stagedir}${prefix}/${_libdir}/charset.alias
+    doc NEWS README
+    # Fix up these 4 manpages to use symlinks instead of nroff include style
+    setdir ${stagedir}${prefix}/${_mandir}/man3
+    ${RM} -f dcgettext.3 dcngettext.3 dgettext.3 dngettext.3
+    ${LN} -s gettext.3 dcgettext.3
+    ${LN} -s ngettext.3 dcngettext.3
+    ${LN} -s gettext.3 dgettext.3
+    ${LN} -s ngettext.3 dngettext.3
 }
 
 reg pack
