@@ -1,0 +1,31 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+set_configure_args '--prefix=$prefix --with-libiconv-prefix=/usr/local --with-libintl-prefix=/usr/local --enable-nls --enable-r
+path'
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+libiconv
+gettext
+
+ERRORS/MISCELLANEOUS
+--------------------
