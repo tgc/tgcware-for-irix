@@ -1,0 +1,64 @@
+--- xpm-3.4k/sxpm/Makefile.noX.orig	2003-12-23 12:04:20.700000000 +0100
++++ xpm-3.4k/sxpm/Makefile.noX	2003-12-23 12:04:24.930000000 +0100
+@@ -27,10 +27,12 @@
+ # XPM Makefile - Arnaud LE HORS
+ #
+ 
++DESTDIR=
++
+ # where the program will be installed
+-DESTBINDIR=/usr/local/bin/X11
++BINDIR=/usr/local/bin
+ # where the man page will be installed
+-MANDIR=/usr/local/man/manl
++MANDIR=/usr/local/man/man1
+ 
+ # where the X11 libs are
+ XLIBDIRS= -L/usr/X11/lib
+@@ -38,32 +40,40 @@
+ LIBDIRS= -L../lib
+ LIBS= -lXpm -lXext -lXt -lX11
+ 
+-CC = cc
++CC = gcc
+ RM = rm -f
+ # on sysV, define this as cp.
+ INSTALL = install -c
+ 
+-CDEBUGFLAGS= -O
++MKDIR = mkdir
++
++CDEBUGFLAGS= -O2
+ 
+ INCLUDES= -I..
+ 
+ OBJS= sxpm.o
+ 
+ CFLAGS= $(CDEBUGFLAGS) $(INCLUDES) $(DEFINES)
++LDFLAGS = -Wl,-rpath,/usr/local/lib
+ 
+ all: sxpm
+ 
+ clean: 
+ 	$(RM) *.o sxpm
+ 
+-sxpm: sxpm.o
+-	$(CC) $(CFLAGS) sxpm.o $(LIBDIRS) $(XLIBDIRS) $(LIBS) -o sxpm
++sxpm: $(OBJS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBDIRS) $(XLIBDIRS) $(LIBS) -o sxpm
+ 
+ install:
+-	$(INSTALL) -m 0755 sxpm $(DESTBINDIR)
++	$(MKDIR) -p $(DESTDIR)$(BINDIR)
++	$(INSTALL) -m 0755 sxpm $(DESTDIR)$(BINDIR)
+ 
+ install.man:
+-	$(INSTALL) -m 0644 sxpm.man $(MANDIR)/sxpm.l
++	$(MKDIR) -p $(DESTDIR)$(MANDIR)
++	$(INSTALL) -m 0644 sxpm.man $(DESTDIR)$(MANDIR)/sxpm.1
++
++%.o : %.c
++	$(CC) -c $(CFLAGS) $< -o $@
+ 
+ # Other dependencies.
+ sxpm.o: ../lib/xpm.h

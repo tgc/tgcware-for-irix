@@ -1,0 +1,74 @@
+--- xpm-3.4k/lib/Makefile.noX.orig	2003-12-23 12:13:46.540000000 +0100
++++ xpm-3.4k/lib/Makefile.noX	2003-12-23 12:14:19.630000000 +0100
+@@ -34,21 +34,25 @@
+ # add -DVOID_SPRINTF
+ DEFINES =
+ 
++DESTDIR=
++
+ # where the library will be installed
+-DESTLIBDIR=/usr/local/lib/X11
++LIBDIR=/usr/local/lib
+ # where the include file (pxm.h) will be installed
+-DESTINCLUDEDIR=/usr/local/include/X11
++INCLUDEDIR=/usr/local/include/X11
+ 
+-CC = cc
++CC = gcc
+ AR = ar r
+-RANLIB = ranlib
++RANLIB = :
+ RM = rm -f
+ # on sysV, define this as cp.
+ INSTALL = install -c
+ MKDIRHIER = mkdir
+ LN = ln -s
+ 
+-CDEBUGFLAGS= -O
++CDEBUGFLAGS= -O2
++SONAME = libXpm.so.4
++SHLIB = libXpm.so.4.11
+ 
+ OBJS= data.o create.o misc.o rgb.o scan.o parse.o hashtab.o \
+       WrFFrP.o RdFToP.o CrPFrDat.o CrDatFrP.o \
+@@ -57,23 +61,33 @@
+       RdFToDat.o WrFFrDat.o \
+       Attrib.o CrIFrP.o CrPFrI.o Image.o Info.o RdFToBuf.o WrFFrBuf.o
+ 
++SHOBJS= $(OBJS:%.o=%.so)
++
+ CFLAGS= $(CDEBUGFLAGS) $(DEFINES) $(INCLUDES)
+ 
+-all: ../X11/xpm.h libXpm.a
++all: ../X11/xpm.h libXpm.a $(SHLIB)
+ 
+ clean: 
+-	$(RM) *.o libXpm.a
++	$(RM) *.o *.so libXpm.a $(SHLIB)
+ 
+ libXpm.a: $(OBJS)
+ 	$(AR) libXpm.a $(OBJS)
+ 	$(RANLIB) libXpm.a
+ 
++$(SHLIB): $(SHOBJS)
++	$(CC) -o $(SHLIB) -Wl,-rpath,/usr/local/lib -Wl,-soname,$(SONAME) -shared $(SHOBJS)
++	$(LN) $(SHLIB) libXpm.so
++	$(LN) $(SHLIB) $(SONAME)
++
++%.so : %.c
++	$(CC) -c -fPIC $(CDEBUGFLAGS) $(DEFINES) $(INCLUDES) $< -o $@
++
+ install:
+-	$(INSTALL) -m 0664 libXpm.a $(DESTLIBDIR)
+-	cd $(DESTLIBDIR); $(RANLIB) libXpm.a
+-	-mkdir $(DESTINCLUDEDIR)
+-	-chmod ugo+rx $(DESTINCLUDEDIR)
+-	$(INSTALL) -m 0444 xpm.h $(DESTINCLUDEDIR)
++	$(MKDIRHIER) -p $(DESTDIR)$(LIBDIR)
++	$(INSTALL) -m 0664 libXpm.a $(DESTDIR)$(LIBDIR)
++	$(INSTALL) -m 0664 libXpm.so.4.11 $(DESTDIR)$(LIBDIR)
++	$(MKDIRHIER) -p $(DESTDIR)$(INCLUDEDIR)
++	$(INSTALL) -m 0444 xpm.h $(DESTDIR)$(INCLUDEDIR)
+ 
+ ../X11/xpm.h: xpm.h
+ 	@if [ -d ../X11 ]; then set +x; \

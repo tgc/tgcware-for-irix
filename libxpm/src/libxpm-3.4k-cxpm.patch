@@ -1,0 +1,49 @@
+--- xpm-3.4k/cxpm/Makefile.noX.orig	2003-12-23 12:04:33.130000000 +0100
++++ xpm-3.4k/cxpm/Makefile.noX	2003-12-23 12:04:38.620000000 +0100
+@@ -27,17 +27,21 @@
+ # XPM Makefile - Arnaud LE HORS
+ #
+ 
++DESTDIR=
++
+ # where the program will be installed
+-DESTBINDIR=/usr/local/bin/X11
++BINDIR=/usr/local/bin
+ # where the man page will be installed
+-MANDIR=/usr/local/man/manl
++MANDIR=/usr/local/man/man1
+ 
+-CC = cc
++CC = gcc
+ RM = rm -f
+ # on sysV, define this as cp.
+ INSTALL = install -c
+ 
+-CDEBUGFLAGS= -O
++MKDIR = mkdir
++
++CDEBUGFLAGS= -O2
+ 
+ INCLUDES= -I..
+ 
+@@ -50,14 +54,16 @@
+ clean: 
+ 	$(RM) *.o cxpm
+ 
+-cxpm: cxpm.o
+-	$(CC) $(CFLAGS) cxpm.o -o cxpm
++cxpm: $(OBJS)
++	$(CC) $(CFLAGS) $(OBJS) -o cxpm
+ 
+ install:
+-	$(INSTALL) -m 0755 cxpm $(DESTBINDIR)
++	$(MKDIR) -p $(DESTDIR)$(BINDIR)
++	$(INSTALL) -m 0755 cxpm $(DESTDIR)$(BINDIR)
+ 
+ install.man:
+-	$(INSTALL) -m 0644 cxpm.man $(MANDIR)/cxpm.l
++	$(MKDIR) -p $(DESTDIR)$(MANDIR)
++	$(INSTALL) -m 0644 cxpm.man $(DESTDIR)$(MANDIR)/cxpm.1
+ 
+ # Other dependencies.
+ cxpm.o: ../lib/XpmI.h ../lib/data.c ../lib/parse.c ../lib/RdFToI.c \
