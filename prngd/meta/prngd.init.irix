@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# Script to control prngd start/stop
-# History:
-# 01/05-2001 - Tom G. Christensen / tgc
-# 28/07-2003 - tgc
-# - Updated for use with Irix
-
 IS_ON=/etc/chkconfig
 
 if $IS_ON verbose ; then
@@ -19,19 +13,6 @@ PRNGD_BIN=/usr/local/sbin/prngd
 POOLDIR=/var/run
 POOLFILE=egd-pool
 
-mode=$1
-
-case `uname -sr` in
-    'IRIX 5.3')
-		set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
-		;;
-    *)
-		set `/usr/bin/id -u`
-		;;
-esac
-
-if [ $1 = "0" ]; then
-
 check_pooldir()
 {
 	if [ ! -d $POOLDIR ]; then
@@ -41,7 +22,7 @@ check_pooldir()
 	fi
 }
 
-case $mode in
+case "$1" in
     'start')
 	    if $IS_ON prngd && test -x $PRNGD_BIN; then
 		$ECHO "Starting $DESC"
@@ -61,7 +42,3 @@ case $mode in
 	    echo "Usage: $0 {start|stop|restart}"
 	    ;;
 esac 
-
-else
-  echo "$0: this script must be run as root... fatal error"
-fi

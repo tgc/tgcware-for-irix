@@ -1,0 +1,19 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+shortdesc="Pseudo Random Number Gathering Daemon"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+${lprefix}/${_sbindir}
+${lprefix}/${_sysconfdir}
+$_sysconfdir
+${lprefix}/$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${lprefix}/${_mandir}
+

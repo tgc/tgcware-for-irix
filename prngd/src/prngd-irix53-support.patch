@@ -1,7 +1,7 @@
-diff -urN prngd-0.9.27.orig/Makefile prngd-0.9.27.irix53/Makefile
---- prngd-0.9.27.orig/Makefile	Wed Dec 18 14:42:10 2002
-+++ prngd-0.9.27.irix53/Makefile	Wed Jul 30 14:15:40 2003
-@@ -92,6 +92,12 @@
+diff -urN prngd-0.9.29/Makefile prngd-0.9.29.irix53/Makefile
+--- prngd-0.9.29/Makefile	2004-07-12 17:13:35.000000000 +0200
++++ prngd-0.9.29.irix53/Makefile	2004-07-23 10:49:17.980000000 +0200
+@@ -97,6 +97,12 @@
  # CFLAGS=-O3 -Wall -DNEXTSTEP -D_POSIX_SOURCE
  # LDFLAGS=-L../ossh/openbsd-compat/ -lopenbsd-compat
  
@@ -14,10 +14,10 @@ diff -urN prngd-0.9.27.orig/Makefile prngd-0.9.27.irix53/Makefile
  # IRIX 6.2 w/gcc ("Michael Weiser" <michael@weiser.saale-net.de>)
  # CFLAGS=-O3 -Wall -DIRIX62
  
-diff -urN prngd-0.9.27.orig/config.h prngd-0.9.27.irix53/config.h
---- prngd-0.9.27.orig/config.h	Wed Dec 18 14:42:10 2002
-+++ prngd-0.9.27.irix53/config.h	Wed Jul 30 14:27:06 2003
-@@ -188,6 +188,20 @@
+diff -urN prngd-0.9.29/config.h prngd-0.9.29.irix53/config.h
+--- prngd-0.9.29/config.h	2004-07-12 17:13:35.000000000 +0200
++++ prngd-0.9.29.irix53/config.h	2004-07-23 10:49:18.030000000 +0200
+@@ -204,6 +204,20 @@
  #define PATH_SYSLOG     "/private/adm/messages"
  #endif
  
@@ -28,7 +28,7 @@ diff -urN prngd-0.9.27.orig/config.h prngd-0.9.27.irix53/config.h
 +#define O_RSYNC 0
 +#define SOCKLEN_T       int
 +#define PATH_TMP        "/tmp"
-+#define PATH_VAR_TMP	"/var/tmp"
++#define PATH_VAR_TMP    "/var/tmp"
 +#define PATH_PASSWD     "/etc/passwd"
 +#define PATH_WTMP       "/var/adm/wtmpx"
 +#define PATH_UTMP       "/var/adm/utmpx"
@@ -38,12 +38,12 @@ diff -urN prngd-0.9.27.orig/config.h prngd-0.9.27.irix53/config.h
  #ifdef IRIX62
  #define HAVE_GETRUSAGE
  #define SOCKLEN_T       int
-diff -urN prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.27.irix53/contrib/IRIX-53/prngd.conf.irix-53
---- prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53
-+++ prngd-0.9.27.irix53/contrib/IRIX-53/prngd.conf.irix-53	Wed Jul 30 14:15:40 2003
-@@ -0,0 +1,43 @@
+diff -urN prngd-0.9.29/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.29.irix53/contrib/IRIX-53/prngd.conf.irix-53
+--- prngd-0.9.29/contrib/IRIX-53/prngd.conf.irix-53	1970-01-01 01:00:00.000000000 +0100
++++ prngd-0.9.29.irix53/contrib/IRIX-53/prngd.conf.irix-53	2004-07-23 10:51:57.170000000 +0200
+@@ -0,0 +1,39 @@
 +# entropy gathering commands
-+# Irix 5.3, contributed by Tom G. Christensen <tom.christensen@get2net.dk>
++# Irix 5.3 & 6.2, contributed by Tom G. Christensen <tom.christensen@get2net.dk>
 +
 +# Format is: "program-name args" path rate
 +
@@ -64,10 +64,6 @@ diff -urN prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.27.irix
 +"netstat -is" /usr/etc/netstat 0.02
 +"netstat -m" /usr/etc/netstat 0.02
 +
-+#"arp -a -n" /usr/etc/arp 0.02
-+
-+#"ifconfig -a" /usr/etc/ifconfig 0.02
-+
 +"ps -al" /usr/bin/ps 0.03
 +"ps -efl" /usr/bin/ps 0.03
 +
@@ -85,9 +81,9 @@ diff -urN prngd-0.9.27.orig/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.27.irix
 +"ipcs -a" /usr/bin/ipcs 0.01
 +
 +"tail -200 /var/adm/SYSLOG" /usr/bin/tail 0.01
-diff -urN prngd-0.9.27.orig/prngd.h prngd-0.9.27.irix53/prngd.h
---- prngd-0.9.27.orig/prngd.h	Fri May 17 21:18:37 2002
-+++ prngd-0.9.27.irix53/prngd.h	Wed Jul 30 14:28:41 2003
+diff -urN prngd-0.9.29/prngd.h prngd-0.9.29.irix53/prngd.h
+--- prngd-0.9.29/prngd.h	2004-05-17 10:24:46.000000000 +0200
++++ prngd-0.9.29.irix53/prngd.h	2004-07-23 10:49:18.100000000 +0200
 @@ -23,6 +23,10 @@
  int vsnprintf(char *str, size_t count, const char *fmt, va_list args);
  #endif /* !HAVE_SNPRINTF */

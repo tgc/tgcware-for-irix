@@ -1,0 +1,37 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+No special build variables where set
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+cflags_os="-D$(uname -sr|sed -e 's;\.;;g' -e 's; ;;g')"
+prefix=/usr/local
+_sysconfdir=/etc
+
+# make CC=gcc CFLAGS="-O3 -Wall $cflags_os" \
+	DEFS="-DRANDSAVENAME=\\\"${prefix}${_sysconfdir}/prngd/prngd-seed\\\" \
+	-DCONFIGFILE=\\\"${prefix}${_sysconfdir}/prngd/prngd.conf\\\""
+
+KNOWN DEPENDANCIES
+------------------
+none
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+You can use chkconfig prngd 'on'/'off' to control automatic startup of this daemon.
+The default setting is 'on' for automatic startup.

@@ -8,17 +8,14 @@
 #
 # Check the following 4 variables before running the script
 topdir=prngd
-version=0.9.27
-pkgver=3
+version=0.9.29
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
 
 # Define script functions and register them
 METHODS=""
@@ -35,39 +32,54 @@ prep()
 reg build
 build()
 {
-	setdir source
-	make CC=gcc CFLAGS="-O3 -Wall -DIRIX53" DEFS='-DRANDSAVENAME=\"/usr/local/etc/prngd/prngd-seed\" -DCONFIGFILE=\"/usr/local/etc/prngd/prngd.conf\"'
-	$MAKE_PROG
+    [ "$_os" == "irix53" ] && cflags_os="-DIRIX53"
+    [ "$_os" == "irix62" ] && cflags_os="-DIRIX62"
+    setdir source
+    $MAKE_PROG CC=gcc CFLAGS="-O3 -Wall $cflags_os" DEFS="-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\""
 }
 
 reg install
 install()
 {
-	clean stage
-	setdir source
-	mkdir -p $stagedir/sbin
-	mkdir -p $stagedir/etc/prngd
-	mkdir -p $stagedir/man/man1
-	cp prngd $stagedir/sbin
-	cp prngd.man $stagedir/man/man1/prngd.1
-	cp contrib/IRIX-53/prngd.conf.irix-53 $stagedir/etc/prngd/prngd.conf
-	chmod 744 $stagedir/sbin/prngd
-	chmod 644 $stagedir/man/man1/*
-	cp $metadir/prngd.init.irix $stagedir/etc/prngd/prngd.init-sample
-	cp $metadir/postinstall.irix $stagedir/etc/prngd/postinstall.irix
-	cp $metadir/postremove.irix $stagedir/etc/prngd/postremove.irix
-	echo "Please fill me up!" > $stagedir/etc/prngd/prngd-seed
+    clean stage
+    setdir source
+    $MKDIR -p ${stagedir}/${_sysconfdir}/init.d
+    $MKDIR -p ${stagedir}/${_sysconfdir}/rc0.d
+    $MKDIR -p ${stagedir}/${_sysconfdir}/rc2.d
+    $MKDIR -p ${stagedir}/${_sysconfdir}/config
+    $MKDIR -p ${stagedir}${prefix}/${_sbindir}
+    $MKDIR -p ${stagedir}${prefix}/${_sysconfdir}/prngd
+    $MKDIR -p ${stagedir}${prefix}/${_mandir}/man1
+    $CP prngd ${stagedir}${prefix}/${_sbindir}
+    $CP prngd.man ${stagedir}${prefix}/${_mandir}/man1/prngd.1
+    chmod 744 ${stagedir}${prefix}/${_sbindir}/prngd
+    chmod 644 ${stagedir}${prefix}/${_mandir}/man1/*
+    echo "Please fill me up!" > ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd-seed
+
+    # Install entropy gathering script
+    $CP contrib/IRIX-53/prngd.conf.irix-53 ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd.conf
+
+    # Install initscript
+    $CP $metadir/prngd.init.irix ${stagedir}/${_sysconfdir}/init.d/prngd
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/prngd K05prngd)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/prngd S95prngd)
+    # And set it up to run at boot
+    echo "on" > ${stagedir}/${_sysconfdir}/config/prngd
+
+    doc 00DESIGN 00README 00README.gatherers ChangeLog
+
+    custom_install=1
+    generic_install
 }
 
 reg pack
 pack()
 {
-	clean meta
-	setdir stage
-	create_idb
-	cp $metadir/prngd.idb.fixed $metadir/prngd.idb
-	create_spec
-	make_dist shortroot
+    (setdir ${stagedir}${prefix}/${_mandir}; fix_man)
+    lprefix=${prefix#/*}
+    metainstroot=$prefix
+    topinstalldir="/"
+    generic_pack
 }
 
 reg distclean
