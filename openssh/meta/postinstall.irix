@@ -1,5 +1,6 @@
 # Irix 6.2 and earlier doesnt have SVR4 style useradd/groupadd commands :(
-PASSMGMT=/usr/sbin/passmgmt
+PASSMGMT=""
+[ -x /usr/sbin/passmgmt ] && PASSMGMT=/usr/sbin/passmgmt
 GREP=/usr/bin/grep
 CUT=/usr/bin/cut
 CAT=/usr/bin/cat
@@ -131,7 +132,11 @@ if [ -n "$temp" ]; then
 else
     echo "no"
     echo "  Attempting to create sshd user (uid=$SSHID, gid=$SSHID)"
-    $PASSMGMT -a -u $SSHID -g $SSHID -c "sshd privsep" -h /var/empty/sshd -s /bin/false sshd
+    if [ ! -z $PASSMGMT ]; then
+	$PASSMGMT -a -u $SSHID -g $SSHID -c "sshd privsep" -h /var/empty/sshd -s /bin/false sshd
+	else # crap, we need to do it the hard way :(
+		echo "sshd:*:$SSHID:$SSHID:sshd privsep:/var/empty/sshd:/bin/false" >> /etc/passwd
+	fi
 fi
 
 # FIXME Other stuff about the user/group situation should probably be checked
