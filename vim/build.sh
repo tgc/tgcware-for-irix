@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=vim
 version=6.2.55
-pkgver=motif-1
+pkgver=athena-1
 source[0]=$topdir-6.2.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=6.2.001
@@ -88,7 +88,7 @@ reg build
 build()
 {
     setdir source
-    ./configure --prefix=/usr/local --with-gnome=no --enable-gui=motif --disable-gpm --disable-nls
+    ./configure --prefix=/usr/local --with-gnome=no --enable-gui=auto --disable-gpm --disable-nls
     $MAKE_PROG
 }
 
