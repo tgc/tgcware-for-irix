@@ -24,7 +24,7 @@ check_pooldir()
 
 case "$1" in
     'start')
-	    if $IS_ON prngd && test -x $PRNGD_BIN; then
+	    if $IS_ON tgc_prngd && test -x $PRNGD_BIN; then
 		$ECHO "Starting $DESC"
 		check_pooldir
 		$PRNGD_BIN $POOLDIR/$POOLFILE

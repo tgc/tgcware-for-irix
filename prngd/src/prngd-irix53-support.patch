@@ -5,10 +5,10 @@ diff -urN prngd-0.9.29/Makefile prngd-0.9.29.irix53/Makefile
  # CFLAGS=-O3 -Wall -DNEXTSTEP -D_POSIX_SOURCE
  # LDFLAGS=-L../ossh/openbsd-compat/ -lopenbsd-compat
  
-+# IRIX 5.3 w/gcc ("Tom G. Christensen" <tom.christensen@get2net.dk>)
++# IRIX 5.3 w/gcc ("Tom G. Christensen" <tgc@jupiterrise.com>)
 +# CFLAGS=-O3 -Wall -DIRIX53
 +
-+# IRIX 5.3 w/cc ("Tom G. Christensen" <tom.christensen@get2net.dk>)
++# IRIX 5.3 w/cc ("Tom G. Christensen" <tgc@jupiterrise.com>)
 +# CFLAGS=-O2 -fullwarn -DIRIX53
 +
  # IRIX 6.2 w/gcc ("Michael Weiser" <michael@weiser.saale-net.de>)
@@ -43,7 +43,7 @@ diff -urN prngd-0.9.29/contrib/IRIX-53/prngd.conf.irix-53 prngd-0.9.29.irix53/co
 +++ prngd-0.9.29.irix53/contrib/IRIX-53/prngd.conf.irix-53	2004-07-23 10:51:57.170000000 +0200
 @@ -0,0 +1,39 @@
 +# entropy gathering commands
-+# Irix 5.3 & 6.2, contributed by Tom G. Christensen <tom.christensen@get2net.dk>
++# Irix 5.3 & 6.2, contributed by Tom G. Christensen <tgc@jupiterrise.com>
 +
 +# Format is: "program-name args" path rate
 +

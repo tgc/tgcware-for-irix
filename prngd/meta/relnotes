@@ -1,34 +1,25 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:       %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:     %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
+Environment:
 
-cflags_os="-D$(uname -sr|sed -e 's;\.;;g' -e 's; ;;g')"
-prefix=/usr/local
-_sysconfdir=/etc
-
+Configure:
+cflags_os="-D$(uname -sr|sed -e 's;\.;;g' -e 's; ;;g' -e 's;IRIX64;IRIX;g')"
 # make CC=gcc CFLAGS="-O3 -Wall $cflags_os" \
-	DEFS="-DRANDSAVENAME=\\\"${prefix}${_sysconfdir}/prngd/prngd-seed\\\" \
-	-DCONFIGFILE=\\\"${prefix}${_sysconfdir}/prngd/prngd.conf\\\""
+        DEFS="-DRANDSAVENAME=\\\"/usr/local/etc/prngd/prngd-seed\\\" \
+        -DCONFIGFILE=\\\"/usr/local/prngd/prngd.conf\\\""
 
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
 
 ERRORS/MISCELLANEOUS
 --------------------

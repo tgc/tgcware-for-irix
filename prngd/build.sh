@@ -1,4 +1,4 @@
-#!/usr/local/bash/bin/bash
+#!/usr/local/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
@@ -60,12 +60,12 @@ install()
     $CP contrib/IRIX-53/prngd.conf.irix-53 ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd.conf
 
     # Install initscript
-    $CP $metadir/prngd.init.irix ${stagedir}/${_sysconfdir}/init.d/prngd
-    chmod 755 ${stagedir}/${_sysconfdir}/init.d/prngd
-    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/prngd K05prngd)
-    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/prngd S95prngd)
+    $CP $metadir/prngd.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
+    chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_prngd K05tgc_prngd)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_prngd S95tgc_prngd)
     # And set it up to run at boot
-    echo "on" > ${stagedir}/${_sysconfdir}/config/prngd
+    echo "on" > ${stagedir}/${_sysconfdir}/config/tgc_prngd
 
     doc 00DESIGN 00README 00README.gatherers ChangeLog
 
@@ -78,7 +78,6 @@ pack()
 {
     (setdir ${stagedir}${prefix}/${_mandir}; fix_man)
     lprefix=${prefix#/*}
-    metainstroot=$prefix
     topinstalldir="/"
     generic_pack
 }

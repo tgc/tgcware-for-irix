@@ -2,6 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
+pkgvendor="http://www.aet.tu-cottbus.de/personen/jaenicke/postfix_tls/prngd.html"
 shortdesc="Pseudo Random Number Gathering Daemon"
 
 [base]
