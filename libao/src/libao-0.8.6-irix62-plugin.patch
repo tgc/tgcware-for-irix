@@ -62,8 +62,8 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/Makefile.am libao-0.8.6
 +EXTRA_DIST = ao_irixold.c
 diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.6.hacked//src/plugins/irixold/ao_irixold.c
 --- libao-0.8.6/src/plugins/irixold/ao_irixold.c
-+++ libao-0.8.6.hacked//src/plugins/irixold/ao_irixold.c	Sun Feb 20 12:01:37 2005
-@@ -0,0 +1,230 @@
++++ libao-0.8.6.hacked//src/plugins/irixold/ao_irixold.c	Sun Feb 20 20:18:43 2005
+@@ -0,0 +1,223 @@
 +/*
 + *
 + *  ao_irixold.h
@@ -119,10 +119,10 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.
 +static ao_info ao_irix_info =
 +{
 +	AO_TYPE_LIVE,
-+	"Irix audio output ",
++	"Irix old-style audio output ",
 +	"irixold",
 +	"Tom G. Christensen <libao@jupiterrise.com>",
-+	"Outputs to the IRIX Audio Library.",
++	"Outputs to the IRIX old-style Audio Library.",
 +	AO_FMT_NATIVE,
 +	20,
 +	NULL,
@@ -179,7 +179,7 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.
 +int ao_plugin_open(ao_device *device, ao_sample_format *format)
 +{
 +	ao_irix_internal *internal = (ao_irix_internal *) device->internal;
-+//	ALpv params;
++	long params[2];
 +	int  dev = AL_DEFAULT_DEVICE;
 +	int  wsize = AL_SAMPLE_16;
 +
@@ -196,12 +196,6 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.
 +	}
 +
 +	internal->channels = format->channels;
-+
-+//	if (alSetDevice(internal->alconfig, dev) < 0) {
-+//		fprintf(stderr, "alSetDevice failed: %s\n",
-+//			alGetErrorString(oserror()));
-+//		return 0;
-+//	}
 +
 +	if (ALsetsampfmt(internal->alconfig, AL_SAMPFMT_TWOSCOMP) < 0) {
 +		fprintf(stderr, "ALsetsampfmt failed: %d\n",
@@ -246,10 +240,10 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.
 +		return 0;
 +	}
 +
-+	//params.param = AL_RATE;
-+	//params.value.ll = alDoubleToFixed((double) format->rate);
-+	long params[2] = { AL_OUTPUT_RATE, 0 };
++	params[0] = AL_OUTPUT_RATE;
++	/* FIXME: Irix old-style AL doesn't have alDoubleToFixed rate chooser */
 +	params[1] = format->rate;
++
 +	if (ALsetparams(dev, params, 2) < 0)
 +	{
 +		printf("ALsetparams() failed: %d\n", oserror());
@@ -271,9 +265,8 @@ diff -x Makefile.in -urN libao-0.8.6/src/plugins/irixold/ao_irixold.c libao-0.8.
 +
 +	num_frames = num_bytes;
 +	num_frames /= internal->bytesPerSample;
-+	num_frames /= internal->channels;
 +
-+	ALwritesamps(internal->alport, output_samples, num_frames);
++	ALwritesamps(internal->alport, (void*) output_samples, num_frames);
 +
 +	return 1; /* FIXME: Need to check if the above function failed */
 +}

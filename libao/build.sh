@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libao
 version=0.8.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libao-0.8.6-irix62-plugin.patch
