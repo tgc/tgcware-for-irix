@@ -1,0 +1,7 @@
+f 0744 root sys usr/local/etc/prngd/postinstall.irix etc/prngd/postinstall.irix tgc_prngd.sw.base nohist
+f 0744 root sys usr/local/etc/prngd/postremove.irix etc/prngd/postremove.irix tgc_prngd.sw.base nohist
+f 0644 root sys usr/local/etc/prngd/prngd-seed etc/prngd/prngd-seed tgc_prngd.sw.base
+f 0644 root sys usr/local/etc/prngd/prngd.conf etc/prngd/prngd.conf tgc_prngd.sw.base
+f 0644 root sys usr/local/etc/prngd/prngd.init-sample etc/prngd/prngd.init-sample tgc_prngd.sw.base
+f 0644 root sys usr/local/man/man1/prngd.1 man/man1/prngd.1 tgc_prngd.man.manpages
+f 744 root sys usr/local/sbin/prngd sbin/prngd tgc_prngd.sw.base removeop(/usr/local/etc/prngd/postremove.irix) postop(/usr/local/etc/prngd/postinstall.irix)

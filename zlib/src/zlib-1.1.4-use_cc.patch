@@ -1,0 +1,23 @@
+--- zlib-1.1.4/configure.sopwith	2002-11-21 09:01:08.000000000 -0500
++++ zlib-1.1.4/configure	2002-11-21 09:01:49.000000000 -0500
+@@ -21,7 +21,8 @@
+ LIBS=libz.a
+ SHAREDLIB=libz.so
+ VER=`sed -n -e '/VERSION "/s/.*"\(.*\)".*/\1/p' < zlib.h`
+-AR=${AR-"ar rc"}
++AR=${AR-"ar"}
++AR="$AR rc"
+ RANLIB=${RANLIB-"ranlib"}
+ prefix=${prefix-/usr/local}
+ exec_prefix=${exec_prefix-'${prefix}'}
+@@ -72,8 +73,8 @@
+   SFLAGS=${CFLAGS-"-fPIC -O3"}
+   CFLAGS="$cflags"
+   case `(uname -s || echo unknown) 2>/dev/null` in
+-  Linux | linux) LDSHARED=${LDSHARED-"gcc -shared -Wl,-soname,libz.so.1"};;
+-  *)             LDSHARED=${LDSHARED-"gcc -shared"};;
++  Linux | linux) LDSHARED=${LDSHARED-"$CC -shared -Wl,-soname,libz.so.1"};;
++  *)             LDSHARED=${LDSHARED-"$CC -shared"};;
+   esac
+ else
+   # find system name and corresponding cc options

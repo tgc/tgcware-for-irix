@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# We need to get our init script moved into place
+#
+echo "Configuring prngd to startup at boot time"
+cp /usr/local/etc/prngd/prngd.init-sample /etc/init.d/prngd
+chmod 755 /etc/init.d/prngd
+ln -sf /etc/init.d/prngd /etc/rc0.d/K17prngd
+ln -sf /etc/init.d/prngd /etc/rc2.d/S80prngd # we only run prngd in runlevel 2 (same as sshd)
+
+# Now set it up to run at boot
+echo "on" > /etc/config/prngd
+
+# Start it up now
+/etc/init.d/prngd start
+
+# Remove myself
+rm -f /usr/local/etc/prngd/postinstall.irix

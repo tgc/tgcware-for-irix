@@ -1,0 +1,96 @@
+diff -ur zlib-1.1.4/configure zlib-1.1.4-vsnprintf/configure
+--- zlib-1.1.4/configure	Wed Jul  8 13:19:35 1998
++++ zlib-1.1.4-vsnprintf/configure	Mon Feb 24 00:06:55 2003
+@@ -167,6 +167,54 @@
+ fi
+ 
+ cat > $test.c <<EOF
++#include <stdio.h>
++#include "zconf.h"
++
++#ifdef STDC
++
++#include <stdarg.h> 
++
++int test (const char *format, /* args */ ...)
++{
++  char buf[10];
++  va_list va;
++  int len;
++
++  va_start(va, format);
++  len = vsnprintf(buf, sizeof(buf), format, va);
++  va_end(va);
++
++  return len;
++}
++
++#else /* not ANSI C */
++
++int test(format, a1, a2)
++  const char *format;
++  int a1, a2;
++{
++  char buf[10];
++  int len;
++
++  len = snprintf(buf, sizeof(buf), format, a1, a2);
++
++  return len;
++}
++#endif
++
++int main(void)
++{
++  exit(0);
++}
++EOF
++if test "`($CC -c $CFLAGS $test.c) 2>&1`" = ""; then
++  CFLAGS="$CFLAGS -DHAS_vsnprintf -DHAS_snprintf"
++  echo Checking for [v]snprintf support... Yes.
++else
++  echo Checking for [v]snprintf support... No.
++fi
++
++cat > $test.c <<EOF
+ #include <sys/types.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+diff -ur zlib-1.1.4/gzio.c zlib-1.1.4-vsnprintf/gzio.c
+--- zlib-1.1.4/gzio.c	Mon Mar 11 08:16:01 2002
++++ zlib-1.1.4-vsnprintf/gzio.c	Mon Feb 24 07:48:36 2003
+@@ -530,13 +530,12 @@
+ 
+     va_start(va, format);
+ #ifdef HAS_vsnprintf
+-    (void)vsnprintf(buf, sizeof(buf), format, va);
++    len = vsnprintf(buf, sizeof(buf), format, va);
+ #else
+-    (void)vsprintf(buf, format, va);
++    len = vsprintf(buf, format, va);
+ #endif
+     va_end(va);
+-    len = strlen(buf); /* some *sprintf don't return the nb of bytes written */
+-    if (len <= 0) return 0;
++    if ((len <= 0) || (len >= Z_PRINTF_BUFSIZE)) return 0;
+ 
+     return gzwrite(file, buf, (unsigned)len);
+ }
+@@ -553,14 +552,13 @@
+     int len;
+ 
+ #ifdef HAS_snprintf
+-    snprintf(buf, sizeof(buf), format, a1, a2, a3, a4, a5, a6, a7, a8,
++    len = snprintf(buf, sizeof(buf), format, a1, a2, a3, a4, a5, a6, a7, a8,
+ 	     a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+ #else
+-    sprintf(buf, format, a1, a2, a3, a4, a5, a6, a7, a8,
++    len = sprintf(buf, format, a1, a2, a3, a4, a5, a6, a7, a8,
+ 	    a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+ #endif
+-    len = strlen(buf); /* old sprintf doesn't return the nb of bytes written */
+-    if (len <= 0) return 0;
++    if ((len <= 0) || (len >= Z_PRINTF_BUFSIZE)) return 0;
+ 
+     return gzwrite(file, buf, len);
+ }

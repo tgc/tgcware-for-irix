@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Script to control prngd start/stop
+# History:
+# 01/05-2001 - Tom G. Christensen / tgc
+# 28/07-2003 - tgc
+# - Updated for use with Irix
+
+DESC="prngd"
+PRNGD_BIN=/usr/local/sbin/prngd
+POOLDIR=/var/run
+POOLFILE=egd-pool
+
+mode=$1
+
+set `/usr/bin/id -u`
+if [ $1 = "0" ]; then
+
+check_pooldir()
+{
+	if [ ! -d $POOLDIR ]; then
+		mkdir -p $POOLDIR
+		chmod 755 $POOLDIR
+		chown root:sys $POOLDIR
+	fi
+}
+
+case $mode in
+
+'start' ) echo "Starting $DESC"
+		check_pooldir
+		$PRNGD_BIN $POOLDIR/$POOLFILE
+          ;;
+'stop' )	echo "Stopping $DESC"
+			$PRNGD_BIN -k $POOLDIR/$POOLFILE
+		;;
+'restart') $0 stop
+           $0 start
+           ;;
+*) echo "Usage: $0 {start|stop|restart}"
+esac 
+
+else
+  echo "$0: this script must be run as root... fatal error"
+
+fi
+
