@@ -1,0 +1,11 @@
+--- audiofile-0.2.6/examples/Makefile.in.orig	Wed Mar 23 14:19:10 2005
++++ audiofile-0.2.6/examples/Makefile.in	Wed Mar 23 14:19:22 2005
+@@ -150,7 +150,7 @@
+ DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
+ CPPFLAGS = @CPPFLAGS@
+ LDFLAGS = @LDFLAGS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ -laudio
+ depcomp = $(SHELL) $(top_srcdir)/depcomp
+ @AMDEP_TRUE@DEP_FILES = $(DEPDIR)/adddcoffset.Po $(DEPDIR)/irixread.Po \
+ @AMDEP_TRUE@	$(DEPDIR)/irixtestloop.Po $(DEPDIR)/linuxtest.Po \

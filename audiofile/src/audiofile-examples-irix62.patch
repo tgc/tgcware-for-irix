@@ -1,0 +1,153 @@
+--- audiofile-0.2.6/examples/sgi.c.irix65	Sat Feb 12 13:57:44 2005
++++ audiofile-0.2.6/examples/sgi.c	Sat Feb 12 14:33:19 2005
+@@ -44,17 +44,17 @@
+ 	if (sampleWidth <= 8)
+ 	{
+ 		printf("setting width to 8\n");
+-		alSetWidth(config, AL_SAMPLE_8);
++		ALsetwidth(config, AL_SAMPLE_8);
+ 	}
+ 	else if (sampleWidth <= 16)
+ 	{
+ 		printf("setting width to 16\n");
+-		alSetWidth(config, AL_SAMPLE_16);
++		ALsetwidth(config, AL_SAMPLE_16);
+ 	}
+ 	else if (sampleWidth <= 24)
+ 	{
+ 		printf("setting width to 24\n");
+-		alSetWidth(config, AL_SAMPLE_24);
++		ALsetwidth(config, AL_SAMPLE_24);
+ 	}
+ }
+ 
+@@ -66,17 +66,17 @@
+ 	if (audioFileSampleFormat == AF_SAMPFMT_TWOSCOMP)
+ 	{
+ 		printf("setting sample format to 2's complement\n");
+-		alSetSampFmt(config, AL_SAMPFMT_TWOSCOMP);
++		ALsetsampfmt(config, AL_SAMPFMT_TWOSCOMP);
+ 	}
+ 	else if (audioFileSampleFormat == AF_SAMPFMT_FLOAT)
+ 	{
+ 		printf("setting sample format to float\n");
+-		alSetSampFmt(config, AL_SAMPFMT_FLOAT);
++		ALsetsampfmt(config, AL_SAMPFMT_FLOAT);
+ 	}
+ 	else if (audioFileSampleFormat == AF_SAMPFMT_DOUBLE)
+ 	{
+ 		printf("setting sample format to double\n");
+-		alSetSampFmt(config, AL_SAMPFMT_DOUBLE);
++		ALsetsampfmt(config, AL_SAMPFMT_DOUBLE);
+ 	}
+ }
+ 
+@@ -86,16 +86,17 @@
+ void setrate (ALport port, double rate)
+ {
+ 	int		rv;
+-	ALpv	params;
++//	long	params;
+ 
+-	rv = alGetResource(port);
++	//rv = alGetResource(port);
++	rv = AL_DEFAULT_DEVICE;
+ 
+-	params.param = AL_RATE;
+-	params.value.ll = alDoubleToFixed(rate);
++	long params[2] = { AL_OUTPUT_RATE, 0 };
++	params[1] = rate;
+ 
+-	if (alSetParams(rv, &params, 1) < 0)
++	if (ALsetparams(rv, params, 2) < 0)
+ 	{
+-		printf("alSetParams failed: %s\n", alGetErrorString(oserror()));
++		printf("ALsetparams failed: %d\n", oserror());
+ 	}
+ }
+ 
+@@ -104,6 +105,6 @@
+ */
+ void waitport (ALport port)
+ {
+-	while (alGetFilled(port) > 0)
++	while (ALgetfilled(port) > 0)
+ 		sginap(1);
+ }
+--- audiofile-0.2.6/examples/irixread.c.irix65	Sat Feb 12 14:19:39 2005
++++ audiofile-0.2.6/examples/irixread.c	Sat Feb 12 14:26:02 2005
+@@ -95,20 +95,20 @@
+ 	printf("sample rate: %.2f Hz\n", sampleRate);
+ 	buffer = malloc(BUFFERED_FRAME_COUNT * frameSize);
+ 
+-	outportconfig = alNewConfig();
++	outportconfig = ALnewconfig();
+ 	setwidth(outportconfig, sampleWidth);
+ 	setsampleformat(outportconfig, sampleFormat);
+-	alSetChannels(outportconfig, channelCount);
++	ALsetchannels(outportconfig, channelCount);
+ 
+ 	count = afReadFrames(file, AF_DEFAULT_TRACK, buffer, BUFFERED_FRAME_COUNT);
+ 
+-	outport = alOpenPort("irixread", "w", outportconfig);
++	outport = ALopenport("irixread", "w", outportconfig);
+ 	setrate(outport, sampleRate);
+ 
+ 	do
+ 	{
+ 		printf("count = %lld\n", count);
+-		alWriteFrames(outport, buffer, count);
++		ALwritesamps(outport, buffer, count);
+ 
+ 		count = afReadFrames(file, AF_DEFAULT_TRACK, buffer,
+ 			BUFFERED_FRAME_COUNT);
+@@ -116,8 +116,8 @@
+ 
+ 	waitport(outport);
+ 
+-	alClosePort(outport);
+-	alFreeConfig(outportconfig);
++	ALcloseport(outport);
++	ALfreeconfig(outportconfig);
+ 
+ 	afCloseFile(file);
+ }
+--- audiofile-0.2.6/examples/irixtestloop.c.irix65	Sat Feb 12 14:23:46 2005
++++ audiofile-0.2.6/examples/irixtestloop.c	Sat Feb 12 14:34:52 2005
+@@ -123,20 +123,20 @@
+ 
+ 	afCloseFile(file);
+ 
+-	outportconfig = alNewConfig();
++	outportconfig = ALnewconfig();
+ 	setwidth(outportconfig, sampleWidth);
+ 	setsampleformat(outportconfig, sampleFormat);
+-	alSetChannels(outportconfig, channelCount);
++	ALsetchannels(outportconfig, channelCount);
+ 
+-	outport = alOpenPort("irixtestloop", "w", outportconfig);
++	outport = ALopenport("irixtestloop", "w", outportconfig);
+ 	setrate(outport, sampleRate);
+ 
+-	alWriteFrames(outport, buffer, startloop);
++	ALwritesamps(outport, buffer, startloop);
+ 	for (i=0; i<REPEAT_COUNT; i++)
+ 	{
+ 		printf("iteration %d: start %lld, end %lld, length %lld\n",
+ 			i, endloop, startloop, endloop - startloop);
+-		alWriteFrames(outport,
++		ALwritesamps(outport,
+ 			(char *) buffer + (int) (startloop * frameSize),
+ 			endloop - startloop);
+ 	}
+@@ -143,8 +143,8 @@
+ 
+ 	waitport(outport);
+ 
+-	alClosePort(outport);
+-	alFreeConfig(outportconfig);
++	ALcloseport(outport);
++	ALfreeconfig(outportconfig);
+ 
+ 	free(buffer);
+ }
