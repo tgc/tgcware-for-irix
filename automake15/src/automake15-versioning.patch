@@ -1,0 +1,107 @@
+diff -u automake-1.5/configure.in~ automake-1.5/configure.in
+--- automake-1.5/configure.in~	Wed Jan 23 15:38:15 2002
++++ automake-1.5/configure.in	Wed Jan 23 15:38:15 2002
+@@ -5,6 +5,16 @@
+ 
+-AM_INIT_AUTOMAKE(automake, 1.5)
++AM_INIT_AUTOMAKE(automake-1.5, 1.5)
+ 
++# The API version is the base version.  We must guarantee
++# compatibility for all releases with the same API version.
++# Our current rule is that:
++# * All releases, including the prereleases, in an X.Y series
++#   are compatible.  So 1.5.1c is compatible with 1.5.
++# * Prereleases on the trunk are all incompatible -- 1.5b and 1.5c
++#   aren't the same.
++APIVERSION=`echo "$VERSION" | sed -e 's/^\([[0-9]]*\.[[0-9]]*[[a-z]]?\).*$/\1/'`
++AC_SUBST(APIVERSION)
++
+ ACLOCAL="`pwd`/aclocal --acdir=m4"
+ # $AUTOMAKE is always run after a `cd $top_srcdir', hence `.' is really
+ # what we want for perllibdir and libdir.
+diff -u automake-1.5/aclocal.in~ automake-1.5/aclocal.in
+--- automake-1.5/aclocal.in.versioning	Wed Jan 23 15:25:25 2002
++++ automake-1.5/aclocal.in	Wed Jan 23 15:25:25 2002
+@@ -20,7 +20,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ # 02111-1307, USA.
+ 
+-# Written by Tom Tromey <tromey@cygnus.com>.
++# Written by Tom Tromey <tromey@redhat.com>.
+ 
+ eval 'exec @PERL@ -S $0 ${1+"$@"}'
+     if 0;
+@@ -29,10 +29,13 @@
+ 
+ # Some constants.
+ $VERSION = "@VERSION@";
++$APIVERSION = "@APIVERSION@";
+ $PACKAGE = "@PACKAGE@";
+ $prefix = "@prefix@";
+ # Note that this isn't pkgdatadir, but a separate directory.
++# Note also that the versioned directory is handled later.
+ $acdir = "@datadir@/aclocal";
++$default_acdir = $acdir;
+ 
+ # Some globals.
+ 
+@@ -185,7 +188,7 @@
+ 	    print "Copyright 1996, 1997, 1998, 1999, 2000, 2001 Free Software Foundation, Inc.\n";
+ 	    print "This is free software; see the source for copying conditions.  There is NO\n";
+ 	    print "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n";
+-	    print "Written by Tom Tromey <tromey\@cygnus.com>\n";
++	    print "Written by Tom Tromey <tromey\@redhat.com>\n";
+ 	    exit 0;
+ 	}
+ 	elsif ($arglist[0] eq '--help')
+@@ -206,8 +209,17 @@
+ 	exit 0;
+     }
+ 
+-    # Search our install directory last.
+-    push (@dirlist, $acdir);
++    # Search the versioned directory near the end, and then the
++    # unversioned directory last.  Only do this if the user didn't
++    # override acdir.
++    push (@dirlist, "$acdir-$APIVERSION")
++	if $acdir eq $default_acdir;
++
++    # By default $(datadir)/aclocal doesn't exist.  We don't want to
++    # get an error in the case where we are searching the default
++    # directory and it hasn't been created.
++    push (@dirlist, $acdir)
++	unless $acdir eq $default_acdir && ! -d $acdir;
+ 
+     return @dirlist;
+ }
+diff -ur automake-1.5.orig/configure.in automake-1.5/configure.in
+--- automake-1.5.orig/m4/Makefile.am	Fri Aug  3 17:28:20 2001
++++ automake-1.5/m4/Makefile.am	Wed Jan 16 17:44:31 2002
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to create Makefile.in
+ 
+-m4datadir = $(datadir)/aclocal
++m4datadir = $(datadir)/aclocal-@APIVERSION@
+ m4data_DATA = as.m4 auxdir.m4 ccstdc.m4 cond.m4 depend.m4 depout.m4 \
+ dmalloc.m4 error.m4 gcj.m4 header.m4 init.m4 install-sh.m4 lex.m4 \
+ lispdir.m4 make.m4 maintainer.m4 minuso.m4 missing.m4 multi.m4 \
+diff -u /home/petersen/rpm/BUILD/automake-1.5/m4/Makefile.in.versioning /home/petersen/rpm/BUILD/automake-1.5/m4/Makefile.in
+--- automake-1.5/m4/Makefile.in.versioning	Thu Feb 28 18:07:36 2002
++++ automake-1.5/m4/Makefile.in	Thu Feb 28 18:07:36 2002
+@@ -56,6 +56,7 @@
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ AMTAR = @AMTAR@
++APIVERSION = @APIVERSION@
+ AWK = @AWK@
+ DEPDIR = @DEPDIR@
+ EXEEXT = @EXEEXT@
+@@ -68,7 +69,7 @@
+ am__quote = @am__quote@
+ install_sh = @install_sh@
+ 
+-m4datadir = $(datadir)/aclocal
++m4datadir = $(datadir)/aclocal-@APIVERSION@
+ m4data_DATA = as.m4 auxdir.m4 ccstdc.m4 cond.m4 depend.m4 depout.m4 \
+ dmalloc.m4 error.m4 gcj.m4 header.m4 init.m4 install-sh.m4 lex.m4 \
+ lispdir.m4 make.m4 maintainer.m4 minuso.m4 missing.m4 multi.m4 \

@@ -1,0 +1,65 @@
+diff -u automake-1.5/lib/missing~ automake-1.5/lib/missing
+--- automake-1.5/lib/missing~	Wed Apr  3 17:03:17 2002
++++ automake-1.5/lib/missing	Wed Apr  3 17:03:17 2002
+@@ -43,7 +43,24 @@
+   # Try to run requested program, and just exit if it succeeds.
+   run=
+   shift
+-  "$@" && exit 0
++  prog="$1"
++  shift
++  case "$prog" in
++    aclocal)
++      for suffix in "-1.5" ""; do
++	if "$prog$suffix" "--version" >/dev/null 2>&1; then
++	  "$prog$suffix" "$@" && exit 0
++	fi
++      done;;
++    automake)
++      for suffix in "-1.5" ""; do
++	if "$prog$suffix" "--version" >/dev/null 2>&1; then
++	  "$prog$suffix" "$@" && exit 0
++	fi
++      done;;
++    *) "$prog" "$@" && exit 0;;
++  esac
++  set -- "$prog" "$@"
+   ;;
+ esac
+ 
+@@ -87,7 +116,7 @@
+     exit 1
+     ;;
+ 
+-  aclocal)
++  aclocal*)
+     echo 1>&2 "\
+ WARNING: \`$1' is missing on your system.  You should only need it if
+          you modified \`acinclude.m4' or \`${configure_ac}'.  You might want
+@@ -96,7 +125,7 @@
+     touch aclocal.m4
+     ;;
+ 
+-  autoconf)
++  autoconf*)
+     echo 1>&2 "\
+ WARNING: \`$1' is missing on your system.  You should only need it if
+          you modified \`${configure_ac}'.  You might want to install the
+@@ -105,7 +134,7 @@
+     touch configure
+     ;;
+ 
+-  autoheader)
++  autoheader*)
+     echo 1>&2 "\
+ WARNING: \`$1' is missing on your system.  You should only need it if
+          you modified \`acconfig.h' or \`${configure_ac}'.  You might want
+@@ -124,7 +153,7 @@
+     touch $touch_files
+     ;;
+ 
+-  automake)
++  automake*)
+     echo 1>&2 "\
+ WARNING: \`$1' is missing on your system.  You should only need it if
+          you modified \`Makefile.am', \`acinclude.m4' or \`${configure_ac}'.

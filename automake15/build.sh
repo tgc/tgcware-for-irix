@@ -9,11 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=automake15
 version=1.5
-pkgver=3
+pkgver=4
 source[0]=automake-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=automake-1.5-version.patch
-patch[1]=automake-1.5-makefile.patch
+patch[0]=automake-1.5-depout-mf.patch
+patch[1]=automake15-versioning.patch
+patch[2]=automake15-autoconf253.patch
+patch[3]=automake-1.5-subdirs-89619.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -40,6 +42,7 @@ reg build
 build()
 {
     setdir source
+    autoconf-2.57
     ./configure --prefix=/usr/local --program-suffix=-$version --disable-nls
     $MAKE_PROG
 }
@@ -48,7 +51,13 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    $RM -rf $stagedir$prefix/info
+    $RM -f $stagedir$prefix/bin/aclocal $stagedir$prefix/bin/automake
+    setdir source
+    $MKDIR -p info
+    $CP automake.info* info
+    $GZIP -9nf info/*
+    doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO info
 }
 
 reg pack
