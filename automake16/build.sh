@@ -9,10 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=automake16
 version=1.6.3
-pkgver=1
+pkgver=2
 source[0]=automake-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=automake-pythondir-80994.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -39,7 +39,7 @@ reg build
 build()
 {
     # needs autoconf 2.52+
-    (cd $HOME/bin; ln -s /usr/local/bin/autoconf-2.53 autoconf)
+    (cd $HOME/bin; ln -s /usr/local/bin/autoconf-2.57 autoconf)
     setdir source
     ./configure --prefix=/usr/local --disable-nls
     $MAKE_PROG
@@ -50,9 +50,13 @@ reg install
 install()
 {
     generic_install DESTDIR
-    rm -f $stagedir$prefix/info/dir
-    rm -f $stagedir$prefix/bin/aclocal
-    rm -f $stagedir$prefix/bin/automake
+    $RM -rf $stagedir$prefix/info
+    $RM -f $stagedir$prefix/bin/aclocal $stagedir$prefix/bin/automake
+    setdir source
+    $MKDIR -p info
+    $CP automake.info* info
+    $GZIP -9nf info/*
+    doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO info
 }
 
 reg pack
