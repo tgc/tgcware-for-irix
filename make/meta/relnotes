@@ -1,29 +1,25 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE FLAGS
----------------
+Environment:
 
+Configure:
 %%CONFIGURE%%
 
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
+libintl.so.4
+libiconv.so.3
+libgcc_s.so.1
 
-MISCELLANEOUS
+ERRORS/MISCELLANEOUS
 --------------------
-none

@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=make
 version=3.80
-pkgver=3
+pkgver=5
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -39,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    $RM -f ${stagedir}${prefix}/${_infodir}/dir
     doc README NEWS
     setdir ${stagedir}${prefix}/${_bindir}
     $LN -s make gmake

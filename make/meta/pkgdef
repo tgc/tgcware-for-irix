@@ -2,7 +2,8 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-shortdesc="GNU make"
+pkgvendor="http://www.gnu.org/software/make/make.html"
+shortdesc="Generates executables and other non-source programs"
 
 [base]
 subsys=sw.base
