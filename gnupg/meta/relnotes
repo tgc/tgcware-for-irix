@@ -1,0 +1,35 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+libiconv
+gettext
+libz
+bzip2
+readline
+
+Optional:
+openldap22
+
+ERRORS/MISCELLANEOUS
+--------------------
+openldap22 was not made a hard dependency since only the LDAP keyserver
+plugin depends on it and most people won't be using that.

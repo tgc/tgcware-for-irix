@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnupg.org"
+shortdesc="A GNU utility for secure communication and data storage"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+libexec
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[info]
+subsys=man.info
+files(-,root,sys)
+$_infodir
+
