@@ -1,0 +1,24 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+make -f Makefile LDFLAGS="-rpath /usr/local/lib"
+make -f Makefile-libbz2_so CC="gcc -rpath /usr/local/lib"
+
+KNOWN DEPENDENCIES
+------------------
+libgcc_s.so.1
+
+ERRORS/MISCELLANEOUS
+--------------------
