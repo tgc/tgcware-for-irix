@@ -1,0 +1,50 @@
+--- xsnow-1.42/xsnow.c~	Sun Dec 16 00:44:47 2001
++++ xsnow-1.42/xsnow.c	Fri Dec 21 12:54:47 2001
+@@ -766,16 +766,38 @@
+ 				if ((RunCounter % SantaUpdateFactor) == 0) UpdateSanta();
+ 			}
+ 		}
+-		XDestroyRegion(Wr);
+-		XDestroyRegion(snscr);
+-		XDestroyRegion(sar);
+-		XDestroyRegion(PrevWr);
+-		XDestroyRegion(WDR);
+-		XDestroyRegion(rscrr);
+-		XClearWindow(display, rootWin);
+-		XCloseDisplay(display);
+-		exit(0);
++		finish();
+ }		/* End of the snow */
++
++
++void finish(void)
++{
++  XExposeEvent event;
++  XDestroyRegion(Wr);
++  XDestroyRegion(snscr);
++  XDestroyRegion(sar);
++  XDestroyRegion(PrevWr);
++  XDestroyRegion(WDR);
++  XDestroyRegion(rscrr);
++  XClearWindow(display, rootWin);
++
++  /* Send an expose event so that any apps that draw to the window can
++     redraw them */
++  event.type = Expose;
++  event.send_event = True;
++  event.display = display;
++  event.window = rootWin;
++  event.x = 0;
++  event.y = 0;
++  event.width = display_width;
++  event.height = display_height;
++  XSendEvent(display, rootWin, False, Expose, (XEvent *) &event);
++
++  XCloseDisplay(display);
++  exit(0);
++}
++
++
+ /* ------------------------------------------------------------------ */ 
+ #define USEPRT(msg) fprintf(stderr, msg)
+ void
