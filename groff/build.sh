@@ -73,7 +73,8 @@ install()
 reg pack
 pack()
 {
-    generic_pack shortroot
+    shortroot=1
+    generic_pack
 }
 
 reg distclean
