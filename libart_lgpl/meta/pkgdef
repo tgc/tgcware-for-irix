@@ -1,0 +1,22 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.levien.com/libart/"
+shortdesc="A library for high-performance 2D graphics"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_docdir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_bindir
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig/*.pc
+
