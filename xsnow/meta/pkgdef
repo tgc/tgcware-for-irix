@@ -9,6 +9,7 @@ shortdesc="An X Window System based dose of Christmas cheer"
 subsys=sw.base
 files(-,root,sys)
 $_bindir
+files(644,root,sys)
 $_sharedir
 
 [man]

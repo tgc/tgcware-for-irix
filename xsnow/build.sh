@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=xsnow
 version=1.42
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=xsnow-1.42-misc.patch
