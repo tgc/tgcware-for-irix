@@ -39,6 +39,7 @@ reg build
 build()
 {
     setdir source
+    export LDFLAGS="-Wl,-rpath,/usr/local/lib"
     ./configure --prefix=$prefix --disable-nls --enable-static=no
     $MAKE_PROG
 }
