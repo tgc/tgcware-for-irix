@@ -9,13 +9,18 @@
 # Check the following 4 variables before running the script
 topdir=gettext
 version=0.14.1
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/local'
 
 # Define script functions and register them
 METHODS=""
@@ -32,9 +37,6 @@ prep()
 reg build
 build()
 {
-    export CPPFLAGS="-I/usr/local/include"
-    export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-    set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/local'
     generic_build
 }
 
@@ -42,8 +44,6 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
-    ${RM} -f ${stagedir}${prefix}/${_libdir}/charset.alias
     doc NEWS README
     # Fix up these 4 manpages to use symlinks instead of nroff include style
     setdir ${stagedir}${prefix}/${_mandir}/man3
