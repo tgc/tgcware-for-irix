@@ -8,24 +8,19 @@
 #
 # Check the following 4 variables before running the script
 topdir=gawk
-version=3.1.3
-pkgver=2
+version=3.1.4
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-$version-ps.tar.gz
 # If there are no patches, simply comment this
-patch[0]=gawk-3.1.0-shutup.patch
-patch[1]=gawk-3.1.3-fix1.patch
-patch[2]=gawk-3.1.3-fix2.patch
-patch[3]=gawk-3.1.3-fix3.patch
-patch[4]=gawk-3.1.3-fix4.patch
-patch[5]=gawk-3.1.3-fix5.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU Awk"
+# Global options
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
 # Define script functions and register them
 METHODS=""
@@ -50,14 +45,16 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
-    INSTALL="/usr/local/bin/install -c -D"
+    doc AUTHORS COPYING FUTURES LIMITATIONS NEWS POSIX.STD PROBLEMS README
     setdir source
     cd doc
     for i in *.ps
     do
-	$INSTALL -m 444 $i $stagedir$prefix/doc/$topdir-$version/$i
+	${GINSTALL} -m 444 $i ${stagedir}${prefix}/${_vdocdir}
     done
+
+    # Nuke redundant hardlinks
+    ${RM} -f ${stagedir}${prefix}/${_bindir}/*-3.1.4
 }
 
 reg pack
