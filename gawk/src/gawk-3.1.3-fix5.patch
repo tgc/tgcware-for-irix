@@ -1,0 +1,45 @@
+--- gawk-3.1.3/awkgram.y.lr	2003-09-22 15:49:36.000000000 +0200
++++ gawk-3.1.3/awkgram.y	2003-09-22 15:51:46.000000000 +0200
+@@ -1308,21 +1308,21 @@
+ 		int offset;
+ 		int linelen;
+ 
+-		offset = lexptr - lexeme;
++		offset = lexeme - lexptr;
+ 		for (scan = lexeme; scan > lexptr_begin; scan--)
+ 			if (*scan == '\n') {
+ 				scan++;
+ 				break;
+ 			}
+ 		linelen = lexptr - scan;
+-		if (linelen > SLOP)
+-			linelen = SLOP;
+-		thisline = buf + SLOP - linelen;
+-		memcpy(thisline, scan, linelen);
+-		lexeme = buf + SLOP - offset;
++		thisline = buf;
++		memmove(thisline, scan, linelen);
++		lexeme = thisline + (lexeme - lexptr_begin);
++		lexptr = thisline + (lexptr - lexptr_begin);
++		lexend = thisline + (lexend - lexptr_begin);
+ 		lexptr_begin = thisline;
+ 	}
+-	n = read(fd, buf + SLOP, len);
++	n = read(fd, lexptr_begin, len);
+ 	if (n == -1)
+ 		fatal(_("can't read sourcefile `%s' (%s)"),
+ 			source, strerror(errno));
+@@ -1339,12 +1339,10 @@
+ 			close(fd);
+ 		samefile = FALSE;
+ 		nextfile++;
+-		if (lexeme)
+-			*lexeme = '\0';
+ 		len = 0;
+ 		goto again;
+ 	}
+-	lexptr = buf + SLOP;
++	lexptr = lexptr_begin;
+ 	lexend = lexptr + n;
+ 	return buf;
+ }

@@ -1,0 +1,22 @@
+In two places in io.c, gawk's child process exits with status 126 if
+execl("/bin/sh") fails with errno != ENOENT, but in the other place
+it merely exits with status 127.  This is inconsistent with common
+POSIX practice.  Here is a patch.
+
+2003-07-10  Paul Eggert
+
+        * io.c (two_way_open): If /bin/sh cannot be executed, exit
+        with status 126 consistently.
+
+
+--- gawk-3.1.3/io.c.lr	2003-07-04 19:50:58.000000000 +0200
++++ gawk-3.1.3/io.c	2003-07-15 16:50:39.000000000 +0200
+@@ -1778,7 +1778,7 @@
+ 			signal(SIGPIPE, SIG_DFL);
+ 
+ 			execl("/bin/sh", "sh", "-c", str, NULL);
+-			_exit(127);
++			_exit(errno == ENOENT ? 127 : 126);
+ 
+ 		case -1:
+ 			save_errno = errno;
