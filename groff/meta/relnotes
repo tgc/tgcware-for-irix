@@ -1,0 +1,29 @@
+PACKAGE NAME
+------------
+
+%%PKGNAME%%
+
+SOURCE/VERSION
+--------------
+
+%%SOURCE_AND_VER%%
+
+BUILD ENVIRONMENT
+-----------------
+export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+
+compiler and version:
+%%COMPILER%%
+
+CONFIGURE/MAKE FLAGS/TARGETS
+----------------------------
+
+%%CONFIGURE%%
+
+KNOWN DEPENDANCIES
+------------------
+libstdc++.so.7 (gcc 3.4.x)
+libgcc_s.so.1
+
+ERRORS/MISCELLANEOUS
+--------------------
