@@ -18,6 +18,11 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib"
+set_configure_args "--prefix=$prefix --with-libiconv-prefix=/usr/local -with-libintl-prefix=/usr/local"
+
 reg prep
 prep()
 {
@@ -27,9 +32,6 @@ prep()
 reg build
 build()
 {
-    export CPPFLAGS="-I/usr/local/include"
-    export LDFLAGS="-L/usr/local/lib"
-    set_configure_args "--prefix=$prefix --with-libiconv-prefix=/usr/local -with-libintl-prefix=/usr/local"
     setdir source
     ./configure $configure_args
     # configure/libtool support for gettext is completely broken, this'll make
