@@ -1,0 +1,26 @@
+--- trio-1.10/Makefile.in.orig	2002-10-26 11:05:51.000000000 +0200
++++ trio-1.10/Makefile.in	2004-04-11 11:24:55.190000000 +0200
+@@ -16,6 +16,7 @@
+ # Installation settings
+ INSTALL		= @INSTALL@
+ INSTALL_DATA	= @INSTALL_DATA@
++DESTDIR		=
+ prefix		= @prefix@
+ exec_prefix	= @exec_prefix@
+ includedir	= @includedir@
+@@ -27,11 +28,11 @@
+ 	./regression
+ 
+ install:	$(TARGETLIB)
+-	$(MKDIR) $(libdir)
+-	$(MKDIR) $(includedir)
+-	$(INSTALL_DATA) $(TARGETLIB) $(libdir)/$(TARGETLIB)
++	$(MKDIR) $(DESTDIR)$(libdir)
++	$(MKDIR) $(DESTDIR)$(includedir)
++	$(INSTALL_DATA) $(TARGETLIB) $(DESTDIR)$(libdir)/$(TARGETLIB)
+ 	for i in $(TARGET_INCS);do \
+-	(set -x;$(INSTALL_DATA) $$i $(includedir)); \
++	(set -x;$(INSTALL_DATA) $$i $(DESTDIR)$(includedir)); \
+ 	done
+ 
+ pure: $(TOBJS) $(OBJS)

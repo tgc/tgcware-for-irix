@@ -1,0 +1,16 @@
+--- trio-1.10/Makefile.in.orig	2004-04-11 11:34:19.700000000 +0200
++++ trio-1.10/Makefile.in	2004-04-11 11:34:40.450000000 +0200
+@@ -1,3 +1,4 @@
++SHELL	= @SHELL@
+ CC	= @CC@
+ CFLAGS	= @CFLAGS@ -DDEBUG
+ OBJS	= triostr.o trio.o trionan.o
+@@ -31,7 +32,7 @@
+ 	$(MKDIR) $(DESTDIR)$(libdir)
+ 	$(MKDIR) $(DESTDIR)$(includedir)
+ 	$(INSTALL_DATA) $(TARGETLIB) $(DESTDIR)$(libdir)/$(TARGETLIB)
+-	for i in $(TARGET_INCS);do \
++	for i in $(TARGETINCS);do \
+ 	(set -x;$(INSTALL_DATA) $$i $(DESTDIR)$(includedir)); \
+ 	done
+ 
