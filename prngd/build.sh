@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
@@ -66,6 +66,8 @@ install()
     (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_prngd S95tgc_prngd)
     # And set it up to run at boot
     echo "on" > ${stagedir}/${_sysconfdir}/config/tgc_prngd
+    # Preserve existing on/off setting
+    echo "${_sysconfdir}/config/tgc_prngd config(noupdate)" > $metadir/ops
 
     doc 00DESIGN 00README 00README.gatherers ChangeLog
 
@@ -85,6 +87,7 @@ pack()
 reg distclean
 distclean()
 {
+    META_CLEAN="$META_CLEAN ops"
     clean distclean
 }
 
