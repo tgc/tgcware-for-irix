@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.7d
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-0.9.7d-shlib.patch
@@ -23,12 +23,7 @@ subsysconf=$metadir/subsys.conf
 sover=4 # d = 4
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 baseversion=$(echo $version|$SED -e 's/[a-zA-Z]//g')
-specver="$(fix_ver $version)""$sover"
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-pkgname="$pkgprefix""openssl""$abbrev_ver"
-name="OpenSSL library"
+specver="$(fix_ver "${version}${sover}${pkgver}")"
 
 # Define script functions and register them
 METHODS=""
@@ -59,8 +54,8 @@ build()
     $SED -e "s;${major};SHLIB_MAJOR=${baseversion};g" \
 	-e "s;${minor};SHLIB_MINOR=${sover};g" Makefile.ssl > Makefile.new
     $MV Makefile.new Makefile.ssl
-    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,/usr/local/lib -L.. -lcrypto" all build-shared
-    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,/usr/local/lib -L.. -lcrypto" all link-shared do_irix-shared
+    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all build-shared
+    $MAKE_PROG LIBSSL="-Wl,-rpath,$prefix/lib -L.. -lssl" LIBCRYPTO="-Wl,-rpath,$prefix/lib -L.. -lcrypto" all link-shared do_irix-shared
 }
 
 reg install
@@ -80,7 +75,7 @@ install()
 	do
 	    if [ -L "${manpage}" ]; then
 		TARGET=`$LS -l "${manpage}" | $AWK '{ print $NF }'`
-		ln -snf "${TARGET}"ssl "${manpage}"ssl
+		$LN -sf "${TARGET}"ssl "${manpage}"ssl
 		$RM -f "${manpage}"
 	    else
 		$MV "$manpage" "$manpage""ssl"
@@ -88,23 +83,29 @@ install()
 	done
 	cd ..
     done
+    doc README CHANGES FAQ INSTALL LICENSE NEWS
 }
 
 reg pack
 pack()
 {
-    # Create a depends file
-    echo "sw.devel $pkgname"".sw.base $specver$pkgver $specver$pkgver" > $metadir/depends
-    echo "sw.base $pkgname"".sw.shlib $specver$pkgver $specver$pkgver" >> $metadir/depends
-    setdir $stagedir$topinstalldir/man      
+    clean meta
+    setdir ${stagedir}${topinstalldir}/man      
     fix_man
-    setdir $stagedir$topinstalldir
+    setdir ${stagedir}${topinstalldir}
+    auto_src
+    auto_rel
     create_idb
+    # Create a depends file
+    echo "sw.dev ${pkgname}.sw.base $specver $specver" > $metadir/depends
+    echo "sw.base ${pkgname}.sw.lib $specver $specver" >> $metadir/depends
     create_spec
     # Fix pkgversion
     fixed=$(fix_ver $version-$pkgver)
-    $SED -e "s;version ${fixed};version ${specver}${pkgver};g" $specfile > /tmp/spec
+    $SED -e "s;version ${fixed};version ${specver};g" $specfile > /tmp/spec
     $MV -f /tmp/spec $specfile
+    auto_dist
+    check_unpackaged
     make_dist
 }
 
