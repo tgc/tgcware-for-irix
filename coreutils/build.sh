@@ -9,10 +9,10 @@
 # Check the following 4 variables before running the script
 topdir=coreutils
 version=5.0
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=coreutils-5.0-tempname.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions

@@ -1,0 +1,13 @@
+--- coreutils-5.0/lib/tempname.c.orig	Wed Dec 24 11:10:07 2003
++++ coreutils-5.0/lib/tempname.c	Wed Dec 24 11:15:59 2003
+@@ -21,6 +21,10 @@
+ # include <config.h>
+ #endif
+ 
++#ifdef HAVE_INTTYPES_H
++# include <inttypes.h>
++#endif
++
+ #include <sys/types.h>
+ #include <assert.h>
+ 
