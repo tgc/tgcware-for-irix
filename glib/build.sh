@@ -9,19 +9,21 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=1.2.10
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=glib-1.2.10-gcc34.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-subsysconf=$metadir/subsys.conf
+# Global settings
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+set_configure_args '--prefix=$prefix --enable-static=no'
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="Glib"
+# Override getpwuid_r checking
+export ac_cv_func_getpwuid_r=yes
 
 # Define script functions and register them
 METHODS=""
@@ -38,17 +40,14 @@ prep()
 reg build
 build()
 {
-    setdir source
-    export LDFLAGS="-Wl,-rpath,/usr/local/lib"
-    ./configure --prefix=$prefix --disable-nls --enable-static=no
-    $MAKE_PROG
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    rm $stagedir$prefix/info/dir
+    doc NEWS README COPYING AUTHORS
 }
 
 reg pack
