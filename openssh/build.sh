@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=3.9p1
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -64,7 +64,7 @@ install()
     # Don't run by default
     echo "off" > ${stagedir}/${_sysconfdir}/config/tgc_sshd
     # Preserve existing on/off setting
-    echo "${_sysconfdir}/config/tgc_sshd" >> $metadir/ops
+    echo "${_sysconfdir}/config/tgc_sshd config(noupdate)" >> $metadir/ops
 
     custom_install=1
     generic_install
