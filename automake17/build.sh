@@ -7,21 +7,15 @@
 # stolen from jhlj's Compile.sh script :)
 #
 # Check the following 4 variables before running the script
-topdir=automake17
+topdir=automake
 version=1.7.8
-pkgver=1
+pkgver=2
 source[0]=automake-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU Automake"
-
-topsrcdir=automake-$version
 
 # Define script functions and register them
 METHODS=""
@@ -38,21 +32,15 @@ prep()
 reg build
 build()
 {
-    # needs autoconf 2.54+
-    (cd $HOME/bin; ln -s /usr/local/bin/autoconf-2.57 autoconf)
-    setdir source
-    ./configure --prefix=/usr/local --disable-nls
-    $MAKE_PROG
-    (cd $HOME/bin; rm -f autoconf)
+    export PERL=/usr/local/bin/perl5
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
-    gzip -9 $stagedir$prefix/info/automake.info*
-    setdir source
+    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
     doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
 }
 
