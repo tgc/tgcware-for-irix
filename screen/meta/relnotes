@@ -1,33 +1,26 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
+Environment:
 
-# %%CONFIGURE%%
-# make LIBS="-lelf"
+Configure:
+%%CONFIGURE%%
+make LIBS="-lelf"
 
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
 
 ERRORS/MISCELLANEOUS
 --------------------
-
 You'll note that I'm overriding the LIBS variable during make.
 This is to avoid linking with -lsun -lcrypt as they don't provide
 any symbols needed.
