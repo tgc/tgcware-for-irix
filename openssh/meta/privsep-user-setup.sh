@@ -45,11 +45,11 @@ do_verify()
 # Attempt to create a group & user for sshd
 do_create()
 {
-    echo "Attempting to create sshd group (gid=$SSHID)"
+    echo "Attempting to create sshd group (gid=$ssh_gid)"
     # Ugh :( doing this the hard way on stupid Irix :(
     echo "sshd:*:$ssh_gid:" >> /etc/group
 
-    echo "Attempting to create sshd user (uid=$SSHID, gid=$SSHID)"
+    echo "Attempting to create sshd user (uid=$ssh_uid, gid=$ssh_gid)"
     if [ ! -z $PASSMGMT ]; then
 	$PASSMGMT -a -u $ssh_uid -g $ssh_gid -c "sshd privsep" -h /var/empty/sshd -s /bin/false sshd
     else # crap, we need to do it the hard way :(
