@@ -1,33 +1,23 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-
-export CC=gcc
-export CFLAGS="-Wall -ansi -O3"
-export LDSHARED="gcc -shared -static-libgcc"
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
+Environment:
+export LDSHARED="gcc -shared -rpath /usr/local/lib"
 
-# ./configure --prefix=/usr/local
-# ./configure --shared --prefix=/usr/local
+Configure:
+%%CONFIGURE%%
 
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
 
 ERRORS/MISCELLANEOUS
 --------------------
-none

@@ -2,17 +2,14 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-shortdesc="data compression library"
-
-[doc]
-subsys=man.doc
-files(-,root,sys)
-$_docdir
+pkgvendor="http://www.zlib.org"
+shortdesc="Data compression library"
 
 [lib]
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
+$_docdir
 
 [man]
 subsys=man.man
@@ -24,5 +21,4 @@ subsys=sw.dev
 files(-,root,sys)
 $_includedir
 $_libdir/*.so
-$_libdir/*.a
 

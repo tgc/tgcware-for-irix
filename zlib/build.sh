@@ -1,4 +1,4 @@
-#!/usr/local/bash/bin/bash
+#!/usr/local/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -8,11 +8,11 @@
 #
 # Check the following 4 variables before running the script
 topdir=zlib
-version=1.1.4
-pkgver=5
+version=1.2.1.1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=zlib-1.1.4-vsnprintf.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -32,13 +32,10 @@ prep()
 reg build
 build()
 {
-    export CC=gcc
-    export CFLAGS="-Wall -ansi -O3"
-    [ ! "$(gcc --version)" == "2.95.3" ] && export LDSHARED="gcc -shared -static-libgcc"
+    set_configure_args '--shared --prefix=$prefix'
+    export LDSHARED="gcc -shared -rpath ${prefix}/${_libdir}"
+    generic_build
     setdir source
-    ./configure --prefix=$prefix
-    $MAKE_PROG test
-    ./configure --shared --prefix=$prefix
     $MAKE_PROG test
 }
 
@@ -47,12 +44,10 @@ install()
 {
     generic_install prefix
     setdir source
-    $MKDIR -p ${stagedir}/${_mandir}/man3
-    $CP zlib.3 ${stagedir}/${_mandir}/man3
-    $CP libz.a ${stagedir}/${_libdir}
     doc README ChangeLog algorithm.txt minigzip.c example.c
     setdir stage
-    $MV ${_includedir} ${_libdir} ${_mandir} ${stagedir}${prefix}
+    $MV ${_includedir} ${_libdir} share/${_mandir} ${stagedir}${prefix}
+    $RMDIR share
 }
 
 reg pack
