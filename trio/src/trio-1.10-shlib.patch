@@ -17,7 +17,7 @@
 +SHLIB_MINOR	= 10
 +SHTARGETLIBBASE = libtrio.so
 +SHTARGETLIB	= $(SHTARGETLIBBASE).${SHLIB_MAJOR}.${SHLIB_MINOR}
-+SHLDFLAGS	= -shared -Wl,-soname,libtrio.so.${SHLIB_MAJOR}
++SHLDFLAGS	= -shared -Wl,-soname,libtrio.so.${SHLIB_MAJOR} -Wl,-set_version,sgi${SHLIB_MAJOR}.${SHLIB_MINOR}
 +
  # Installation settings
  INSTALL		= @INSTALL@
