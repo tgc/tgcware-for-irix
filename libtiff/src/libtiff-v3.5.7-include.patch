@@ -1,0 +1,11 @@
+--- tiff-v3.5.7/config.site.orig	2003-12-20 20:16:58.300000000 +0100
++++ tiff-v3.5.7/config.site	2003-12-20 20:17:22.880000000 +0100
+@@ -116,6 +116,8 @@
+ #DIR_GZLIB="../zlib"			# directory for libz
+ DIR_GZLIB="/usr/local/lib"
+ 
++DIRS_LIBINC="/usr/local/include"
++
+ #
+ # Miscellaneous parameters.
+ #
