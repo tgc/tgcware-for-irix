@@ -1,0 +1,14 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://http://www.freedesktop.org/software/fontconfig/releases/"
+shortdesc="Render X server extension"
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/pkgconfig/*.pc
+$_sharedir
+
