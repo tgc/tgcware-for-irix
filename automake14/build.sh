@@ -26,12 +26,6 @@ patch[4]=automake-1.4-subdirs-89656.patch
 export CPPFLAGS="-I/usr/local/include"
 export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
 
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
-
 reg prep
 prep()
 {
