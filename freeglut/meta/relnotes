@@ -1,0 +1,31 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------
+Irix 6.2 only has OpenGL 1.0 (+ enough extensions to mostly cover OpenGL 1.1)
+but is lacking a few functions that freeglut needed.
+The patch comments these function calls and while the demos are still working
+it's a hack and some functionality is likely broken by it.
