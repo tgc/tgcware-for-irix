@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=ncurses
 version=5.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Set new configure args
-set_configure_args '--prefix=$prefix --with-shared --without-debug --with-install-prefix=${stagedir} --with-manpage-symlinks --without-curses-h --disable-rpath --enable-symlinks --with-manpage-format=normal --with-libtool'
+set_configure_args '--prefix=$prefix --with-shared --without-debug --with-install-prefix=${stagedir} --with-manpage-symlinks --disable-rpath --enable-symlinks --with-manpage-format=normal --with-libtool'
 
 reg prep
 prep()
