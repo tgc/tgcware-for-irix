@@ -9,11 +9,12 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=1
+pkgver=3
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
 patch[1]=libjpeg-6b-arm.patch
+patch[2]=libjpeg-6b-soname.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
