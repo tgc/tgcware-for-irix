@@ -1,29 +1,22 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
-
-SOURCE/VERSION
---------------
-
-%%SOURCE_AND_VER%%
-
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-compiler and version:
+BUILD DETAILS
+-------------
+Compiler:
 %%COMPILER%%
 
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
+Environment:
 
+Configure:
 %%CONFIGURE%%
 
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
 
 ERRORS/MISCELLANEOUS
 --------------------
-none

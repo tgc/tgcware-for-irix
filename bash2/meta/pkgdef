@@ -1,7 +1,8 @@
 [common]
-pkgname="$pkgprefix""bash2"
+pkgname="$pkgprefix""bash"
 name="$topdir"
 pkgver="$pkgver"
+pkgvendor="http://www.gnu.org/software/bash/bash.html"
 shortdesc="GNU Bourne Again SHell"
 
 [base]

@@ -1,4 +1,4 @@
-#!/usr/local/bash/bin/bash
+#!/usr/local/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 version=2.05b
-pkgver=2
+pkgver=3
 source[0]=bash-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -66,7 +66,7 @@ all()
     for METHOD in $METHODS 
     do
 	case $METHOD in
-	     all*) ;;
+	     all*|*clean) ;;
 	     *) $METHOD
 		;;
 	esac
