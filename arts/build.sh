@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=arts
 version=1.4.0
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=arts-1.4.0-sgiaudio.patch
@@ -24,7 +24,7 @@ patch[4]=arts-1.4.0-sched.patch
 
 # Global settings
 export CPPFLAGS="-I/usr/local/include -I/usr/local/qt-3.3/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib -L/usr/local/qt-3.3/lib -rpath /usr/local/qt-3.3/lib"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/qt-3.3/lib -Wl,-rpath,/usr/local/qt-3.3/lib"
 set_configure_args '--prefix=$prefix --disable-rpath'
 
 autonuke=0
@@ -45,17 +45,6 @@ reg install
 install()
 {
     generic_install DESTDIR
-    # For some reason libgsl.so and libgslpp.so is not installed
-    ${CP} $srcdir/$topsrcdir/flow/gslpp/.libs/libgslpp.so.1.0 ${stagedir}${prefix}/${_libdir}
-    ${CP} $srcdir/$topsrcdir/flow/gsl/.libs/libgsl.so.1.0 ${stagedir}${prefix}/${_libdir}
-    ${CP} $srcdir/$topsrcdir/libltdl/.libs/libltdlc.so.1.0 ${stagedir}${prefix}/${_libdir}
-    setdir ${stagedir}${prefix}/${_libdir}
-    for i in libgsl libgslpp libltdlc
-    do
-	 ${LN} -s ${i}.so.1.0 ${i}.so.1
-	 ${LN} -s ${i}.so.1.0 ${i}.so
-    done
-    do_strip
 }
 
 reg pack

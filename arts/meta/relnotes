@@ -15,13 +15,20 @@ Compiler:
 
 Environment:
 export CPPFLAGS="-I/usr/local/include -I/usr/local/qt-3.3/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib -L/usr/local/qt-3.3/lib -rpath /usr/local/qt-3.3/lib"
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/qt-3.3/lib -Wl,-rpath,/usr/local/qt-3.3/lib"
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+glib2
+gettext
+libogg
+libmadd
+libiconv
+libvorbis
+qt
 
 ERRORS/MISCELLANEOUS
 --------------------
@@ -43,7 +50,3 @@ The changes that are needed to configure really should be done in acinclude.m4
 or configure.in.in but I couldn't be bothered to do it.
 The check for alOpenPort vs. ALopenport should be enhanced to check for one then
 the other.
-
-For some reason libgsl.so and libgslpp.so are not installed and makefiles seems
-to indicate that it's on purpose. I've installed them anyway since artsd and
-friends are actually linked with them and depend on them to run.
