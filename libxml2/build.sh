@@ -8,18 +8,18 @@
 #
 # Check the following 4 variables before running the script
 topdir=libxml2
-version=2.5.11
-pkgver=1
-source[0]=$topdir-$version.tar.gz
+version=2.6.16
+pkgver=2
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=testapi-libxml_h.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="libxml2"
+# Global settings
+export LDFLAGS="-L/usr/local/lib -Wl,-rpath,$prefix/lib"
+export CPPFLAGS="-I/usr/local/include"
 
 # Define script functions and register them
 METHODS=""
@@ -36,7 +36,6 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-Wl,-rpath,$prefix/lib"
     generic_build
 }
 
@@ -44,6 +43,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc README NEWS TODO TODO_SCHEMAS
 }
 
 reg pack
