@@ -1,0 +1,4 @@
+sw.lib tgc_expat.sw.lib 19580001 maxint
+sw.lib tgc_freetype.sw.lib 21900001 maxint
+sw.lib tgc_zlib.sw.lib 12200001 maxint
+sw.base sw.lib auto
