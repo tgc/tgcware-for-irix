@@ -11,9 +11,11 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+CC=gcc
+[ "$_os" = "irix53" ] && CC="gcc -D_XOPEN_SOURCE"
 
 Configure:
-make cc=gcc TZDIR=/usr/lib/locale/TZ ETCDIR=/usr/local/bin REDO=right_only
+make cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=/usr/local/bin REDO=right_only
 
 KNOWN DEPENDENCIES
 ------------------
@@ -21,7 +23,7 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
-Strict POSIX.1 compatibiltity was disabled by REDO=right_only which enables
+Strict POSIX.1 compatibilitity was disabled by REDO=right_only which enables
 leap seconds.
 
 Please see the Theory file in the doc dir for more information.

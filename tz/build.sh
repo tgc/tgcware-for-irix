@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=tz
 version=2004g
-pkgver=1
+pkgver=2
 source[0]=${topdir}code${version}.tar.gz
 source[1]=${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
@@ -18,6 +18,10 @@ patch[0]=tz2004g-makefile.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+CC=gcc
+# Irix 5.3 needs an extra define
+[ "$_os" = "irix53" ] && CC="gcc -D_XOPEN_SOURCE"
 
 reg prep
 prep()
@@ -36,7 +40,7 @@ build()
 {
     setdir source
     # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
-    $MAKE_PROG cc=gcc TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only
+    $MAKE_PROG cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only
 }
 
 reg install
@@ -44,7 +48,7 @@ install()
 {	
     clean stage
     setdir source
-    $MAKE_PROG cc=gcc TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only DESTDIR=$stagedir install
+    $MAKE_PROG cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only DESTDIR=$stagedir install
     doc Theory README
     custom_install=1
     generic_install
