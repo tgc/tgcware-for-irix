@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=3.9p1
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -36,10 +36,9 @@ reg build
 build()
 {
     export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
-    [ ! "$(gcc --version)" == "2.95.3" ] && LDFLAGS="-static-libgcc -Wl,-rpath,/usr/local/lib -L/usr/local/lib"
-    export CPPFLAGS="-I/usr/local/include/openssl"
+    export CPPFLAGS="-I/usr/local/include/openssl -I/usr/local/include"
     export ENTROPY="--with-prngd-socket=/var/run/egd-pool"
-    configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix $ENTROPY'
+    set_configure_args '--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix $ENTROPY'
 
     generic_build
 }
@@ -70,19 +69,18 @@ install()
     $RM -f $metadir/ops
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do $CP $i $i.default; echo "${prefix#/*}/${_sysconfdir}/ssh/$i config(noupdate)" >> $metadir/ops; done
-    $MKDIR ${_docdir}/samples
-    $MV *.default ${_docdir}/samples
-    $MKDIR ${_docdir}/contrib
-    $CP $metadir/privsep-user-setup.sh ${_docdir}/contrib
+    setdir ${stagedir}${prefix}
+    $MKDIR ${_docdir}/${topdir}-${version}/samples
+    $MV ${_sysconfdir}/ssh/*.default ${_docdir}/${topdir}-${version}/samples
+    $MKDIR ${_docdir}/${topdir}-${version}/contrib
+    $CP $metadir/privsep-user-setup.sh ${_docdir}/${topdir}-${version}/contrib
 }
 
 reg pack
 pack()
 {
-    (setdir ${stagedir}${prefix}/${_mandir}; fix_man)
-    (setdir ${stagedir}${prefix}/${_mandir}; compress_man)
     lprefix=${prefix#/*}
-    metainstroot=$prefix
+    metainstalldir=$prefix
     topinstalldir="/"
     generic_pack
 }
