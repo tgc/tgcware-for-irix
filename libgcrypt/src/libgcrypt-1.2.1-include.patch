@@ -1,11 +1,11 @@
---- libgcrypt-1.2.1/src/gcrypt.h.orig	Sat Feb 26 14:45:21 2005
-+++ libgcrypt-1.2.1/src/gcrypt.h	Sat Feb 26 14:45:33 2005
-@@ -22,6 +22,8 @@
- #ifndef _GCRYPT_H
- #define _GCRYPT_H
- 
-+#include <config.h>
-+
- #include <stdarg.h>
- #include <string.h>
+--- libgcrypt-1.2.1/src/gcrypt.h.orig	Sat Feb 26 17:59:44 2005
++++ libgcrypt-1.2.1/src/gcrypt.h	Sat Feb 26 18:01:16 2005
+@@ -171,7 +171,7 @@
+ #else
+ #define _GCRY_PTH_FD_SET    fd_set
+ #define _GCRY_PTH_SOCKADDR  struct sockaddr
+-#define _GCRY_PTH_SOCKLEN_T socklen_t
++#define _GCRY_PTH_SOCKLEN_T int /* socklen_t really, but Irix <= 6.2 doesn't have it */
+ #define _GCRY_PTH_MSGHDR    struct msghdr
+ #endif
  

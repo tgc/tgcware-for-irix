@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libgcrypt
 version=1.2.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libgcrypt-1.2.1-include.patch
@@ -22,7 +22,7 @@ patch[0]=libgcrypt-1.2.1-include.patch
 export CPPFLAGS="-I/usr/local/include"
 export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
 
-set_configure_args '--prefix=$prefix --with-static-rnd=egd --with-egd-socket=/var/run/egd-pool'
+set_configure_args '--prefix=$prefix --enable-random=egd --with-egd-socket=/var/run/egd-pool'
 
 reg prep
 prep()
