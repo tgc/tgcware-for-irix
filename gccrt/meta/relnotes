@@ -1,25 +1,23 @@
-PACKAGE NAME
-------------
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
 
-%%PKGNAME%%
+BUILD DETAILS
+-------------
+Compiler:
 
-SOURCE/VERSION
---------------
+Environment:
 
-%%SOURCE_AND_VER%%
+Configure:
 
-BUILD ENVIRONMENT
------------------
-No special build variables where set
-
-CONFIGURE/MAKE FLAGS/TARGETS
-----------------------------
-
-KNOWN DEPENDANCIES
+KNOWN DEPENDENCIES
 ------------------
-none
 
 ERRORS/MISCELLANEOUS
 --------------------
 This is the shared libraries from various gcc versions which packages may
 need at runtime.
+

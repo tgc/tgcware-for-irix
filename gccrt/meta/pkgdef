@@ -2,6 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
+pkgvendor=""
 shortdesc="gcc shared libraries"
 
 [lib]
