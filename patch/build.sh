@@ -1,4 +1,4 @@
-#!/usr/local/bash/bin/bash
+#!/usr/local/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 # Check the following 4 variables before running the script
 topdir=patch
 version=2.5.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,8 +20,6 @@ source[0]=$topdir-$version.tar
 # Fill in pkg metadata values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
 name="GNU Patch"
-pkgvendor="http://www.gnu.org"
-pkgdesc="Patch - Applies a patch to a file"
 
 # Define script functions and register them
 METHODS=""
