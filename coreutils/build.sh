@@ -8,20 +8,14 @@
 #
 # Check the following 4 variables before running the script
 topdir=coreutils
-version=5.0
-pkgver=2
+version=5.2.1
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=coreutils-5.0-tempname.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-subsysconf=$metadir/subsys.conf
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="GNU coreutils"
 
 # Define script functions and register them
 METHODS=""
@@ -45,7 +39,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    rm $stagedir$prefix/info/dir
+    $RM ${stagedir}${prefix}/${_infodir}/dir
+    $RM ${stagedir}${prefix}/${_libdir}/charset.alias
 }
 
 reg pack

@@ -1,0 +1,17 @@
+[ ommon]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+
+[base]
+subsys=sw.eoe
+files(-,root,sys)
+$_bindir
+$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+$_infodir
+
