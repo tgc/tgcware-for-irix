@@ -1,0 +1,102 @@
+2001-04-10  H.J. Lu <hjl@gnu.org>
+
+	* automake.in (AM_EXEEXT): Fix a typo.
+	(quote_cond_val): Fix backslashes.
+	(unquote_cond_val): Fix backslashes.
+	(value_to_list): Fix backslashes.
+	(read_am_file): Fix backslashes.
+	(read_main_am_file): Fix backslashes.
+
+--- automake-1.4/automake.in.backsplash	Tue Apr 10 23:36:17 2001
++++ automake-1.4/automake.in	Tue Apr 10 23:36:19 2001
+@@ -279,7 +279,7 @@ $cygnus_mode = 0;
+      'fp_FUNC_FNMATCH', "use \`AC_FUNC_FNMATCH'",
+      'AM_SANITY_CHECK_CC', "automatically done by \`AC_PROG_CC'",
+      'AM_PROG_INSTALL', "use \`AC_PROG_INSTALL'",
+-     'AM_EXEEEXT', "use \`AC_EXEEXT'",
++     'AM_EXEEXT', "use \`AC_EXEEXT'",
+      'AM_CYGWIN32', "use \`AC_CYGWIN32'",
+      'AM_MINGW32', "use \`AC_MINGW32'",
+ 
+@@ -5196,8 +5196,7 @@ sub examine_variable
+ sub quote_cond_val
+ {
+     local ($val) = @_;
+-    $val =~ s/ /\001/g;
+-    $val =~ s/\t/\003/g;
++    $val =~ tr/ \t\n/\001\003\004/;
+     $val = "\002" if $val eq '';
+     return $val;
+ }
+@@ -5206,8 +5205,7 @@ sub quote_cond_val
+ sub unquote_cond_val
+ {
+     local ($val) = @_;
+-    $val =~ s/\001/ /g;
+-    $val =~ s/\003/\t/g;
++    $val =~ tr/\001\003\004/ \t\n/;
+     $val =~ s/\002//g;
+     return $val;
+ }
+@@ -5514,6 +5512,9 @@ sub value_to_list
+     local ($var, $val, $cond) = @_;
+     local (@result);
+ 
++    # Strip backslashes
++    $val =~ s/\\(\n|$)/ /g;
++
+     foreach (split (' ', $val))
+     {
+ 	# If a comment seen, just leave.
+@@ -5820,10 +5821,6 @@ sub read_am_file
+ 	    else
+ 	    {
+ 		$saw_bk = /\\$/;
+-		# Chop newline and backslash if this line is
+-		# continued.  ensure trailing whitespace exists.
+-		chop if $saw_bk;
+-		chop if $saw_bk;
+ 		$contents{$last_var_name} .= ' '
+ 		    unless $contents{$last_var_name} =~ /\s$/;
+ 		$contents{$last_var_name} .= $_;
+@@ -5934,7 +5931,7 @@ sub read_am_file
+ 	    local ($value);
+ 	    if ($3 ne '' && substr ($3, -1) eq "\\")
+ 	    {
+-		$value = substr ($3, 0, length ($3) - 1);
++		$value = $3 . "\n";
+ 	    }
+ 	    else
+ 	    {
+@@ -5948,6 +5945,12 @@ sub read_am_file
+ 		{
+ 		    $contents{$last_var_name} = '@' . $last_var_name . '@';
+ 		}
++		if (substr ($contents{$last_var_name}, -1) eq "\n")
++		{
++		    # Insert a backslash before a trailing newline.
++		    $contents{$last_var_name}
++			= substr ($contents{$last_var_name}, 0, -1) . "\\\n";
++		}
+ 		$contents{$last_var_name} .= ' ' . $value;
+ 	    }
+ 	    else
+@@ -6150,9 +6153,15 @@ sub read_main_am_file
+ 	    {
+ 		local ($vcond) = shift (@cond_vals);
+ 		local ($val) = &unquote_cond_val (shift (@cond_vals));
+-		$output_vars .= ($vcond . $curs
+-				 . ' ' . $def_type{$curs} . '= '
+-				 . $val . "\n");
++		$output_vars .= ($vcond . $curs . ' '
++				 . $def_type{$curs} . "= ");
++		local ($line);
++		foreach $line (split ("\n", $val))
++		{
++		    $output_vars .= $vcond . $line . "\n";
++		}
++		$output_vars .= "\n"
++		    if $val eq '';
+ 	    }
+ 	}
+ 	else

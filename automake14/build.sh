@@ -1,5 +1,5 @@
 #!/usr/local/bin/bash
-#
+
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
@@ -8,11 +8,15 @@
 #
 # Check the following 4 variables before running the script
 topdir=automake14
-version=1.4-p5
-pkgver=3
+version=1.4-p6
+pkgver=4
 source[0]=automake-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=automake-1.4-libtoolize.patch
+patch[1]=automake-1.4-subdir.patch
+patch[2]=automake-1.4-backslash.patch
+patch[3]=automake-1.4-tags.patch
+patch[4]=automake-1.4-subdirs-89656.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -39,6 +43,7 @@ reg build
 build()
 {
     setdir source
+    autoreconf-2.57
     ./configure --prefix=/usr/local --disable-nls
     $MAKE_PROG
 }
@@ -47,7 +52,13 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    $RM -rf $stagedir$prefix/info
+    $RM -f $stagedir$prefix/bin/aclocal $stagedir$prefix/bin/automake
+    setdir source
+    $MKDIR -p info
+    $CP automake.info* info
+    $GZIP -9nf info/*
+    doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO info
 }
 
 reg pack

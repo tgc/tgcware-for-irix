@@ -1,0 +1,14 @@
+diff -u automake-1.4-p6/Makefile.am~ automake-1.4-p6/Makefile.am
+--- automake-1.4-p6/Makefile.am~	2002-07-29 21:10:39.000000000 +0900
++++ automake-1.4-p6/Makefile.am	2002-07-29 21:10:39.000000000 +0900
+@@ -151,8 +151,8 @@
+ 
+ ## Just get the .am files into TAGS.  We don't really care too much if
+ ## any interesting tags show up.
+-ETAGS_ARGS = $(amfiles)
+-TAGS_DEPENDENCIES = $(ETAGS_ARGS)
++#ETAGS_ARGS = $(amfiles)
++#TAGS_DEPENDENCIES = $(ETAGS_ARGS)
+ 
+ ## A temporary hack for the release.
+ DISTCLEANFILES = automake.cm automake.ov

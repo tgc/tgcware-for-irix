@@ -1,0 +1,22 @@
+2001-04-07  H.J. Lu <hjl@gnu.org>
+
+	* automake.in (handle_single_transform_list): Don't warn source
+	in subdirectory.
+
+--- automake-1.4/automake.in.ylwrap	Sat Apr  7 23:04:45 2001
++++ automake-1.4/automake.in	Sat Apr  7 23:17:32 2001
+@@ -1072,9 +1072,11 @@ sub handle_single_transform_list
+ 	    # the directory.  Later.
+ 	    if (/\//)
+ 	    {
+-		&am_error
+-		    ("not supported: source file `$_' is in subdirectory");
+-		next;
++		# It breaks gas/Makefile.in in binutils. For now, we
++		# turn off this warning.
++		# &am_error
++		# ("not supported: source file `$_' is in subdirectory");
++		# next;
+ 	    }
+ 
+ 	    # Split file name into base and extension.
