@@ -8,8 +8,8 @@
 #
 # Check the following 4 variables before running the script
 topdir=openssh
-version=3.6.1p1
-pkgver=3
+version=3.7.1p1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -39,8 +39,8 @@ prep()
 reg build
 build()
 {
-	export LDFLAGS="-rpath /usr/local/lib -L/usr/local/lib"
-	export CPPFLAGS="-I/usr/local/include/openssl"
+    export LDFLAGS="-rpath /usr/local/lib -L/usr/local/lib"
+    export CPPFLAGS="-I/usr/local/include/openssl"
     setdir source
     ./configure --prefix=$prefix --sysconfdir=$prefix/etc/ssh --with-prngd-socket=/var/run/egd-pool --with-default-path=/usr/local/bin:/usr/bsd:/usr/bin --with-mantype=cat --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:/usr/local/bin
     $MAKE_PROG
@@ -56,20 +56,20 @@ install()
     setdir $stagedir$prefix/etc/ssh
     for i in *; do mv $i $i.default; done
     cp -p $metadir/sshd.init.irix $stagedir/usr/local/etc/ssh/sshd.init-sample
-	cp -p $metadir/postinstall.irix $stagedir$prefix/etc/ssh/postinstall.irix
-	cp -p $metadir/postremove.irix $stagedir$prefix/etc/ssh/postremove.irix
+    cp -p $metadir/postinstall.irix $stagedir$prefix/etc/ssh/postinstall.irix
+    cp -p $metadir/postremove.irix $stagedir$prefix/etc/ssh/postremove.irix
 }
 
 reg pack
 pack()
 {
     clean meta
-	setdir $stagedir$prefix
-	create_idb
-	cp $metadir/$topdir.idb.fixed $metadir/$topdir.idb
-	create_spec
-	cp $metadir/$topdir.spec.fixed $metadir/$topdir.spec
-	make_dist
+    setdir $stagedir$prefix
+    create_idb
+    cp $metadir/$topdir.idb.fixed $metadir/$topdir.idb
+    create_spec
+    cp $metadir/$topdir.spec.fixed $metadir/$topdir.spec
+    make_dist
 }
 
 reg distclean
