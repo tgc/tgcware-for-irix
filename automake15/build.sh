@@ -9,10 +9,11 @@
 # Check the following 4 variables before running the script
 topdir=automake15
 version=1.5
-pkgver=2
+pkgver=3
 source[0]=automake-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=automake-1.5-version.patch
+patch[1]=automake-1.5-makefile.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
