@@ -1,0 +1,27 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+
+Configure:
+make cc=gcc TZDIR=/usr/lib/locale/TZ ETCDIR=/usr/local/bin REDO=right_only
+
+KNOWN DEPENDENCIES
+------------------
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+Strict POSIX.1 compatibiltity was disabled by REDO=right_only which enables
+leap seconds.
+
+Please see the Theory file in the doc dir for more information.

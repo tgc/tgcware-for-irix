@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="ftp://elsie.nci.nih.gov/pub/"
+shortdesc="Arthur Olson timezone package"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_libdir
+$iprefix/$_bindir
+$iprefix/$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$iprefix/$_mandir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$iprefix/$_libdir/*.a
+
