@@ -9,16 +9,13 @@
 # Check the following 4 variables before running the script
 topdir=libiconv
 version=1.9.2
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
 
 # Define script functions and register them
 METHODS=""
@@ -36,16 +33,16 @@ reg build
 build()
 {
     export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
-    setdir source
-    ./configure --prefix=$prefix --enable-extra-encodings
-    $MAKE_PROG
+    set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --enable-extra-encodings'
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    doc NOTES
+    doc NOTES ChangeLog DESIGN NEWS
+    ${RM} -f ${stagedir}${prefix}/${_libdir}/charset.alias
 }
 
 reg pack
