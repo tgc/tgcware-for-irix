@@ -1,0 +1,29 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib"
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+gettext
+libiconv
+
+ERRORS/MISCELLANEOUS
+--------------------
+I had to force linking with GNU gettext/libiconv in /usr/local
+by overriding LIBS in the makefile since configure script is unable
+to get it right :(

@@ -1,0 +1,26 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/"
+shortdesc="Library for parsing command line options"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_sharedir
+$_libdir/*.so.*
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/*.la
+
