@@ -8,7 +8,7 @@
 #
 # Check the following 4 variables before running the script
 topdir=pcre
-version=4.4
+version=5.0
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -17,9 +17,9 @@ source[0]=$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="pcre"
+# Global settings
+export LDFLAGS="-Wl,-rpath,$prefix/lib -L.libs"
+export CFLAGS="-g -O2 -Wl,-rpath,$prefix/lib -L.libs"
 
 # Define script functions and register them
 METHODS=""
@@ -37,17 +37,19 @@ reg build
 build()
 {
     setdir source
-    export LDFLAGS="-Wl,-rpath,$prefix/lib -L.libs"
-    export CFLAGS="-g -O2 -Wl,-rpath,$prefix/lib -L.libs"
-    ./configure --prefix=$prefix --disable-static
-    $MKDIR .libs
-    $MAKE_PROG
+    ${MKDIR} .libs
+    generic_build
+    # Workaround libtool problems...
+    setdir source
+    ${SED} -e "s# libpcre.la# -L$srcdir/$topsrcdir/.libs libpcre.la#g" libpcreposix.la > libpcreposix.la.new
+    ${MV} libpcreposix.la.new libpcreposix.la
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS AUTHORS ChangeLog LICENCE
 }
 
 reg pack
