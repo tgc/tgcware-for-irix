@@ -34,7 +34,7 @@ diff -urN aspell-0.60.2.pure/m4/needtrio.m4 aspell-0.60.2/m4/needtrio.m4
 +dnl This particular version of needtrio.m4 will unconditionally define
 +dnl TRIO_REPLACE_STDIO which means trio will take over all the *printf
 +dnl functions from stdio.h. If you don't want that then remove the
-+dnl AC_DEFINE an selectively use #define trio_<func> <func> instead
++dnl AC_DEFINE an selectively use #define <func> trio_<func> instead
 +dnl by modifying the existing AH_BOTTOM macro.
 +dnl 
 +dnl The original code from lftp is covered by the GNU GPL v2 and is
@@ -92,8 +92,8 @@ diff -urN aspell-0.60.2.pure/m4/needtrio.m4 aspell-0.60.2/m4/needtrio.m4
 +#ifdef NEED_TRIO
 +#include <trio.h>
 +#if !defined(TRIO_REPLACE_STDIO)
-+#define trio_snprintf snprintf
-+#define trio_vsnprintf vsnprintf
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
 +#endif
 +#endif])
 +      ;;
