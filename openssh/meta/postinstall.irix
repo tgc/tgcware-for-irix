@@ -141,7 +141,15 @@ fi
 
 # Make sure the sshd user doesn't show up on the clogin screen
 # Checking is minimal...
-[ -r /var/Cadmin/clogin.conf ] && echo sshd:noshow >> /var/Cadmin/clogin.conf
+if [ -r /var/Cadmin/clogin.conf ]; then
+    s=`grep sshd /var/Cadmin/clogin.conf`
+    if [ -z "$s" ]; then
+	echo sshd:noshow >> /var/Cadmin/clogin.conf
+    else
+	/usr/bin/sed -e "s;${s};sshd:noshow;g" /var/Cadmin/clogin.conf > /tmp/clogin.conf.new
+	mv /tmp/clogin.conf.new /var/Cadmin/clogin.conf
+    fi
+fi
 
 # FIXME Other stuff about the user/group situation should probably be checked
 # FIXME like the homedir and shell of an existing sshd user

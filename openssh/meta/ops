@@ -1,0 +1,2 @@
+firstop removeop(/usr/local/etc/ssh/postremove.irix)
+share/Ssh.bin exitop(/usr/local/etc/ssh/postinstall.irix)

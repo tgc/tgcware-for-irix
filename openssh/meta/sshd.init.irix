@@ -18,16 +18,9 @@ desc="sshd"
 
 mode=$1
 
-case `uname -sr` in
-    'IRIX 5.3')
-	    set `id | cut -d '=' -f 2 | cut -d '(' -f 1` # Happy joy, no id -u :(
-	    ;;
-    *)
-	    set `/usr/bin/id -u`
-	    ;;
-esac
+set `/usr/bin/whoami`
 
-if [ $1 = "0" ]; then
+if [ $1 = "root" ]; then
 
 case $mode in
 
