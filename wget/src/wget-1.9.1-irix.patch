@@ -1,0 +1,13 @@
+--- wget-1.9.1/src/connect.c.irix	Sat Apr  9 10:53:21 2005
++++ wget-1.9.1/src/connect.c	Sat Apr  9 10:58:25 2005
+@@ -327,8 +327,8 @@
+   DEBUGP (("Master socket fd %d bound.\n", msock));
+   if (!*port)
+     {
+-      socklen_t sa_len = sockaddr_len ();
+-      if (getsockname (msock, &srv.sa, &sa_len) < 0)
++      socklen_t tsa_len = sockaddr_len ();
++      if (getsockname (msock, &srv.sa, &tsa_len) < 0)
+ 	{
+ 	  CLOSE (msock);
+ 	  msock = -1;
