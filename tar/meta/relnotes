@@ -11,14 +11,17 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libintl.so.4
-libiconv.so.3
+gettext
+libiconv
+trio
 
 ERRORS/MISCELLANEOUS
 --------------------
+Added support for trio (vsnprintf needed)
