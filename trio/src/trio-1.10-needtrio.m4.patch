@@ -1,0 +1,104 @@
+--- trio-1.10/needtrio.m4.orig	Fri Sep 23 21:06:07 2005
++++ trio-1.10/needtrio.m4	Fri Sep 23 21:05:58 2005
+@@ -0,0 +1,83 @@
++dnl Found this in lftp 3.0.13 and adapted it to an external trio library
++dnl Just put an include in your acinlude.m4 or aclocal.m4 file and then
++dnl call NEED_TRIO_CHECK. This will add -ltrio to LIBS if
++dnl snprint/vsnprint is unavailable.
++dnl Then make sure trio.h is included if NEED_TRIO is defined.
++dnl Something like this:
++dnl
++dnl #ifdef NEED_TRIO
++dnl #include <trio.h>
++dnl #endif
++dnl
++dnl If you're using config.h style configuration use autoheader to
++dnl automatically get the defines added. This will also add the above
++dnl snippet of code to include trio.h when needed.
++dnl
++dnl This particular version of needtrio.m4 will unconditionally define
++dnl TRIO_REPLACE_STDIO which means trio will take over all the *printf
++dnl functions from stdio.h. If you don't want that then remove the
++dnl AC_DEFINE an selectively use #define <func> trio_<func> instead
++dnl by modifying the existing AH_BOTTOM macro.
++dnl 
++dnl The original code from lftp is covered by the GNU GPL v2 and is
++dnl Copyright(c) 1996-2004 by Alexander V. Lukyanov <lav@yars.free.net>
++dnl
++dnl The changes in this version are by extension also covered by the
++dnl GNU GPL v2 and are
++dnl Copyright(c) 2005 by Tom G. Christensen <irixpkg@jupiterrise.com>
++dnl
++
++AC_DEFUN([NEED_TRIO_CHECK],[
++   AC_CHECK_FUNCS(vsnprintf snprintf)
++   AC_CACHE_CHECK([if trio library is needed], ac_cv_need_trio,
++   [
++      ac_cv_need_trio=no;
++
++      if test x$ac_cv_func_vsnprintf != xyes -o x$ac_cv_func_snprintf != xyes; then
++	 ac_cv_need_trio="yes (because there is no system snprintf/vsnprintf functions)"
++      else
++
++      AC_TRY_RUN([
++	 int main()
++	 {
++	    unsigned long long x=0,x1;
++	    long long y=0,y1;
++	    char buf[128];
++
++	    x=~x;
++	    sscanf("0","%llu",&x);
++	    if(x!=0) return 1;
++
++	    y=~y;
++	    sscanf("0","%lld",&y);
++	    if(y!=0) return 1;
++
++	    x=~x;
++	    sprintf(buf,"%lld %llu",y,x);
++	    sscanf (buf,"%lld %llu",&y1,&x1);
++	    if(x!=x1 || y!=y1)
++	       return 1;
++
++	    return 0;
++	 }],[],[ac_cv_need_trio="yes (because %lld fails)"],[])
++
++      fi
++   ])
++   case $ac_cv_need_trio in
++   yes*)
++      AC_CHECK_LIB(trio, trio_snprintf, [], 
++	[AC_MSG_ERROR([Error! Since snprintf/vsnprint is missing we need trio.])])
++      AC_DEFINE(NEED_TRIO, 1, [define if you need trio for snprint/vsnprintf functions])
++      AC_DEFINE(TRIO_REPLACE_STDIO, 1, [define if trio should replace all system printf functions])
++      AH_BOTTOM([
++/* If we need trio then make sure that trio.h is included always */
++#ifdef NEED_TRIO
++#include <trio.h>
++#if !defined(TRIO_REPLACE_STDIO)
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++#endif
++#endif])
++      ;;
++   esac
++])
+--- trio-1.10/Makefile.in.orig	Fri Sep 23 21:05:52 2005
++++ trio-1.10/Makefile.in	Fri Sep 23 21:07:12 2005
+@@ -38,6 +38,7 @@
+ install:	$(TARGETLIB) $(SHLIBTARGET)
+ 	$(MKDIR) $(DESTDIR)$(libdir)
+ 	$(MKDIR) $(DESTDIR)$(includedir)
++	$(MKDIR) $(DESTDIR)$(prefix)/share/aclocal
+ 	$(INSTALL_DATA) $(TARGETLIB) $(DESTDIR)$(libdir)/$(TARGETLIB)
+ 	$(INSTALL_DATA) $(SHTARGETLIB) $(DESTDIR)$(libdir)
+ 	(cd $(DESTDIR)$(libdir); ln -s $(SHTARGETLIB) $(SHTARGETLIBBASE).$(SHLIB_MAJOR))
+@@ -45,6 +46,7 @@
+ 	for i in $(TARGETINCS);do \
+ 	(set -x;$(INSTALL_DATA) $$i $(DESTDIR)$(includedir)); \
+ 	done
++	$(INSTALL_DATA) needtrio.m4 $(DESTDIR)$(prefix)/share/aclocal
+ 
+ pure: $(TOBJS) $(OBJS)
+ 	$(PURIFY) $(PURIFYOPTIONS) $(CC) $(CFLAGS) $^ $(LDFLAGS)

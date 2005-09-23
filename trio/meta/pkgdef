@@ -9,7 +9,7 @@ shortdesc="Portable string functions"
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_sharedir
+$_sharedir/doc
 
 [devel]
 subsys=sw.dev
@@ -17,4 +17,5 @@ files(-,root,sys)
 $_includedir
 $_libdir/*.so
 $_libdir/*.a
+$_sharedir/aclocal
 
