@@ -3,12 +3,13 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=3.4.3
+version=3.4.4
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -22,13 +23,7 @@ patch[2]=gcc-3.4.3-iconv-rpath.patch
 # Define abbreviated version number
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
 
-prefix=/usr/local/$topdir-$version
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+prefix=/usr/tgcware/$topdir-$version
 
 reg prep
 prep()
@@ -45,7 +40,7 @@ prep()
 reg build
 build()
 {
-    global_config_args="--prefix=$prefix --with-local-prefix=$prefix --enable-languages=c,c++ --disable-nls --disable-shared --with-libiconv-prefix=/usr/local"
+    global_config_args="--prefix=$prefix --with-local-prefix=$prefix --enable-languages=c,c++ --disable-nls --disable-shared --with-libiconv-prefix=/usr/tgcware"
     if [ "$_os" = "irix53" ]; then
 	export CONFIG_SHELL=/bin/ksh
 	configure_args="$global_config_args"
@@ -67,7 +62,7 @@ reg install
 install()
 {
     clean stage
-    lprefix=/usr/local
+    lprefix=/usr/tgcware
     setdir $srcdir/objdir
     $MAKE_PROG INSTALL=$GINSTALL DESTDIR=$stagedir install
     $RM -f ${stagedir}${prefix}/${_infodir}/dir
@@ -93,42 +88,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
