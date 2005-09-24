@@ -11,15 +11,16 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libintl.so.4
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
 There's a circular dependency here since gettext in turn
-depends on libiconv.so.3 :)
+depends on libiconv

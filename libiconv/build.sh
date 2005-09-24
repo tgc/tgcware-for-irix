@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libiconv
 version=1.9.2
-pkgver=8
+pkgver=9
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=

@@ -1,1 +1,2 @@
 sw.base sw.lib auto
+sw.base tgc_gettext.sw.lib 01410001 maxint
