@@ -18,9 +18,7 @@ Configure:
 
 KNOWN DEPENDENCIES
 ------------------
-gettext
-libiconv
-trio
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
