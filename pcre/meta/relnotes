@@ -11,14 +11,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export LDFLAGS="-Wl,-rpath,$prefix/lib -L.libs"
-export CFLAGS="-g -O2 -Wl,-rpath,$prefix/lib -L.libs"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
