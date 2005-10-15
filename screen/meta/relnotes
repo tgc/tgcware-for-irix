@@ -5,25 +5,30 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
-make LIBS="-lelf"
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-You'll note that I'm overriding the LIBS variable during make.
-This is to avoid linking with -lsun -lcrypt as they don't provide
-any symbols needed.
+The configure.in file is badly written and it unconditionally adds the
+sun and crypt libs to the link line.
+To fix this I simply ripped out the part of the script that checks those
+2 libs.
 
 The right terminfo file should be automatically added to the terminfo
 database during installation.

@@ -3,25 +3,23 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=screen
 version=4.0.2
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=screen-4.0.2-makefile-madness.diff
+patch[1]=screen-4.0.2-obsolete-libs.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
 
 reg prep
 prep()
@@ -32,11 +30,7 @@ prep()
 reg build
 build()
 {
-    configure_args="$(_upls $configure_args)"
-    setdir source
-    ./configure $configure_args
-    # We hardcode LIBS to avoid linking with unneeded -lcrypt -lsun
-    $MAKE_PROG LIBS="-lcurses -lelf"
+    generic_build
 }
 
 reg install
@@ -73,42 +67,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

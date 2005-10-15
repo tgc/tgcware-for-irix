@@ -1,1 +1,1 @@
-share/screen/screeninfo.src exitop(/usr/bin/tic /usr/local/share/screen/screeninfo.src)
+share/screen/screeninfo.src exitop(/usr/bin/tic /usr/tgcware/share/screen/screeninfo.src)

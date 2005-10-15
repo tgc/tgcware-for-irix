@@ -1,0 +1,95 @@
+--- screen-4.0.2/configure.libs	Sat Oct 15 21:51:20 2005
++++ screen-4.0.2/configure	Sat Oct 15 21:52:35 2005
+@@ -6555,92 +6555,6 @@
+ fi
+ 
+ 
+-{ echo "$as_me:$LINENO: checking for crypt and sec libraries..." >&5
+-echo "$as_me: checking for crypt and sec libraries..." >&6;}
+-test -f /lib/libcrypt_d.a || test -f /usr/lib/libcrypt_d.a && LIBS="$LIBS -lcrypt_d"
+-oldlibs="$LIBS"
+-LIBS="$LIBS -lcrypt"
+-{ echo "$as_me:$LINENO: checking crypt..." >&5
+-echo "$as_me: checking crypt..." >&6;}
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-/* confdefs.h.  */
+-_ACEOF
+-cat confdefs.h >>conftest.$ac_ext
+-cat >>conftest.$ac_ext <<_ACEOF
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  :
+-else
+-  echo "$as_me: failed program was:" >&5
+-sed 's/^/| /' conftest.$ac_ext >&5
+-
+-LIBS="$oldlibs"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-test -f /lib/libsec.a || test -f /usr/lib/libsec.a && LIBS="$LIBS -lsec"
+-test -f /lib/libshadow.a || test -f /usr/lib/libshadow.a && LIBS="$LIBS -lshadow"
+-oldlibs="$LIBS"
+-LIBS="$LIBS -lsun"
+-{ echo "$as_me:$LINENO: checking IRIX sun library..." >&5
+-echo "$as_me: checking IRIX sun library..." >&6;}
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-/* confdefs.h.  */
+-_ACEOF
+-cat confdefs.h >>conftest.$ac_ext
+-cat >>conftest.$ac_ext <<_ACEOF
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  :
+-else
+-  echo "$as_me: failed program was:" >&5
+-sed 's/^/| /' conftest.$ac_ext >&5
+-
+-LIBS="$oldlibs"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-
+ { echo "$as_me:$LINENO: checking syslog..." >&5
+ echo "$as_me: checking syslog..." >&6;}
+ cat >conftest.$ac_ext <<_ACEOF
