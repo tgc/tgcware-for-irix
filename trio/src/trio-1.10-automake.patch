@@ -10,7 +10,7 @@
 +regression_LDADD = libtrio.la
 +TESTS = regression
 +
-+pkginclude_HEADERS = trio.h triop.h triodef.h trionan.h triostr.h
++include_HEADERS = trio.h triop.h triodef.h trionan.h triostr.h
 +
 +aclocaldir=${datadir}/aclocal
 +aclocal_DATA=needtrio.m4

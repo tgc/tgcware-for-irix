@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=trio
 version=1.10
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=trio-1.10-automake.patch
