@@ -1,5 +1,5 @@
---- trio-1.10/needtrio.m4.orig	Fri Sep 23 21:06:07 2005
-+++ trio-1.10/needtrio.m4	Fri Sep 23 21:05:58 2005
+--- trio-1.10.hack/needtrio.m4.ac	Sat Oct 15 10:42:24 2005
++++ trio-1.10.hack/needtrio.m4	Sat Oct 15 10:49:48 2005
 @@ -0,0 +1,83 @@
 +dnl Found this in lftp 3.0.13 and adapted it to an external trio library
 +dnl Just put an include in your acinlude.m4 or aclocal.m4 file and then
@@ -16,17 +16,17 @@
 +dnl automatically get the defines added. This will also add the above
 +dnl snippet of code to include trio.h when needed.
 +dnl
-+dnl This particular version of needtrio.m4 will unconditionally define
-+dnl TRIO_REPLACE_STDIO which means trio will take over all the *printf
-+dnl functions from stdio.h. If you don't want that then remove the
-+dnl AC_DEFINE an selectively use #define <func> trio_<func> instead
++dnl If you want trio to completely replace stdio.h then you must define
++dnl TRIO_REPLACE_STDIO. This define is currently commented and inactive.
++dnl Uncomment it as needed.
++dnl If you just want trio to take over some (missing) functions then use
++dnl AC_DEFINE and selectively use #define <func> trio_<func>
 +dnl by modifying the existing AH_BOTTOM macro.
 +dnl 
 +dnl The original code from lftp is covered by the GNU GPL v2 and is
 +dnl Copyright(c) 1996-2004 by Alexander V. Lukyanov <lav@yars.free.net>
 +dnl
-+dnl The changes in this version are by extension also covered by the
-+dnl GNU GPL v2 and are
++dnl This adaption is also covered by the GNU GPL v2 and is
 +dnl Copyright(c) 2005 by Tom G. Christensen <irixpkg@jupiterrise.com>
 +dnl
 +
@@ -69,9 +69,9 @@
 +   case $ac_cv_need_trio in
 +   yes*)
 +      AC_CHECK_LIB(trio, trio_snprintf, [], 
-+	[AC_MSG_ERROR([Error! Since snprintf/vsnprint is missing we need trio.])])
-+      AC_DEFINE(NEED_TRIO, 1, [define if you need trio for snprint/vsnprintf functions])
-+      AC_DEFINE(TRIO_REPLACE_STDIO, 1, [define if trio should replace all system printf functions])
++	[AC_MSG_ERROR([Unable to find trio library.])])
++      AC_DEFINE(NEED_TRIO, 1, [define if you need trio for stdio functions])
++      dnl AC_DEFINE(TRIO_REPLACE_STDIO, 1, [define if trio should replace all system stdio functions])
 +      AH_BOTTOM([
 +/* If we need trio then make sure that trio.h is included always */
 +#ifdef NEED_TRIO
@@ -84,21 +84,3 @@
 +      ;;
 +   esac
 +])
---- trio-1.10/Makefile.in.orig	Fri Sep 23 21:05:52 2005
-+++ trio-1.10/Makefile.in	Fri Sep 23 21:07:12 2005
-@@ -38,6 +38,7 @@
- install:	$(TARGETLIB) $(SHLIBTARGET)
- 	$(MKDIR) $(DESTDIR)$(libdir)
- 	$(MKDIR) $(DESTDIR)$(includedir)
-+	$(MKDIR) $(DESTDIR)$(prefix)/share/aclocal
- 	$(INSTALL_DATA) $(TARGETLIB) $(DESTDIR)$(libdir)/$(TARGETLIB)
- 	$(INSTALL_DATA) $(SHTARGETLIB) $(DESTDIR)$(libdir)
- 	(cd $(DESTDIR)$(libdir); ln -s $(SHTARGETLIB) $(SHTARGETLIBBASE).$(SHLIB_MAJOR))
-@@ -45,6 +46,7 @@
- 	for i in $(TARGETINCS);do \
- 	(set -x;$(INSTALL_DATA) $$i $(DESTDIR)$(includedir)); \
- 	done
-+	$(INSTALL_DATA) needtrio.m4 $(DESTDIR)$(prefix)/share/aclocal
- 
- pure: $(TOBJS) $(OBJS)
- 	$(PURIFY) $(PURIFYOPTIONS) $(CC) $(CFLAGS) $^ $(LDFLAGS)

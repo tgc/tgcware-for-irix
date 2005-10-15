@@ -25,5 +25,5 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-Added support to the makefile for building as a shared library.
+Added libtool support by creating a makefile.am for use with automake.
 Added a needtrio.m4 file for use with aclocal/autoconf.
