@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=grep
 version=2.5.1a
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,9 +19,9 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --enable-nls --with-libiconv-prefix=/usr/local'
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+set_configure_args '--prefix=$prefix --enable-nls --with-libiconv-prefix=/usr/tgcware'
 
 reg prep
 prep()
