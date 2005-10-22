@@ -1,0 +1,17 @@
+--- trio-1.10/trio.h.orig	2005-10-22 20:58:14.882196722 +0200
++++ trio-1.10/trio.h	2005-10-22 20:58:55.465927043 +0200
+@@ -24,14 +24,6 @@
+ 
+ #if !defined(WITHOUT_TRIO)
+ 
+-/*
+- * Use autoconf defines if present. Packages using trio must define
+- * HAVE_CONFIG_H as a compiler option themselves.
+- */
+-#if defined(HAVE_CONFIG_H)
+-# include <config.h>
+-#endif
+-
+ #include "triodef.h"
+ 
+ #include <stdio.h>

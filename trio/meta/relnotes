@@ -27,3 +27,5 @@ ERRORS/MISCELLANEOUS
 --------------------
 Added libtool support by creating a makefile.am for use with automake.
 Added a needtrio.m4 file for use with aclocal/autoconf.
+Patched trio.h header to not attempt to include config.h. It's the wrong
+way around and will break the minute CONFIG_H is not config.h
