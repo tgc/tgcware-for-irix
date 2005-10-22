@@ -14,20 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-zlib
-lcms
-libjpeg
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-I used the supplied autogen.sh to create the standard configure
-script which was used for the build.
-
