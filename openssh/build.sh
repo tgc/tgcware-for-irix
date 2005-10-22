@@ -3,13 +3,14 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=3.9p1
-pkgver=6
+version=4.2p1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,11 +21,14 @@ source[0]=$topdir-$version.tar.gz
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
 
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CC=cc
+export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib"
+export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
+configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool'
+mipspro=1
+# It uses ac_cv_lib_gen_dirname=yes but that is okay
+check_ac=0
 
 reg prep
 prep()
@@ -35,11 +39,6 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
-    export CPPFLAGS="-I/usr/local/include/openssl -I/usr/local/include"
-    export ENTROPY="--with-prngd-socket=/var/run/egd-pool"
-    set_configure_args '--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --with-prngd-socket=/var/run/egd-pool --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix $ENTROPY'
-
     generic_build
 }
 
@@ -98,42 +97,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

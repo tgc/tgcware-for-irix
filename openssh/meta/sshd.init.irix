@@ -6,12 +6,12 @@
 ## default configuration
 
 IS_ON=/etc/chkconfig
-SSHD=/usr/local/sbin/sshd
+SSHD=/usr/tgcware/sbin/sshd
 CONFIG=/etc/config/tgc_sshd.options
-KEYGEN=/usr/local/bin/ssh-keygen
-RSA1_KEY=/usr/local/etc/ssh/ssh_host_key
-RSA_KEY=/usr/local/etc/ssh/ssh_host_rsa_key
-DSA_KEY=/usr/local/etc/ssh/ssh_host_dsa_key
+KEYGEN=/usr/tgcware/bin/ssh-keygen
+RSA1_KEY=/usr/tgcware/etc/ssh/ssh_host_key
+RSA_KEY=/usr/tgcware/etc/ssh/ssh_host_rsa_key
+DSA_KEY=/usr/tgcware/etc/ssh/ssh_host_dsa_key
 
 pidfile=/var/run/sshd.pid
 

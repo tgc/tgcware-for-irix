@@ -5,35 +5,35 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
-export LDFLAGS="-Wl,-rpath,/usr/local/lib -L/usr/local/lib"
-export CPPFLAGS="-I/usr/local/include/openssl -I/usr/local/include"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-openssl
-zlib 
-prngd
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
 Configuration files are marked config(noupdate) which means any existing
 versions are preserved.
 A copy of the default configuration files are available in
-/usr/local/share/doc/openssh-<version>/samples
+/usr/tgcware/share/doc/openssh-<version>/samples
 
 Privilege seperation is enabled by default thus sshd startup will fail until
 a suitable user has been created.
 This user should be called 'sshd' and belong to its own seperate group.
-In /usr/local/share/doc/openssh-<version>/contrib there is a script called
+In /usr/tgcware/share/doc/openssh-<version>/contrib there is a script called
 privsep-user-setup.sh which will attempt to setup such a user.
 It requires uid and gid as input ie. ./privsep-user-setup.sh 74 74
 to use uid=74 and gid=74.
