@@ -14,8 +14,8 @@
 -#ZLIBINC=/usr/local/include
 -ZLIBLIB=../zlib
 -ZLIBINC=../zlib
-+ZLIBLIB=/usr/local/lib
-+ZLIBINC=/usr/local/include
++ZLIBLIB=/usr/tgcware/lib
++ZLIBINC=/usr/tgcware/include
  
  LIBNAME=libpng12
  PNGMAJ = 0
@@ -30,9 +30,9 @@
 -  -set_version sgi$(PNGMAJ).0
 -LDLEGACY=cc $(ABI) -shared -soname libpng.so.3 \
 -  -set_version sgi$3.0
-+LDSHARED=$(CC) $(ABI) -Wl,-rpath,/usr/local/lib -shared -Wl,-soname,$(LIBNAME).so.$(PNGMAJ) \
++LDSHARED=$(CC) $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -Wl,-soname,$(LIBNAME).so.$(PNGMAJ) \
 +  -Wl,-set_version,sgi$(PNGMAJ).0
-+LDLEGACY=$(CC) $(ABI) -Wl,-rpath,/usr/local/lib -shared -Wl,-soname,libpng.so.3 \
++LDLEGACY=$(CC) $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -Wl,-soname,libpng.so.3 \
 +  -Wl,-set_version,sgi$3.0
  # See "man dso" for info about shared objects
  
