@@ -1,4 +1,1 @@
 sw.base sw.lib auto
-sw.base tgc_libjpeg.sw.lib 60000005 maxint
-sw.base tgc_tiff.sw.lib 37100001 maxint
-sw.base tgc_zlib.sw.lib 12200001 maxint
