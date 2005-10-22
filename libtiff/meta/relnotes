@@ -14,14 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libjpeg
-zlib
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------

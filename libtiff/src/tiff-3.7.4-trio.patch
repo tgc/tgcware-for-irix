@@ -1,0 +1,12 @@
+--- tiff-3.7.4/configure.ac.trio	2005-10-22 20:24:16.107162759 +0200
++++ tiff-3.7.4/configure.ac	2005-10-22 20:25:48.232930441 +0200
+@@ -422,6 +422,9 @@
+ 
+ AM_CONDITIONAL(HAVE_OPENGL, test "$HAVE_OPENGL" = "yes")
+ 
++dnl tiffgt assumes snprintf - check if we need libtrio for that
++NEED_TRIO_CHECK
++
+ dnl ===========================================================================
+ dnl ``Orthogonal Features''
+ dnl ===========================================================================
