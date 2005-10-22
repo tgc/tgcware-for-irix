@@ -5,19 +5,23 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
-export LDSHARED="gcc -shared -rpath /usr/local/lib -Wl,-soname,libz.so.1"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
