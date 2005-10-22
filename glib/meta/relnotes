@@ -14,19 +14,20 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
 glib 1.2.10 is broken when building with gcc 3.4.x.
-The patch to fix it was taken from the OpenPKG package.
+I added a patch to fix it taken from the OpenPKG package
+but ended up building it with MIPSpro so it's not really needed.
 
 The library was built with pthreads and should be threadsafe.
 I had to override the result of the getpwuid_r test since it fails to find
