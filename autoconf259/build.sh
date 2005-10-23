@@ -10,13 +10,16 @@
 # Check the following 4 variables before running the script
 topdir=autoconf
 version=2.59
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# Global settings
+export PERL=/usr/tgcware/bin/perl
 
 reg prep
 prep()
@@ -27,8 +30,6 @@ prep()
 reg build
 build()
 {
-    # This is the perl we want autoconf to use
-    export PERL=/usr/local/bin/perl5
     generic_build
 }
 
@@ -37,7 +38,7 @@ install()
 {
     generic_install DESTDIR
     ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
-    doc ChangeLog NEWS README
+    doc ChangeLog NEWS README COPYING TODO THANKS BUGS AUTHORS
 }
 
 reg pack
