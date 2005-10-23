@@ -1,5 +1,5 @@
 [common]
-pkgname="$pkgprefix""$topdir"
+pkgname="$pkgprefix""$pkgdir"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.gnu.org/software/automake/"
@@ -10,9 +10,4 @@ subsys=sw.base
 files(-,root,sys)
 $_bindir
 $_sharedir
-
-[info]
-subsys=man.info
-files(-,root,sys)
-$_infodir
 
