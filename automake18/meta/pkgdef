@@ -1,0 +1,13 @@
+[common]
+pkgname="$pkgprefix""$pkgdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnu.org/software/automake/"
+shortdesc="Generates Makefile.in files"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+
