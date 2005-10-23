@@ -5,22 +5,23 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-autoconf >= 2.54
-perl >= 5.005_03
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-Info pages was left out until I can find a sensible way to have different
-versions coexist.

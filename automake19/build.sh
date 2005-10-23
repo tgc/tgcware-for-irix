@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=automake
-version=1.9.5
+version=1.9.6
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -19,7 +19,8 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-set_configure_args '--prefix=$prefix --program-suffix=-1.9'
+export PERL=/usr/tgcware/bin/perl
+configure_args='--prefix=$prefix --program-suffix=-1.9'
 
 reg prep
 prep()
