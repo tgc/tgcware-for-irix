@@ -19,9 +19,9 @@ source[0]=$topdir-$version.zip
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --enable-shared'
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --enable-shared'
 
 reg prep
 prep()

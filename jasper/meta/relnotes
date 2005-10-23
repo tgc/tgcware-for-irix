@@ -14,18 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libjpeg
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-The included viewer application jiv needs freeglut.
-I didn't make it a hard dependency since the other programs
-will work without it and I doubt jiv will be used much.
