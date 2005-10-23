@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libart_lgpl
 version=2.3.17
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,8 +19,8 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
