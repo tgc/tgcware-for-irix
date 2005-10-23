@@ -1,4 +1,2 @@
-sw.lib tgc_libiconv.sw.lib 19200001 maxint
-sw.lib tgc_zlib.sw.lib 12200001 maxint
 sw.base sw.lib auto
 sw.dev sw.lib auto
