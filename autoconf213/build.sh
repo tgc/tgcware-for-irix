@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=autoconf
 version=2.13
-pkgver=3
+pkgver=4
 source[0]=autoconf-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=   #autoconf-2.12-race.patch - use /bin/mktemp
@@ -28,8 +28,9 @@ patch[9]=autoconf-2.13-versioning.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+export PERL=/usr/tgcware/bin/perl
 shortroot=1
-set_configure_args '--prefix=$prefix --program-suffix=-$version'
+configure_args='--prefix=$prefix --program-suffix=-$version'
 
 reg prep
 prep()
