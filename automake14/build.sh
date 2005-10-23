@@ -23,8 +23,7 @@ patch[4]=automake-1.4-subdirs-89656.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+export PERL=/usr/tgcware/bin/perl
 
 reg prep
 prep()
@@ -45,7 +44,7 @@ install()
 {
     generic_install DESTDIR
     ${RM} -rf ${stagedir}${prefix}/${_infodir}
-    ${RM} -f ${stagedir}${prefix}/${_bindir}/automake
+    ${RM} -f ${stagedir}${prefix}/${_bindir}/{automake,aclocal}
     doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
 }
 
