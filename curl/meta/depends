@@ -1,4 +1,1 @@
-sw.lib tgc_libidn.sw.lib 05130001 maxint
-sw.lib tgc_openssl097.sw.lib 09750001 maxint
-sw.lib tgc_zlib.sw.lib 12200001 maxint
 sw.base sw.lib auto
