@@ -1,1 +1,1 @@
-sw.lib tgc_libgpg_error.sw.lib 10000001 maxint
+sw.lib tgc_prngd.sw.base auto

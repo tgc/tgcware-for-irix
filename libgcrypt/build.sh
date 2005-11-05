@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libgcrypt
-version=1.2.1
-pkgver=2
-source[0]=$topdir-$version.tar.bz2
+version=1.2.2
+pkgver=1
+source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libgcrypt-1.2.1-include.patch
 
@@ -19,10 +19,10 @@ patch[0]=libgcrypt-1.2.1-include.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-
-set_configure_args '--prefix=$prefix --enable-random=egd --with-egd-socket=/var/run/egd-pool'
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --enable-random=egd --with-egd-socket=/var/run/egd-pool'
+ac_overrides="ac_cv_lib_socket_socket=no"
 
 reg prep
 prep()
