@@ -3,13 +3,14 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
-topdir=pkgconfig
-version=0.15.0
-pkgver=3
+topdir=pkg-config
+version=0.20
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,14 +20,8 @@ source[0]=$topdir-$version.tar.gz
 
 # Global settings
 export CC=gcc
-export CPPFLAGS="-I/usr/local/lib"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+export CPPFLAGS="-I/usr/tgcware/lib"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
@@ -44,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS README
+    doc NEWS README COPYING
 }
 
 reg pack
@@ -62,42 +57,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
