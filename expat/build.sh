@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=expat
 version=1.95.8
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -40,7 +40,7 @@ reg install
 install()
 {
     generic_install prefix
-    doc README Changes
+    doc README Changes COPYING doc/reference.html doc/*.png doc/*.css
 }
 
 reg pack
