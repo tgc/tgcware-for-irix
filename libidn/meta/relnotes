@@ -14,18 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --with-libiconv-prefix=/usr/local --with-libintl-prefix=/usr/local --enable-nls --enable-r
-path'
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libiconv
-gettext
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------

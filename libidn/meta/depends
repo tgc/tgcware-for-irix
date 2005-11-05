@@ -1,4 +1,1 @@
-sw.lib tgc_libiconv.sw.lib 19200006 maxint
-sw.base tgc_libiconv.sw.lib 19200006 maxint
-sw.base tgc_gettext.sw.lib 01410007 maxint
 sw.base sw.lib auto
