@@ -19,8 +19,8 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
@@ -38,7 +38,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS CHANGES
+    doc NEWS CHANGES COPYING
     ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
 }
 

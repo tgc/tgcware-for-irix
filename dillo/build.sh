@@ -19,8 +19,8 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
 
 reg prep
 prep()
@@ -38,6 +38,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    ${GSED} -i 's|/usr/bin/perl|/usr/tgcware/bin/perl|' ${stagedir}${prefix}/${_bindir}/dpidc
     doc ChangeLog COPYING AUTHORS README
 }
 
