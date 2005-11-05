@@ -14,17 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CFLAGS="-fno-strict-aliasing"
-export CXXFLAGS="-fno-strict-aliasing"
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-zlib
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
