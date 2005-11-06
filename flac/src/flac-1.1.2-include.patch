@@ -1,0 +1,11 @@
+--- flac-1.1.2/src/share/grabbag/replaygain.c.config	2005-11-05 21:36:35.892573646 +0100
++++ flac-1.1.2/src/share/grabbag/replaygain.c	2005-11-05 21:39:45.523278016 +0100
+@@ -16,6 +16,8 @@
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  */
+ 
++#include <config.h>
++
+ #include "share/grabbag.h"
+ #include "share/replaygain_analysis.h"
+ #include "FLAC/assert.h"

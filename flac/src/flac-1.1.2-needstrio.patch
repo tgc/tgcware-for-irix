@@ -1,0 +1,12 @@
+--- flac-1.1.2/configure.in.trio	2005-11-05 20:37:59.625794215 +0100
++++ flac-1.1.2/configure.in	2005-11-05 20:38:51.067847062 +0100
+@@ -164,6 +164,9 @@
+ AM_ICONV
+ AM_LANGINFO_CODESET
+ 
++dnl we need snprintf
++NEED_TRIO_CHECK
++
+ AC_CHECK_PROGS(DOXYGEN, doxygen)
+ AM_CONDITIONAL(FLaC__HAS_DOXYGEN, test -n "$DOXYGEN")
+ if test -n "$DOXYGEN" ; then

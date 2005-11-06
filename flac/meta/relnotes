@@ -14,21 +14,16 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libogg
-libiconv
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-This needs snprintf which Irix 6.2 doesn't have.
-As a workaround I'm using bsd-snprintf.c from openssh 3.9.
-This is really untested beyond it builds so beware of problems
-here.
-
+I've added support for building with the trio string function library
+since atleast one C file needs snprintf (Which Irix 6.2 doesn't have).
