@@ -14,7 +14,7 @@ $_bindir
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_vdocdir/{README,AUTHORS,TODO}
+$_vdocdir/{README,AUTHORS,TODO,COPYING}
 
 [man]
 subsys=man.man
