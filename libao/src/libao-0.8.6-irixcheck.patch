@@ -1,0 +1,25 @@
+--- libao-0.8.6/configure.in.orig	2005-11-06 14:15:35.231737771 +0100
++++ libao-0.8.6/configure.in	2005-11-06 14:16:06.166958657 +0100
+@@ -297,11 +297,22 @@
+ 
+ dnl Check for IRIX
+ 
++dnl Check for oldstyle audio API
+ case $host in
+         *-*-irix*)
+                 AC_CHECK_LIB(audio, ALwritesamps, have_irix=yes, have_irix=no)
+         ;;
+ esac
++
++dnl check for newstyle audio API
++if test "x$have_irix" = xno
++then
++    case $host in
++	    *-*-irix*)
++		    AC_CHECK_LIB(audio, alWriteSamps, have_irix=yes, have_irix=no)
++	    ;;
++    esac
++fi
+ AM_CONDITIONAL(HAVE_IRIX,test "x$have_irix" = xyes)
+ 
+ 

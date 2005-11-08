@@ -11,6 +11,8 @@ files(-,root,sys)
 $_vdocdir/README
 $_vdocdir/CHANGES
 $_vdocdir/TODO
+$_vdocdir/AUTHORS
+$_vdocdir/COPYING
 $_libdir/*.so.*
 $_libdir/ao
 

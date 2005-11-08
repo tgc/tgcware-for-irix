@@ -14,20 +14,17 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-To get output without needing the ESD or ARTS plugins I created a new
-plugin based on the existing irix plugin.
-I call it irixold since it supports the old-style audio API from Irix 6.2
-and Irix 5.3.
-I plan to submit this new plugin upstream once I'm confident that it works
-for most cases.
+I added support for the old-style dmedia audio API to the Irix plugin.
+Also audio_out.c uses snprintf so I also hacked it to support linking
+with trio.

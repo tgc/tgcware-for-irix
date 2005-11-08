@@ -1,0 +1,15 @@
+--- libao-0.8.6/src/audio_out.c.trio	2005-11-08 19:49:31.875844900 +0100
++++ libao-0.8.6/src/audio_out.c	2005-11-08 19:52:10.071405634 +0100
+@@ -39,6 +39,12 @@
+ #include "ao/ao.h"
+ #include "ao_private.h"
+ 
++/* If we don't have snprintf then we need trio... */
++#ifdef NEED_TRIO
++#include <trio.h>
++#define snprintf trio_snprintf
++#endif
++
+ /* These should have been set by the Makefile */
+ #ifndef AO_PLUGIN_PATH
+ #define AO_PLUGIN_PATH "/usr/local/lib/ao"

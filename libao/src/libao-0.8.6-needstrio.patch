@@ -1,0 +1,16 @@
+--- libao-0.8.6/configure.in.trio	2005-11-06 14:19:40.193894091 +0100
++++ libao-0.8.6/configure.in	2005-11-06 14:21:45.934468671 +0100
+@@ -104,6 +104,13 @@
+ dnl ==============================
+ 
+ dnl ==============================
++dnl Checks for functions
++dnl ==============================
++
++dnl We need snprintf
++NEED_TRIO_CHECK
++
++dnl ==============================
+ dnl Select proper plugin options
+ dnl ==============================
+ case $host in
