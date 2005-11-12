@@ -8,10 +8,10 @@
 +
  # where the library will be installed
 -DESTLIBDIR=/usr/local/lib/X11
-+LIBDIR=/usr/local/lib
++LIBDIR=/usr/tgcware/lib
  # where the include file (pxm.h) will be installed
 -DESTINCLUDEDIR=/usr/local/include/X11
-+INCLUDEDIR=/usr/local/include/X11
++INCLUDEDIR=/usr/tgcware/include/X11
  
 -CC = cc
 +CC = gcc
@@ -51,7 +51,7 @@
  	$(RANLIB) libXpm.a
  
 +$(SHLIB): $(SHOBJS)
-+	$(CC) -o $(SHLIB) -Wl,-rpath,/usr/local/lib -Wl,-soname,$(SONAME) -shared $(SHOBJS)
++	$(CC) -o $(SHLIB) -Wl,-rpath,/usr/tgcware/lib -Wl,-soname,$(SONAME) -shared $(SHOBJS)
 +	$(LN) $(SHLIB) libXpm.so
 +	$(LN) $(SHLIB) $(SONAME)
 +

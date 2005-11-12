@@ -8,10 +8,10 @@
 +
  # where the program will be installed
 -DESTBINDIR=/usr/local/bin/X11
-+BINDIR=/usr/local/bin
++BINDIR=/usr/tgcware/bin
  # where the man page will be installed
 -MANDIR=/usr/local/man/manl
-+MANDIR=/usr/local/man/man1
++MANDIR=/usr/tgcware/man/man1
  
  # where the X11 libs are
  XLIBDIRS= -L/usr/X11/lib
@@ -35,7 +35,7 @@
  OBJS= sxpm.o
  
  CFLAGS= $(CDEBUGFLAGS) $(INCLUDES) $(DEFINES)
-+LDFLAGS = -Wl,-rpath,/usr/local/lib
++LDFLAGS = -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib
  
  all: sxpm
  
