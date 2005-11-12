@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=unzip
 version=5.52
-pkgver=1
+pkgver=2
 source[0]=${topdir}552.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,6 +20,7 @@ source[0]=${topdir}552.tar.gz
 
 # Global options
 shortroot=1
+mipspro=1
 
 reg prep
 prep()

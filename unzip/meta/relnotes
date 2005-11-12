@@ -11,9 +11,10 @@ Source (sha1sum):
 BUILD DETAILS
 -------------
 Compiler:
-MIPSpro Compilers: Version 7.30
+%%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 ln -s unix/Makefile Makefile
@@ -21,6 +22,7 @@ make sgi
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
