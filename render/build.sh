@@ -8,10 +8,10 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=render
-version=0.8
+topdir=renderext
+version=0.9
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
