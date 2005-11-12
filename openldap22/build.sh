@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openldap
-version=2.2.23
+version=2.2.29
 pkgver=1
 source[0]=$topdir-$version.tgz
 # If there are no patches, simply comment this
@@ -20,9 +20,9 @@ source[0]=$topdir-$version.tgz
 
 # Global settings
 export CC=gcc
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --disable-slapd --disable-slurpd'
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --disable-slapd --disable-slurpd'
 
 reg prep
 prep()
