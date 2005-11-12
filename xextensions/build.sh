@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=xextensions
 version=1.0.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -34,7 +34,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README
+    doc README COPYING
     ${RMDIR} ${stagedir}${prefix}/${_docdir}/${topdir}
 }
 
