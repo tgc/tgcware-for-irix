@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=krb5
-version=1.4
-pkgver=2
+version=1.4.2
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,9 +19,11 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+export PERL="/usr/tgcware/bin/perl"
 kerbdir=krb5
 prefix=${prefix}/${kerbdir}
-set_configure_args '--prefix=$prefix --without-krb4 --disable-ipv6 --disable-thread-support'
+configure_args='--prefix=$prefix --without-krb4 --disable-ipv6 --disable-thread-support'
+ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
 
 reg prep
 prep()
