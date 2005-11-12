@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.6.1
-pkgver=2
+version=2.8.3
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,9 +19,15 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --with-libiconv=gnu'
+export PERL=/usr/tgcware/bin/perl
+export PERL_PATH=/usr/tgcware/bin/perl
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --with-libiconv=gnu'
+# Override getpwuid_r checking
+# The configure test fails but the system does have a POSIX compatible
+# getpwuid_r and AFAIK it does work but needs -lpthread for the implementation.
+ac_overrides="ac_cv_func_posix_getpwuid_r=yes"
 
 reg prep
 prep()
@@ -39,7 +45,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS README
+    ${GSED} -i 's/local\/perl/tgcware\/perl/' ${stagedir}${prefix}/${_bindir}/glib-mkenums
+    doc NEWS README COPYING
 }
 
 reg pack

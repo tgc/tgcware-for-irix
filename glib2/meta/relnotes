@@ -14,21 +14,24 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-libiconv
-gettext
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-I built glib2 without getpwuid_r which means a number of
-g_* functions are not thread safe.
-The alternative is linking everything with -lpthread since
-getpwuid_r *is* available but only when linking with
-the thread libraries.
+I forced the detection of getpwuid_r since the configure test fails.
+This may be because it needs to link with -lpthread to work and
+the test doesn't.
+This means that anything using glib2 and not
+linking with -lpthread will be subject to this warning that configure
+spits out when getpwuid_r is unavailable:
+configure: WARNING: the 'g_get_(user_name|real_name|home_dir|tmp_dir)'
+                functions will not be MT-safe during their first call because
+		there is no working 'getpwuid_r' on your system.
+
