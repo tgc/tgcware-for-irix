@@ -1,6 +1,1 @@
 sw.base sw.lib auto
-sw.lib tgc_libgcrypt.sw.lib 12100002 maxint
-sw.lib tgc_libgpg_error.sw.lib 10000001 maxint
-sw.lib tgc_libxml2.sw.lib 26170001 maxint
-sw.lib tgc_zlib.sw.lib 12200001 maxint
-sw.lib tgc_libiconv.sw.lib 19200006 maxint
