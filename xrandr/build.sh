@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libXrandr
 version=1.0.2
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=patch-aa
@@ -20,8 +20,8 @@ patch[1]=patch-ab
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export CFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
