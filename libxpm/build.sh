@@ -3,30 +3,45 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=xpm
 version=3.4k
-pkgver=5
+pkgver=6
 source[0]=xpm-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libxpm-3.4k-shlib.patch
 patch[1]=libxpm-3.4k-sxpm.patch
 patch[2]=libxpm-3.4k-cxpm.patch
-patch[3]=xpm-3.4k-security-fixes.patch
-patch[4]=xpm-3.4k-size-max.patch
+patch[3]=libxpm-3.4k-s_popen.patch
+patch[4]=
 patch[5]=libxpm-3.4k-sxpm-shlibs.patch
+patch[6]=patch-aa
+patch[7]=patch-ab
+patch[8]=patch-ac
+patch[9]=patch-ad
+patch[10]=patch-ae
+patch[11]=patch-af
+patch[12]=patch-ag
+patch[13]=patch-ah
+patch[14]=patch-ai
+patch[15]=patch-aj
+patch[16]=patch-ak
+patch[17]=patch-al
+patch[18]=patch-am
+patch[19]=patch-an
+patch[20]=patch-ao
+patch[21]=patch-ap
+patch[22]=patch-aq
+patch[23]=patch-ar
+patch[24]=patch-as
+patch[25]=libxpm-3.4k-trio.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
 
 reg prep
 prep()
@@ -38,7 +53,7 @@ reg build
 build()
 {
     setdir source
-    $MAKE_PROG -f Makefile.noX DEFINES="-DNEEDS_SIZE_MAX"
+    $MAKE_PROG -f Makefile.noX INCLUDES="-I. -I.. -I../lib -I${prefix}/${_includedir}"
 }
 
 reg install
@@ -46,12 +61,12 @@ install()
 {
     clean stage
     setdir source
-    $MAKE_PROG INSTALL=/usr/local/bin/install DESTDIR=$stagedir -f Makefile.noX install
-    $MAKE_PROG INSTALL=/usr/local/bin/install DESTDIR=$stagedir -f Makefile.noX install.man
-    setdir $stagedir$prefix/lib
+    $MAKE_PROG INSTALL=$GINSTALL DESTDIR=$stagedir -f Makefile.noX install
+    $MAKE_PROG INSTALL=$GINSTALL DESTDIR=$stagedir -f Makefile.noX install.man
+    setdir ${stagedir}${prefix}/${_libdir}
     ln -s libXpm.so.4.11 libXpm.so.4
     ln -s libXpm.so.4.11 libXpm.so
-    doc doc/xpm.PS.gz FAQ.html README.html
+    doc doc/xpm.PS.gz FAQ.html README.html COPYRIGHT
     custom_install=1
     generic_install
 }
@@ -71,42 +86,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

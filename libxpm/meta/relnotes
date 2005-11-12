@@ -5,18 +5,26 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
+%%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-Patches for CAN-2004-687 & CAN-2004-688 have been applied.
+This is roughly equivalent to xpm-3.4k-nb5 from netbsd pkgsrc.
+It should contain all relevant security fixes.
+The patches introduce snprintf which is why it's linked with trio.
