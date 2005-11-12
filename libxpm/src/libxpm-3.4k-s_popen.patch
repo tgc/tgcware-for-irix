@@ -1,0 +1,21 @@
+--- xpm-3.4k.s_popen/lib/Makefile.noX.s_popen	2005-11-12 12:57:05.957006510 +0100
++++ xpm-3.4k.s_popen/lib/Makefile.noX	2005-11-12 12:57:31.783016711 +0100
+@@ -55,7 +55,8 @@
+       WrFFrI.o RdFToI.o CrIFrDat.o CrDatFrI.o \
+       CrIFrBuf.o CrPFrBuf.o CrBufFrI.o CrBufFrP.o \
+       RdFToDat.o WrFFrDat.o \
+-      Attrib.o CrIFrP.o CrPFrI.o Image.o Info.o RdFToBuf.o WrFFrBuf.o
++      Attrib.o CrIFrP.o CrPFrI.o Image.o Info.o RdFToBuf.o WrFFrBuf.o \
++      s_popen.o
+ 
+ CFLAGS= $(CDEBUGFLAGS) $(DEFINES) $(INCLUDES)
+ 
+--- xpm-3.4k.s_popen/cxpm/Makefile.noX.s_popen	2005-11-12 12:57:41.801468981 +0100
++++ xpm-3.4k.s_popen/cxpm/Makefile.noX	2005-11-12 12:57:57.818994467 +0100
+@@ -61,4 +61,5 @@
+ 
+ # Other dependencies.
+ cxpm.o: ../lib/XpmI.h ../lib/data.c ../lib/parse.c ../lib/RdFToI.c \
+-  ../lib/hashtab.c ../lib/misc.c ../lib/Attrib.c ../lib/Image.c
++  ../lib/hashtab.c ../lib/misc.c ../lib/Attrib.c ../lib/Image.c \
++  ../lib/s_popen.c

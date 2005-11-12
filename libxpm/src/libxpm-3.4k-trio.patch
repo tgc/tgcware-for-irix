@@ -1,0 +1,35 @@
+--- xpm-3.4k/lib/Makefile.noX.trio	2005-11-12 11:33:07.685358367 +0100
++++ xpm-3.4k/lib/Makefile.noX	2005-11-12 11:46:01.455820226 +0100
+@@ -76,7 +76,7 @@
+ 	$(RANLIB) libXpm.a
+ 
+ $(SHLIB): $(SHOBJS)
+-	$(CC) -o $(SHLIB) -Wl,-rpath,/usr/tgcware/lib -Wl,-soname,$(SONAME) -shared $(SHOBJS)
++	$(CC) -o $(SHLIB) -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -Wl,-soname,$(SONAME) -shared $(SHOBJS) -ltrio
+ 	$(LN) $(SHLIB) libXpm.so
+ 	$(LN) $(SHLIB) $(SONAME)
+ 
+--- xpm-3.4k/lib/XpmI.h.trio	2005-11-12 11:29:44.826697564 +0100
++++ xpm-3.4k/lib/XpmI.h	2005-11-12 11:40:27.527408112 +0100
+@@ -49,6 +49,10 @@
+  * lets try to solve include files
+  */
+ 
++/* Security fixes introduced snprintf */
++#include <trio.h>
++#define snprintf trio_snprintf
++
+ #include <sys/types.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+--- xpm-3.4k/cxpm/Makefile.noX.trio	2005-11-12 11:34:00.157252115 +0100
++++ xpm-3.4k/cxpm/Makefile.noX	2005-11-12 11:34:53.519008358 +0100
+@@ -55,7 +55,7 @@
+ 	$(RM) *.o cxpm
+ 
+ cxpm: $(OBJS)
+-	$(CC) $(CFLAGS) $(OBJS) -o cxpm
++	$(CC) $(CFLAGS) $(OBJS) -o cxpm -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -ltrio
+ 
+ install:
+ 	$(MKDIR) -p $(DESTDIR)$(BINDIR)
