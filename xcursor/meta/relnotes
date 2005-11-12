@@ -14,15 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-xrender
-xfixes
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
