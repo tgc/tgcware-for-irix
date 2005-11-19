@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.cups.org"
+pkgvendor="http://www.fltk.org"
 shortdesc="Fast Light Toolkit"
 
 [base]
