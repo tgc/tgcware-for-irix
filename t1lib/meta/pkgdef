@@ -3,7 +3,7 @@ pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.foolabs.com/xpdf/"
-shortdesc="change me please"
+shortdesc="Type1 character- and string-glyphs generator"
 
 [base]
 subsys=sw.base
