@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.freedesktop.org/software/fontconfig/releases/"
+pkgvendor="http://xlibs.freedesktop.org/release/current/"
 shortdesc="Connects X applications with freetype"
 
 [lib]

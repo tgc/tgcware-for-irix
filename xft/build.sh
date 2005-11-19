@@ -8,19 +8,19 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=xft
-version=2.1.2
+topdir=libXft
+version=2.1.7
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=xft-2.1.2-freetype.patch
+#patch[0]=xft-2.1.2-freetype.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()

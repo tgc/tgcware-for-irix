@@ -14,16 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-fontconfig
-freetype
-zlib
-xrender
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
