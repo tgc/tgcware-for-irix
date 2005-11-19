@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.cvshome.org"
+pkgvendor="http://savannah.nongnu.org/projects/cvs/"
 shortdesc="Version control system"
 
 [base]
@@ -13,6 +13,7 @@ ${_sharedir}/cvs
 ${_docdir}/*/FAQ
 ${_docdir}/*/README
 ${_docdir}/*/NEWS
+${_docdir}/*/COPYING*
 
 [otherdoc]
 subsys=man.doc

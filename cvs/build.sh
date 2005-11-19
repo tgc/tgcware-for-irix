@@ -3,12 +3,13 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.18
+version=1.11.21
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -17,14 +18,9 @@ source[0]=$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# install target is shallow
+# Global settings
+export LDFLAGS="-L${prefix}/${_libdir} -Wl,-rpath,${prefix}/${_libdir}"
 shortroot=1
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
 
 reg prep
 prep()
@@ -35,7 +31,6 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}"
     generic_build
 }
 
@@ -43,8 +38,7 @@ reg install
 install()
 {
     generic_install prefix
-    setdir source
-    doc FAQ README NEWS doc/*.ps
+    doc FAQ README NEWS COPYING* doc/*.pdf
     $RM -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
@@ -63,42 +57,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
