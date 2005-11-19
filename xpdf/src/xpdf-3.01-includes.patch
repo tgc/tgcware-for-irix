@@ -1,0 +1,11 @@
+--- xpdf-3.01/splash/Makefile.in.orig	2005-11-19 22:27:47.708443400 +0100
++++ xpdf-3.01/splash/Makefile.in	2005-11-19 22:28:22.063136040 +0100
+@@ -16,7 +16,7 @@
+ FOFISRCDIR = $(srcdir)/../fofi
+ FOFILIBDIR = ../fofi
+ 
+-CXXFLAGS = @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(srcdir) @t1_CFLAGS@ @freetype2_CFLAGS@
++CXXFLAGS = @CXXFLAGS@ @DEFS@ -I.. -I$(GOOSRCDIR) -I$(FOFISRCDIR) -I$(srcdir) @t1_CFLAGS@ @freetype2_CFLAGS@ @freetype2_CFLAGS@/freetype2
+ 
+ CXX = @CXX@
+ AR = @AR@
