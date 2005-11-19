@@ -27,3 +27,6 @@ ERRORS/MISCELLANEOUS
 --------------------
 The -fno-strict-aliasing was added after reading the freetype.spec file
 from Fedora Core 3. Apparently buggy code is the result without it.
+
+The TrueType BCD interpreter has *not* been activated. Please see the
+PATENTS file in the docs for details.

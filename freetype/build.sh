@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=freetype
-version=2.1.9
-pkgver=3
+version=2.1.10
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -41,7 +41,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc docs/GPL.txt docs/FTL.txt docs/license.txt docs/PATENTS docs/TODO
+    doc docs/GPL.TXT docs/FTL.TXT docs/LICENSE.TXT docs/PATENTS docs/TODO
 }
 
 reg pack
