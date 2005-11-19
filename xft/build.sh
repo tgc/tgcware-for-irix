@@ -13,7 +13,7 @@ version=2.1.7
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=xft-2.1.2-freetype.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
