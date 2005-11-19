@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2004g
-pkgver=2
+version=2005n
+pkgver=1
 source[0]=${topdir}code${version}.tar.gz
 source[1]=${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
@@ -19,9 +19,15 @@ patch[0]=tz2004g-makefile.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-CC=gcc
+# Global settings
 # Irix 5.3 needs an extra define
-[ "$_os" = "irix53" ] && CC="gcc -D_XOPEN_SOURCE"
+[ "$_os" = "irix53" ] && CDEF="-D_XOPEN_SOURCE"
+export CC="gcc $CDEF"
+# hackisk for the sake of relnotes mostly
+__configure="$MAKE_PROG"
+# Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
+configure_args="CC=$CC TOPDIR=$prefix TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only"
+check_ac=0
 
 reg prep
 prep()
@@ -38,9 +44,7 @@ prep()
 reg build
 build()
 {
-    setdir source
-    # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
-    $MAKE_PROG cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only
+    generic_build
 }
 
 reg install
@@ -48,7 +52,7 @@ install()
 {	
     clean stage
     setdir source
-    $MAKE_PROG cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only DESTDIR=$stagedir install
+    $MAKE_PROG $configure_args DESTDIR=$stagedir install
     doc Theory README
     custom_install=1
     generic_install
@@ -58,7 +62,7 @@ reg pack
 pack()
 {
     topinstalldir=/usr
-    iprefix=local
+    iprefix=tgcware
     generic_pack
 }
 

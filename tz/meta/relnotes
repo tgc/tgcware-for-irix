@@ -5,20 +5,23 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
-CC=gcc
-[ "$_os" = "irix53" ] && CC="gcc -D_XOPEN_SOURCE"
+%%ENVIRONMENT%%
 
 Configure:
-make cc="$CC" TZDIR=/usr/lib/locale/TZ ETCDIR=/usr/local/bin REDO=right_only
+%%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
