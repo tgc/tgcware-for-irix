@@ -1,0 +1,11 @@
+--- t1lib-5.1.0/type1afm/Makefile.in.orig	2005-11-19 18:11:41.991796629 +0100
++++ t1lib-5.1.0/type1afm/Makefile.in	2005-11-19 18:11:57.839348380 +0100
+@@ -89,7 +89,7 @@
+ install: dummy
+ 	$(MKINSTALLDIRS) $(DESTDIR)$(bindir)
+ 	$(LIBTOOL) --mode=install \
+-		$(INSTALL_PROGRAM) type1afm $(bindir)/type1afm
++		$(INSTALL_PROGRAM) type1afm $(DESTDIR)$(bindir)/type1afm
+ 
+ 
+ uninstall: dummy
