@@ -6,11 +6,12 @@
 # build.sh helper functions
 . ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+# BuildRequires: freetype2 expat zlib
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=fontconfig
-version=2.2.3
-pkgver=2
+version=2.3.2
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
