@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=db
-version=4.3.27
+version=4.3.29
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -19,11 +19,11 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export bdbdir=BerkeleyDB.4.3
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/$bdbdir/lib -Wl,-rpath,/usr/local/$bdbdir/lib"
+bdbdir=BerkeleyDB.4.3
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/$bdbdir/lib -Wl,-rpath,/usr/tgcware/$bdbdir/lib"
 export CC=gcc
-set_configure_args '--prefix=$prefix/$bdbdir --enable-compat185'
+configure_args='--prefix=$prefix/$bdbdir --enable-compat185'
 
 reg prep
 prep()

@@ -1,8 +1,8 @@
 [common]
-pkgname="$pkgprefix""$topdir"
+pkgname="$pkgprefix""$pkgdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.sleepycat.com/products/db.shtml"
+pkgvendor="http://www.sleepycat.com/products/bdb.html"
 shortdesc="The Berkeley DB database library"
 
 [base]

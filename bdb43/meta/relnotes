@@ -14,16 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export bdbdir=BerkeleyDB.4.3
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/$bdbdir/lib -Wl,-rpath,/usr/local/$bdbdir/lib"
-export CC=gcc
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
