@@ -1,6 +1,1 @@
 sw.base sw.lib auto
-sw.lib tgc_libjpeg.sw.lib 60000005 maxint
-sw.lib tgc_libpng.sw.lib 12800001 maxint
-sw.lib tgc_tiff.sw.lib 37100001 maxint
-sw.lib tgc_zlib.sw.lib 12200001 maxint
-sw.base tgc_openssl097.sw.lib 09750001 maxint
