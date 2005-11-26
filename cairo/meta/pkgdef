@@ -1,0 +1,26 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://cairographics.org"
+shortdesc="2D graphics library"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir/doc
+
+[docs]
+subsys=man.doc
+files(-,root,sys)
+$_sharedir/gtk-doc
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_libdir/pkgconfig
+
