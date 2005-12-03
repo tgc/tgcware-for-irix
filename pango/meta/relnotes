@@ -14,27 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-xft2
-freetype
-fontconfig
-xrender
-zlib
-glib2
-expat
-libiconv
-gettext
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-I had a lot of problems getting pango to install
-without libtool rpath linking in the libs from the builddir :(
-In the end I could only get it to work if I installed
-the broken files in /usr/local and then rebuilt.
