@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.8.3
+version=2.8.4
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -45,7 +45,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${GSED} -i 's/local\/perl/tgcware\/perl/' ${stagedir}${prefix}/${_bindir}/glib-mkenums
+    ${GSED} -i 's|local/perl|tgcware/perl|' ${stagedir}${prefix}/${_bindir}/glib-mkenums
     doc NEWS README COPYING
 }
 
