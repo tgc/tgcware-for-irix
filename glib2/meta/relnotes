@@ -28,10 +28,7 @@ ERRORS/MISCELLANEOUS
 I forced the detection of getpwuid_r since the configure test fails.
 This may be because it needs to link with -lpthread to work and
 the test doesn't.
-This means that anything using glib2 and not
-linking with -lpthread will be subject to this warning that configure
-spits out when getpwuid_r is unavailable:
-configure: WARNING: the 'g_get_(user_name|real_name|home_dir|tmp_dir)'
-                functions will not be MT-safe during their first call because
-		there is no working 'getpwuid_r' on your system.
-
+This means that anything linking with glib2 must also link with -lpthread
+or risk running into problems with getpwuid_r being unresolved.
+I've patched the pkgconfig file to include -lpthread on the link line
+for glib2.

@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=2.8.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -33,6 +33,8 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    $GSED -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
 }
 
 reg build
