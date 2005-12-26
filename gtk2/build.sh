@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gtk+
-version=2.6.1
+version=2.8.9
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -19,8 +19,8 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 META_CLEAN="$META_CLEAN ops"
 
@@ -40,17 +40,17 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS README
+    doc NEWS README COPYING
     ${MKDIR} -p ${stagedir}${prefix}/${_sysconfdir}/gtk-2.0
     touch ${stagedir}${prefix}/${_sysconfdir}/gtk-2.0/gdk-pixbuf.loaders
     touch ${stagedir}${prefix}/${_sysconfdir}/gtk-2.0/gtk.immodules
+    # Add ops
+    echo "lastop exitop(${prefix}/${_bindir}/gdk-pixbuf-query-loaders > ${prefix}/${_sysconfdir}/gtk-2.0/gdk-pixbuf.loaders && ${prefix}/${_bindir}/gtk-query-immodules-2.0 > ${prefix}/${_sysconfdir}/gtk-2.0/gtk.immodules)" > $metadir/ops
 }
 
 reg pack
 pack()
 {
-    # Add ops
-    echo "lastop exitop(${prefix}/${_bindir}/gdk-pixbuf-query-loaders > ${prefix}/${_sysconfdir}/gtk-2.0/gdk-pixbuf.loaders && ${prefix}/${_bindir}/gtk-query-immodules-2.0 > ${prefix}/${_sysconfdir}/gtk-2.0/gtk.immodules)" > $metadir/ops
     generic_pack
 }
 
