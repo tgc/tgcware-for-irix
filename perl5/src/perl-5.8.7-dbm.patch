@@ -1,0 +1,21 @@
+--- perl-5.8.7/ext/ODBM_File/ODBM_File.xs.dbm	2005-12-26 17:10:15.591904755 +0100
++++ perl-5.8.7/ext/ODBM_File/ODBM_File.xs	2005-12-26 17:12:27.651503147 +0100
+@@ -10,17 +10,7 @@
+ #  endif
+ #endif
+ 
+-#ifndef HAS_DBMINIT_PROTO
+-int	dbminit(char* filename);
+-int	dbmclose(void);
+-datum	fetch(datum key);
+-int	store(datum key, datum dat);
+-int	delete(datum key);
+-datum	firstkey(void);
+-datum	nextkey(datum key);
+-#endif
+-
+-#ifdef DBM_BUG_DUPLICATE_FREE 
++#ifdef DBM_BUG_DUPLICATE_FREE
+ /*
+  * DBM on at least Ultrix and HPUX call dbmclose() from dbminit(),
+  * resulting in duplicate free() because dbmclose() does *not*

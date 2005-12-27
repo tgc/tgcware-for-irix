@@ -1,6 +1,6 @@
---- perl-5.8.5/hints/irix_6.sh.gcc34	Sat Nov 13 00:27:10 2004
-+++ perl-5.8.5/hints/irix_6.sh	Sat Nov 13 13:04:11 2004
-@@ -178,18 +178,6 @@
+--- perl-5.8.7/hints/irix_6.sh.orig	2005-10-23 11:01:39.411258889 +0200
++++ perl-5.8.7/hints/irix_6.sh	2005-10-23 11:03:54.570378439 +0200
+@@ -189,20 +189,6 @@
  	# It seems gcc can build Irix shlibs, but of course it needs
  	# -shared.  Otherwise you get link errors looking for main().
  	lddlflags="$lddlflags -shared"
@@ -14,9 +14,10 @@
 -		lddlflags="$lddlflags -mabi=64"
 -		;;
 -	*)	ccflags="$ccflags -DIRIX32_SEMUN_BROKEN_BY_GCC"
+-                # XXX Note: It is possible that turning off usemallocwrap is
+-                # needed here; insufficient data! - Allen
 -		;;
 -	esac
  	;;
  *)
  	# this is needed to force the old-32 paths
- 	#  since the system default can be changed.

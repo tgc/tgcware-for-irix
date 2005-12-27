@@ -1,0 +1,16 @@
+--- perl-5.8.7/pp_sys.c.telldir	2005-12-26 16:39:55.513084855 +0100
++++ perl-5.8.7/pp_sys.c	2005-12-26 16:40:21.619051796 +0100
+@@ -3893,13 +3893,6 @@
+ {
+ #if defined(HAS_TELLDIR) || defined(telldir)
+     dSP; dTARGET;
+- /* XXX does _anyone_ need this? --AD 2/20/1998 */
+- /* XXX netbsd still seemed to.
+-    XXX HAS_TELLDIR_PROTO is new style, NEED_TELLDIR_PROTO is old style.
+-    --JHI 1999-Feb-02 */
+-# if !defined(HAS_TELLDIR_PROTO) || defined(NEED_TELLDIR_PROTO)
+-    long telldir (DIR *);
+-# endif
+     GV *gv = (GV*)POPs;
+     register IO *io = GvIOn(gv);
+ 

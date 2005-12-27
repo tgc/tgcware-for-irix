@@ -5,23 +5,32 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
-sh Configure -Dcc=gcc -Dprefix=/usr/local -Dmyhostname=localhost -Dcf_by='Tom G. Christensen <irixpkg@jupiterrise.com>' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}/usr/local -Dman3ext=3pm -Uinstallusrbinperl -Dpage='/usr/bin/more' -des
-$MAKE_PROG LDDLFLAGS="-shared -L/usr/local/lib -Wl,-rpath,/usr/local/lib"
+%%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-The Irix 6 hints file was hacked to ignore 64bit mode which it seems to
-want to default to when os is IRIX64.
-Also because we're building with gcc 3.4.x the -DIRIX32_SEMUN_BROKEN_BY_GCC
-define was removed since that ABI problem was fixed in this version.
+I initially wanted to build with gcc so the Irix 6 hints file was hacked to
+ignore 64bit mode which it seems to want to default to when using gcc and
+os is IRIX64.
+Also because I was going to build with gcc 3.4.x the -DIRIX32_SEMUN_BROKEN_BY_GCC
+define was removed since that ABI problem was fixed in that release series.
+In the end though I chose to use mipspro since it builds faster and perl
+is pure C so no C++ abi hoopla to worry about.
+To make the build I succeed I had to patch in 3 places where perl
+thought it needed to provide prototypes when they weren't necessary.
