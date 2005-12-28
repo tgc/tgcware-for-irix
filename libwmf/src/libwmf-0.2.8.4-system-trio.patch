@@ -1,0 +1,256 @@
+--- libwmf-0.2.8.4.trio/src/extra/Makefile.am.trio	2001-06-07 10:23:02.000000000 +0200
++++ libwmf-0.2.8.4.trio/src/extra/Makefile.am	2005-12-28 11:27:34.655835650 +0100
+@@ -1 +1 @@
+-SUBDIRS = trio gd
++SUBDIRS = gd
+--- libwmf-0.2.8.4.trio/src/wmfdefs.h.trio	2005-12-28 14:15:29.109454805 +0100
++++ libwmf-0.2.8.4.trio/src/wmfdefs.h	2005-12-28 14:15:46.486770207 +0100
+@@ -30,7 +30,7 @@
+ #include "libwmf/macro.h"
+ 
+ #ifdef LIBWMF_INCLUDE_TRIO_H
+-#include "extra/trio/trio.h"
++#include <trio.h>
+ #endif
+ 
+ #define WMF_BMP_OPAQUE 0xff /* I think, or should this be zero ?? */
+--- libwmf-0.2.8.4.trio/src/Makefile.am.trio	2004-02-10 13:41:26.000000000 +0100
++++ libwmf-0.2.8.4.trio/src/Makefile.am	2005-12-28 11:27:38.625222429 +0100
+@@ -44,11 +44,7 @@
+ 
+ libwmf_la_SOURCES = font.c stream.c wmf.c xml.c
+ 
+-if LIBWMF_OPT_TRIO
+-LIBTRIO = extra/trio/libtrio.la
+-else
+-LIBTRIO = 
+-endif
++LIBTRIO = -ltrio
+ 
+ if LIBWMF_OPT_SYS_GD
+ LIBGD = 
+--- libwmf-0.2.8.4.trio/configure.ac.trio	2005-12-28 11:28:05.431081256 +0100
++++ libwmf-0.2.8.4.trio/configure.ac	2005-12-28 13:45:19.249056275 +0100
+@@ -165,61 +165,7 @@
+ AC_CHECK_FUNCS(strstr)
+ 
+ dnl Check for trio functions.
+-require_trio=no
+-
+-if test $LIBWMF_BUILDSTYLE = heavy; then
+-
+-AC_CHECK_FUNCS(printf fprintf vfprintf sprintf,,require_trio=yes)
+-AC_CHECK_FUNCS(vprintf vsprintf)
+-AC_CHECK_FUNCS(sscanf,,require_trio=yes)
+-AC_CHECK_FUNCS(scanf vscanf fscanf vsscanf)
+-
+-dnl Special case (1): vsnprintf
+-AC_CHECK_FUNCS(vsnprintf,,check_for_vsnprintf=yes)
+-
+-if [ test "x$check_for_vsnprintf" = "xyes" ]; then
+-	AC_CHECK_FUNC(_vsnprintf,[
+-		AC_DEFINE(HAVE_VSNPRINTF,1,[define if you have vsnprintf])
+-		AC_DEFINE(vsnprintf,_vsnprintf,[define to your implementation of vsnprintf])
+-	],[	dnl Hmm. On the off-chance, check for vsnprintf in libdb.
+-		dnl This should, hopefully, solve the problem with Tru64 4.x
+-		dnl which is incompatible with trio (the latter's fault).
+-		AC_CHECK_LIB(db,vsnprintf,[
+-			AC_DEFINE(HAVE_VSNPRINTF,1,[define if you have vsnprintf])
+-			WMF_LIBFLAGS="$WMF_LIBFLAGS -ldb"
+-		],[	require_trio=yes
+-		])
+-	])
+-fi
+-
+-dnl Special case (2): snprintf
+-AC_CHECK_FUNCS(snprintf,,check_for_snprintf=yes)
+-
+-if [ test "x$check_for_snprintf" = "xyes" ]; then
+-	AC_CHECK_FUNC(_snprintf,[
+-		AC_DEFINE(HAVE_SNPRINTF,1,[define if you have snprintf])
+-		AC_DEFINE(snprintf,_snprintf,[define to your implementation of snprintf])
+-	])
+-fi
+-
+-dnl Special case (3): vfscanf is defined as a macro for Darwin / Mac OS X
+-AC_CHECK_FUNCS(vfscanf,,check_for_vfscanf=yes)
+-
+-if [ test "x$check_for_vfscanf" = "xyes" ]; then
+-	AC_MSG_CHECKING(for vfscanf in stdio.h)
+-	AC_EGREP_HEADER(vfscanf,stdio.h,[
+-		AC_MSG_RESULT(yes)
+-		AC_DEFINE(HAVE_VFSCANF,1,[define if you have vfscanf])
+-	],[	AC_MSG_RESULT(no)
+-	])
+-fi
+-
+-fi # $LIBWMF_BUILDSTYLE = heavy
+-
+-AM_CONDITIONAL(LIBWMF_OPT_TRIO,[ test "x$require_trio" = "xyes" ])
+-
+-dnl - but always define this; the re-definitions are selective anyway...
+-AC_DEFINE(TRIO_REPLACE_STDIO,1,[If any *printf or *scanf functions are missing, cover them with trio functions])
++NEED_TRIO_CHECK
+ 
+ dnl Checks for libraries, etc.
+ 
+@@ -887,7 +833,6 @@
+ include/libwmf/Makefile
+ src/Makefile
+ src/extra/Makefile
+-src/extra/trio/Makefile
+ src/extra/gd/Makefile
+ src/ipa/Makefile
+ src/convert/Makefile
+--- libwmf-0.2.8.4.trio/configure.in.trio	2005-07-27 22:34:13.000000000 +0200
++++ libwmf-0.2.8.4.trio/configure.in	2005-12-28 13:39:54.299257075 +0100
+@@ -165,58 +165,8 @@
+ AC_CHECK_FUNCS(strstr)
+ 
+ dnl Check for trio functions.
+-require_trio=no
+ 
+-if test $LIBWMF_BUILDSTYLE = heavy; then
+-
+-AC_CHECK_FUNCS(printf fprintf vfprintf sprintf,,require_trio=yes)
+-AC_CHECK_FUNCS(vprintf vsprintf)
+-AC_CHECK_FUNCS(sscanf,,require_trio=yes)
+-AC_CHECK_FUNCS(scanf vscanf fscanf vsscanf)
+-
+-dnl Special case (1): vsnprintf
+-AC_CHECK_FUNCS(vsnprintf,,check_for_vsnprintf=yes)
+-
+-if [ test "x$check_for_vsnprintf" = "xyes" ]; then
+-	AC_CHECK_FUNC(_vsnprintf,[
+-		AC_DEFINE(HAVE_VSNPRINTF)
+-		AC_DEFINE(vsnprintf,_vsnprintf)
+-	],[	dnl Hmm. On the off-chance, check for vsnprintf in libdb.
+-		dnl This should, hopefully, solve the problem with Tru64 4.x
+-		dnl which is incompatible with trio (the latter's fault).
+-		AC_CHECK_LIB(db,vsnprintf,[
+-			AC_DEFINE(HAVE_VSNPRINTF)
+-			WMF_LIBFLAGS="$WMF_LIBFLAGS -ldb"
+-		],[	require_trio=yes
+-		])
+-	])
+-fi
+-
+-dnl Special case (2): snprintf
+-AC_CHECK_FUNCS(snprintf,,check_for_snprintf=yes)
+-
+-if [ test "x$check_for_snprintf" = "xyes" ]; then
+-	AC_CHECK_FUNC(_snprintf,[
+-		AC_DEFINE(HAVE_SNPRINTF)
+-		AC_DEFINE(snprintf,_snprintf)
+-	])
+-fi
+-
+-dnl Special case (3): vfscanf is defined as a macro for Darwin / Mac OS X
+-AC_CHECK_FUNCS(vfscanf,,check_for_vfscanf=yes)
+-
+-if [ test "x$check_for_vfscanf" = "xyes" ]; then
+-	AC_MSG_CHECKING(for vfscanf in stdio.h)
+-	AC_EGREP_HEADER(vfscanf,stdio.h,[
+-		AC_MSG_RESULT(yes)
+-		AC_DEFINE(HAVE_VFSCANF)
+-	],[	AC_MSG_RESULT(no)
+-	])
+-fi
+-
+-fi # $LIBWMF_BUILDSTYLE = heavy
+-
+-AM_CONDITIONAL(LIBWMF_OPT_TRIO,[ test "x$require_trio" = "xyes" ])
++NEED_TRIO_CHECK
+ 
+ dnl Checks for libraries, etc.
+ 
+--- libwmf-0.2.8.4.trio/acinclude.m4.trio	2001-08-28 11:23:17.000000000 +0200
++++ libwmf-0.2.8.4.trio/acinclude.m4	2005-12-28 11:27:27.926875183 +0100
+@@ -129,3 +129,87 @@
+ 		fi
+ 	fi
+ ])
++
++dnl Found this in lftp 3.0.13 and adapted it to an external trio library
++dnl Just put an include in your acinlude.m4 or aclocal.m4 file and then
++dnl call NEED_TRIO_CHECK. This will add -ltrio to LIBS if
++dnl snprint/vsnprint is unavailable.
++dnl Then make sure trio.h is included if NEED_TRIO is defined.
++dnl Something like this:
++dnl
++dnl #ifdef NEED_TRIO
++dnl #include <trio.h>
++dnl #endif
++dnl
++dnl If you're using config.h style configuration use autoheader to
++dnl automatically get the defines added. This will also add the above
++dnl snippet of code to include trio.h when needed.
++dnl
++dnl If you want trio to completely replace stdio.h then you must define
++dnl TRIO_REPLACE_STDIO. This define is currently commented and inactive.
++dnl Uncomment it as needed.
++dnl If you just want trio to take over some (missing) functions then use
++dnl AC_DEFINE and selectively use #define <func> trio_<func>
++dnl by modifying the existing AH_BOTTOM macro.
++dnl 
++dnl The original code from lftp is covered by the GNU GPL v2 and is
++dnl Copyright(c) 1996-2004 by Alexander V. Lukyanov <lav@yars.free.net>
++dnl
++dnl This adaption is also covered by the GNU GPL v2 and is
++dnl Copyright(c) 2005 by Tom G. Christensen <irixpkg@jupiterrise.com>
++dnl
++
++AC_DEFUN([NEED_TRIO_CHECK],[
++   AC_CHECK_FUNCS(vsnprintf snprintf)
++   AC_CACHE_CHECK([if trio library is needed], ac_cv_need_trio,
++   [
++      ac_cv_need_trio=no;
++
++      if test x$ac_cv_func_vsnprintf != xyes -o x$ac_cv_func_snprintf != xyes; then
++	 ac_cv_need_trio="yes (because there is no system snprintf/vsnprintf functions)"
++      else
++
++      AC_TRY_RUN([
++	 int main()
++	 {
++	    unsigned long long x=0,x1;
++	    long long y=0,y1;
++	    char buf[128];
++
++	    x=~x;
++	    sscanf("0","%llu",&x);
++	    if(x!=0) return 1;
++
++	    y=~y;
++	    sscanf("0","%lld",&y);
++	    if(y!=0) return 1;
++
++	    x=~x;
++	    sprintf(buf,"%lld %llu",y,x);
++	    sscanf (buf,"%lld %llu",&y1,&x1);
++	    if(x!=x1 || y!=y1)
++	       return 1;
++
++	    return 0;
++	 }],[],[ac_cv_need_trio="yes (because %lld fails)"],[])
++
++      fi
++   ])
++   case $ac_cv_need_trio in
++   yes*)
++      AC_CHECK_LIB(trio, trio_snprintf, [], 
++	[AC_MSG_ERROR([Unable to find trio library.])])
++      AC_DEFINE(NEED_TRIO, 1, [define if you need trio for stdio functions])
++      dnl AC_DEFINE(TRIO_REPLACE_STDIO, 1, [define if trio should replace all system stdio functions])
++      AH_BOTTOM([
++/* If we need trio then make sure that trio.h is included always */
++#ifdef NEED_TRIO
++#include <trio.h>
++#if !defined(TRIO_REPLACE_STDIO)
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++#endif
++#endif])
++      ;;
++   esac
++])
