@@ -1,0 +1,26 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.doxygen.org"
+shortdesc="Documentation system"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_vdocdir/LICENSE
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[doc]
+subsys=man.doc
+files(-,root,sys)
+$_vdocdir/README
+$_vdocdir/LANGUAGE.HOWTO
+$_vdocdir/examples
+$_vdocdir/html
+
