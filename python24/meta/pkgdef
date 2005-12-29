@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$pkgdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.python.org"
+shortdesc="An interpreted, interactive, object-oriented programming language"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_libdir
+$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+
