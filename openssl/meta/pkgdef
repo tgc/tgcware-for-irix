@@ -17,6 +17,7 @@ ssl
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
+$_libdir/engines/*.so
 
 [man]
 subsys=man.man

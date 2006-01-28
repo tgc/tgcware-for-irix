@@ -5,26 +5,28 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
-sed -e "s;@LIBDIR@;/usr/local/lib;g" Makefile.org > Makefile.new
-mv -f Makefile.new Makefile.org
-
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-prngd or egd should be available to provide entropy through
-/var/run/egd-pool
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
+prngd should be available to provide entropy through
+/var/run/egd-pool                              
 
 Cross your fingers that the openssl developers won't release a new
 binary incompatible minor version.
