@@ -5,21 +5,23 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:     %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
-cflags_os="-D$(uname -sr|sed -e 's;\.;;g' -e 's; ;;g' -e 's;IRIX64;IRIX;g')"
-# make CC=gcc CFLAGS="-O3 -Wall $cflags_os" \
-        DEFS="-DRANDSAVENAME=\\\"/usr/local/etc/prngd/prngd-seed\\\" \
-        -DCONFIGFILE=\\\"/usr/local/prngd/prngd.conf\\\""
+%%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------

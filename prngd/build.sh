@@ -3,9 +3,10 @@
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
@@ -17,11 +18,18 @@ patch[0]=prngd-irix53-support.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+no_configure=1
+CC=gcc
+cflags_os="-O3 -Wall -DIRIX62"
+
+if [ "$_os" == "irix53" ]; then
+    CC=cc
+    cflags_os="-O2 -fullwarn -DIRIX53"
+    mipspro=2
+fi
+__configure="make"
+configure_args="CC=$CC CFLAGS=\\\"$cflags_os\\\" DEFS=\\\"-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\"\\\""
 
 reg prep
 prep()
@@ -32,10 +40,9 @@ prep()
 reg build
 build()
 {
-    [ "$_os" == "irix53" ] && cflags_os="-DIRIX53"
-    [ "$_os" == "irix62" ] && cflags_os="-DIRIX62"
+    #generic_build
     setdir source
-    $MAKE_PROG CC=gcc CFLAGS="-O3 -Wall $cflags_os" DEFS="-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\""
+    $MAKE_PROG CC=$CC CFLAGS="$cflags_os" DEFS="-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\""
 }
 
 reg install
@@ -69,6 +76,9 @@ install()
     # Preserve existing on/off setting
     echo "${_sysconfdir}/config/tgc_prngd config(noupdate)" > $metadir/ops
 
+    # Adjust prngd path in initscript
+    $GSED -i "/^PRNGD_BIN/s|=.*|=${prefix}/${_sbindir}/prngd|" ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
+
     doc 00DESIGN 00README 00README.gatherers ChangeLog
 
     custom_install=1
@@ -94,42 +104,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
