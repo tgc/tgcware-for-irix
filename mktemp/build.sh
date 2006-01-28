@@ -10,13 +10,19 @@
 # Check the following 4 variables before running the script
 topdir=mktemp
 version=1.5
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# Global settings
+if [ "$_os" = "irix53" ]; then
+    export CC=cc
+    mipspro=2
+fi
 
 reg prep
 prep()
