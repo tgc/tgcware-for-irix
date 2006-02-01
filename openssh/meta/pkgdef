@@ -13,8 +13,8 @@ ${lprefix}/${_bindir}/ssh-keygen
 ${lprefix}/libexec/ssh-keysign
 ${lprefix}/${_sharedir}/openssh/Ssh.bin
 ${lprefix}/$_docdir
-${lprefix}/${_mandir}/cat1/ssh-keygen.1.gz
-${lprefix}/${_mandir}/cat8/ssh-keysign.8.gz
+${lprefix}/${_mandir}/cat1/ssh-keygen.1.*
+${lprefix}/${_mandir}/cat8/ssh-keysign.8.*
 
 [server]
 subsys=sw.server
@@ -25,9 +25,9 @@ ${lprefix}/libexec/sftp-server
 ${lprefix}/${_sbindir}/sshd
 dir var/empty
 # manpages, should they be seperate?
-${lprefix}/${_mandir}/cat5/sshd_config.5.gz
-${lprefix}/${_mandir}/cat8/sftp-server.8.gz
-${lprefix}/${_mandir}/cat8/sshd.8.gz
+${lprefix}/${_mandir}/cat5/sshd_config.5.*
+${lprefix}/${_mandir}/cat8/sftp-server.8.*
+${lprefix}/${_mandir}/cat8/sshd.8.*
 
 [clients]
 subsys=sw.clients
@@ -41,12 +41,12 @@ ${lprefix}/${_bindir}/ssh-add
 ${lprefix}/${_bindir}/ssh-agent
 ${lprefix}/${_bindir}/ssh-keyscan
 # manpages, should they be seperate?
-${lprefix}/${_mandir}/cat1/scp.1.gz
-${lprefix}/${_mandir}/cat1/sftp.1.gz
-${lprefix}/${_mandir}/cat1/slogin.1.gz
-${lprefix}/${_mandir}/cat1/ssh-add.1.gz
-${lprefix}/${_mandir}/cat1/ssh-agent.1.gz
-${lprefix}/${_mandir}/cat1/ssh-keyscan.1.gz
-${lprefix}/${_mandir}/cat1/ssh.1.gz
-${lprefix}/${_mandir}/cat5/ssh_config.5.gz
+${lprefix}/${_mandir}/cat1/scp.1.*
+${lprefix}/${_mandir}/cat1/sftp.1.*
+${lprefix}/${_mandir}/cat1/slogin.1.*
+${lprefix}/${_mandir}/cat1/ssh-add.1.*
+${lprefix}/${_mandir}/cat1/ssh-agent.1.*
+${lprefix}/${_mandir}/cat1/ssh-keyscan.1.*
+${lprefix}/${_mandir}/cat1/ssh.1.*
+${lprefix}/${_mandir}/cat5/ssh_config.5.*
 
