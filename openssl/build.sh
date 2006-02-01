@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.8a
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,11 +22,15 @@ source[0]=$topdir-$version.tar.gz
 ignore_deps="tgc_perl5.sw.base"
 check_ac=0
 __configure="./Configure"
-mipspro=1
 shared_args="--prefix=$prefix --openssldir=$prefix/ssl zlib shared"
-[ "$_os" == "irix53" ] && configure_args="irix-mips1-gcc $shared_args"
-[ "$_os" == "irix62" ] && configure_args="irix-mips3-cc $shared_args"
-#set_configure_args="$configure_args"
+if [ "$_os" == "irix53" ]; then
+    configure_args="irix-cc $shared_args"
+    mipspro=2
+fi
+if [ "$_os" == "irix62" ]; then
+    configure_args="irix-mips3-cc $shared_args"
+    mipspro=1
+fi
 
 reg prep
 prep()
