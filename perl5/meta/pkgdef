@@ -8,11 +8,11 @@ shortdesc="The Perl programming language"
 [base]
 subsys=sw.base
 files(-,root,sys)
-perl-${version}/$_bindir
-perl-${version}/$_libdir
+$_bindir
+$_libdir
 
 [man]
 subsys=man.man
 files(-,root,sys)
-perl-${version}/$_mandir
+$_mandir
 

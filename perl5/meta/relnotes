@@ -25,12 +25,10 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-I initially wanted to build with gcc so the Irix 6 hints file was hacked to
+I wanted to build with gcc so the Irix 6 hints file was hacked to
 ignore 64bit mode which it seems to want to default to when using gcc and
 os is IRIX64.
 Also because I was going to build with gcc 3.4.x the -DIRIX32_SEMUN_BROKEN_BY_GCC
 define was removed since that ABI problem was fixed in that release series.
-In the end though I chose to use mipspro since it builds faster and perl
-is pure C so no C++ abi hoopla to worry about.
-To make the build I succeed I had to patch in 3 places where perl
+To make the build succeed I had to patch in 3 places where perl
 thought it needed to provide prototypes when they weren't necessary.
