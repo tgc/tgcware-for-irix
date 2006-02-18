@@ -1,0 +1,10 @@
+--- SDL-1.2.9/src/audio/dmedia/SDL_irixaudio.c.orig	2006-02-18 18:55:33.547097663 +0100
++++ SDL-1.2.9/src/audio/dmedia/SDL_irixaudio.c	2006-02-18 18:56:28.868551158 +0100
+@@ -51,6 +51,7 @@
+ #define alSetQueueSize(x,y) ALsetqueuesize(x,y)
+ #define alSetSampFmt(x,y) ALsetsampfmt(x,y)
+ #define alSetWidth(x,y) ALsetwidth(x,y)
++#define alWriteFrames(x,y,z) ALwritesamps(x,y,z)
+ #endif
+ 
+ /* Audio driver functions */
