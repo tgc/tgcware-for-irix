@@ -1,0 +1,11 @@
+--- openttd-0.4.5/Makefile.orig	2006-02-18 16:46:02.727594997 +0100
++++ openttd-0.4.5/Makefile	2006-02-18 16:47:22.735234787 +0100
+@@ -814,7 +814,7 @@
+ 
+ $(TTD): $(OBJS) $(MAKE_CONFIG)
+ 	@echo '===> Linking $@'
+-	$(Q)$(CC) $(LDFLAGS) $(TTDLDFLAGS) $(OBJS) $(LIBS) -o $@
++	$(Q)$(CC) $(OBJS) $(LDFLAGS) $(TTDLDFLAGS) $(LIBS) -o $@
+ 
+ $(STRGEN): strgen/strgen.c endian_host.h
+ 	@echo '===> Compiling and Linking $@'

@@ -1,0 +1,14 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.openttd.org"
+shortdesc="Transport Tycoon Deluxe clone"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+dir $_sharedir/openttd/gm
+

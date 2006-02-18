@@ -1,0 +1,17 @@
+--- openttd-0.4.5/openttd.h.org	2006-02-18 15:39:02.438680872 +0100
++++ openttd-0.4.5/openttd.h	2006-02-18 15:41:14.898217464 +0100
+@@ -4,6 +4,14 @@
+ #ifndef OPENTTD_H
+ #define OPENTTD_H
+ 
++/* Irix 5.3, 6.2 compat */
++typedef int socklen_t;
++typedef unsigned int in_addr_t;
++/* trio stuff */
++#include "trio.h"
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++
+ #ifndef VARDEF
+ #define VARDEF extern
+ #endif
