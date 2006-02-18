@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gettext
 version=0.14.5
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-set_configure_args '--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/tgcware'
+configure_args='--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/tgcware'
 
 reg prep
 prep()
