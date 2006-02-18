@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -21,6 +21,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CC=cc
 mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
