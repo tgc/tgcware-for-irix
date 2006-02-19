@@ -14,19 +14,17 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-gettext
-libiconv
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-I had to force linking with GNU gettext/libiconv in /usr/local
-by overriding LIBS in the makefile since configure script is unable
+I had to force linking with GNU gettext/libiconv
+by overriding LIBS in the makefile since the configure script is unable
 to get it right :(
