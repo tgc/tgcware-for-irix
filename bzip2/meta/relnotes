@@ -5,20 +5,25 @@ Version:    %%SOURCE_AND_VER%%
 Vendor:	    %%VENDOR%%
 Packager:   %%PKGEDBY%%
 
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
 BUILD DETAILS
 -------------
 Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
-make -f Makefile LDFLAGS="-rpath /usr/local/lib"
-make -f Makefile-libbz2_so CC="gcc -rpath /usr/local/lib"
+make -f Makefile LDFLAGS="-Wl,-rpath,/usr/tgcware/lib"
+make -f Makefile-libbz2_so CC="gcc -Wl,-rpath,/usr/tgcware/lib"
 
 KNOWN DEPENDENCIES
 ------------------
-libgcc_s.so.1
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
+I corrected the soversion and added -set_version just for neatness.

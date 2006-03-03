@@ -1,0 +1,11 @@
+--- bzip2-1.0.3/Makefile-libbz2_so.orig	Fri Mar  3 10:20:02 2006
++++ bzip2-1.0.3/Makefile-libbz2_so	Fri Mar  3 10:23:41 2006
+@@ -20,7 +20,7 @@
+       bzlib.o
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1.0 -o libbz2.so.1.0.3 $(OBJS)
++	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1 -Wl,-set_version,sgi1.0 -o libbz2.so.1.0.3 $(OBJS)
+ 	$(CC) $(CFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.3
+ 	rm -f libbz2.so.1.0
+ 	ln -s libbz2.so.1.0.3 libbz2.so.1.0

@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://sources.redhat.com/bzip2/"
+pkgvendor="http://www.bzip.org"
 shortdesc="bzip2 compression library and utilities"
 
 [base]
