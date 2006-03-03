@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=7
+pkgver=8
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
@@ -29,6 +29,7 @@ configure_args='--prefix=$prefix --disable-static --enable-shared'
 export LDFLAGS='-rpath /usr/tgcware/lib'
 export INSTALL="/usr/tgcware/bin/install -c -D"
 export CC=cc
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
