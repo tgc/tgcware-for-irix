@@ -1,55 +1,27 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
+###########################################################
 # Check the following 4 variables before running the script
 topdir=vim
-version=6.2.55
-pkgver=gtk-2
-source[0]=$topdir-6.2.tar.bz2
+version=6.4
+pkgver=1
+source[0]=$topdir-6.4.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=6.2.001
-patch[1]=6.2.002
-patch[2]=6.2.003
-patch[3]=6.2.005
-patch[4]=6.2.006
-patch[5]=6.2.007
-patch[6]=6.2.008
-# patch 6.2.009 is win32 only
-patch[7]=6.2.010
-patch[8]=6.2.011
-patch[9]=6.2.012
-# patch 6.2.13 is win32 only
-patch[10]=6.2.014
-patch[11]=6.2.015
-patch[12]=6.2.016
-patch[13]=6.2.017
-patch[14]=6.2.018
-# patch 6.2.19 is lang specific
-patch[15]=6.2.020
-patch[16]=6.2.021
-patch[17]=6.2.026
-patch[18]=6.2.027
-patch[19]=6.2.028
-patch[20]=6.2.029
-patch[21]=6.2.031
-patch[22]=6.2.032
-patch[23]=6.2.040
-patch[24]=6.2.043
-patch[25]=6.2.044
-patch[26]=6.2.045
-patch[27]=6.2.046
-patch[28]=6.2.049
-patch[29]=6.2.050
-patch[30]=6.2.051
-patch[31]=6.2.052
-patch[32]=6.2.053
-patch[33]=6.2.054
-patch[34]=6.2.055
+patch[0]= # Dummy
+patch[1]= #6.4.001 only for extras
+patch[2]=6.4.002
+patch[3]=6.4.003
+patch[4]=6.4.004
+patch[5]=6.4.005
+patch[6]=6.4.006
+patch[7]=6.4.007
+patch[8]=6.4.008
 
 # Helper var
 patchcount=${#patch[@]}
@@ -57,21 +29,20 @@ patchcount=${#patch[@]}
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+# Global settings
 # We need to override this
-topsrcdir=vim62
-patchdir=$srcfiles/vim-6.2-patches
+topsrcdir=vim64
+patchdir=$srcfiles/vim-6.4-patches
+export CFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+# What gui should we build?
+gui=motif
+configure_args='--prefix=$prefix --enable-gui=$gui --with-features=huge --with-compiledby="<irixpkg@jupiterrise.com>" --enable-multibyte --disable-netbeans'
+configlog=src/auto/config.log
 
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-name="Vim - Vi IMproved"
-pkgvendor="http://www.vim.org"
-pkgdesc="An improved almost compatible version of Vi"
+# Custom subsystems...
+subsysconf=$metadir/subsys.conf
 
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
 
 reg prep
 prep()
@@ -87,16 +58,37 @@ prep()
 reg build
 build()
 {
-    export LDFLAGS="-Wl,-rpath,/usr/local/lib"
+    # First build a gui version
+    gui=motif
+    generic_build
+    # Save the gui binary for later
     setdir source
-    ./configure --prefix=/usr/local --with-gnome=no --enable-gui=gtk --disable-gpm --disable-nls
-    $MAKE_PROG
+    ${CP} src/vim src/gvim
+    setdir source
+    $MAKE_PROG clean
+    gui="no --with-x=no"
+    generic_build
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
+    setdir source
+    ${CP} src/gvim ${stagedir}${prefix}/${_bindir}
+    setdir ${stagedir}${prefix}/${_bindir}
+    ${LN} -s gvim gvimdiff
+    ${LN} -s gvim gview
+    setdir ${stagedir}${prefix}/${_mandir}/man1
+    ${LN} -s vim.1 gvim.1
+    ${LN} -s vim.1 gview.1
+    ${LN} -s vimdiff.1 gvimdiff.1
+    custom_install=1
+    generic_install DESTDIR
+    doc README.txt
+    setdir ${stagedir}${prefix}/${_sharedir}/vim/vim64/lang/
+    ${MV} "menu_chinese(gb)_gb.936.vim" "menu_chinese_gb__gb.936.vim"
+    ${MV} "menu_chinese(taiwan)_taiwan.950.vim" "menu_chinese_taiwan__taiwan.950.vim"
 }
 
 reg pack
@@ -114,42 +106,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*
