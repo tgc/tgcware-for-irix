@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=vim
 version=6.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-6.4.tar.bz2
 # If there are no patches, simply comment this
 patch[0]= # Dummy
@@ -42,6 +42,8 @@ configlog=src/auto/config.log
 
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
+
+ignore_deps="tgc_perl5"
 
 
 reg prep
