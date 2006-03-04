@@ -1,0 +1,25 @@
+[common]
+pkgname="${pkgprefix}gcc${abbrev_ver}"
+name="gcc"
+pkgver="$pkgver"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="GNU Compiler Collection"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+${iprefix}/$_bindir
+${iprefix}/$_libdir
+${iprefix}/$_includedir
+${iprefix}/libexec
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${iprefix}/$_mandir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+${iprefix}/$_infodir
+
