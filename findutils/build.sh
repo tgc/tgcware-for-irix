@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=findutils
-version=4.2.26
+version=4.2.27
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
