@@ -1,0 +1,42 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+Configuration files are marked config(noupdate) which means any existing
+versions are preserved.
+
+Privilege seperation is enabled and startup will fail until
+a suitable user has been created.
+This user should be called '_ntp' and belong to its own seperate group.
+In /usr/tgcware/share/doc/openntpd-<version>/contrib there is a script called
+privsep-user-setup.sh which will attempt to setup such a user.
+It requires uid and gid as input ie. ./privsep-user-setup.sh 74 74
+to use uid=74 and gid=74.
+The '_ntp' user will have its homedir in /var/empty/ntpd.
+
+The daemon is controlled via /etc/init.d/tgc_ntpd and automatic startup
+can be configured in the usual way with chkconfig.
+

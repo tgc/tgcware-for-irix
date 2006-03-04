@@ -1,0 +1,22 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.openntpd.org"
+shortdesc="A free, easy to use implementation of the Network Time Protocol"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_sysconfdir
+${lprefix}/$_sysconfdir/ntpd.conf
+${lprefix}/$_sbindir/ntpd
+${lprefix}/$_sharedir
+files(755,root,root)
+dir var/empty/ntpd
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${lprefix}/$_mandir/?a?[12456789]
+

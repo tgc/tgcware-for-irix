@@ -1,0 +1,67 @@
+#!/bin/sh
+##
+## Start or stop the ntp daemon
+##
+## Set custom options in /etc/config/tgc_ntpd.options to override
+## default configuration
+
+IS_ON=/etc/chkconfig
+NTPD=/usr/tgcware/sbin/ntpd
+CONFIG=/etc/config/tgc_ntpd.options
+
+if $IS_ON verbose; then
+    ECHO=echo
+else
+    ECHO=:
+fi
+
+kill_ntpd()
+{
+    tpid=`ps -o ppid= -fu _ntp`
+    ntpd_pid=`echo $tpid`
+    if test -n "$ntpd_pid"; then
+	ps -p $ntpd_pid | grep ntpd > /dev/null
+	if test $? -eq 0 ; then
+	    /usr/bin/kill -15 -$ntpd_pid
+	fi
+    fi
+}
+
+case "$1" in
+    start)
+	kill_ntpd
+	if $IS_ON tgc_ntpd && test -x $NTPD; then
+	    $ECHO "Starting ntpd:\c"
+	    if [ -r $CONFIG ]; then
+	       $NTPD `cat $CONFIG`
+	    else
+	       $NTPD
+	    fi
+	    $ECHO "."
+	fi
+	;;
+
+    restart)
+	kill_ntpd
+	if $IS_ON tgc_ntpd && test -x $NTPD; then
+	    $ECHO "Starting ntpd:\c"
+	    if [ -r $CONFIG ]; then
+	       $NTPD `cat $CONFIG`
+	    else
+	       $NTPD
+	    fi
+	    $ECHO "."
+	fi
+	;;
+
+    stop)
+	$ECHO "Stopping ntpd."
+	kill_ntpd
+	exit 0
+	;;
+
+    *)
+	echo "usage: $0 {start|stop|restart}"
+	;;
+esac
+

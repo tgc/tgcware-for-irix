@@ -1,0 +1,11 @@
+--- openntpd-3.7p1/Makefile.in.orig	2006-03-04 15:39:36.323968379 +0100
++++ openntpd-3.7p1/Makefile.in	2006-03-04 15:39:59.680360087 +0100
+@@ -80,8 +80,6 @@
+ 	fi
+ 	@if [ ! -d $(DESTDIR)$(PRIVSEP_PATH) ]; then \
+ 		mkdir -p $(DESTDIR)$(PRIVSEP_PATH) ;\
+-		chown 0 $(DESTDIR)$(PRIVSEP_PATH) ; \
+-		chgrp 0 $(DESTDIR)$(PRIVSEP_PATH) ; \
+ 		chmod 0755 $(DESTDIR)$(PRIVSEP_PATH) ; \
+ 	fi
+ 	@if grep "$(PRIVSEP_USER):" /etc/group >/dev/null; then \
