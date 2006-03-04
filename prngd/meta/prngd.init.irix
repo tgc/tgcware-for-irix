@@ -9,7 +9,7 @@ else            # For a quiet startup and shutdown
 fi
 
 DESC="prngd"
-PRNGD_BIN=/usr/local/sbin/prngd
+PRNGD_BIN=/usr/tgcware/sbin/prngd
 POOLDIR=/var/run
 POOLFILE=egd-pool
 
@@ -32,7 +32,7 @@ case "$1" in
 	    ;;
     'stop')
 	    $ECHO "Stopping $DESC"
-	    $PRNGD_BIN -k $POOLDIR/$POOLFILE
+	    $PRNGD_BIN -k $POOLDIR/$POOLFILE 2>&1 >/dev/null
 	    ;;
     'restart')
 	    $0 stop
