@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=aspell
-version=0.60.2
+version=0.60.4
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -20,9 +20,9 @@ patch[1]=aspell-0.60.2-includes.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib"
-set_configure_args '--prefix=$prefix --enable-docdir=$prefix/${_vdocdir} --disable-nls'
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --enable-docdir=$prefix/${_vdocdir} --disable-nls'
 
 reg prep
 prep()
@@ -30,11 +30,9 @@ prep()
     generic_prep
     setdir source
     aclocal-1.9 -I m4
-    autoheader
+    automake-1.9
     autoconf
-    cd gen
-    # trio.h includes config.h to pick up autoconf defines
-    ${LN} -s settings.h config.h
+    autoheader
 }
 
 reg build
@@ -47,6 +45,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    ${GSED} -i 's|/usr/bin/perl|/usr/tgcware/bin/perl|' ${stagedir}${prefix}/${_bindir}/aspell-import
     ${RM} -f ${stagedir}${prefix}/${_libdir}/${topdir}-0.60/*.la
     ${MV} ${stagedir}${prefix}/${_libdir}/${topdir}-0.60/*spell ${stagedir}${prefix}/${_bindir}
     doc COPYING README
