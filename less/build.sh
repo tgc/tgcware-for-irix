@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=less
 version=382
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 source[1]=lesspipe.sh
 # If there are no patches, simply comment this
@@ -22,7 +22,7 @@ source[1]=lesspipe.sh
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-editor=/bin/vi"
+configure_args="--prefix=$prefix --with-editor=/bin/vi --with-regex=regcmp"
 # Don't build with ncurses even if found
 ac_overrides="ac_cv_lib_ncurses_initscr=no"
 
@@ -39,7 +39,7 @@ build()
 {
     setdir source
     ${__configure} $configure_args
-    ${SED} -e '/^LIBS/ s/LIBS =.*/LIBS = -lcurses/g' Makefile > Makefile.new
+    ${SED} -e '/^LIBS/ s/LIBS =.*/LIBS = -lcurses -lgen/g' Makefile > Makefile.new
     ${MV} Makefile.new Makefile
     $MAKE_PROG
 }
