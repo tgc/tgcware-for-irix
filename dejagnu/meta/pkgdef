@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnu.org"
+shortdesc="A framework for testing other programs"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+
