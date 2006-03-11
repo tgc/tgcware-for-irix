@@ -2,6 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
+pkgvendor="http://www.gnu.org"
 shortdesc="GNU binary utilities"
 
 [base]

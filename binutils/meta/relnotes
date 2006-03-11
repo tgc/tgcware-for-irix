@@ -14,14 +14,15 @@ Compiler:
 %%COMPILER%%
 
 Environment:
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-c++filt was removed as it is also part of gcc
 A number of Windows/Novell only manpages was removed.
