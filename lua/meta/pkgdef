@@ -1,0 +1,41 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.lua.org"
+shortdesc="Lua scripting language"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+dir $_sharedir/lua
+dir $_sharedir/lua/5.1
+$_vdocdir/COPYRIGHT
+$_vdocdir/HISTORY
+$_vdocdir/README
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+dir $_libdir/lua
+dir $_libdir/lua/5.1
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[doc]
+subsys=man.doc
+files(-,root,sys)
+$_vdocdir/doc
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+

@@ -1,0 +1,80 @@
+--- lua-5.1.work/src/Makefile.irix	2006-03-11 10:24:35.929349695 +0100
++++ lua-5.1.work/src/Makefile	2006-03-11 10:29:16.306034921 +0100
+@@ -10,7 +10,7 @@
+ CC= gcc
+ CFLAGS= -O2 -Wall $(MYCFLAGS)
+ AR= ar rcu
+-RANLIB= ranlib
++RANLIB= :
+ RM= rm -f
+ LIBS= -lm $(MYLIBS)
+ 
+@@ -20,7 +20,7 @@
+ 
+ # == END OF USER SETTINGS. NO NEED TO CHANGE ANYTHING BELOW THIS LINE =========
+ 
+-PLATS= aix ansi bsd generic linux macosx mingw posix solaris
++PLATS= aix ansi bsd generic linux macosx mingw posix solaris irix
+ 
+ LUA_A=	liblua.a
+ CORE_O=	lapi.o lcode.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o \
+@@ -93,6 +93,8 @@
+ 
+ linux:
+ 	$(MAKE) all MYCFLAGS=-DLUA_USE_LINUX MYLIBS="-Wl,-E -ldl -lreadline -lhistory -lncurses"
++irix:
++	$(MAKE) all MYCFLAGS="-I/usr/tgcware/include -DLUA_USE_IRIX -fPIC" MYLIBS="-Wl,-exports -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lreadline -lhistory"
+ 
+ macosx:
+ 	$(MAKE) all MYCFLAGS=-DLUA_USE_MACOSX
+--- lua-5.1.work/src/luaconf.h.irix	2006-03-11 10:25:44.278790559 +0100
++++ lua-5.1.work/src/luaconf.h	2006-03-11 10:36:05.432829790 +0100
+@@ -39,6 +39,19 @@
+ #define LUA_USE_READLINE	/* needs some extra libraries */
+ #endif
+ 
++#if defined(LUA_USE_IRIX)
++/* #define LUA_USE_ULONGJMP
++ * This is a BSDism according to Irix manpages and one needs to use BSD signals
++ * to access this function
++ * That's why I'm not defining LUA_USE_POSIX
++ */
++#define LUA_USE_MKSTEMP
++#define LUA_USE_ISATTY
++#define LUA_USE_POPEN
++#define LUA_USE_DLOPEN
++#define LUA_USE_READLINE	/* needs some extra libraries */
++#endif
++
+ #if defined(LUA_USE_MACOSX)
+ #define LUA_USE_POSIX
+ #define LUA_DL_DYLD		/* does not need extra library */
+--- lua-5.1.work/Makefile.irix	2006-03-11 10:23:29.779569039 +0100
++++ lua-5.1.work/Makefile	2006-03-11 10:24:03.124417688 +0100
+@@ -22,22 +22,20 @@
+ # How to install. You may prefer "install" instead of "cp" if you have it.
+ # To remove debug information from binaries, use "install -s" in INSTALL_EXEC.
+ #
+-INSTALL_EXEC= $(CP)
+-INSTALL_DATA= $(CP)
+-#INSTALL_EXEC= $(INSTALL) -m 0755
+-#INSTALL_DATA= $(INSTALL) -m 0644
++INSTALL_EXEC= $(INSTALL) -m 0755
++INSTALL_DATA= $(INSTALL) -m 0644
+ 
+ # Utilities.
+ CP= cp
+ FIND= find
+ INSTALL= install
+ MKDIR= mkdir
+-RANLIB= ranlib
++RANLIB= :
+ 
+ # == END OF USER SETTINGS. NO NEED TO CHANGE ANYTHING BELOW THIS LINE =========
+ 
+ # Convenience platforms targets.
+-PLATS= aix ansi bsd generic linux macosx mingw posix solaris
++PLATS= aix ansi bsd generic linux macosx mingw posix solaris irix
+ 
+ # What to install.
+ TO_BIN= lua luac

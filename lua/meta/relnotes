@@ -1,0 +1,34 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+Seems the shared library target went away between lua 5.0 and 5.1.
+I don't think that's acceptable so this package contains a patch which
+builds a shared library.
+The lua and luac binaries are still statically linked but since they will be
+updated anyway if the package is rebuilt I don't consider it a problem.
+I also patched the Makefiles to create an irix specific target with the
+proper libraries and options. This also included modifying luaconf.h.
