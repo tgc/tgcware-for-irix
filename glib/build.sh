@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=1.2.10
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=glib-1.2.10-gcc34.patch
@@ -19,14 +19,14 @@ patch[0]=glib-1.2.10-gcc34.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CC=cc
+export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args='--prefix=$prefix --enable-static=no'
-mipspro=1
-
-# Override getpwuid_r checking
-ac_overrides="ac_cv_func_getpwuid_r=yes"
+if [ "$_os" = "irix62" ]; then
+    export CC=cc
+    mipspro=1
+fi
 
 reg prep
 prep()

@@ -28,7 +28,3 @@ ERRORS/MISCELLANEOUS
 glib 1.2.10 is broken when building with gcc 3.4.x.
 I added a patch to fix it taken from the OpenPKG package
 but ended up building it with MIPSpro so it's not really needed.
-
-The library was built with pthreads and should be threadsafe.
-I had to override the result of the getpwuid_r test since it fails to find
-this function otherwise.
