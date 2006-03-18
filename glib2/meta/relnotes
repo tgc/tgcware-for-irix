@@ -25,6 +25,8 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+For Irix 6.2:
 I forced the detection of getpwuid_r since the configure test fails.
 This may be because it needs to link with -lpthread to work and
 the test doesn't.

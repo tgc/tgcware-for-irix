@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=2.8.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -27,14 +27,14 @@ configure_args='--prefix=$prefix --with-libiconv=gnu'
 # Override getpwuid_r checking
 # The configure test fails but the system does have a POSIX compatible
 # getpwuid_r and AFAIK it does work but needs -lpthread for the implementation.
-ac_overrides="ac_cv_func_posix_getpwuid_r=yes"
+[ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_posix_getpwuid_r=yes"
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
-    $GSED -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
+    [ "$_os" = "irix62" ] && $GSED -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
 }
 
 reg build
