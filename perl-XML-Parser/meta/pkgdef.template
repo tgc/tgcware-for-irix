@@ -1,0 +1,11 @@
+[common]
+pkgname="$pkgprefix""$perlpkgname"
+name="$pkgdir"
+pkgver="$pkgver"
+pkgvendor="http://www.cpan.org"
+shortdesc="A low level Perl module for parsing XML either via trees or streaming"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_sharedir/doc
