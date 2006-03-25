@@ -1,0 +1,11 @@
+[common]
+pkgname="$pkgprefix""$perlpkgname"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.cpan.org"
+shortdesc="A Perl module implementing URI parsing and manipulation"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_sharedir
