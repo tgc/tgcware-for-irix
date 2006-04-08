@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=lzo
 version=2.02
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -34,10 +34,6 @@ build()
 {
     generic_build
     setdir source
-    # ugly ugly hack but otherwise it complains about copysignl being
-    # undefined in libgcc_s.so.1
-    $GSED -i '/^dependency/s;'' ;'' -lm ;' src/liblzo2.la
-    $MAKE_PROG
     $MAKE_PROG check
 }
 
