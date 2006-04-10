@@ -16,11 +16,6 @@ subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
 
-[info]
-subsys=man.info
-files(-,root,sys)
-$_infodir
-
 [devel]
 subsys=sw.dev
 files(-,root,sys)

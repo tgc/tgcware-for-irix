@@ -25,3 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+!BEWARE! The libtool program will have hardwired dependencies pointing
+to objects delivered with the compiler used at build time (see Compiler: above)
+Usage with other compiler versions could be troublesome.

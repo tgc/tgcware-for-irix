@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libtool
-version=1.5.20
+version=1.5.22
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -38,7 +38,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README NEWS TODO
+    doc README NEWS TODO COPYING THANKS AUTHORS TODO
 }
 
 reg pack
