@@ -1,0 +1,13 @@
+--- kdelibs-3.5.2/kdecore/kextsock.cpp.netdb	2006-04-06 10:52:13.886231000 +0200
++++ kdelibs-3.5.2/kdecore/kextsock.cpp	2006-04-06 10:53:21.996231000 +0200
+@@ -32,6 +32,10 @@
+ #include <fcntl.h>
+ 
+ #include <netdb.h>
++/* Lots of stuff found in netdb.h on recent platforms
++ * are missing on Irix 6.2
++ */
++#include "netsupp.h"
+ 
+ #include <stdlib.h>
+ #include <unistd.h>
