@@ -1,0 +1,11 @@
+--- gcc-3.4.6/include/md5.h.orig	2006-03-18 14:11:26.925684640 +0100
++++ gcc-3.4.6/include/md5.h	2006-03-18 14:11:56.731080075 +0100
+@@ -89,7 +89,7 @@
+ 
+   md5_uint32 total[2];
+   md5_uint32 buflen;
+-  char buffer[128] ATTRIBUTE_ALIGNED_ALIGNOF(md5_uint32);
++  char buffer[128];
+ };
+ 
+ /*
