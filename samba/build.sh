@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=samba
-version=3.0.13
+version=3.0.22
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,10 +21,10 @@ patch[1]=samba-3.0.13-header.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
 
-set_configure_args '\
+configure_args='\
 	--with-manpages-langs=en \
 	--with-libsmbclient \
 	--with-ldap \
@@ -38,11 +38,13 @@ set_configure_args '\
 	--with-libdir=${prefix}/${_libdir}/samba \
 	--with-configdir=${prefix}/${_sysconfdir}/samba \
 	--with-swatdir=${prefix}/${_sharedir}/swat \
-	--with-libiconv=/usr/local \
+	--with-libiconv=/usr/tgcware \
 	'
 
+ac_overrides="samba_stat_hires=no"
+
 topinstalldir=/
-pkgdefprefix=usr/local
+pkgdefprefix=usr/tgcware
 subsysconf=$metadir/subsys.conf
 
 reg prep
@@ -54,16 +56,19 @@ prep()
 reg build
 build()
 {
-#  generic_build source
-    setdir source
-    cd source
-    $MAKE_PROG
+    generic_build source
 }
 
 reg install
 install()
 {
     generic_install DESTDIR source
+
+    # Move shared libraries to where clients can find it
+    ${MV} ${stagedir}${prefix}/${_libdir}/samba/libsmbclient.so ${stagedir}${prefix}/${_libdir}
+    ${MV} ${stagedir}${prefix}/${_libdir}/samba/libmsrpc.so ${stagedir}${prefix}/${_libdir}
+
+    # Create extra directories
     ${MKDIR} -p ${stagedir}/${_sysconfdir}/init.d
     ${MKDIR} -p ${stagedir}/${_sysconfdir}/rc0.d
     ${MKDIR} -p ${stagedir}/${_sysconfdir}/rc2.d
@@ -117,13 +122,12 @@ EOF
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man1/editreg.1*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man1/log2pcap.1*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man1/smbsh.1*
-    ${RM} -f ${stagedir}${prefix}/${_mandir}/man1/smbget.1*
-    ${RM} -f ${stagedir}${prefix}/${_mandir}/man5/smbgetrc.5*
+    ${RM} -f ${stagedir}${prefix}/${_mandir}/man7/pam_winbind.7*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/mount.cifs.8*
-    ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/pam_winbind.8*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/smbmnt.8*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/smbmount.8*
     ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/smbumount.8*
+    ${RM} -f ${stagedir}${prefix}/${_mandir}/man8/umount.cifs.8*
 
     doc README COPYING Manifest
     doc WHATSNEW.txt Roadmap
@@ -133,7 +137,6 @@ EOF
     doc docs/registry
     doc examples/autofs examples/LDAP examples/libsmbclient examples/misc examples/printer-accounting
     doc examples/printing
-
 }
 
 reg pack

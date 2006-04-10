@@ -16,6 +16,7 @@ $pkgdefprefix/$_bindir/smbstatus
 $pkgdefprefix/$_bindir/tdbbackup
 $pkgdefprefix/$_bindir/tdbdump
 $pkgdefprefix/$_bindir/tdbtool
+$pkgdefprefix/$_bindir/eventlogadm
 $pkgdefprefix/$_libdir/samba/vfs
 $_sysconfdir/config/tgc_samba*
 $_sysconfdir/init.d/tgc_samba
@@ -40,6 +41,7 @@ $pkgdefprefix/$_bindir/smbprint
 $pkgdefprefix/$_bindir/smbspool
 $pkgdefprefix/$_bindir/smbtar
 $pkgdefprefix/$_bindir/smbtree
+$pkgdefprefix/$_bindir/smbget
 
 [swcommon]
 subsys=sw.common
@@ -49,13 +51,14 @@ dir $pkgdefprefix/${_libdir}/samba/charset
 $pkgdefprefix/$_libdir/samba/lowcase.dat
 $pkgdefprefix/$_libdir/samba/upcase.dat
 $pkgdefprefix/$_libdir/samba/valid.dat
-$pkgdefprefix/$_libdir/samba/libsmbclient.a
-$pkgdefprefix/$_libdir/samba/libsmbclient.so
+$pkgdefprefix/$_libdir/samba/auth/script.so
 $pkgdefprefix/$_libdir/samba/charset/CP*.so
+$pkgdefprefix/$_libdir/libsmbclient.so
+$pkgdefprefix/$_libdir/libmsrpc.so
 $pkgdefprefix/$_includedir/libsmbclient.h
+$pkgdefprefix/$_includedir/libmsrpc.h
 $pkgdefprefix/$_bindir/net
 $pkgdefprefix/$_bindir/testparm
-$pkgdefprefix/$_bindir/testprns
 $pkgdefprefix/$_bindir/smbpasswd
 $pkgdefprefix/$_bindir/wbinfo
 $pkgdefprefix/$_bindir/ntlm_auth
@@ -109,6 +112,8 @@ $pkgdefprefix/$_mandir/cat1/smbcacls.1*
 $pkgdefprefix/$_mandir/cat1/smbclient.1*
 $pkgdefprefix/$_mandir/cat1/smbtar.1*
 $pkgdefprefix/$_mandir/cat1/smbtree.1*
+$pkgdefprefix/$_mandir/cat1/smbget.1*
+$pkgdefprefix/$_mandir/cat5/smbgetrc.5*
 $pkgdefprefix/$_mandir/cat8/smbspool.8*
 
 [mancommon]
@@ -118,11 +123,11 @@ $pkgdefprefix/$_mandir/cat1/ntlm_auth.1*
 $pkgdefprefix/$_mandir/cat1/profiles.1*
 $pkgdefprefix/$_mandir/cat1/smbcquotas.1*
 $pkgdefprefix/$_mandir/cat1/testparm.1*
-$pkgdefprefix/$_mandir/cat1/testprns.1*
 $pkgdefprefix/$_mandir/cat1/wbinfo.1*
 $pkgdefprefix/$_mandir/cat1/vfstest.1*
 $pkgdefprefix/$_mandir/cat5/smb.conf.5*
 $pkgdefprefix/$_mandir/cat5/lmhosts.5*
+$pkgdefprefix/$_mandir/cat7/libsmbclient.7*
 $pkgdefprefix/$_mandir/cat8/smbpasswd.8*
 $pkgdefprefix/$_mandir/cat8/winbindd.8*
 $pkgdefprefix/$_mandir/cat8/net.8*

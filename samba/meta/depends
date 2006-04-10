@@ -1,9 +1,2 @@
 sw.client sw.common auto
 sw.server sw.common auto
-sw.common tgc_krb5.sw.lib 14000001 maxint
-sw.common tgc_openldap22.sw.lib 22230001 maxint
-sw.common tgc_libiconv.sw.lib 19200006 maxint
-sw.common tgc_popt.sw.lib 17000003 maxint
-sw.client tgc_readline.sw.lib 50000001 maxint
-sw.server tgc_cups.sw.lib 11230001 maxint
-sw.swat tgc_cups.sw.lib 11230001 maxint

@@ -14,23 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib -rpath /usr/local/include"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-common:
-krb5
-openldap
-libiconv
-popt
-
-client additional:
-readline
-ncurses
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
