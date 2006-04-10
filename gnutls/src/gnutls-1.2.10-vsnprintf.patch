@@ -1,0 +1,11 @@
+--- gnutls-1.2.10/lib/gnutls_errors.c.vsnprintf	2006-04-10 09:18:29.784489000 +0200
++++ gnutls-1.2.10/lib/gnutls_errors.c	2006-04-10 09:18:41.504489000 +0200
+@@ -368,7 +368,7 @@
+ 	return;
+ 
+     va_start(args, fmt);
+-    vsnprintf(str, MAX_LOG_SIZE - 1, fmt, args);	/* Flawfinder: ignore */
++    vasnprintf(str, MAX_LOG_SIZE - 1, fmt, args);	/* Flawfinder: ignore */
+     va_end(args);
+ 
+     log_func(level, str);

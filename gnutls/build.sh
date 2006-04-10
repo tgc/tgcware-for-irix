@@ -14,6 +14,7 @@ pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gnutls-1.2.10-shutrdwr.patch
+patch[1]=gnutls-1.2.10-vsnprintf.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
