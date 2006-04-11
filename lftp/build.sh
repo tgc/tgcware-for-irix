@@ -1,44 +1,43 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
 # 
-# The concept of "method" registering and the logic that implements it was shamelessly
-# stolen from jhlj's Compile.sh script :)
-#
+# build.sh helper functions
+. ${BUILDPKG_BASE}/scripts/build.sh.functions
+
+###########################################################
 # Check the following 4 variables before running the script
 topdir=lftp
-version=2.6.11
-pkgver=3
-source[0]=$topdir-$version.tar.gz
+version=3.4.3
+pkgver=1
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=lftp-3.4.3-nameser_h.patch
+patch[1]=lftp-3.4.3-system-trio.patch
+patch[2]=lftp-3.4.3-prefer-ncurses.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-subsysconf=$metadir/subsys.conf
-
-# Fill in pkginfo values if necessary
-# using pkgname,name,pkgcat,pkgvendor & pkgdesc
-pkgname="lftp"
-
-# Define script functions and register them
-METHODS=""
-reg() {
-    METHODS="$METHODS $1"
-}
+# Global settings
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args='--prefix=$prefix --enable-shared --enable-static=no --with-gnutls --without-openssl --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware'
 
 reg prep
 prep()
 {
     generic_prep
+    aclocal-1.9 -I m4 -I /usr/tgcware/share/aclocal
+    automake-1.9
+    autoheader
+    autoconf
 }
 
 reg build
 build()
 {
-    LDFLAGS="-Wl,-rpath,$prefix/lib"
     generic_build
 }
 
@@ -46,6 +45,9 @@ reg install
 install()
 {
     generic_install DESTDIR
+    doc NEWS FEATURES FAQ README TODO COPYING THANKS
+    ${RM} -rf ${stagedir}${prefix}/${_libdir}
+    chmod 644 ${stagedir}${prefix}/${_sharedir}/lftp/*
 }
 
 reg pack
@@ -63,42 +65,4 @@ distclean()
 ###################################################
 # No need to look below here
 ###################################################
-
-reg all
-all()
-{
-    for METHOD in $METHODS 
-    do
-	case $METHOD in
-	     all*|*clean) ;;
-	     *) $METHOD
-		;;
-	esac
-    done
-
-}
-
-reg
-usage() {
-    echo Usage $0 "{"$(echo $METHODS | tr " " "|")"}"
-    exit 1
-}
-
-OK=0
-for METHOD in $*
-do
-    METHOD=" $METHOD *"
-    if [ "${METHODS%$METHOD}" == "$METHODS" ] ; then
-	usage
-    fi
-    OK=1
-done
-
-if [ $OK = 0 ] ; then
-    usage;
-fi
-
-for METHOD in $*
-do
-    ( $METHOD )
-done
+build_sh $*

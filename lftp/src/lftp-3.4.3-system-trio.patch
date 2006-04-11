@@ -1,0 +1,11 @@
+--- lftp-3.4.3/configure.ac.trio	2006-04-05 16:42:46.454231000 +0200
++++ lftp-3.4.3/configure.ac	2006-04-05 16:42:57.554231000 +0200
+@@ -329,7 +329,7 @@
+       #include <errno.h>
+       #endif]))])
+ 
+-LFTP_NEED_TRIO
++NEED_TRIO_CHECK
+ 
+ # See if we have h_errno (the test is here so we can use -lresolv if necessary).
+ AC_CACHE_CHECK([for h_errno], inetutils_cv_var_h_errno,

@@ -1,0 +1,12 @@
+--- lftp-3.4.3/configure.ac.nameser_h	2006-04-05 16:39:47.574231000 +0200
++++ lftp-3.4.3/configure.ac	2006-04-05 16:41:19.004231000 +0200
+@@ -415,6 +415,9 @@
+ #ifdef HAVE_ARPA_INET_H
+ # include <arpa/inet.h>
+ #endif
++#ifdef HAVE_ARPA_NAMESER_H
++#  include <arpa/nameser.h>
++#endif
+ #ifdef HAVE_RESOLV_H
+ # include <resolv.h>
+ #endif
