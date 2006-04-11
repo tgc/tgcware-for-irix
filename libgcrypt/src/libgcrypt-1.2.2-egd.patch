@@ -1,0 +1,11 @@
+--- libgcrypt-1.2.2/configure.ac.egd	2006-04-11 23:25:34.860489000 +0200
++++ libgcrypt-1.2.2/configure.ac	2006-04-11 23:27:46.710489000 +0200
+@@ -562,6 +562,8 @@
+     if test "$random" = "auto"; then
+         # Build everything, allow to select at runtime.
+         random_modules="$auto_random_modules"
++    else
++	random_modules="$random"
+     fi
+ fi
+ 
