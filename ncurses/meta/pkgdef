@@ -22,7 +22,12 @@ $_sharedir/tabset
 [man]
 subsys=man.man
 files(-,root,sys)
-$_mandir
+$_mandir/?a?[12456789]
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/?a?3
 
 [devel]
 subsys=sw.dev

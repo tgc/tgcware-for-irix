@@ -1,0 +1,11 @@
+--- ncurses-5.5/mk-1st.awk.destdir	2006-04-11 09:45:54.434489000 +0200
++++ ncurses-5.5/mk-1st.awk	2006-04-11 09:46:20.414489000 +0200
+@@ -303,7 +303,7 @@
+ 				}
+ 				end_name = lib_name;
+ 				printf "../lib/%s : $(%s_OBJS)\n", lib_name, OBJS
+-				printf "\tcd ../lib && $(LIBTOOL_LINK) $(%s) -o %s $(%s_OBJS:$o=.lo) -rpath $(DESTDIR)$(libdir) -version-info $(NCURSES_MAJOR):$(NCURSES_MINOR) $(SHLIB_LIST)\n", compile, lib_name, OBJS
++				printf "\tcd ../lib && $(LIBTOOL_LINK) $(%s) -o %s $(%s_OBJS:$o=.lo) -rpath $(libdir) -version-info $(NCURSES_MAJOR):$(NCURSES_MINOR) $(SHLIB_LIST)\n", compile, lib_name, OBJS
+ 				print  ""
+ 				print  "install \\"
+ 				print  "install.libs \\"
