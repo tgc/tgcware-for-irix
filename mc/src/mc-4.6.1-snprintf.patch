@@ -1,0 +1,30 @@
+--- mc-4.6.1/src/cons.saver.c.snprintf	2006-04-12 11:04:24.990489000 +0200
++++ mc-4.6.1/src/cons.saver.c	2006-04-12 11:04:40.700489000 +0200
+@@ -156,14 +156,14 @@
+     default: die (); break;
+     }
+ 
+-  snprintf (console_name, sizeof (console_name), p, console_minor);
++  g_snprintf (console_name, sizeof (console_name), p, console_minor);
+   if (strncmp (console_name, tty_name, sizeof (console_name)) != 0)
+     die ();
+ 
+   if (seteuid (euid) < 0)
+     die ();
+ 
+-  snprintf (vcsa_name, sizeof (vcsa_name), q, console_minor);
++  g_snprintf (vcsa_name, sizeof (vcsa_name), q, console_minor);
+   vcsa_fd = open (vcsa_name, O_RDWR);
+   if (vcsa_fd < 0)
+     die ();
+--- mc-4.6.1/edit/editcmd.c.snprintf	2006-04-12 11:02:37.100489000 +0200
++++ mc-4.6.1/edit/editcmd.c	2006-04-12 11:03:21.660489000 +0200
+@@ -1619,7 +1619,7 @@
+ #define snprint(v) { \
+ 		*p1++ = *p++; \
+ 		*p1 = '\0'; \
+-		n = snprintf(s,e-s,q1,v); \
++		n = g_snprintf(s,e-s,q1,v); \
+ 		if (n >= (size_t) (e - s)) goto nospc; \
+ 		s += n; \
+ 	    }
