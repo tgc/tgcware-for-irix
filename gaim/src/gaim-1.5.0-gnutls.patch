@@ -1,0 +1,102 @@
+--- gaim-1.5.0/configure.ac.gnutls	2006-04-11 20:06:40.526489000 +0200
++++ gaim-1.5.0/configure.ac	2006-04-11 20:13:50.096489000 +0200
+@@ -563,85 +563,26 @@
+ dnl #
+ dnl # Check for GNUTLS if it's specified.
+ dnl #
+-if test "x$enable_gnutls" != "xno"; then
+-	enable_gnutls="no"
+-	prefix=`eval echo $prefix`
+-
+-	AC_ARG_WITH(gnutls-includes,
+-		[  --with-gnutls-includes=PREFIX   Location of GNUTLS includes.],
+-		[ with_gnutls_includes="$withval" ],
+-		[ with_gnutls_includes="$prefix/include" ])
+-
+-	have_gnutls_includes="no"
+-
+-	if test "x$with_gnutls_includes" != "xno"; then
+-		CPPFLAGS_save="$CPPFLAGS"
+-
+-		AC_MSG_CHECKING(for GNUTLS includes)
+-		AC_MSG_RESULT("")
+-
+-		CPPFLAGS="$CPPFLAGS -I$with_gnutls_includes"
+-		AC_CHECK_HEADERS(gnutls/gnutls.h, [ gnutls_includes="yes" ])
+-		CPPFLAGS="$CPPFLAGS_save"
+-
+-		if test "x$gnutls_includes" != "xno" -a \
+-		        "x$gnutls_includes" != "x"; then
+-			have_gnutls_includes="yes"
+-
+-			GNUTLS_CFLAGS="-I$with_gnutls_includes"
+-		else
+-			GNUTLS_CFLAGS=""
+-		fi
+-	else
+-		AC_MSG_CHECKING(for GNUTLS includes)
+-		AC_MSG_RESULT(no)
+-	fi
+-
+-	AC_ARG_WITH(gnutls-libs,
+-		[  --with-gnutls-libs=PREFIX       Location of GNUTLS libraries.],
+-		[ with_gnutls_libs="$withval" ])
+-
+-	if test "x$with_gnutls_libs"     != "xno" -a \
+-	        "x$have_gnutls_includes" != "xno"; then
+-
+-		LDFLAGS_save="$LDFLAGS"
+-
+-		case $with_gnutls_libs in
+-			""|-L*) ;;
+-			*) with_gnutls_libs="-L$with_gnutls_libs" ;;
+-		esac
+-
+-		AC_CACHE_CHECK([for GNUTLS libraries], gnutls_libs,
+-		[
+-			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgcrypt"
+-			AC_TRY_LINK_FUNC(gnutls_init, gnutls_libs="yes", gnutls_libs="no")
+-			LDFLAGS="$LDFLAGS_save"
+-		])
+-
+-		if test "x$gnutls_libs" != "xno"; then
+-			AC_DEFINE(HAVE_GNUTLS, 1, [Define if you have GNUTLS])
+-			AC_DEFINE(HAVE_SSL)
+-			msg_gnutls="GNUTLS"
+-			GNUTLS_LIBS="$with_gnutls_libs -lgnutls -lgcrypt"
+-
+-			enable_gnutls="yes"
+-		else
+-			GNUTLS_CFLAGS=""
+-			GNUTLS_LIBS=""
+-		fi
+-	else
+-		AC_MSG_CHECKING(for GNUTLS libraries)
+-		AC_MSG_RESULT(no)
+-	fi
++if test x$enable_gnutls = xyes; then
++AM_PATH_LIBGNUTLS([1.0.0], [
++      AC_DEFINE([HAVE_GNUTLS], 1, [Define to 1 when using GNU TLS library])
++   ])
++fi
++if test "x$no_libgnutls" = x; then
++#if test "x$enable_gnutls" = "xyes"; then
++    AC_DEFINE([HAVE_SSL], 1, [Define if a working SSL configuration was found])
++    msg_gnutls="GNUTLS"
++    GNUTLS_CFLAGS="$LIBGNUTLS_CFLAGS"
++    GNUTLS_LIBS="$LIBGNUTLS_LIBS"
+ else
+-	GNUTLS_CFLAGS=""
+-	GNUTLS_LIBS=""
++    GNUTLS_CFLAGS=""
++    GNUTLS_LIBS=""
+ fi
+ 
+ AC_SUBST(GNUTLS_CFLAGS)
+ AC_SUBST(GNUTLS_LIBS)
+ 
+-AM_CONDITIONAL(USE_GNUTLS, test "x$enable_gnutls" = "xyes")
++AM_CONDITIONAL(USE_GNUTLS, test "x$no_libgnutls" = "x")
+ 
+ 
+ dnl #
