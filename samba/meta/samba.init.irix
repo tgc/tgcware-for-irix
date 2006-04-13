@@ -6,13 +6,13 @@
 ## default configuration
 
 IS_ON=/etc/chkconfig
-SMBD=/usr/local/sbin/smbd
-NMBD=/usr/local/sbin/nmbd
+SMBD=/usr/tgcware/sbin/smbd
+NMBD=/usr/tgcware/sbin/nmbd
 OPTIONS=/etc/config/tgc_samba.options
-CONFIG=/usr/local/etc/samba/smb.conf
+CONFIG=/usr/tgcware/etc/samba/smb.conf
 
-pidfile_smbd=/usr/local/var/run/smbd.pid
-pidfile_nmbd=/usr/local/var/run/nmbd.pid
+pidfile_smbd=/usr/tgcware/var/run/smbd.pid
+pidfile_nmbd=/usr/tgcware/var/run/nmbd.pid
 
 # Source config
 if [ -f $OPTIONS ]; then

@@ -6,11 +6,11 @@
 ## default configuration
 
 IS_ON=/etc/chkconfig
-WINBINDD=/usr/local/sbin/winbindd
+WINBINDD=/usr/tgcware/sbin/winbindd
 OPTIONS=/etc/config/tgc_samba.options
-CONFIG=/usr/local/etc/samba/smb.conf
+CONFIG=/usr/tgcware/etc/samba/smb.conf
 
-pidfile_winbindd=/usr/local/var/run/winbind.pid
+pidfile_winbindd=/usr/tgcware/var/run/winbind.pid
 
 # Source config
 if [ -f $OPTIONS ]; then
