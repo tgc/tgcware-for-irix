@@ -8,23 +8,31 @@ shortdesc="The Berkeley DB database library"
 [base]
 subsys=sw.base
 files(-,root,sys)
-${bdbdir}/$_bindir
+$_bindir
 
 [lib]
 subsys=sw.lib
 files(-,root,sys)
-${bdbdir}/$_libdir/libdb-*.so
-${bdbdir}/$_docdir
+$_libdir/libdb-*.so
+$_vdocdir/{LICENSE,README}
 
 [doc]
 subsys=man.doc
 files(-,root,sys)
-${bdbdir}/docs
+$_vdocdir/api*
+$_vdocdir/collections
+$_vdocdir/gsg
+$_vdocdir/images
+$_vdocdir/index.html
+$_vdocdir/java
+$_vdocdir/ref
+$_vdocdir/sleepycat
+$_vdocdir/utility
 
 [devel]
 subsys=sw.dev
 files(-,root,sys)
-${bdbdir}/$_includedir
-${bdbdir}/$_libdir/libdb.so
-${bdbdir}/$_libdir/*.a
+$_includedir
+$_libdir/libdb.so
+$_libdir/*.a
 

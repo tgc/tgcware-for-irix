@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=db
 version=4.3.29
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,11 +19,12 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-bdbdir=BerkeleyDB.4.3
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/$bdbdir/lib -Wl,-rpath,/usr/tgcware/$bdbdir/lib"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=gcc
-configure_args='--prefix=$prefix/$bdbdir --enable-compat185'
+configure_args="$configure_args --enable-compat185"
+__configure="../dist/configure"
+[ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket=no ac_cv_lib_socket_main=no"
 
 reg prep
 prep()
@@ -34,24 +35,25 @@ prep()
 reg build
 build()
 {
-    setdir source
-    setdir build_unix
-    ../dist/configure $(_upls $configure_args)
-    $MAKE_PROG
+    generic_build build_unix
 }
 
 reg install
 install()
 {
-    clean stage
-    setdir source
-    setdir build_unix
-    $MAKE_PROG DESTDIR=${stagedir} install
-    custom_install=1
-    generic_install DESTDIR
-    ${RM} -f ${stagedir}${prefix}/${bdbdir}/${_libdir}/*.la
+    generic_install DESTDIR build_unix
     doc LICENSE README
-    ${MV} ${stagedir}${prefix}/${_sharedir} ${stagedir}${prefix}/${bdbdir}
+    $MV ${stagedir}${prefix}/docs/* ${stagedir}${prefix}/${_vdocdir}
+    $RMDIR ${stagedir}${prefix}/docs
+    setdir ${stagedir}${prefix}/${_libdir}
+    $LN -sf libdb-4.3.a libdb.a
+    setdir ${stagedir}${prefix}/${_includedir}
+    $MKDIR db4
+    $MV *.h db4
+    for header in db4/*.h
+    do
+	$LN -s $header .
+    done
 }
 
 reg pack
