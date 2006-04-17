@@ -1,0 +1,72 @@
+--- Python-2.4.3/Include/py_curses.h.ncurses	2006-04-16 17:26:46.913810000 +0200
++++ Python-2.4.3/Include/py_curses.h	2006-04-16 17:27:10.913810000 +0200
+@@ -39,8 +39,8 @@
+ #endif
+ #endif
+ 
+-#ifdef HAVE_NCURSES_H
+-#include <ncurses.h>
++#ifdef HAVE_NCURSES_NCURSES_H
++#include <ncurses/ncurses.h>
+ #else
+ #include <curses.h>
+ #ifdef HAVE_TERM_H
+@@ -49,7 +49,7 @@
+ #endif
+ #endif
+ 
+-#ifdef HAVE_NCURSES_H
++#ifdef HAVE_NCURSES_NCURSES_H
+ /* configure was checking <curses.h>, but we will
+    use <ncurses.h>, which has all these features. */
+ #ifndef WINDOW_HAS_FLAGS
+--- Python-2.4.3/Modules/_cursesmodule.c.ncurses	2006-04-16 17:26:46.933810000 +0200
++++ Python-2.4.3/Modules/_cursesmodule.c	2006-04-16 17:29:00.243810000 +0200
+@@ -117,11 +117,11 @@
+     curses module in other ways.  So the code will just specify 
+     explicit prototypes here. */
+ extern int setupterm(char *,int,int *);
+-#ifdef __sgi
++#if defined(__sgi) && !defined(HAVE_NCURSES_NCURSES_H)
+ #include <term.h>
+ #endif
+ 
+-#if !defined(HAVE_NCURSES_H) && (defined(sgi) || defined(__sun) || defined(SCO5))
++#if !defined(HAVE_NCURSES_NCURSES_H) && (defined(sgi) || defined(__sun) || defined(SCO5))
+ #define STRICT_SYSV_CURSES       /* Don't use ncurses extensions */
+ typedef chtype attr_t;           /* No attr_t type is available */
+ #endif
+@@ -608,7 +608,7 @@
+   return Py_None;
+ }
+ 
+-#if defined(HAVE_NCURSES_H) || defined(MVWDELCH_IS_EXPRESSION)
++#if defined(HAVE_NCURSES_NCURSES_H) || defined(MVWDELCH_IS_EXPRESSION)
+ #define py_mvwdelch mvwdelch
+ #else
+ int py_mvwdelch(WINDOW *w, int y, int x)
+--- Python-2.4.3/Modules/_curses_panel.c.ncurses	2006-04-16 17:26:46.943810000 +0200
++++ Python-2.4.3/Modules/_curses_panel.c	2006-04-16 17:27:10.933810000 +0200
+@@ -14,7 +14,11 @@
+ 
+ #include "py_curses.h"
+ 
++#ifdef HAVE_NCURSES_NCURSES_H
++#include <ncurses/panel.h>
++#else
+ #include <panel.h>
++#endif
+ 
+ static PyObject *PyCursesError;
+ 
+--- Python-2.4.3/configure.in.ncurses	2006-04-16 17:26:46.953810000 +0200
++++ Python-2.4.3/configure.in	2006-04-16 17:27:10.943810000 +0200
+@@ -986,7 +986,7 @@
+ # checks for header files
+ AC_HEADER_STDC
+ AC_CHECK_HEADERS(curses.h dlfcn.h fcntl.h grp.h langinfo.h \
+-libintl.h ncurses.h poll.h pthread.h \
++libintl.h ncurses/ncurses.h poll.h pthread.h \
+ stropts.h termios.h thread.h \
+ unistd.h utime.h \
+ sys/audioio.h sys/bsdtty.h sys/file.h sys/loadavg.h sys/lock.h sys/mkdev.h \

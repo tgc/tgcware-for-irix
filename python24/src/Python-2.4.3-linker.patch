@@ -1,0 +1,18 @@
+--- Python-2.4.3/Lib/distutils/unixccompiler.py.linker	2006-04-15 21:36:43.293810000 +0200
++++ Python-2.4.3/Lib/distutils/unixccompiler.py	2006-04-15 21:44:17.443810000 +0200
+@@ -207,8 +207,14 @@
+             return "+s -L" + dir
+         elif sys.platform[:7] == "irix646" or sys.platform[:6] == "osf1V5":
+             return ["-rpath", dir]
++        # tgc: well a build for irix 6.2 N32 using gcc returns irix6 for sys.platform
++        # but AFAIK -Wl,-rpath should be palatable for any combination of ABI and compiler
++        # ie. O32/N32/N64 using gcc (native or gnu tools) and IDO/MIPSPro using native tools
++        # certainly no tool combination on Irix that I'm aware of will support -R.
++        elif sys.platform[:4] == "irix":
++            return ["-Wl,-rpath", dir]
+         elif compiler[:3] == "gcc" or compiler[:3] == "g++":
+-            return "-Wl,-R" + dir
++            return "-Wl,-rpath" + dir
+         else:
+             return "-R" + dir
+ 

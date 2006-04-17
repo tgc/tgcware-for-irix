@@ -9,18 +9,22 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=Python
-version=2.4.2
-pkgver=1
+version=2.4.3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=Python-2.4.2-tgcware.patch
+patch[1]=Python-2.4.3-irix-shared.patch
+patch[2]=Python-2.4.3-linker.patch
+patch[3]=Python-2.4.3-ncurses.patch
+patch[4]=Python-2.4.3-irixld.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/BerkeleyDB.4.3/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/BerkeleyDB.4.3/lib -Wl,-rpath,/usr/tgcware/BerkeleyDB.4.3/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=gcc
 export CXX=g++
 export LDSHARED="$CC -shared -all"
@@ -32,6 +36,9 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    autoheader
+    autoconf
 }
 
 reg build

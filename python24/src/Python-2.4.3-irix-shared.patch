@@ -1,0 +1,15 @@
+--- Python-2.4.3/configure.in.irix	2006-04-14 22:34:44.368489000 +0200
++++ Python-2.4.3/configure.in	2006-04-14 22:37:04.358489000 +0200
+@@ -587,6 +587,12 @@
+ 	  esac
+ 	  INSTSONAME="$LDLIBRARY".$SOVERSION
+ 	  ;;
++    IRIX*)
++	  LDLIBRARY='libpython$(VERSION).so'
++	  BLDLIBRARY='-Wl,-rpath,$(LIBDIR) -L. -lpython$(VERSION)'
++	  RUNSHARED=LD_LIBRARYN32_PATH=`pwd`:${LD_LIBRARYN32_PATH}
++	  INSTSONAME="$LDLIBRARY".$SOVERSION
++	  ;;
+     hp*|HP*)
+ 	  LDLIBRARY='libpython$(VERSION).sl'
+ 	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lpython$(VERSION)'

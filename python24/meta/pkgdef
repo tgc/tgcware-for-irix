@@ -9,7 +9,7 @@ shortdesc="An interpreted, interactive, object-oriented programming language"
 subsys=sw.base
 files(-,root,sys)
 $_bindir
-$_libdir
+$_libdir/python*
 $_docdir
 
 [man]
@@ -17,8 +17,14 @@ subsys=man.man
 files(-,root,sys)
 $_mandir/?a?[12456789]
 
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+
 [devel]
 subsys=sw.dev
 files(-,root,sys)
 $_includedir
+$_libdir/*.so
 
