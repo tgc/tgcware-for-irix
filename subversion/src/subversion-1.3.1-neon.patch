@@ -1,0 +1,11 @@
+--- subversion-1.3.1/build/ac-macros/neon.m4.uselibs	2006-04-14 16:46:52.733376000 +0200
++++ subversion-1.3.1/build/ac-macros/neon.m4	2006-04-14 16:47:01.072542000 +0200
+@@ -132,7 +132,7 @@
+         if test "$NEON_VERSION" = "$svn_allowed_neon" -o $svn_allowed_neon = "any"; then
+             svn_allowed_neon_on_system="yes"
+             SVN_NEON_INCLUDES=[`$neon_config --cflags | sed -e 's/-D[^ ]*//g'`]
+-            NEON_LIBS=`$neon_config --la-file`
++            NEON_LIBS=`$neon_config --libs`
+             CFLAGS=["$CFLAGS `$neon_config --cflags | sed -e 's/-I[^ ]*//g'`"]
+             svn_lib_neon="yes"
+             break

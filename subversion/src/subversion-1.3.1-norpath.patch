@@ -1,0 +1,11 @@
+--- subversion-1.3.1/ac-helpers/libtool.m4.norpath	2006-04-14 16:09:45.802489000 +0200
++++ subversion-1.3.1/ac-helpers/libtool.m4	2006-04-14 16:10:01.952489000 +0200
+@@ -1493,7 +1493,7 @@
+   shlibpath_overrides_runpath=no
+   sys_lib_search_path_spec="/usr/lib${libsuff} /lib${libsuff} /usr/local/lib${libsuff}"
+   sys_lib_dlsearch_path_spec="/usr/lib${libsuff} /lib${libsuff}"
+-  hardcode_into_libs=yes
++  hardcode_into_libs=no
+   ;;
+ 
+ # No shared lib support for Linux oldld, aout, or coff.
