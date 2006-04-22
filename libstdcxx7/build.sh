@@ -18,6 +18,8 @@ pkgver=2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+gcc=4.1.0
+[ "$_os" = "irix53" ] && gcc=3.4.6
 
 reg prep
 prep()
@@ -34,12 +36,22 @@ build()
 reg install
 install()
 {
-    echo "BuildRequires: tgc_gcc410.sw.base"
-    clean stage
-    $MKDIR -p ${stagedir}${prefix}/$_libdir
-    $CP -pr $prefix/gcc-4.1.0/${_libdir}32/libstdc++.so.7.7 ${stagedir}${prefix}/$_libdir
-    setdir ${stagedir}${prefix}/${_libdir}
-    $LN -sf libstdc++.so.7.7 libstdc++.so.7
+    if [ "$gcc" = "4.1.0" ]; then
+	echo "BuildRequires: tgc_gcc410.sw.base"
+	clean stage
+	$MKDIR -p ${stagedir}${prefix}/$_libdir
+	$CP -pr $prefix/gcc-4.1.0/${_libdir}32/libstdc++.so.7.7 ${stagedir}${prefix}/$_libdir
+	setdir ${stagedir}${prefix}/${_libdir}
+	$LN -sf libstdc++.so.7.7 libstdc++.so.7
+    fi
+    if [ "$gcc" = "3.4.6" ]; then
+	echo "BuildRequires: tgc_gcc346.sw.base"
+	clean stage
+	$MKDIR -p ${stagedir}${prefix}/$_libdir
+	$CP -pr $prefix/gcc-$gcc/${_libdir}/libstdc++.so.7.3 ${stagedir}${prefix}/$_libdir
+	setdir ${stagedir}${prefix}/${_libdir}
+	$LN -sf libstdc++.so.7.3 libstdc++.so.3
+    fi
 }
 
 reg pack
