@@ -1,0 +1,16 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+This is libstdc++.so.7 from gcc 3.4.x (or 4.1.x)
+It should be compatible with any previous and later libstdc++.so with
+major version 7.

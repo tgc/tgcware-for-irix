@@ -1,0 +1,12 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="The GNU Standard C++ Library v3"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+
