@@ -24,22 +24,28 @@ prefix=/usr/tgcware/$topdir-$version
 __configure="../$topsrcdir/configure"
 make_build_target="bootstrap"
 
-gnuld="" # "--with-gnu-ld --with-ld=/usr/tgcware/bin/gld"
+gnuld="--with-gnu-ld --with-ld=/usr/tgcware/bin/gld"
 gnuas="--with-gnu-as --with-as=/usr/tgcware/bin/gas"
 langs="--with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware --enable-languages=c,c++,fortran,objc,obj-c++"
 withada=1
-[ $withada -eq 1 ] && langs="$langs,ada"
+
+gas=0
+gld=0
 
 objdir=cccfooa_gas
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware $langs"
+global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware"
 
 if [ "$_os" = "irix53" ]; then
     export CONFIG_SHELL=/bin/ksh
     #export CC="cc -Wf,-XNg1500"
-    export CC="/usr/tgcware/gcc-3.4.5/bin/gcc"
+    export CC="/usr/tgcware/gcc-3.4.6/bin/gcc"
+    gas=1
+    gld=1
+    withada=0
+    objdir=cccfoo_gtools
     [ $withada -eq 1 ] && export GNAT_ROOT=$HOME/gcc-3.4.0-20040204-mips-sgi-irix5.3 # Location of gnatbind
-    configure_args="$global_config_args --disable-shared $gnuas $gnuld"
+    configure_args="$global_config_args --enable-shared=libstdc++ $gnuas $gnuld"
 fi
 if [ "$_os" = "irix62" ]; then
     configure_args="$global_config_args --disable-multilib $gnuas --enable-shared=libstdc++"
@@ -48,7 +54,8 @@ if [ "$_os" = "irix62" ]; then
     export GNAT_ROOT=/usr/tgcware/gcc-3.4.6/bin
 fi
 
-if [ -n "$gnuas" -o -n "$gnuld" ]; then
+if [ $gas -eq 1 -o $gld -eq 1 ]; then
+#    export PATH=/usr/tgcware/mips-sgi-$os/bin:$PATH
    export NM=/usr/tgcware/bin/gnm
    export AR=/usr/tgcware/bin/gar
    export RANLIB=/usr/tgcware/bin/granlib
@@ -56,6 +63,10 @@ if [ -n "$gnuas" -o -n "$gnuld" ]; then
    export AR_FOR_TARGET=/usr/tgcware/bin/gar
    export RANLIB_FOR_TARGET=/usr/tgcware/bin/granlib
 fi
+[ $withada -eq 1 ] && langs="$langs,ada"
+[ $gas -eq 1 ] && configure_args="$configure_args $gnuas"
+[ $gld -eq 1 ] && configure_args="$configure_args $gnuld"
+configure_args="$configure_args $langs"
 
 # Define abbreviated version number
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')
@@ -119,6 +130,8 @@ install()
 	$LN -sf gcc $i
     done
     $LN -sf gfortran mips-sgi-${os}-gfortran
+    doc COPYING* BUGS FAQ MAINTAINERS NEWS
+    $MV ${stagedir}${prefix}/${_sharedir} ${stagedir}${lprefix}
 }
 
 reg pack
