@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libstdcxx7
 version=7
-pkgver=2
+pkgver=3
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -50,7 +50,7 @@ install()
 	$MKDIR -p ${stagedir}${prefix}/$_libdir
 	$CP -pr $prefix/gcc-$gcc/${_libdir}/libstdc++.so.7.3 ${stagedir}${prefix}/$_libdir
 	setdir ${stagedir}${prefix}/${_libdir}
-	$LN -sf libstdc++.so.7.3 libstdc++.so.3
+	$LN -sf libstdc++.so.7.3 libstdc++.so.7
     fi
 }
 
