@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gtk+
 version=1.2.10
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=gtk+-1.2.10-bellvolume.patch
@@ -32,11 +32,14 @@ patch[13]=gtk+-underquoted.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CC=cc
+export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args='--prefix=$prefix --enable-static=no'
-mipspro=1
+if [ "$_os" = "irix62" ]; then
+    export CC=cc
+    mipspro=1
+fi
 
 reg prep
 prep()
