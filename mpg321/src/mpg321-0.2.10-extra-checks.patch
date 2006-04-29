@@ -1,0 +1,15 @@
+--- mpg321-0.2.10/configure.ac.trio	2006-04-29 13:30:29.420000000 +0200
++++ mpg321-0.2.10/configure.ac	2006-04-29 13:33:18.880000000 +0200
+@@ -69,6 +69,12 @@
+ 
+ AC_CHECK_FUNCS([gethostbyname memset munmap socket strchr strdup strerror strrchr strstr gettimeofday select getenv putenv setenv unsetenv strcasecmp])
+ 
++dnl network.c need snprintf
++NEED_TRIO_CHECK
++
++dnl irix has basename and friends in libgen
++AC_SEARCH_LIBS(basename,gen)
++
+ AC_ARG_ENABLE(mpg123_symlink,
+ [  --enable-mpg123-symlink Enable symlink of mpg123 to mpg321 [[default=yes]] ],
+ ,enable_mpg123_symlink=yes)
