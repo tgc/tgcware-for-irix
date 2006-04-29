@@ -1,0 +1,19 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://onion.dynserv.net/~timo/cmus.html"
+shortdesc="Ncurses based music player"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_libdir
+$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
