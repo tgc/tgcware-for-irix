@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=openntpd
 version=3.7p1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openntpd-3.7p1-nochown.patch
@@ -48,8 +48,8 @@ install()
     # Install initscript
     $CP $metadir/ntpd.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_ntpd
     chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_ntpd
-    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_sshd K02tgc_ntpd)
-    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_sshd S99tgc_ntpd)
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_ntpd K02tgc_ntpd)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_ntpd S99tgc_ntpd)
     # Don't run by default
     echo "off" > ${stagedir}/${_sysconfdir}/config/tgc_ntpd
     # Preserve existing on/off setting
