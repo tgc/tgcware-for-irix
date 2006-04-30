@@ -1,0 +1,12 @@
+--- mpg321-0.2.10/mpg321.h.mapfailed	Sat Apr 29 23:46:49 2006
++++ mpg321-0.2.10/mpg321.h	Sat Apr 29 23:48:55 2006
+@@ -195,4 +195,9 @@
+ 
+ RETSIGTYPE handle_signals(int sig) ;
+ 
++/* Irix 5.3 doesn't define MAP_FAILED */
++#ifndef MAP_FAILED
++#       define MAP_FAILED ((void *)-1)
++#endif
++
+ #endif /* _MPG321_H_ */

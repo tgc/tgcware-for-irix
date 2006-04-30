@@ -14,6 +14,7 @@ pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=mpg321-0.2.10-extra-checks.patch
+patch[1]=mpg321-0.2.10-mapfailed.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
