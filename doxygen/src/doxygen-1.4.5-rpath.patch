@@ -1,0 +1,13 @@
+--- doxygen-1.4.5/tmake/lib/irix-g++/tmake.conf.orig	Sat Apr 29 21:48:35 2006
++++ doxygen-1.4.5/tmake/lib/irix-g++/tmake.conf	Sat Apr 29 21:49:20 2006
+@@ -36,8 +36,8 @@
+ 
+ TMAKE_LINK		= g++
+ TMAKE_LINK_SHLIB	= g++
+-TMAKE_LFLAGS		=
+-TMAKE_LFLAGS_RELEASE	=
++TMAKE_LFLAGS		= -Wl,-rpath,/usr/tgcware/lib
++TMAKE_LFLAGS_RELEASE	= -Wl,-rpath,/usr/tgcware/lib
+ TMAKE_LFLAGS_DEBUG	=
+ TMAKE_LFLAGS_SHLIB	= -shared
+ TMAKE_LFLAGS_SONAME	= -Wl,-soname,
