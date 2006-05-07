@@ -19,6 +19,10 @@ patch[1]=gnutls-1.2.10-vsnprintf.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+[ "$_os" = "irix53" ] && patch[2]=gnutls-1.2.10-mapfailed.patch
+[ "$_os" = "irix53" ] && patch[3]=gnutls-1.2.10-siginterrupt.patch
+[ "$_os" = "irix53" ] && patch[4]=gnutls-1.2.10-inet_pton.patch
+
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
