@@ -26,3 +26,8 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 For now this only contains client libs and binaries
+
+Irix 5.3 specific notes:
+OpenLDAP needs a POSIX compatible regex implementation but Irix 5.3 doesn't
+provide it. To fix this I added support for pcre since it contains a
+POSIX regex compatibility layer (pcreposix).

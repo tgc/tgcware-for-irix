@@ -1,0 +1,43 @@
+--- openldap-2.3.21/include/ac/regex.h.pcre	Fri May 12 10:30:17 2006
++++ openldap-2.3.21/include/ac/regex.h	Fri May 12 18:54:44 2006
+@@ -21,7 +21,7 @@
+ #include <sys/types.h>
+ #endif
+ 
+-#ifndef HAVE_REGEX_H
++#if !defined(HAVE_REGEX_H) && !defined(HAVE_GNUREGEX_H) && !defined(HAVE_PCREPOSIX_H)
+ /*	NO POSIX REGEX!!
+  *  You'll need to install a POSIX compatible REGEX library.
+  *  Either Henry Spencer's or GNU regex will do.
+@@ -31,6 +31,9 @@
+ #elif HAVE_GNUREGEX_H
+ 	/* system has GNU gnuregex.h */
+ #	include <gnuregex.h>
++#elif HAVE_PCREPOSIX_H
++	/* system has libpcre pcreposix.h */
++#	include <pcreposix.h>
+ #else
+ 	/* have regex.h, assume it's POSIX compliant */
+ #	include <regex.h>
+--- openldap-2.3.21/configure.in.pcre	Fri May 12 10:27:28 2006
++++ openldap-2.3.21/configure.in	Fri May 12 14:25:14 2006
+@@ -1021,16 +1021,12 @@
+ dnl ----------------------------------------------------------------
+ dnl require POSIX regex
+ AC_CHECK_HEADERS( regex.h )
+-if test "$ac_cv_header_regex_h" != yes ; then
++AC_CHECK_HEADERS( pcreposix.h )
++if test "$ac_cv_header_regex_h" != yes && test "$ac_cv_header_pcreposix_h" != yes ; then
+ 	AC_MSG_ERROR([POSIX regex.h required.])
+ fi
+-AC_SEARCH_LIBS(regfree, [regex gnuregex],
++AC_SEARCH_LIBS(regfree, [regex gnuregex pcreposix],
+ 	:, AC_MSG_ERROR([POSIX regex required.]))
+-
+-OL_POSIX_REGEX
+-if test "$ol_cv_c_posix_regex" = no ; then
+-	AC_MSG_ERROR([broken POSIX regex!])
+-fi
+ 
+ dnl ----------------------------------------------------------------
+ dnl UUID Support

@@ -13,10 +13,12 @@ version=2.3.21
 pkgver=1
 source[0]=$topdir-$version.tgz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=openldap-2.3.21-find-needs-print.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix53" ] && patch[1]=openldap-2.3.21-pcreposix.patch
 
 # Global settings
 export CC=gcc
@@ -29,6 +31,11 @@ reg prep
 prep()
 {
     generic_prep
+    if [ "$_os" = "irix53" ]; then
+	setdir source
+	autoheader
+	autoconf
+    fi
 }
 
 reg build
