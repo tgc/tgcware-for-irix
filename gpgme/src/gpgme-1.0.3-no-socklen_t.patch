@@ -1,0 +1,95 @@
+--- gpgme-1.0.3/assuan/assuan.h.socklen_t	2006-05-12 12:53:43.697403000 +0200
++++ gpgme-1.0.3/assuan/assuan.h	2006-05-12 12:54:23.097403000 +0200
+@@ -37,8 +37,8 @@
+ ssize_t _gpgme_ath_select (int nfd, fd_set *rset, fd_set *wset, fd_set *eset,
+ 			   struct timeval *timeout);
+ ssize_t _gpgme_ath_waitpid (pid_t pid, int *status, int options);
+-int _gpgme_ath_accept (int s, struct sockaddr *addr, socklen_t *length_ptr);
+-int _gpgme_ath_connect (int s, struct sockaddr *addr, socklen_t length);
++int _gpgme_ath_accept (int s, struct sockaddr *addr, int *length_ptr);
++int _gpgme_ath_connect (int s, struct sockaddr *addr, int length);
+ int _gpgme_ath_sendmsg (int s, const struct msghdr *msg, int flags);
+ int _gpgme_ath_recvmsg (int s, struct msghdr *msg, int flags);
+ 
+--- gpgme-1.0.3/gpgme/ath-pthread.c.socklen_t	2006-05-12 12:53:43.777403000 +0200
++++ gpgme-1.0.3/gpgme/ath-pthread.c	2006-05-12 12:54:23.227403000 +0200
+@@ -149,14 +149,14 @@
+ 
+ 
+ int
+-ath_accept (int s, struct sockaddr *addr, socklen_t *length_ptr)
++ath_accept (int s, struct sockaddr *addr, int *length_ptr)
+ {
+   return accept (s, addr, length_ptr);
+ }
+ 
+ 
+ int
+-ath_connect (int s, const struct sockaddr *addr, socklen_t length)
++ath_connect (int s, const struct sockaddr *addr, int length)
+ {
+   return connect (s, addr, length);
+ }
+--- gpgme-1.0.3/gpgme/ath.h.socklen_t	2006-05-12 12:53:43.807403000 +0200
++++ gpgme-1.0.3/gpgme/ath.h	2006-05-12 12:54:23.267403000 +0200
+@@ -69,8 +69,8 @@
+ ssize_t ath_select (int nfd, fd_set *rset, fd_set *wset, fd_set *eset,
+ 		    struct timeval *timeout);
+ ssize_t ath_waitpid (pid_t pid, int *status, int options);
+-int ath_accept (int s, struct sockaddr *addr, socklen_t *length_ptr);
+-int ath_connect (int s, const struct sockaddr *addr, socklen_t length);
++int ath_accept (int s, struct sockaddr *addr, int *length_ptr);
++int ath_connect (int s, const struct sockaddr *addr, int length);
+ int ath_sendmsg (int s, const struct msghdr *msg, int flags);
+ int ath_recvmsg (int s, struct msghdr *msg, int flags);
+ 
+@@ -87,8 +87,8 @@
+   ssize_t (*select) (int nfd, fd_set *rset, fd_set *wset, fd_set *eset,
+ 		     struct timeval *timeout);
+   ssize_t (*waitpid) (pid_t pid, int *status, int options);
+-  int (*accept) (int s, struct sockaddr *addr, socklen_t *length_ptr);
+-  int (*connect) (int s, const struct sockaddr *addr, socklen_t length);
++  int (*accept) (int s, struct sockaddr *addr, int *length_ptr);
++  int (*connect) (int s, const struct sockaddr *addr, int length);
+   int (*sendmsg) (int s, const struct msghdr *msg, int flags);
+   int (*recvmsg) (int s, struct msghdr *msg, int flags);
+ };
+--- gpgme-1.0.3/gpgme/ath-pth.c.socklen_t	2006-05-12 12:53:43.747403000 +0200
++++ gpgme-1.0.3/gpgme/ath-pth.c	2006-05-12 12:54:23.187403000 +0200
+@@ -149,14 +149,14 @@
+ 
+ 
+ int
+-ath_accept (int s, struct sockaddr *addr, socklen_t *length_ptr)
++ath_accept (int s, struct sockaddr *addr, int *length_ptr)
+ {
+   return pth_accept (s, addr, length_ptr);
+ }
+ 
+ 
+ int
+-ath_connect (int s, const struct sockaddr *addr, socklen_t length)
++ath_connect (int s, const struct sockaddr *addr, int length)
+ {
+   return pth_connect (s, addr, length);
+ }
+--- gpgme-1.0.3/gpgme/ath-compat.c.socklen_t	2006-05-12 12:53:43.727403000 +0200
++++ gpgme-1.0.3/gpgme/ath-compat.c	2006-05-12 12:54:23.147403000 +0200
+@@ -146,7 +146,7 @@
+ 
+ 
+ int
+-ath_accept (int s, struct sockaddr *addr, socklen_t *length_ptr)
++ath_accept (int s, struct sockaddr *addr, int *length_ptr)
+ {
+   if (ath_ops && ath_ops->accept)
+     return ath_ops->accept (s, addr, length_ptr);
+@@ -156,7 +156,7 @@
+ 
+ 
+ int
+-ath_connect (int s, const struct sockaddr *addr, socklen_t length)
++ath_connect (int s, const struct sockaddr *addr, int length)
+ {
+   if (ath_ops && ath_ops->connect)
+     return ath_ops->connect (s, addr, length);

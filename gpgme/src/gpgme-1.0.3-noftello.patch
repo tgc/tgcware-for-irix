@@ -1,0 +1,11 @@
+--- gpgme-1.0.3/gpgme/data-stream.c.noftello	2006-05-12 13:06:16.199403000 +0200
++++ gpgme-1.0.3/gpgme/data-stream.c	2006-05-12 13:06:50.759403000 +0200
+@@ -63,7 +63,7 @@
+   if (err)
+     return -1;
+ 
+-  return ftello (dh->data.stream);
++  return ftell (dh->data.stream);
+ }
+ 
+ 

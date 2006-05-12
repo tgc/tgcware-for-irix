@@ -1,0 +1,26 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnupg.org"
+shortdesc="GnuPG Made Easy"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_docdir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+$_infodir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_bindir/gpgme-config
+$_includedir
+$_libdir/*.so
+$_sharedir/aclocal
+
