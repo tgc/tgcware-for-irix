@@ -1,0 +1,12 @@
+--- libetpan-0.45/configure.in.trio	2006-05-12 16:45:03.083403000 +0200
++++ libetpan-0.45/configure.in	2006-05-12 16:46:40.223403000 +0200
+@@ -60,6 +60,9 @@
+ dnl Functions
+ AC_FUNC_MMAP
+ 
++dnl we need snprintf
++NEED_TRIO_CHECK
++
+ dnl Network libs
+ AC_CHECK_FUNC(connect, checksocket=no, checksocket=yes)
+ if test "x$checksocket" = "xyes"; then 

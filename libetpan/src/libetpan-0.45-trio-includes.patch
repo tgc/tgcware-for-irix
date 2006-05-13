@@ -1,0 +1,287 @@
+--- libetpan-0.45/mytrio.h.trio	2006-05-12 19:26:41.553403000 +0200
++++ libetpan-0.45/mytrio.h	2006-05-12 19:27:45.933403000 +0200
+@@ -0,0 +1,4 @@
++/* Grab (v)snprintf from trio */
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+--- libetpan-0.45/src/driver/interface/mailstorage_tools.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/interface/mailstorage_tools.c	2006-05-13 12:46:27.769403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailstorage_tools.h"
+ 
+ #include "libetpan-config.h"
+--- libetpan-0.45/src/driver/implementation/db/dbdriver_message.c.trio	2006-05-13 12:45:03.619403000 +0200
++++ libetpan-0.45/src/driver/implementation/db/dbdriver_message.c	2006-05-13 12:46:26.329403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "dbdriver_message.h"
+ #include "dbdriver.h"
+ #include "mail_cache_db.h"
+--- libetpan-0.45/src/driver/implementation/db/dbdriver.c.trio	2006-05-13 12:45:03.549403000 +0200
++++ libetpan-0.45/src/driver/implementation/db/dbdriver.c	2006-05-13 12:46:26.239403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "dbdriver.h"
+ #include "imfcache.h"
+ #include "generic_cache.h"
+--- libetpan-0.45/src/driver/implementation/mh/mhdriver_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mh/mhdriver_message.c	2006-05-13 12:46:28.449403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mhdriver_message.h"
+ 
+ #include "mailmessage_tools.h"
+--- libetpan-0.45/src/driver/implementation/mh/mhdriver_cached.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mh/mhdriver_cached.c	2006-05-13 12:46:28.259403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mhdriver_cached.h"
+ 
+ #include <stdio.h>
+--- libetpan-0.45/src/driver/implementation/mh/mhdriver_cached_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mh/mhdriver_cached_message.c	2006-05-13 12:46:28.349403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mhdriver_message.h"
+ 
+ #include "mailmessage_tools.h"
+--- libetpan-0.45/src/driver/implementation/imap/imapdriver_tools.c.trio	2005-06-01 18:04:41.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/imap/imapdriver_tools.c	2006-05-13 12:46:26.779403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "imapdriver_tools.h"
+ 
+ #include "maildriver.h"
+--- libetpan-0.45/src/driver/implementation/imap/imapdriver_cached_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/imap/imapdriver_cached_message.c	2006-05-13 12:46:26.539403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "imapdriver_cached_message.h"
+ 
+ #include "imapdriver_tools.h"
+--- libetpan-0.45/src/driver/implementation/imap/imapdriver_cached.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/imap/imapdriver_cached.c	2006-05-13 12:46:26.439403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "imapdriver_cached.h"
+ 
+ #include "libetpan-config.h"
+--- libetpan-0.45/src/driver/implementation/imap/imapdriver_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/imap/imapdriver_message.c	2006-05-13 12:46:26.639403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "imapdriver_message.h"
+ 
+ #include "imapdriver_tools.h"
+--- libetpan-0.45/src/driver/implementation/mbox/mboxdriver_tools.c.trio	2005-06-01 14:21:58.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mbox/mboxdriver_tools.c	2006-05-13 12:46:28.159403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mboxdriver_tools.h"
+ 
+ #include <sys/types.h>
+--- libetpan-0.45/src/driver/implementation/mbox/mboxdriver_cached_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mbox/mboxdriver_cached_message.c	2006-05-13 12:46:27.969403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mboxdriver_cached_message.h"
+ 
+ #include "mailmessage_tools.h"
+--- libetpan-0.45/src/driver/implementation/mbox/mboxdriver_cached.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mbox/mboxdriver_cached.c	2006-05-13 12:46:27.879403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mboxdriver_cached.h"
+ 
+ #include <stdio.h>
+--- libetpan-0.45/src/driver/implementation/mbox/mboxdriver_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/mbox/mboxdriver_message.c	2006-05-13 12:46:28.059403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mboxdriver_message.h"
+ 
+ #include "mailmessage_tools.h"
+--- libetpan-0.45/src/driver/implementation/nntp/nntpdriver_tools.c.trio	2005-06-01 14:21:59.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/nntp/nntpdriver_tools.c	2006-05-13 12:46:28.729403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "nntpdriver_tools.h"
+ 
+ #include "mail.h"
+--- libetpan-0.45/src/driver/implementation/nntp/nntpdriver_cached_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/nntp/nntpdriver_cached_message.c	2006-05-13 12:46:28.539403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "nntpdriver_cached_message.h"
+ 
+ #include <string.h>
+--- libetpan-0.45/src/driver/implementation/nntp/nntpdriver_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/nntp/nntpdriver_message.c	2006-05-13 12:46:28.629403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "nntpdriver_message.h"
+ 
+ #include "mailmessage_tools.h"
+--- libetpan-0.45/src/driver/implementation/pop3/pop3driver_cached_message.c.trio	2005-08-13 16:59:42.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/pop3/pop3driver_cached_message.c	2006-05-13 12:46:28.919403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "pop3driver_cached_message.h"
+ 
+ #include <string.h>
+--- libetpan-0.45/src/driver/implementation/pop3/pop3driver_tools.c.trio	2005-06-01 14:22:00.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/pop3/pop3driver_tools.c	2006-05-13 12:46:29.019403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "pop3driver_tools.h"
+ 
+ #include <sys/types.h>
+--- libetpan-0.45/src/driver/implementation/pop3/pop3driver_cached.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/pop3/pop3driver_cached.c	2006-05-13 12:46:28.829403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "pop3driver_cached.h"
+ 
+ #include "libetpan-config.h"
+--- libetpan-0.45/src/driver/implementation/maildir/maildirdriver_cached.c.trio	2005-08-15 13:08:40.000000000 +0200
++++ libetpan-0.45/src/driver/implementation/maildir/maildirdriver_cached.c	2006-05-13 12:46:26.979403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "maildirdriver.h"
+ 
+ #include <stdio.h>
+--- libetpan-0.45/src/low-level/mh/mailmh.c.trio	2005-06-13 09:24:07.000000000 +0200
++++ libetpan-0.45/src/low-level/mh/mailmh.c	2006-05-13 12:46:27.309403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailmh.h"
+ 
+ /*
+--- libetpan-0.45/src/low-level/imf/mailimf_write_generic.c.trio	2004-11-21 22:53:37.000000000 +0100
++++ libetpan-0.45/src/low-level/imf/mailimf_write_generic.c	2006-05-13 12:46:27.099403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailimf_write_generic.h"
+ 
+ #include <time.h>
+--- libetpan-0.45/src/low-level/mbox/mailmbox.c.trio	2005-08-13 16:52:23.000000000 +0200
++++ libetpan-0.45/src/low-level/mbox/mailmbox.c	2006-05-13 12:46:27.209403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailmbox.h"
+ 
+ #ifdef _MSC_VER
+--- libetpan-0.45/src/low-level/maildir/maildir.c.trio	2005-12-20 18:56:11.000000000 +0100
++++ libetpan-0.45/src/low-level/maildir/maildir.c	2006-05-13 12:46:26.879403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "maildir.h"
+ 
+ #include <string.h>
+--- libetpan-0.45/src/engine/mailprivacy_gnupg.c.trio	2005-12-07 15:57:57.000000000 +0100
++++ libetpan-0.45/src/engine/mailprivacy_gnupg.c	2006-05-13 12:46:27.459403000 +0200
+@@ -39,6 +39,7 @@
+    - and to decrypt a message
+ */
+ 
++#include "mytrio.h"
+ #include "mailprivacy_gnupg.h"
+ 
+ #include "mailprivacy.h"
+--- libetpan-0.45/src/engine/mailprivacy_tools.c.trio	2005-12-22 00:49:23.000000000 +0100
++++ libetpan-0.45/src/engine/mailprivacy_tools.c	2006-05-13 12:46:27.679403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailprivacy_tools.h"
+ 
+ #include <stdlib.h>
+--- libetpan-0.45/src/engine/mailprivacy_smime.c.trio	2005-12-07 15:57:57.000000000 +0100
++++ libetpan-0.45/src/engine/mailprivacy_smime.c	2006-05-13 12:46:27.569403000 +0200
+@@ -33,6 +33,7 @@
+  * $Id: libetpan-0.45-trio-includes.patch,v 1.1 2006/05/13 17:23:44 tgc Exp $
+  */
+ 
++#include "mytrio.h"
+ #include "mailprivacy_smime.h"
+ #include <string.h>
+ #include <sys/wait.h>

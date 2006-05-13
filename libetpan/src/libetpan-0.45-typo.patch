@@ -1,0 +1,11 @@
+--- libetpan-0.45/configure.in.fixes	2006-05-12 16:55:08.753775000 +0200
++++ libetpan-0.45/configure.in	2006-05-12 16:57:32.647403000 +0200
+@@ -117,7 +117,7 @@
+   OCPPFLAGS="$CPPFLAGS"
+   OLDFLAGS="$LDFLAGS"
+   if test "x$with_gnutls" != "xyes" ; then
+-    CPPFLAGS="CRPPFLAGS -I$with_gnutls/include"
++    CPPFLAGS="CPPFLAGS -I$with_gnutls/include"
+     LDFLAGS="$LDFLAGS -L$with_gnutls/lib"
+   fi
+   GNUTLSLIB=""

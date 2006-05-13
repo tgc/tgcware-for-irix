@@ -1,0 +1,20 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.etpan.org/"
+shortdesc="A portable mail access library"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_bindir
+$_includedir
+$_libdir/*.so
+

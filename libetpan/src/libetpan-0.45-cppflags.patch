@@ -1,0 +1,19 @@
+--- libetpan-0.45/src/Makefile.in.cppflags	2006-05-12 18:58:07.323607000 +0200
++++ libetpan-0.45/src/Makefile.in	2006-05-12 18:59:07.289611000 +0200
+@@ -17,6 +17,7 @@
+ CC          = @CC@
+ LDFLAGS     = @LDFLAGS@ @LIBS@ @SSLLIBS@ @LIBICONV@ \
+ 	@DBLIB@ @GNUTLSLIB@ @SASLLIBS@
++CPPFLAGS    = @CPPFLAGS@
+ 
+ SUBLIBS = data-types/libdata-types.la \
+ 	low-level/liblow-level.la \
+@@ -35,7 +36,7 @@
+ all: $(TARGET)
+ 
+ $(TARGET): Makefile $(SUBLIBS)
+-	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ $(SUBLIBS) \
++	$(LIBTOOL) --mode=link $(CC) $(CPPFLAGS) $(LDFLAGS) -o $@ $(SUBLIBS) \
+ 	  -rpath $(libdir) -version-info $(VERSINFO)
+ 
+ $(SUBLIBS): all-recursive

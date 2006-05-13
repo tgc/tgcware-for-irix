@@ -1,0 +1,39 @@
+--- libetpan-0.45/src/driver/interface/mailstorage_tools.c.env	2006-05-13 18:01:38.879403000 +0200
++++ libetpan-0.45/src/driver/interface/mailstorage_tools.c	2006-05-13 18:02:11.149403000 +0200
+@@ -109,7 +109,7 @@
+     char *servername, uint16_t port)
+ {
+   int i, maxopen;
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+   char env_buffer[ENV_BUFFER_SIZE];
+ #endif
+   
+@@ -119,7 +119,7 @@
+     exit(0);
+   }
+   
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+   if (servername)
+     snprintf(env_buffer, ENV_BUFFER_SIZE, "ETPANSERVER=%s", servername);
+   else
+@@ -132,7 +132,7 @@
+     unsetenv("ETPANSERVER");
+ #endif
+   
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+   if (port)
+     snprintf(env_buffer, ENV_BUFFER_SIZE, "ETPANPORT=%d", port);
+   else
+--- libetpan-0.45/configure.in.env	2006-05-13 18:00:57.899403000 +0200
++++ libetpan-0.45/configure.in	2006-05-13 18:01:11.789403000 +0200
+@@ -59,6 +59,7 @@
+ 
+ dnl Functions
+ AC_FUNC_MMAP
++AC_CHECK_FUNCS(setenv)
+ 
+ dnl we need snprintf
+ NEED_TRIO_CHECK
