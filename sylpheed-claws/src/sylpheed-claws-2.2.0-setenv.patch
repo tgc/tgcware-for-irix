@@ -1,0 +1,29 @@
+--- sylpheed-claws-2.2.0/src/etpan/imap-thread.c.env	2006-05-13 15:50:00.069403000 +0200
++++ sylpheed-claws-2.2.0/src/etpan/imap-thread.c	2006-05-13 15:50:39.329403000 +0200
+@@ -2300,7 +2300,7 @@
+ 			    const char * servername, uint16_t port)
+ {
+ 	int i, maxopen;
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+ 	char env_buffer[ENV_BUFFER_SIZE];
+ #endif
+ 	
+@@ -2310,7 +2310,7 @@
+ 		exit(0);
+ 	}
+   
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+ 	if (servername)
+ 		snprintf(env_buffer, ENV_BUFFER_SIZE,
+ 			 "ETPANSERVER=%s", servername);
+@@ -2324,7 +2324,7 @@
+ 		unsetenv("ETPANSERVER");
+ #endif
+   
+-#ifdef SOLARIS
++#if defined(SOLARIS) || !defined(HAVE_SETENV)
+ 	if (port)
+ 		snprintf(env_buffer, ENV_BUFFER_SIZE, "ETPANPORT=%d", port);
+ 	else
