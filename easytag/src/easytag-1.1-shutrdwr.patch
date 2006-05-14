@@ -1,0 +1,12 @@
+--- easytag-1.1/src/cddb.c.orig	2006-05-14 13:47:08.584203000 +0200
++++ easytag-1.1/src/cddb.c	2006-05-14 13:48:31.364203000 +0200
+@@ -46,6 +46,9 @@
+ #include "msgbox.h"
+ #include "i18n.h"
+ 
++/* Irix 5.3 & 6.2 doesn't define SHUT_RD, SHUT_WR and SHUT_RDWR in socket.h */
++#define SHUT_RDWR 2
++
+ #define CDDB_ANSWER_LINE_SIZE 3072-1
+ 
+ #define CDDB_GENRE_MAX ( sizeof(cddb_genre_vs_id3_genre)/sizeof(cddb_genre_vs_id3_genre[0]) - 1 )

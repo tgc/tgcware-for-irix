@@ -1,0 +1,53 @@
+--- easytag-1.1/src/cddb.c.snprintf	2006-05-14 13:44:12.184203000 +0200
++++ easytag-1.1/src/cddb.c	2006-05-14 13:44:37.754203000 +0200
+@@ -2418,15 +2418,15 @@
+     
+                     if (cddbsettoallfields || cddbsettotrack)
+                     {
+-                        if (NUMBER_TRACK_FORMATED) snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,cddbtrackalbum->track_number);
+-                        else                       snprintf(buffer,sizeof(buffer),"%d",  cddbtrackalbum->track_number);
++                        if (NUMBER_TRACK_FORMATED) g_snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,cddbtrackalbum->track_number);
++                        else                       g_snprintf(buffer,sizeof(buffer),"%d",  cddbtrackalbum->track_number);
+                         ET_Set_Field_File_Tag_Item(&FileTag->track,buffer);
+                     }            
+     
+                     if (cddbsettoallfields || cddbsettotracktotal)
+                     {
+-                        if (NUMBER_TRACK_FORMATED) snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,GTK_CLIST(CddbTrackCList)->rows);
+-                        else                       snprintf(buffer,sizeof(buffer),"%d",  GTK_CLIST(CddbTrackCList)->rows);
++                        if (NUMBER_TRACK_FORMATED) g_snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,GTK_CLIST(CddbTrackCList)->rows);
++                        else                       g_snprintf(buffer,sizeof(buffer),"%d",  GTK_CLIST(CddbTrackCList)->rows);
+                         ET_Set_Field_File_Tag_Item(&FileTag->track_total,buffer);
+                     }
+                 
+@@ -2450,8 +2450,8 @@
+                     FileName = ET_File_Name_Item_New();
+                     
+                     // Build the filename with the path
+-                    if (NUMBER_TRACK_FORMATED) snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,cddbtrackalbum->track_number);
+-                    else                       snprintf(buffer,sizeof(buffer),"%d",  cddbtrackalbum->track_number);
++                    if (NUMBER_TRACK_FORMATED) g_snprintf(buffer,sizeof(buffer),"%.*d",NUMBER_TRACK_FORMATED_SPIN_BUTTON,cddbtrackalbum->track_number);
++                    else                       g_snprintf(buffer,sizeof(buffer),"%d",  cddbtrackalbum->track_number);
+                     filename_generated = g_strconcat(buffer," - ",cddbtrackalbum->track_name,NULL);
+                     ET_File_Name_Convert_Character(filename_generated); // Replace invalid characters
+                     filename_new = ET_Generate_File_Name(etfile,filename_generated);
+--- easytag-1.1/src/libapetag/apetaglib.c.snprintf	2006-05-14 14:09:33.178203000 +0200
++++ easytag-1.1/src/libapetag/apetaglib.c	2006-05-14 14:09:51.468203000 +0200
+@@ -40,6 +40,8 @@
+ #    include "id3v2_read.h"
+ #endif
+ 
++#include <glib.h>
++
+ /* LOCAL STRUCTURES */
+ 
+ /**
+@@ -620,7 +622,7 @@
+     libapetag_maloc_cont_text(mem_cnt, 0, 4, "Year", 4, m.year);
+     if (m.comment[28] == 0 && m.comment[29] != 0) {
+         char track[20];
+-        snprintf(track, 19, "%i", m.comment[29]);
++        g_snprintf(track, 19, "%i", m.comment[29]);
+         libapetag_maloc_cont_text(mem_cnt, 0, 5, "Track", strlen(track), track);
+         libapetag_maloc_cont_text(mem_cnt, 0, 7, "Comment", 28, m.comment);
+     } else {
