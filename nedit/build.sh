@@ -25,7 +25,6 @@ make_build_target=sgi
 custom_install=1
 [ "$_os" = "irix53" ] && mipspro=2
 [ "$_os" = "irix62" ] && mipspro=1
-deps_resolve_symlinks=1
 
 reg prep
 prep()
