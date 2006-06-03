@@ -1,0 +1,12 @@
+--- vorbis-tools-1.1.1/configure.ac.trio	2005-11-06 11:38:53.654167434 +0100
++++ vorbis-tools-1.1.1/configure.ac	2005-11-06 11:42:01.905084942 +0100
+@@ -227,6 +227,9 @@
+ AC_CHECK_FUNCS(atexit on_exit)
+ AM_LANGINFO_CODESET
+ 
++dnl ogg123 needs snprintf
++NEED_TRIO_CHECK
++
+ dnl --------------------------------------------------
+ dnl Work around FHS stupidity
+ dnl --------------------------------------------------

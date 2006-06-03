@@ -1,0 +1,11 @@
+--- vorbis-tools-1.1.1/ogg123/callbacks.h.trio	2005-11-06 13:38:57.141316078 +0100
++++ vorbis-tools-1.1.1/ogg123/callbacks.h	2005-11-06 13:39:30.916098256 +0100
+@@ -18,6 +18,8 @@
+ #ifndef __CALLBACKS_H__
+ #define __CALLBACKS_H__
+ 
++#include <config.h>
++
+ #include "audio.h"
+ #include "buffer.h"
+ #include "status.h"
