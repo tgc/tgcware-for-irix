@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,10 +10,11 @@
 # Check the following 4 variables before running the script
 topdir=speex
 version=1.0.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=speex-1.0.4-getopt.patch
+patch[1]=speex-1.0.5-underquoted.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
