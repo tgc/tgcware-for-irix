@@ -27,3 +27,4 @@ ERRORS/MISCELLANEOUS
 --------------------
 The included patch fixes up the example programs to work with the older
 pre irix 6.5 audio api.
+Added a patch to fix quoting in the audiofile.m4 file.
