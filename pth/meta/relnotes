@@ -25,6 +25,11 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-Building with gcc yields a pth that fails make test.
-Configuring with --enable-optimize yields a pth that
-fails make test regardless of compiler.
+By default pth will detect and use the mcsc/sc/mc combo for the mctx
+implementation. This causes all tests to fail when building pth
+with gcc while using native SGI cc works. Additionally specifying
+--enable-optimize will make all tests fail regardless of compiler.
+Choosing the sjlj/ssjlj/sas combo for mtcx instead enabled both gcc
+and native SGI cc built libraries to pass all tests both with and
+without --enable-optimize.
+All tests where done with hard syscall mapping enabled.

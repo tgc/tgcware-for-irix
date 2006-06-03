@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=pth
 version=2.0.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,10 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-pthread" # --enable-optimize
-export CC=cc
-mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
+configure_args="--prefix=$prefix --enable-pthread --enable-syscall-hard --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --enable-optimize"
 
 reg prep
 prep()
