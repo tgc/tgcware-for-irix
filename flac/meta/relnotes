@@ -26,4 +26,4 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 I've added support for building with the trio string function library
-since atleast one C file needs snprintf (Which Irix 6.2 doesn't have).
+since atleast one C file needs snprintf.
