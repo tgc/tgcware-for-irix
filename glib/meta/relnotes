@@ -28,5 +28,4 @@ ERRORS/MISCELLANEOUS
 glib 1.2.10 is broken when building with gcc 3.4.x.
 I added a patch to fix it taken from the OpenPKG package
 
-The first builds used GNU pth for threading but it seems to be
-broken so it's now disabled.
+Added a small patch to glib.m4 to fix quoting.

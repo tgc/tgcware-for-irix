@@ -10,10 +10,11 @@
 # Check the following 4 variables before running the script
 topdir=glib
 version=1.2.10
-pkgver=8
+pkgver=9
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=glib-1.2.10-gcc34.patch
+patch[1]=glib-1.2.10-underquoted.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
