@@ -10,13 +10,14 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=4.3p2
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix53" ] && patch[0]=openssh-4.3p2-irix-res.patch
 
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
