@@ -22,6 +22,7 @@ source[0]=$topdir-$version.tar.gz
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CPPFLAGS="-I/usr/tgcware/include"
 configure_args='--prefix=${prefix} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6'
+[ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
 
 reg prep
 prep()
