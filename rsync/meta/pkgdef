@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://samba.anu.edu.au/rsync/"
+pkgvendor="http://samba.org/rsync/"
 shortdesc="Utility that provides fast incremental file transfer"
 
 [base]
