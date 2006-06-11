@@ -10,13 +10,14 @@
 # Check the following 4 variables before running the script
 topdir=postfix
 version=2.2.10
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=postfix-2.2.10-sa_len.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix62" ] && patch[0]=postfix-2.2.10-sa_len.patch
 
 # Global settings
 export CC=gcc
@@ -91,19 +92,12 @@ install()
       $GINSTALL -c -m 755 man/man1/$i.1 ${stagedir}${prefix}/${_mandir}/man1/
     done
 
-    # build.sh compresses man pages automatically.
-    # - Edit postfix-files to reflect this, so post-install won't get confused
-    #   when called during package installation.
+    # Fix up postfix-files to recognized converted and compressed manpages
     [ "$_os" = "irix53" ] && suffix=Z || suffix=gz
-    ed ${stagedir}${prefix}/${postfix_config_dir}/postfix-files <<EOF || exit 1
-%s/\(\/man[158]\/.*\.[158]\):/\1.$suffix:/
-%s/\$config_directory\/aliases:f/\#/
-w
-q
-EOF
+    $GSED -i "s/\(.*man[158]\/.*\.[158]\)/\1.$suffix/g" ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
     $GSED -i 's/\(.*\)man\([158].*\)/\1cat\2/' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
 
-   # install qshape
+    # install qshape
     mantools/srctoman - auxiliary/qshape/qshape.pl > qshape.1
     $GINSTALL -c qshape.1 ${stagedir}${prefix}/${_mandir}/man1/qshape.1
     $GINSTALL -c auxiliary/qshape/qshape.pl ${stagedir}${prefix}/${postfix_command_dir}/qshape
@@ -124,6 +118,8 @@ EOF
     # Preserve existing on/off setting
     echo "${_sysconfdir}/config/tgc_postfix config(noupdate)" >> $metadir/ops
     $GSED -i "s/@@PREFIX@@/$varspoolprefix/g" ${stagedir}/${_sysconfdir}/init.d/tgc_postfix
+    [ "$_os" = "irix53" ] && mailservice=mail || mailservice=sendmail
+    $GSED -i "s/@@MAILSERVICE@@/$mailservice/" ${stagedir}/${_sysconfdir}/init.d/tgc_postfix
 
     # protect configfiles
     for file in access canonical generic header_checks main.cf makedefs.out master.cf relocated transport virtual aliases

@@ -16,7 +16,7 @@ fi
 redir=1
 
 # These conditions all make starting postfix impossible
-if $IS_ON sendmail; then exit 0; fi
+if $IS_ON @@MAILSERVICE@@; then exit 0; fi
 test -x $POSTFIX || exit 0
 test -d @@PREFIX@@/var/spool/postfix || exit 0
 test -d /usr/tgcware/etc/postfix || exit 0

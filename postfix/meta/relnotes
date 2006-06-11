@@ -41,5 +41,16 @@ To replace sendmail as the default MTA you can make a backup of
 /usr/lib/sendmail and replace it with a symlink to the postfix sendmail
 binary.
 
+Irix 6.2 specific:
 The patch was inspired by a post by Wietse Venema in reponse to another
 users problems with building postfix on Irix 6.5.28.
+
+To disable sendmail use chkconfig -f sendmail off
+
+Irix 5.3 specific:
+Unfortunately there is no official way to turn off sendmail.
+This is one unofficial way to do it.
+To disable sendmail use chkconfig -f mail off
+Then add the following line near the top of the /etc/init.d/mail script to
+make it honour the chkconfig flag:
+if /sbin/chkconfig mail; then :; else exit 0; fi
