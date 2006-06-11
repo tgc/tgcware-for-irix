@@ -1,0 +1,86 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.postfix.org"
+shortdesc="Postfix Mail Transport Agent"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_sysconfdir
+files(0644,root,sys)
+${lprefix}/${postfix_config_dir}/access
+${lprefix}/${postfix_config_dir}/canonical
+${lprefix}/${postfix_config_dir}/generic
+${lprefix}/${postfix_config_dir}/header_checks
+${lprefix}/${postfix_config_dir}/main.cf
+${lprefix}/${postfix_config_dir}/makedefs.out
+${lprefix}/${postfix_config_dir}/master.cf
+${lprefix}/${postfix_config_dir}/relocated
+${lprefix}/${postfix_config_dir}/transport
+${lprefix}/${postfix_config_dir}/virtual
+${lprefix}/${postfix_config_dir}/LICENSE
+${lprefix}/${postfix_config_dir}/TLS_LICENSE
+${lprefix}/${postfix_config_dir}/main.cf.default
+${lprefix}/${postfix_config_dir}/postfix-files
+${lprefix}/${postfix_config_dir}/aliases
+${lprefix}/${_vdocdir}/RELEASE_NOTES
+${lprefix}/${_vdocdir}/AAAREADME
+${lprefix}/${_vdocdir}/COMPATIBILITY
+files(0755,root,sys)
+${lprefix}/${_vdocdir}/contrib/preinstall.sh
+${lprefix}/${_bindir}/mailq
+${lprefix}/${_bindir}/newaliases
+${lprefix}/${postfix_command_dir}/postalias
+${lprefix}/${postfix_command_dir}/postcat
+${lprefix}/${postfix_command_dir}/postconf
+${lprefix}/${postfix_command_dir}/postfix
+${lprefix}/${postfix_command_dir}/postkick
+${lprefix}/${postfix_command_dir}/postlock
+${lprefix}/${postfix_command_dir}/postlog
+${lprefix}/${postfix_command_dir}/postmap
+${lprefix}/${postfix_command_dir}/postsuper
+${lprefix}/${postfix_command_dir}/qshape
+${lprefix}/${postfix_command_dir}/smtp-sink
+${lprefix}/${postfix_command_dir}/smtp-source
+${lprefix}/${postfix_config_dir}/post-install
+${lprefix}/${postfix_config_dir}/postfix-script
+${lprefix}/${postfix_daemon_dir}/*
+${lprefix}/${_sbindir}/sendmail
+# Directories
+dir ${lprefix}/${postfix_config_dir}
+dir ${lprefix}/${postfix_daemon_dir}
+dir ${varspoolprefix}${postfix_queue_dir}
+dir ${varspoolprefix}${postfix_queue_dir}/pid
+files(2755,root,$maildrop_group)
+${lprefix}/${postfix_command_dir}/postdrop
+${lprefix}/${postfix_command_dir}/postqueue
+files(0700,$postfix_user,sys)
+dir ${varspoolprefix}${postfix_queue_dir}/active
+dir ${varspoolprefix}${postfix_queue_dir}/bounce
+dir ${varspoolprefix}${postfix_queue_dir}/corrupt
+dir ${varspoolprefix}${postfix_queue_dir}/defer
+dir ${varspoolprefix}${postfix_queue_dir}/deferred
+dir ${varspoolprefix}${postfix_queue_dir}/flush
+dir ${varspoolprefix}${postfix_queue_dir}/hold
+dir ${varspoolprefix}${postfix_queue_dir}/incoming
+dir ${varspoolprefix}${postfix_queue_dir}/private
+dir ${varspoolprefix}${postfix_queue_dir}/saved
+dir ${varspoolprefix}${postfix_queue_dir}/trace
+files(0710,$postfix_user,$maildrop_group)
+dir ${varspoolprefix}${postfix_queue_dir}/public
+files(0730,$postfix_user,$maildrop_group)
+dir ${varspoolprefix}${postfix_queue_dir}/maildrop
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${lprefix}/$_mandir/?a?[12456789]
+
+[doc]
+subsys=man.doc
+files(-,root,sys)
+${lprefix}/$_vdocdir/html
+${lprefix}/$_vdocdir/README_FILES
+

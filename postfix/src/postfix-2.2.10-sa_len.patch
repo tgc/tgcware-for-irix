@@ -1,0 +1,202 @@
+--- postfix-2.2.10/src/dns/dns_rr_to_sa.c.orig	2006-06-04 14:02:26.670449000 +0200
++++ postfix-2.2.10/src/dns/dns_rr_to_sa.c	2006-06-04 14:02:50.580449000 +0200
+@@ -6,11 +6,11 @@
+ /* SYNOPSIS
+ /*	#include <dns.h>
+ /*
+-/*	int	dns_rr_to_sa(rr, port, sa, sa_len)
++/*	int	dns_rr_to_sa(rr, port, sa, salen)
+ /*	DNS_RR	*rr;
+ /*	unsigned port;
+ /*	struct sockaddr *sa;
+-/*	SOCKADDR_SIZE *sa_len;
++/*	SOCKADDR_SIZE *salen;
+ /* DESCRIPTION
+ /*	dns_rr_to_sa() converts the address in a DNS resource record into
+ /*	a socket address of the corresponding type.
+@@ -22,7 +22,7 @@
+ /*	TCP or UDP port, network byte order.
+ /* .IP sa
+ /*	Socket address pointer.
+-/* .IP sa_len
++/* .IP salen
+ /*	On input, the available socket address storage space.
+ /*	On output, the amount of space actually used.
+ /* DIAGNOSTICS
+@@ -55,7 +55,7 @@
+ /* dns_rr_to_sa - resource record to socket address */
+ 
+ int     dns_rr_to_sa(DNS_RR *rr, unsigned port, struct sockaddr * sa,
+-		             SOCKADDR_SIZE *sa_len)
++		             SOCKADDR_SIZE *salen)
+ {
+     SOCKADDR_SIZE sock_addr_len;
+ 
+@@ -63,7 +63,7 @@
+ 	if (rr->data_len != sizeof(SOCK_ADDR_IN_ADDR(sa))) {
+ 	    errno = EINVAL;
+ 	    return (-1);
+-	} else if ((sock_addr_len = sizeof(*SOCK_ADDR_IN_PTR(sa))) > *sa_len) {
++	} else if ((sock_addr_len = sizeof(*SOCK_ADDR_IN_PTR(sa))) > *salen) {
+ 	    errno = ENOSPC;
+ 	    return (-1);
+ 	} else {
+@@ -72,9 +72,9 @@
+ 	    SOCK_ADDR_IN_PORT(sa) = port;
+ 	    SOCK_ADDR_IN_ADDR(sa) = IN_ADDR(rr->data);
+ #ifdef HAS_SA_LEN
+-	    sa->sa_len = sock_addr_len;
++	    sa->salen = sock_addr_len;
+ #endif
+-	    *sa_len = sock_addr_len;
++	    *salen = sock_addr_len;
+ 	    return (0);
+ 	}
+ #ifdef HAS_IPV6
+@@ -82,7 +82,7 @@
+ 	if (rr->data_len != sizeof(SOCK_ADDR_IN6_ADDR(sa))) {
+ 	    errno = EINVAL;
+ 	    return (-1);
+-	} else if ((sock_addr_len = sizeof(*SOCK_ADDR_IN6_PTR(sa))) > *sa_len) {
++	} else if ((sock_addr_len = sizeof(*SOCK_ADDR_IN6_PTR(sa))) > *salen) {
+ 	    errno = ENOSPC;
+ 	    return (-1);
+ 	} else {
+@@ -91,9 +91,9 @@
+ 	    SOCK_ADDR_IN6_PORT(sa) = port;
+ 	    SOCK_ADDR_IN6_ADDR(sa) = IN6_ADDR(rr->data);
+ #ifdef HAS_SA_LEN
+-	    sa->sa_len = sock_addr_len;
++	    sa->salen = sock_addr_len;
+ #endif
+-	    *sa_len = sock_addr_len;
++	    *salen = sock_addr_len;
+ 	    return (0);
+ 	}
+ #endif
+@@ -127,7 +127,7 @@
+     MAI_SERVPORT_STR portnum;
+     struct sockaddr_storage ss;
+     struct sockaddr *sa = (struct sockaddr *) & ss;
+-    SOCKADDR_SIZE sa_len = sizeof(ss);
++    SOCKADDR_SIZE salen = sizeof(ss);
+     VSTRING *why;
+     int     type;
+     int     port;
+@@ -146,10 +146,10 @@
+ 	    usage();
+ 	if (dns_lookup(argv[1], type, 0, &rr, (VSTRING *) 0, why) != DNS_OK)
+ 	    msg_fatal("%s: %s", argv[1], vstring_str(why));
+-	sa_len = sizeof(ss);
+-	if (dns_rr_to_sa(rr, htons(port), sa, &sa_len) != 0)
++	salen = sizeof(ss);
++	if (dns_rr_to_sa(rr, htons(port), sa, &salen) != 0)
+ 	    msg_fatal("dns_rr_to_sa: %m");
+-	SOCKADDR_TO_HOSTADDR(sa, sa_len, &hostaddr, &portnum, 0);
++	SOCKADDR_TO_HOSTADDR(sa, salen, &hostaddr, &portnum, 0);
+ 	vstream_printf("%s %s -> %s %s\n",
+ 		       argv[1], argv[2], hostaddr.buf, portnum.buf);
+ 	vstream_fflush(VSTREAM_OUT);
+--- postfix-2.2.10/src/smtpd/smtpd_peer.c.orig	2006-06-04 14:09:45.150449000 +0200
++++ postfix-2.2.10/src/smtpd/smtpd_peer.c	2006-06-04 14:09:56.840449000 +0200
+@@ -86,17 +86,17 @@
+ void    smtpd_peer_init(SMTPD_STATE *state)
+ {
+     char   *myname = "smtpd_peer_init";
+-    SOCKADDR_SIZE sa_len;
++    SOCKADDR_SIZE salen;
+     struct sockaddr *sa;
+     INET_PROTO_INFO *proto_info = inet_proto_info();
+ 
+     sa = (struct sockaddr *) & (state->sockaddr);
+-    sa_len = sizeof(state->sockaddr);
++    salen = sizeof(state->sockaddr);
+ 
+     /*
+      * Look up the peer address information.
+      */
+-    if (getpeername(vstream_fileno(state->client), sa, &sa_len) >= 0) {
++    if (getpeername(vstream_fileno(state->client), sa, &salen) >= 0) {
+ 	errno = 0;
+     }
+ 
+@@ -123,7 +123,7 @@
+ 	/*
+ 	 * Convert the client address to printable form.
+ 	 */
+-	if ((aierr = sockaddr_to_hostaddr(sa, sa_len, &client_addr,
++	if ((aierr = sockaddr_to_hostaddr(sa, salen, &client_addr,
+ 					  (MAI_SERVPORT_STR *) 0, 0)) != 0)
+ 	    msg_fatal("%s: cannot convert client address to string: %s",
+ 		      myname, MAI_STRERROR(aierr));
+@@ -151,8 +151,8 @@
+ 		if (aierr)
+ 		    msg_fatal("%s: cannot convert %s from string to binary: %s",
+ 			      myname, state->addr, MAI_STRERROR(aierr));
+-		sa_len = res0->ai_addrlen;
+-		memcpy((char *) sa, res0->ai_addr, sa_len);
++		salen = res0->ai_addrlen;
++		memcpy((char *) sa, res0->ai_addr, salen);
+ 		freeaddrinfo(res0);		/* 200412 */
+ 	    }
+ 
+@@ -199,7 +199,7 @@
+ 	state->peer_code = code; \
+     }
+ 
+-	if ((aierr = sockaddr_to_hostname(sa, sa_len, &client_name,
++	if ((aierr = sockaddr_to_hostname(sa, salen, &client_name,
+ 					  (MAI_SERVNAME_STR *) 0, 0)) != 0) {
+ 	    state->name = mystrdup(CLIENT_NAME_UNKNOWN);
+ 	    state->peer_code = (TEMP_AI_ERROR(aierr) ?
+--- postfix-2.2.10/src/qmqpd/qmqpd_peer.c.orig	2006-06-04 15:27:25.098449000 +0200
++++ postfix-2.2.10/src/qmqpd/qmqpd_peer.c	2006-06-04 15:27:28.108449000 +0200
+@@ -74,16 +74,16 @@
+     char   *myname = "qmqpd_peer_init";
+     struct sockaddr_storage ss;
+     struct sockaddr *sa;
+-    SOCKADDR_SIZE sa_len;
++    SOCKADDR_SIZE salen;
+     INET_PROTO_INFO *proto_info = inet_proto_info();
+ 
+     sa = (struct sockaddr *) & ss;
+-    sa_len = sizeof(ss);
++    salen = sizeof(ss);
+ 
+     /*
+      * Look up the peer address information.
+      */
+-    if (getpeername(vstream_fileno(state->client), sa, &sa_len) >= 0) {
++    if (getpeername(vstream_fileno(state->client), sa, &salen) >= 0) {
+ 	errno = 0;
+     }
+ 
+@@ -109,7 +109,7 @@
+ 	/*
+ 	 * Convert the client address to printable form.
+ 	 */
+-	if ((aierr = sockaddr_to_hostaddr(sa, sa_len, &client_addr,
++	if ((aierr = sockaddr_to_hostaddr(sa, salen, &client_addr,
+ 					  (MAI_SERVPORT_STR *) 0, 0)) != 0)
+ 	    msg_fatal("%s: cannot convert client address to string: %s",
+ 		      myname, MAI_STRERROR(aierr));
+@@ -137,8 +137,8 @@
+ 		if (aierr)
+ 		    msg_fatal("%s: cannot convert %s from string to binary: %s",
+ 			      myname, state->addr, MAI_STRERROR(aierr));
+-		sa_len = res0->ai_addrlen;
+-		memcpy((char *) sa, res0->ai_addr, sa_len);
++		salen = res0->ai_addrlen;
++		memcpy((char *) sa, res0->ai_addr, salen);
+ 		freeaddrinfo(res0);
+ 	    }
+ 
+@@ -181,7 +181,7 @@
+ 	state->name = mystrdup(CLIENT_NAME_UNKNOWN); \
+     }
+ 
+-	if ((aierr = sockaddr_to_hostname(sa, sa_len, &client_name,
++	if ((aierr = sockaddr_to_hostname(sa, salen, &client_name,
+ 					  (MAI_SERVNAME_STR *) 0, 0)) != 0) {
+ 	    state->name = mystrdup(CLIENT_NAME_UNKNOWN);
+ 	} else {

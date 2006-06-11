@@ -1,0 +1,45 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+This tardist is patterned after the Fedora Core 5 Extras postfix RPM.
+The installation will create several groups and a new user for postfix during
+the install of the sw.base subsystem.
+If inst complains about unknown users and assigning <random number> as uid/gid
+then please run postfix set-permissions to fix it
+(requires man.doc and man.man subsystems to be installed).
+The preinstall.sh script that creates the users is available for perusal under
+contrib in the docdir.
+Note that these groups/user will not be removed on uninstall.
+There is an init script installed. Postfix is disabled by default to enable
+it you must also disable sendmail.
+Also note that /etc/aliases will only be used by sendmail.
+To replace sendmail as the default MTA you can make a backup of
+/usr/lib/sendmail and replace it with a symlink to the postfix sendmail
+binary.
+
+The patch was inspired by a post by Wietse Venema in reponse to another
+users problems with building postfix on Irix 6.5.28.

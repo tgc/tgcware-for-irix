@@ -1,0 +1,54 @@
+#!/bin/sh
+##
+## Start or stop the postfix daemon
+##
+
+IS_ON=/etc/chkconfig
+POSTFIX=/usr/tgcware/sbin/postfix
+
+if $IS_ON verbose; then
+    ECHO=echo
+else
+    ECHO=:
+fi
+
+# To allow postfix messages set to 0
+redir=1
+
+# These conditions all make starting postfix impossible
+if $IS_ON sendmail; then exit 0; fi
+test -x $POSTFIX || exit 0
+test -d @@PREFIX@@/var/spool/postfix || exit 0
+test -d /usr/tgcware/etc/postfix || exit 0
+
+case "$1" in
+    start)
+	if $IS_ON tgc_postfix; then
+	    $ECHO "Starting postfix:\c"
+	    if [ $redir -eq 1 ]; then /usr/tgcware/bin/newaliases >/dev/null 2>&1; else /usr/tgcware/bin/newaliases; fi
+	    if [ $redir -eq 1 ]; then $POSTFIX start 2>/dev/null 1>&2; else $POSTFIX start; fi
+	    if [ $? -eq 0 ]; then $ECHO "."; else $ECHO "failed"; fi
+	fi
+	;;
+
+    restart)
+	if [ $redir -eq 1 ]; then $POSTFIX stop 2>/dev/null 1>&2; else $POSTFIX stop; fi
+	if $IS_ON tgc_postfix; then
+	    $ECHO "Starting postfix:\c"
+	    if [ $redir -eq 1 ]; then /usr/tgcware/bin/newaliases >/dev/null 2>&1; else /usr/tgcware/bin/newaliases; fi
+	    if [ $redir -eq 1 ]; then $POSTFIX start 2>/dev/null 1>&2; else $POSTFIX start; fi
+	    if [ $? -eq 0 ]; then $ECHO "."; else $ECHO "failed"; fi
+	fi
+	;;
+
+    stop)
+	$ECHO "Stopping postfix:\c"
+	if [ $redir -eq 1 ]; then $POSTFIX stop 2>/dev/null 1>&2; else $POSTFIX stop; fi
+	if [ $? -eq 0 ]; then $ECHO "."; else $ECHO "failed"; fi
+	;;
+
+    *)
+	echo "usage: $0 {start|stop|restart}"
+	;;
+esac
+
