@@ -22,7 +22,7 @@ patch[0]=tz2004g-makefile.patch
 # Global settings
 # Irix 5.3 needs an extra define
 [ "$_os" = "irix53" ] && CDEF="-D_XOPEN_SOURCE"
-export CC="gcc $CDEF"
+export CC="gcc"
 # hackisk for the sake of relnotes mostly
 __configure="$MAKE_PROG"
 # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
@@ -39,6 +39,7 @@ prep()
     ${GZIP} -dc $srcfiles/${source[0]} | ${TAR} -xf -
     ${GZIP} -dc $srcfiles/${source[1]} | ${TAR} -xf -
     patch 0
+    $GSED -i "/^CFLAGS/s/=.*/=$CDEF/" Makefile
 }
 
 reg build
