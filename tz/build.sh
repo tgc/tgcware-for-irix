@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2005n
+version=2006g
 pkgver=1
 source[0]=${topdir}code${version}.tar.gz
 source[1]=${topdir}data${version}.tar.gz
