@@ -1,0 +1,14 @@
+--- x11vnc-0.8.1/libvncserver/sockets.c.shutrdwr	2006-06-24 16:11:27.005200000 +0200
++++ x11vnc-0.8.1/libvncserver/sockets.c	2006-06-24 16:16:05.675200000 +0200
+@@ -95,6 +95,11 @@
+ #define closesocket close
+ #endif
+ 
++/* For Irix 6.2 and lower */
++#ifndef SHUT_RDWR
++#define SHUT_RDWR 2
++#endif
++
+ int rfbMaxClientWait = 20000;   /* time (ms) after which we decide client has
+                                    gone away - needed to stop us hanging */
+ 
