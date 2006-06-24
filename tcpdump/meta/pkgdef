@@ -1,0 +1,18 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.tcpdump.org"
+shortdesc="Dump traffic on a network"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_sbindir
+$_sharedir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+

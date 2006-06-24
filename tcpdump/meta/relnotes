@@ -1,0 +1,36 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+Added a patch from upstream CVS that add additional INET6 guard defines
+around in6_addr usage.
+Here's the upstream description:
+From Markus Schoepflin: don't use "struct in6_addr" if INET6 isn't
+defined, because, in that case, "struct in6_addr" probably isn't
+defined, either.
+
+Check for too-large bit lengths in TLVs.
+--
