@@ -25,3 +25,19 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+The configure overrides are needed because of this gcc bug:
+http://gcc.gnu.org/bugzilla/show_bug.cgi?id=24345
+
+Irix 6.2 specific:
+This build is multilib aware and can build binaries for all 3 ABIs
+(o32,n32,n64). It should default to n32/mips3.
+To avoid depending on the n64 versions of the system libraries for all of
+gcc I've introduced a new subsystem called sw64.lib (for n64 objects).
+For now its use is limited to the gcc package as there are several issues
+related to packaging that must be dealt with otherwise.
+
+Note that at this time tgcware is strictly n32 due to putting n32 libraries in
+/lib which is normally occupied by o32 objects (n32 objects defaults to /lib32).
+At some point n64 libraries might appear since they would go in /lib64 which
+would not conflict with the standard locations.
+There is currently no plan to make a true multilib aware tgcware distribution.
