@@ -15,6 +15,7 @@ source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=x11vnc-0.8.1-shutrdwr.patch
 patch[1]=x11vnc-0.8.1-trio.patch
+patch[2]=x11vnc-0.8.1-mapfailed.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions

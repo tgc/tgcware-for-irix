@@ -1,0 +1,14 @@
+--- x11vnc-0.8.1/x11vnc/screen.c.mapfailed	Sat Jun 24 22:56:26 2006
++++ x11vnc-0.8.1/x11vnc/screen.c	Sat Jun 24 22:56:52 2006
+@@ -55,6 +55,11 @@
+ int rawfb_reset = -1;
+ int rawfb_dev_video = 0;
+ 
++/* Irix 5.3 doesn't define MAP_FAILED */
++#ifndef MAP_FAILED
++#       define MAP_FAILED ((void *)-1)
++#endif
++
+ /*
+  * X11 and rfb display/screen related routines
+  */
