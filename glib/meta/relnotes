@@ -29,3 +29,8 @@ glib 1.2.10 is broken when building with gcc 3.4.x.
 I added a patch to fix it taken from the OpenPKG package
 
 Added a small patch to glib.m4 to fix quoting.
+
+The rest of the patches was necessary to allow an update of the
+libtool stuff. The newer libtool requires autoconf 2.5x so 
+configure.in had to be patched up a bit.
+Without the libtool update I was not able to include an rpath.

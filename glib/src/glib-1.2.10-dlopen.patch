@@ -1,0 +1,18 @@
+--- glib-1.2.10/configure.in.fix	Sun Jun 25 13:06:37 2006
++++ glib-1.2.10/configure.in	Sun Jun 25 13:08:33 2006
+@@ -519,11 +519,10 @@
+ G_MODULE_HAVE_DLERROR=0
+ dnl *** dlopen() and dlsym() in system libraries
+ if test -z "$G_MODULE_IMPL"; then
+-	AC_CHECK_FUNC(dlopen,
+-		AC_CHECK_FUNC(dlsym,
+-			G_MODULE_IMPL=G_MODULE_IMPL_DL
+-		,)
+-	,)
++	AC_CHECK_FUNCS(dlopen)
++	if test "x$ac_cv_func_dlopen" = "xyes"; then
++	    AC_CHECK_FUNC(dlsym, G_MODULE_IMPL=G_MODULE_IMPL_DL)
++	fi
+ fi
+ dnl *** dlopen() and dlsym() in libdl
+ if test -z "$G_MODULE_IMPL"; then

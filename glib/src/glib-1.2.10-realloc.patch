@@ -1,0 +1,21 @@
+--- glib-1.2.10/configure.in.fix	Sun Jun 25 10:50:44 2006
++++ glib-1.2.10/configure.in	Sun Jun 25 10:52:59 2006
+@@ -416,14 +416,15 @@
+ 	int main() {
+ 	  return realloc (0, sizeof (int)) == 0;
+ 	}],
+-	glib_cv_sane_realloc=yes
+-	AC_DEFINE(REALLOC_0_WORKS)
++	glib_cv_sane_realloc=yes
+ 	,
+ 	glib_cv_sane_realloc=no
+ 	,)
+ ])
+ AC_MSG_RESULT($glib_cv_sane_realloc)
+-
++if test "x$glib_cv_sane_realloc" = "xyes" ; then
++    AC_DEFINE(REALLOC_0_WORKS)
++fi
+ 
+ dnl **********************
+ dnl *** va_copy checks ***
