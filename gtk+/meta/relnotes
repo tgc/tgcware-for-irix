@@ -27,5 +27,6 @@ ERRORS/MISCELLANEOUS
 --------------------
 I added the patches that I considered relevant from the FC3 src.rpm.
 
-For the Irix 5.3 build I initially used GNU pth to build a threaded library
-but this did not work well (caused coredumps in dillo).
+The -autoconf25x and -newgt patches was necessary to allow an update
+of the libtool code. This update was required on Irix 5.3 otherwise
+libtool would refuse to include an RPATH in the finished objects.

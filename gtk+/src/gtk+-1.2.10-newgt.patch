@@ -1,0 +1,11 @@
+--- gtk+-1.2.10/configure.in.newgt	Sun Jun 25 20:57:04 2006
++++ gtk+-1.2.10/configure.in	Sun Jun 25 20:57:15 2006
+@@ -184,7 +184,7 @@
+ 
+ # i18n stuff
+ ALL_LINGUAS="az ca cs da de el es et eu fi fr ga gl hr hu it ja ko lt nl no nn pl pt pt_BR ro ru sk sl sp sr sv tr uk vi wa zh_CN.GB2312 zh_TW.Big5"
+-AM_GTK_GNU_GETTEXT
++AM_GNU_GETTEXT
+ LIBS="$LIBS $INTLLIBS"
+ 
+ # AM_GTK_GNU_GETTEXT above substs $DATADIRNAME

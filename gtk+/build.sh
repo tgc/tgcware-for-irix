@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gtk+
 version=1.2.10
-pkgver=7
+pkgver=8
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=gtk+-1.2.10-bellvolume.patch
@@ -27,6 +27,8 @@ patch[10]=gtk+-1.2.10-troughpaint.patch
 patch[11]=gtk+-1.2.6-ahiguti.patch
 patch[12]=gtk+-1.2.8-wrap-alnum.patch
 patch[13]=gtk+-underquoted.patch
+patch[14]=gtk+-1.2.10-autoconf25x.patch
+patch[15]=gtk+-1.2.10-newgt.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -45,6 +47,13 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    $RM -f ltconfig ltmain.sh acinclude.m4
+    libtoolize -f -c
+    aclocal-1.4
+    automake-1.4
+    autoheader
+    autoconf
 }
 
 reg build
