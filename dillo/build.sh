@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
