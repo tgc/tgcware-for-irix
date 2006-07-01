@@ -21,6 +21,8 @@ patch[3]=audiofile-0.2.6-old-dmedia.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+[ "$_os" = "irix53" ] && patch[4]=audiofile-0.2.6-irix53.patch
+
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"

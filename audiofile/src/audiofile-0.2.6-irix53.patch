@@ -1,0 +1,84 @@
+--- audiofile-0.2.6/examples/irixread.c.53	Sat Jul  1 17:58:40 2006
++++ audiofile-0.2.6/examples/irixread.c	Sat Jul  1 18:01:50 2006
+@@ -57,7 +57,6 @@
+ main (int argc, char **argv)
+ {
+ 	AFfilehandle	file;
+-	AFframecount	count, frameCount;
+ 	int		channelCount, sampleFormat, sampleWidth;
+ 	float		frameSize;
+ 	void		*buffer;
+@@ -76,7 +75,6 @@
+ 		exit(EXIT_FAILURE);
+ 	}
+ 
+-	frameCount = afGetFrameCount(file, AF_DEFAULT_TRACK);
+ 	frameSize = afGetVirtualFrameSize(file, AF_DEFAULT_TRACK, 1);
+ 	channelCount = afGetVirtualChannels(file, AF_DEFAULT_TRACK);
+ 	sampleRate = afGetRate(file, AF_DEFAULT_TRACK);
+@@ -83,13 +81,6 @@
+ 	afGetVirtualSampleFormat(file, AF_DEFAULT_TRACK, &sampleFormat,
+ 		&sampleWidth);
+ 
+-	if (sampleFormat == AF_SAMPFMT_UNSIGNED)
+-	{
+-		afSetVirtualSampleFormat(file, AF_DEFAULT_TRACK,
+-			AF_SAMPFMT_TWOSCOMP, sampleWidth);
+-	}
+-
+-	printf("frame count: %lld\n", frameCount);
+ 	printf("frame size: %d bytes\n", (int) frameSize);
+ 	printf("channel count: %d\n", channelCount);
+ 	printf("sample rate: %.2f Hz\n", sampleRate);
+@@ -100,19 +91,8 @@
+ 	setsampleformat(outportconfig, sampleFormat);
+ 	ALsetchannels(outportconfig, channelCount);
+ 
+-	count = afReadFrames(file, AF_DEFAULT_TRACK, buffer, BUFFERED_FRAME_COUNT);
+-
+ 	outport = ALopenport("irixread", "w", outportconfig);
+ 	setrate(outport, sampleRate);
+-
+-	do
+-	{
+-		printf("count = %lld\n", count);
+-		ALwritesamps(outport, buffer, count);
+-
+-		count = afReadFrames(file, AF_DEFAULT_TRACK, buffer,
+-			BUFFERED_FRAME_COUNT);
+-	} while (count > 0);
+ 
+ 	waitport(outport);
+ 
+--- audiofile-0.2.6/examples/irixtestloop.c.53	Sat Jul  1 18:02:16 2006
++++ audiofile-0.2.6/examples/irixtestloop.c	Sat Jul  1 18:03:19 2006
+@@ -55,7 +55,7 @@
+ 	AFfilehandle	file;
+ 	void		*buffer;
+ 
+-	AFframecount	frameCount;
++	int	frameCount;
+ 	int		sampleFormat, sampleWidth, channelCount;
+ 	float		frameSize;
+ 	double		sampleRate;
+@@ -63,7 +63,7 @@
+ 	int		*loopids, *markids;
+ 	int		i, loopCount, markCount;
+ 	int		startmarkid, endmarkid;
+-	AFframecount	startloop, endloop;
++	int	startloop, endloop;
+ 
+ 	ALport		outport;
+ 	ALconfig	outportconfig;
+@@ -84,11 +84,6 @@
+ 		since the SGI Audio Library won't accept unsigned
+ 		data.
+ 	*/
+-	if (sampleFormat == AF_SAMPFMT_UNSIGNED)
+-	{
+-		afSetVirtualSampleFormat(file, AF_DEFAULT_TRACK,
+-			AF_SAMPFMT_TWOSCOMP, sampleWidth);
+-	}
+ 
+ 	printf("frame count: %lld\n", frameCount);
+ 	printf("frame size: %d bytes\n", frameSize);
