@@ -1,0 +1,11 @@
+--- audiofile-0.2.6/configure.in.dmedia	2006-07-01 14:59:16.489200000 +0200
++++ audiofile-0.2.6/configure.in	2006-07-01 15:00:16.089200000 +0200
+@@ -33,7 +33,7 @@
+ AC_CHECK_LIB(m, ldexp)
+ 
+ dnl Check for the SGI Audio Library function alOpenPort.
+-AC_CHECK_LIB(audio, alOpenPort, AUDIO_LIB=-laudio)
++AC_CHECK_LIB(audio, ALopenport, AUDIO_LIB=-laudio)
+ AC_SUBST(AUDIO_LIB)
+ 
+ dnl Checks for header files.

@@ -1,0 +1,12 @@
+--- audiofile-0.2.6/configure.in.trio	2006-07-01 14:50:30.729200000 +0200
++++ audiofile-0.2.6/configure.in	2006-07-01 14:52:03.429200000 +0200
+@@ -69,6 +69,9 @@
+ AC_FUNC_MEMCMP
+ AC_CHECK_FUNCS(strdup)
+ 
++dnl We need trio for snprintf/vsnprintf
++NEED_TRIO_CHECK
++
+ dnl Set up platform specific stuff
+ platform=none
+ AC_MSG_CHECKING([for platform specific tests to compile])

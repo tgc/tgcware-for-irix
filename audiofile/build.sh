@@ -10,12 +10,13 @@
 # Check the following 4 variables before running the script
 topdir=audiofile
 version=0.2.6
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=audiofile-examples-irix62.patch
-patch[1]=audiofile-0.2.6-audio.patch
-patch[2]=audiofile-0.2.6-underquoted.patch
+patch[1]=audiofile-0.2.6-underquoted.patch
+patch[2]=audiofile-0.2.6-trio.patch
+patch[3]=audiofile-0.2.6-old-dmedia.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -28,6 +29,13 @@ reg prep
 prep()
 {
     generic_prep
+    setdir source
+    $RM -f ltmain.sh
+    libtoolize -f -c
+    aclocal-1.9
+    automake-1.9 -c -f
+    autoconf
+    autoheader
 }
 
 reg build

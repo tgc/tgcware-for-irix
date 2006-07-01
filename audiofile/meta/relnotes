@@ -28,3 +28,10 @@ ERRORS/MISCELLANEOUS
 The included patch fixes up the example programs to work with the older
 pre irix 6.5 audio api.
 Added a patch to fix quoting in the audiofile.m4 file.
+Added patches to fix dmedia probing (alOpenPort -> ALopenport) and
+trio support for snprintf/vsnprintf.
+
+ltmain.sh was updated to 1.5.22
+aclocal.m4 was rebuilt using aclocal-1.9
+Makefile.in was rebuilt using automake-1.9
+configure was rebuilt using autoconf 2.59
