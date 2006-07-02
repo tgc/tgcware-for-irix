@@ -1,0 +1,11 @@
+--- SDL-1.2.11/configure.novisi	2006-07-01 21:32:17.099200000 +0200
++++ SDL-1.2.11/configure	2006-07-01 21:32:43.789200000 +0200
+@@ -25644,7 +25644,7 @@
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }; }; then
+ 
+-    have_gcc_fvisibility=yes
++    have_gcc_fvisibility=no
+ 
+ else
+   echo "$as_me: failed program was:" >&5

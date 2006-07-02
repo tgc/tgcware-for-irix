@@ -31,5 +31,6 @@ $_bindir
 $_includedir
 $_libdir/*.so
 $_libdir/*.a
+$_libdir/pkgconfig/sdl.pc
 $_sharedir/aclocal
 

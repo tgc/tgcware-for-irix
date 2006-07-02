@@ -1,0 +1,45 @@
+--- SDL-1.2.11/test/testgl.c.ogl10	2006-07-02 10:28:22.385200000 +0200
++++ SDL-1.2.11/test/testgl.c	2006-07-02 10:29:45.825200000 +0200
+@@ -225,8 +225,8 @@
+ 	}
+ 
+ 	/* Create an OpenGL texture for the image */
+-	glGenTextures(1, &texture);
+-	glBindTexture(GL_TEXTURE_2D, texture);
++	glGenTexturesEXT(1, &texture);
++	glBindTextureEXT(GL_TEXTURE_2D, texture);
+ 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+ 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+ 	glTexImage2D(GL_TEXTURE_2D,
+@@ -286,7 +286,7 @@
+ 
+ 	/* Show the image on the screen */
+ 	SDL_GL_Enter2DMode();
+-	glBindTexture(GL_TEXTURE_2D, cursor_texture);
++	glBindTextureEXT(GL_TEXTURE_2D, cursor_texture);
+ 	glBegin(GL_TRIANGLE_STRIP);
+ 	glTexCoord2f(texMinX, texMinY); glVertex2i(x,   y  );
+ 	glTexCoord2f(texMaxX, texMinY); glVertex2i(x+w, y  );
+@@ -360,7 +360,7 @@
+ 
+ 	/* Show the image on the screen */
+ 	SDL_GL_Enter2DMode();
+-	glBindTexture(GL_TEXTURE_2D, global_texture);
++	glBindTextureEXT(GL_TEXTURE_2D, global_texture);
+ 	glBegin(GL_TRIANGLE_STRIP);
+ 	glTexCoord2f(texMinX, texMinY); glVertex2i(x,   y  );
+ 	glTexCoord2f(texMaxX, texMinY); glVertex2i(x+w, y  );
+@@ -768,11 +768,11 @@
+ 		global_image = NULL;
+ 	}
+ 	if ( global_texture ) {
+-		glDeleteTextures( 1, &global_texture );
++		glDeleteTexturesEXT( 1, &global_texture );
+ 		global_texture = 0;
+ 	}
+ 	if ( cursor_texture ) {
+-		glDeleteTextures( 1, &cursor_texture );
++		glDeleteTexturesEXT( 1, &cursor_texture );
+ 		cursor_texture = 0;
+ 	}
+ 

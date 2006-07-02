@@ -25,3 +25,8 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+The -fnovisi patch completely disables the -fvisibility=hidden
+support since gcc using the native linker ignores it anyway.
+The -dmedia patch adds an extra compatibility define
+Without the -ifdef patch the build will fail complaining about
+#if with empty condition.

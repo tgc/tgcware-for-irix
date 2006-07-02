@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,17 +9,24 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=SDL
-version=1.2.9
-pkgver=2
+version=1.2.11
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=sdl-1.2.9-dmedia.patch
+patch[1]=sdl-1.2.11-ifdef.patch
+patch[2]=sdl-1.2.11-nofvisi.patch
+patch[3]=sdl-1.2.11-ogl10.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args="$configure_args --enable-x11-shared=no --enable-dga=no"
+
+[ -r $prefix/${_includedir}/X11/extensions/dpms.h ] && { echo "found X.org dpms.h - this will f*ck up the build" ; exit 1 ;}
 
 reg prep
 prep()
