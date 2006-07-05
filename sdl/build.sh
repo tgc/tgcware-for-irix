@@ -21,10 +21,14 @@ patch[3]=sdl-1.2.11-ogl10.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+[ "$_os" = "irix53" ] && patch[4]=sdl-1.2.11-oldX.patch
+#[ "$_os" = "irix53" ] && patch[5]=sdl-1.2.11-force-pth.patch
+
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --enable-x11-shared=no --enable-dga=no"
+#[ "$_os" = "irix53" ] && configure_args="$configure_args --enable-pth"
 
 [ -r $prefix/${_includedir}/X11/extensions/dpms.h ] && { echo "found X.org dpms.h - this will f*ck up the build" ; exit 1 ;}
 

@@ -1,0 +1,10 @@
+--- SDL-1.2.11/src/video/x11/SDL_x11events.c.orig	Sun Jul  2 09:50:24 2006
++++ SDL-1.2.11/src/video/x11/SDL_x11events.c	Sun Jul  2 09:50:35 2006
+@@ -712,7 +712,6 @@
+  	ODD_keymap[XK_dead_iota&0xFF] = SDLK_COMPOSE;
+  	ODD_keymap[XK_dead_voiced_sound&0xFF] = SDLK_COMPOSE;
+  	ODD_keymap[XK_dead_semivoiced_sound&0xFF] = SDLK_COMPOSE;
+- 	ODD_keymap[XK_dead_belowdot&0xFF] = SDLK_COMPOSE;
+ #ifdef XK_dead_hook
+  	ODD_keymap[XK_dead_hook&0xFF] = SDLK_COMPOSE;
+ #endif

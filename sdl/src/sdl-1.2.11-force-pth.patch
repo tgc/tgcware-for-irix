@@ -1,0 +1,11 @@
+--- SDL-1.2.11/configure.pth	Sun Jul  2 12:59:58 2006
++++ SDL-1.2.11/configure	Sun Jul  2 13:05:01 2006
+@@ -29887,7 +29887,7 @@
+         CFLAGS="$ac_save_cflags"; LIBS="$ac_save_libs"
+ 
+         # Do futher testing if we have pthread support...
+-        if test x$use_pthreads = xyes; then
++        if test x$use_pthreads = xno; then
+             cat >>confdefs.h <<\_ACEOF
+ #define SDL_THREAD_PTHREAD 1
+ _ACEOF
