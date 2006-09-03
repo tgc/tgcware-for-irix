@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sylpheed-claws
-version=2.3.0
+version=2.4.0
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -51,6 +51,7 @@ install()
     doc README RELEASE_NOTES TODO AUTHORS COPYING
     setdir ${stagedir}${prefix}/${_libdir}/$topdir
     $RM -f *.la *.a
+    $MV ${stagedir}${prefix}/${_sharedir}/man ${stagedir}${prefix}
 }
 
 reg pack
