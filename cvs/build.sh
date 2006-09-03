@@ -20,6 +20,8 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 export LDFLAGS="-L${prefix}/${_libdir} -Wl,-rpath,${prefix}/${_libdir}"
+shortroot=1
+ignore_deps="tgc_perl5"
 
 reg prep
 prep()
