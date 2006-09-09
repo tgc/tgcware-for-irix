@@ -11,6 +11,11 @@ files(-,root,sys)
 $_bindir
 $_sharedir
 
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/cat1/m4*
+
 [info]
 subsys=man.info
 files(-,root,sys)

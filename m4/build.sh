@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.4
-pkgver=1
+version=1.4.6
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,6 +22,7 @@ source[0]=$topdir-$version.tar.bz2
 export CC=cc
 mipspro=1
 [ "$_os" = "irix53" ] && mipspro=2
+configure_args="$configure_args --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir}"
 
 reg prep
 prep()
@@ -39,12 +40,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    #clean stage
-    #setdir source
-    #${MKDIR} -p ${stagedir}${prefix}
-    #$MAKE_PROG prefix=${stagedir}${prefix} INSTALL_DATA="$GINSTALL -c -m644" install
-    #custom_install=1
-    doc ChangeLog NEWS README
+    doc ChangeLog NEWS README COPYING
 }
 
 reg pack
