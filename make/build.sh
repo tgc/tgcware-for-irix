@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=make
-version=3.80
-pkgver=9
+version=3.81
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -35,7 +35,7 @@ install()
 {
     generic_install DESTDIR
     $RM -f ${stagedir}${prefix}/${_infodir}/dir
-    doc README NEWS
+    doc README NEWS COPYING AUTHORS
     setdir ${stagedir}${prefix}/${_bindir}
     $LN -s make gmake
 }
