@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=0.6.3
+version=0.6.6
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware --enable-nls --enable-rpath'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware --enable-nls --enable-rpath'
 
 reg prep
 prep()
