@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gnupg
-version=1.4.3
+version=1.4.5
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
