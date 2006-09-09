@@ -32,6 +32,6 @@ subsys=sw.dev
 files(-,root,sys)
 $_includedir
 $_libdir/*.so
-$_libdir/*.a
+$_libdir/pkgconfig/*.pc
 $_bindir/curl-config
 

@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.15.0
+version=7.15.5
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -21,7 +21,8 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-http --enable-ftp --enable-file --enable-manual --disable-ipv6 --enable-cookies --enable-crypto --with-egd-socket=/var/run/egd-pool --with-libidn'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --enable-static=no --enable-http --enable-ftp --enable-file --enable-manual --disable-ipv6 --enable-cookies --enable-crypto --with-egd-socket=/var/run/egd-pool --with-libidn'
+ac_overrides="ac_cv_func_inet_pton=no ac_cv_have_decl_inet_pton=no"
 
 reg prep
 prep()
@@ -29,7 +30,7 @@ prep()
     generic_prep
     # We can't use inet_pton on Irix 6.2 even though it's in libc.
     setdir source
-    $GSED -i '/inet_pton/d' configure
+    $GSED -i '/inet_pton \\/d' configure
 }
 
 reg build
