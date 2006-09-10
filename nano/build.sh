@@ -18,6 +18,9 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
+[ "$_os" = "irix53" ] && patch[0]=nano-1.2.5-regex.patch
+[ "$_os" = "irix53" ] && patch[1]=nano-1.2.5-usleep.patch
+
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
@@ -27,6 +30,13 @@ reg prep
 prep()
 {
     generic_prep
+    if [ "$_os" = "irix53" ]; then
+	setdir source
+	aclocal-1.9 -I m4
+	automake-1.9 --gnu
+	autoheader
+	autoconf
+    fi
 }
 
 reg build

@@ -1,0 +1,20 @@
+--- nano-1.2.5.hacked/winio.c.usleep	Sun Sep 10 13:23:44 2006
++++ nano-1.2.5.hacked/winio.c	Sun Sep 10 13:47:17 2006
+@@ -30,6 +30,17 @@
+ #include "proto.h"
+ #include "nano.h"
+ 
++void usleep (unsigned int usec)
++{
++        struct timeval timeout;
++
++        timeout.tv_sec = (time_t) 0;
++        timeout.tv_usec = usec;
++
++        select (0, NULL, NULL, NULL, &timeout);
++
++}
++
+ static int statblank = 0;	/* Number of keystrokes left after
+ 				   we call statusbar(), before we
+ 				   actually blank the statusbar */

@@ -1,0 +1,33 @@
+--- nano-1.2.5.hacked/configure.ac.regex	Sat Sep  9 18:53:38 2006
++++ nano-1.2.5.hacked/configure.ac	Sat Sep  9 19:02:09 2006
+@@ -37,7 +37,7 @@
+ 
+ dnl Checks for header files.
+ AC_HEADER_STDC
+-AC_CHECK_HEADERS(fcntl.h getopt.h libintl.h limits.h regex.h termio.h termios.h unistd.h)
++AC_CHECK_HEADERS(fcntl.h getopt.h libintl.h limits.h regex.h pcreposix.h termio.h termios.h unistd.h)
+ AC_CHECK_HEADER(regex.h,
+     AC_MSG_CHECKING([for broken regexec])
+     AC_TRY_RUN([
+@@ -48,6 +48,8 @@
+ 	AC_MSG_RESULT(yes); AC_DEFINE(BROKEN_REGEXEC, 1, [Define this if your regexec() function segfaults when passed an empty string under certain conditions.])
+     )
+ )
++AC_SEARCH_LIBS(regfree, [regex gnuregex pcreposix],
++       :, AC_MSG_ERROR([POSIX regex required.]))
+ 
+ dnl options
+ AC_ARG_ENABLE(debug, 
+--- nano-1.2.5.hacked/proto.h.regex	Sat Sep  9 19:29:38 2006
++++ nano-1.2.5.hacked/proto.h	Sat Sep  9 19:30:43 2006
+@@ -26,6 +26,10 @@
+ #ifdef HAVE_REGEX_H
+ #include <regex.h>
+ #endif
++#if defined(HAVE_PCREPOSIX_H) && !defined(HAVE_REGEX_H)
++# define HAVE_REGEX_H
++# include <pcreposix.h>
++#endif
+ 
+ #include "nano.h"
+ 
