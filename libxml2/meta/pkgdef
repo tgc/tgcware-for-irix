@@ -14,6 +14,7 @@ $_docdir/$topdir-$version/TODO*
 $_docdir/$topdir-$version/README
 $_docdir/$topdir-$version/NEWS
 $_docdir/$topdir-$version/Copyright
+$_docdir/$topdir-$version/COPYING
 
 [lib]
 subsys=sw.lib
@@ -25,6 +26,7 @@ subsys=man.doc
 files(-,root,sys)
 $_docdir/$topdir-$version/html
 $_docdir/$topdir-$version/examples
+$_sharedir/gtk-doc
 
 [man]
 subsys=man.man

@@ -25,3 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+Irix 6.2 has pthread_equal but it's just defined as a simple comparison macro
+in pthreads.h since pthread_t is just an __uint32_t.
+Unfortunately libxml2 seems to assume it's a function so I had to whip up a
+little wrapper.

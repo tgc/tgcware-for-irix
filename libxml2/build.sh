@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libxml2
-version=2.6.17
-pkgver=2
+version=2.6.26
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=testapi-libxml_h.patch
+patch[0]=libxml2-2.6.26-irix62-pthreads.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -21,6 +21,7 @@ patch[0]=testapi-libxml_h.patch
 # Global settings
 export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
 export CPPFLAGS="-I$prefix/include"
+configure_args="$configure_args --without-python"
 
 reg prep
 prep()
@@ -38,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README NEWS TODO TODO_SCHEMAS
+    doc README NEWS TODO TODO_SCHEMAS COPYING
 }
 
 reg pack
