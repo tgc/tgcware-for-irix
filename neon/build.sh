@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=neon
-version=0.25.5
+version=0.26.1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-ssl=openssl --with-egd=/var/run/egd-pool --disable-static --enable-shared"
+configure_args="$configure_args --with-ssl=gnutls --with-egd=/var/run/egd-pool --disable-static --enable-shared"
 
 reg prep
 prep()
@@ -39,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS BUGS NEWS README THANKS TODO src/COPYING.LIB
+    doc AUTHORS BUGS NEWS README THANKS TODO src/COPYING.LIB test/COPYING
 }
 
 reg pack

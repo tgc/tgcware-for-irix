@@ -9,6 +9,7 @@ shortdesc="A HTTP and WebDAV client library"
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
+$_sharedir/locale
 $_docdir/*/AUTHORS
 $_docdir/*/BUGS
 $_docdir/*/NEWS
@@ -16,6 +17,7 @@ $_docdir/*/README
 $_docdir/*/THANKS
 $_docdir/*/TODO
 $_docdir/*/src
+$_docdir/*/test
 
 [man]
 subsys=man.man
