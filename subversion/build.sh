@@ -9,12 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=subversion
-version=1.3.1
+version=1.4.0
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=subversion-1.3.1-neon.patch
-patch[1]=subversion-1.3.1-norpath.patch
+patch[0]=subversion-1.4.0-norpath.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -31,6 +30,7 @@ prep()
 {
     generic_prep
     setdir source
+    $GSED -i 's/la-file/libs/g' build/ac-macros/neon.m4
     autoconf
 }
 
@@ -45,7 +45,6 @@ install()
 {
     generic_install DESTDIR
     doc CHANGES COPYING INSTALL README COMMITTERS BUGS
-    $RMDIR ${stagedir}${prefix}/${_infodir}
 }
 
 reg pack
