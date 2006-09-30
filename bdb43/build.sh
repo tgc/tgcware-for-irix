@@ -10,10 +10,10 @@
 # Check the following 4 variables before running the script
 topdir=db
 version=4.3.29
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=patch.4.3.29.1
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -25,6 +25,7 @@ export CC=gcc
 configure_args="$configure_args --enable-compat185"
 __configure="../dist/configure"
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket=no ac_cv_lib_socket_main=no"
+patch_prefix=-p0
 
 reg prep
 prep()
