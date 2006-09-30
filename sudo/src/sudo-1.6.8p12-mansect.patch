@@ -1,0 +1,26 @@
+--- sudo-1.6.8p12/configure.in.tgcware	2006-09-30 14:16:36.944800000 +0200
++++ sudo-1.6.8p12/configure.in	2006-09-30 14:16:55.284800000 +0200
+@@ -1578,8 +1578,8 @@
+ dnl
+ dnl Use BSD-style man sections by default
+ dnl
+-test -n "$mansectsu" || mansectsu=8
+-test -n "$mansectform" || mansectform=5
++mansectsu=8
++mansectform=5
+ 
+ dnl
+ dnl Add in any libpaths or libraries specified via configure
+--- sudo-1.6.8p12/configure.tgcware	2006-09-30 14:26:52.054800000 +0200
++++ sudo-1.6.8p12/configure	2006-09-30 14:27:24.190438000 +0200
+@@ -21071,8 +21071,8 @@
+ fi
+ 
+ 		fi
+-		test -n "$mansectsu" || mansectsu=1m
+-		test -n "$mansectform" || mansectform=4
++		test -n "$mansectsu" || mansectsu=8
++		test -n "$mansectform" || mansectform=5
+ 		;;
+     *-*-linux*)
+ 		# Some Linux versions need to link with -lshadow

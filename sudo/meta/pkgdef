@@ -1,0 +1,25 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gratisoft.us/sudo/"
+shortdesc="Allows restricted root access for specified users"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$pkgdefprefix/$_sharedir
+$pkgdefprefix/libexec/*
+dir var/run
+files(0440,root,root)
+$pkgdefprefix/$_sysconfdir/sudoers
+files(0111,root,root)
+$pkgdefprefix/$_sbindir
+files(4111,root,root)
+$pkgdefprefix/$_bindir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$pkgdefprefix/$_mandir/?a?[12456789]
+
