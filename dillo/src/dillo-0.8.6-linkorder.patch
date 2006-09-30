@@ -1,0 +1,11 @@
+--- dillo-0.8.6/dpid/Makefile.in.linkorder	2006-09-30 11:34:13.050800000 +0200
++++ dillo-0.8.6/dpid/Makefile.in	2006-09-30 11:34:34.980800000 +0200
+@@ -184,7 +184,7 @@
+ target_vendor = @target_vendor@
+ AM_CPPFLAGS = -DDPIDRC_SYS='"$(sysconfdir)/dpidrc"'
+ AM_CFLAGS = @GLIB_CFLAGS@
+-dpid_LDADD = @GLIB_LIBS@ ../dpip/libDpip.a
++dpid_LDADD = ../dpip/libDpip.a @GLIB_LIBS@
+ EXTRA_DIST = dpidc
+ bin_SCRIPTS = dpidc
+ dpid_SOURCES = \
