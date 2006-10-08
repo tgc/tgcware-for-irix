@@ -1,0 +1,11 @@
+--- rdesktop-1.4.1/rdesktop.c.orig	Sat Jun 24 12:54:08 2006
++++ rdesktop-1.4.1/rdesktop.c	Sat Jun 24 12:56:48 2006
+@@ -716,7 +716,7 @@
+ 	{
+ 		if (setlocale(LC_CTYPE, ""))
+ 		{
+-			STRNCPY(g_codepage, nl_langinfo(CODESET), sizeof(g_codepage));
++			STRNCPY(g_codepage, "C", sizeof(g_codepage));
+ 		}
+ 		else
+ 		{
