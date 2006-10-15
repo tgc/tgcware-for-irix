@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bash
-version=3.1
+version=3.2
 pkgver=1
 source[0]=bash-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=bash31-001
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -22,19 +22,24 @@ patch[0]=bash31-001
 patchdir=$srcfiles
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-#export CC=cc
 configure_args="--prefix=$prefix --disable-rpath"
-#mipspro=1
+export CC=cc
+[ "$_os" = "irix62" ] && mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
 {
-    clean source
-    unpack 0
-    for ((i=0; i<patchcount; i++))
-    do
-	patch $i -p0
-    done
+    generic_prep
+# No patches for 3.2 yet
+#    clean source
+#    unpack 0
+#    for ((i=0; i<patchcount; i++))
+#    do
+#	patch $i -p0
+#    done
+    setdir source
+    $RM -f po/ru.po
 }
 
 reg build
@@ -48,7 +53,6 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS CHANGES COMPAT NEWS POSIX RBASH README COPYING
-    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
