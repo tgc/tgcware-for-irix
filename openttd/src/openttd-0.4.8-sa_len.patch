@@ -1,0 +1,11 @@
+--- openttd-0.4.8/network.c.sa_len	2006-10-21 12:24:32.258400000 +0200
++++ openttd-0.4.8/network.c	2006-10-21 13:02:49.122400000 +0200
+@@ -441,7 +441,7 @@
+ 
+ 		p += sizeof(struct ifreq);
+ #ifdef AF_LINK
+-		p += req->ifr_addr.sa_len - sizeof(struct sockaddr);
++		p += _MAX_SA_LEN - sizeof(struct sockaddr);
+ #endif
+ 	}
+ #endif

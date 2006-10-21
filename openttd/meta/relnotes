@@ -29,3 +29,5 @@ I had to rename a variable (_pause) since it apparently clashes with something
 in libc.
 I added a few compat defines for the network stuff (socklen_t & in_addr_t).
 Added trio support to cover snprintf/vsnprintf.
+Irix 6.2 doesn't have sa_len member in sockaddr struct so I used _MAX_SA_LEN
+instead.

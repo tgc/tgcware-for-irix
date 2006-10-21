@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,14 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openttd
-version=0.4.5
+version=0.4.8
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=$topdir-$version-source.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=openttd-0.4.5-compat.patch
-patch[1]=openttd-0.4.5-pause.patch
-patch[2]=openttd-0.4.5-makefile.patch
-patch[3]=openttd-0.4.5-icondir.patch
+patch[1]=openttd-0.4.7-pause.patch
+patch[2]=openttd-0.4.8-makefile.patch
+patch[3]=openttd-0.4.8-sa_len.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions

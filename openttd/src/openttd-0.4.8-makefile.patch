@@ -1,0 +1,11 @@
+--- openttd-0.4.8/Makefile.orig	2006-10-21 12:00:50.298400000 +0200
++++ openttd-0.4.8/Makefile	2006-10-21 12:01:40.358400000 +0200
+@@ -792,7 +792,7 @@
+ # OSX links in os/macosx/Makefile to handle universal binaries better
+ $(TTD): $(OBJS) $(MAKE_CONFIG)
+ 	@echo '===> Linking $@'
+-	$(Q)$(CC) $(LDFLAGS) $(TTDLDFLAGS) $(OBJS) $(LIBS) -o $@
++	$(Q)$(CC) $(OBJS) $(LDFLAGS) $(TTDLDFLAGS) $(LIBS) -o $@
+ endif
+ 
+ $(STRGEN): strgen/strgen.c endian_host.h
