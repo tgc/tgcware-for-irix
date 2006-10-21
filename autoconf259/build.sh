@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=autoconf
 version=2.59
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export PERL=/usr/tgcware/bin/perl
+configure_args="$configure_args --program-suffix=-$version"
 
 reg prep
 prep()
@@ -37,7 +37,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
+    ${RM} -rf ${stagedir}${prefix}/${_infodir}
+    ${RM} -rf ${stagedir}${prefix}/${_mandir}
     doc ChangeLog NEWS README COPYING TODO THANKS BUGS AUTHORS
 }
 
