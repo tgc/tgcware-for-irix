@@ -1,0 +1,12 @@
+--- sylpheed-claws-2.5.6/src/etpan/imap-thread.c.socket	2006-10-21 16:39:34.866400000 +0200
++++ sylpheed-claws-2.5.6/src/etpan/imap-thread.c	2006-10-21 16:39:42.746400000 +0200
+@@ -8,9 +8,7 @@
+ #include <imap.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#if (defined(__DragonFly__) || defined (__NetBSD__) || defined (__FreeBSD__) || defined (__OpenBSD__) || defined (__CYGWIN__))
+ #include <sys/socket.h>
+-#endif
+ #include <fcntl.h>
+ #include <sys/mman.h>
+ #include <sys/wait.h>

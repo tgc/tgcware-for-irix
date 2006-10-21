@@ -9,12 +9,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sylpheed-claws
-version=2.4.0
+version=2.5.6
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=sylpheed-claws-2.2.0-maxdname.patch
-patch[1]=sylpheed-claws-2.2.0-socket_h.patch
+patch[1]=sylpheed-claws-2.5.6-socket_h.patch
 patch[2]=sylpheed-claws-2.2.0-morechecks.patch
 patch[3]=sylpheed-claws-2.2.0-setenv.patch
 
@@ -32,10 +32,10 @@ prep()
 {
     generic_prep
     setdir source
-    aclocal-1.9 -I m4
-    automake-1.9
+    aclocal-1.10 -I m4
+    automake-1.10
     autoheader
-    autoconf
+    autoconf # 2.60
 }
 
 reg build
@@ -49,9 +49,10 @@ install()
 {
     generic_install DESTDIR
     doc README RELEASE_NOTES TODO AUTHORS COPYING
-    setdir ${stagedir}${prefix}/${_libdir}/$topdir
-    $RM -f *.la *.a
-    $MV ${stagedir}${prefix}/${_sharedir}/man ${stagedir}${prefix}
+    setdir ${stagedir}${prefix}/${_libdir}
+    $FIND . -name '*.la' | xargs rm -f
+    $FIND . -name '*.a' | xargs rm -f
+
 }
 
 reg pack
