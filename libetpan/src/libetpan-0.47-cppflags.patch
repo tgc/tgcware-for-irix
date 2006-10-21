@@ -1,14 +1,14 @@
---- libetpan-0.45/src/Makefile.in.cppflags	2006-05-12 18:58:07.323607000 +0200
-+++ libetpan-0.45/src/Makefile.in	2006-05-12 18:59:07.289611000 +0200
-@@ -17,6 +17,7 @@
+--- libetpan-0.47/src/Makefile.in.cppflags	2006-10-21 17:03:29.730400000 +0200
++++ libetpan-0.47/src/Makefile.in	2006-10-21 17:03:58.370400000 +0200
+@@ -16,6 +16,7 @@
+ VERSINFO    = @API_VERSION@
  CC          = @CC@
- LDFLAGS     = @LDFLAGS@ @LIBS@ @SSLLIBS@ @LIBICONV@ \
- 	@DBLIB@ @GNUTLSLIB@ @SASLLIBS@
+ LDFLAGS     = @LDFLAGS@ @LIBS@ @SSLLIBS@ @LIBICONV@ @DBLIB@ @GNUTLSLIB@ @SASLLIBS@
 +CPPFLAGS    = @CPPFLAGS@
  
  SUBLIBS = data-types/libdata-types.la \
  	low-level/liblow-level.la \
-@@ -35,7 +36,7 @@
+@@ -34,7 +35,7 @@
  all: $(TARGET)
  
  $(TARGET): Makefile $(SUBLIBS)

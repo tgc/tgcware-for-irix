@@ -1,0 +1,26 @@
+--- libetpan-0.47/src/Makefile.in.triolib	2006-10-21 17:07:02.510400000 +0200
++++ libetpan-0.47/src/Makefile.in	2006-10-21 17:07:31.040400000 +0200
+@@ -15,7 +15,7 @@
+ 
+ VERSINFO    = @API_VERSION@
+ CC          = @CC@
+-LDFLAGS     = @LDFLAGS@ @LIBS@ @SSLLIBS@ @LIBICONV@ @DBLIB@ @GNUTLSLIB@ @SASLLIBS@
++LDFLAGS     = @LDFLAGS@ @LIBS@ @SSLLIBS@ @LIBICONV@ @DBLIB@ @GNUTLSLIB@ @SASLLIBS@ @TRIOLIB@
+ CPPFLAGS    = @CPPFLAGS@
+ 
+ SUBLIBS = data-types/libdata-types.la \
+--- libetpan-0.47/configure.in.triolib	2006-10-21 17:07:43.390400000 +0200
++++ libetpan-0.47/configure.in	2006-10-21 17:08:03.320400000 +0200
+@@ -73,6 +73,12 @@
+ 
+ dnl we need snprintf
+ NEED_TRIO_CHECK
++if test "x$ac_cv_need_trio" != "xno"; then
++    TRIOLIB="-ltrio"
++else
++    TRIOLIB=""
++fi
++AC_SUBST(TRIOLIB)
+ 
+ dnl Network libs
+ AC_CHECK_FUNC(connect, checksocket=no, checksocket=yes)

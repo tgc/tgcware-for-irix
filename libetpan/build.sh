@@ -9,15 +9,15 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libetpan
-version=0.45
+version=0.47
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libetpan-0.45-trio.patch
 patch[1]=libetpan-0.45-typo.patch
 patch[2]=libetpan-0.45-ldflags.patch
-patch[3]=libetpan-0.45-cppflags.patch
-patch[4]=libetpan-0.45-triolib.patch
+patch[3]=libetpan-0.47-cppflags.patch
+patch[4]=libetpan-0.47-triolib.patch
 patch[5]=libetpan-0.45-trio-includes.patch
 patch[6]=libetpan-0.45-setenv.patch
 
@@ -27,7 +27,7 @@ patch[6]=libetpan-0.45-setenv.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --with-openssl=no --with-gnutls"
+configure_args="$configure_args --disable-static --with-openssl=no --with-gnutls --disable-ipv6"
 
 reg prep
 prep()
