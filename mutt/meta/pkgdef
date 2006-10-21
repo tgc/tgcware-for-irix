@@ -1,0 +1,19 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.mutt.org"
+shortdesc="A small but very powerful text-based mail client"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+$_sysconfdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
