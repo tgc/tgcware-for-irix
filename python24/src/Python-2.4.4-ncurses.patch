@@ -1,5 +1,5 @@
---- Python-2.4.3/Include/py_curses.h.ncurses	2006-04-16 17:26:46.913810000 +0200
-+++ Python-2.4.3/Include/py_curses.h	2006-04-16 17:27:10.913810000 +0200
+--- Python-2.4.4/Include/py_curses.h.ncurses	2006-11-04 13:20:17.251200000 +0100
++++ Python-2.4.4/Include/py_curses.h	2006-11-04 13:20:32.591200000 +0100
 @@ -39,8 +39,8 @@
  #endif
  #endif
@@ -20,8 +20,8 @@
  /* configure was checking <curses.h>, but we will
     use <ncurses.h>, which has all these features. */
  #ifndef WINDOW_HAS_FLAGS
---- Python-2.4.3/Modules/_cursesmodule.c.ncurses	2006-04-16 17:26:46.933810000 +0200
-+++ Python-2.4.3/Modules/_cursesmodule.c	2006-04-16 17:29:00.243810000 +0200
+--- Python-2.4.4/Modules/_cursesmodule.c.ncurses	2006-11-04 13:20:17.291200000 +0100
++++ Python-2.4.4/Modules/_cursesmodule.c	2006-11-04 13:20:32.611200000 +0100
 @@ -117,11 +117,11 @@
      curses module in other ways.  So the code will just specify 
      explicit prototypes here. */
@@ -45,8 +45,8 @@
  #define py_mvwdelch mvwdelch
  #else
  int py_mvwdelch(WINDOW *w, int y, int x)
---- Python-2.4.3/Modules/_curses_panel.c.ncurses	2006-04-16 17:26:46.943810000 +0200
-+++ Python-2.4.3/Modules/_curses_panel.c	2006-04-16 17:27:10.933810000 +0200
+--- Python-2.4.4/Modules/_curses_panel.c.ncurses	2006-11-04 13:20:17.361200000 +0100
++++ Python-2.4.4/Modules/_curses_panel.c	2006-11-04 13:20:32.611200000 +0100
 @@ -14,7 +14,11 @@
  
  #include "py_curses.h"
@@ -59,14 +59,14 @@
  
  static PyObject *PyCursesError;
  
---- Python-2.4.3/configure.in.ncurses	2006-04-16 17:26:46.953810000 +0200
-+++ Python-2.4.3/configure.in	2006-04-16 17:27:10.943810000 +0200
-@@ -986,7 +986,7 @@
+--- Python-2.4.4/configure.in.ncurses	2006-11-04 13:20:17.391200000 +0100
++++ Python-2.4.4/configure.in	2006-11-04 13:20:52.671200000 +0100
+@@ -1054,7 +1054,7 @@
  # checks for header files
  AC_HEADER_STDC
  AC_CHECK_HEADERS(curses.h dlfcn.h fcntl.h grp.h langinfo.h \
 -libintl.h ncurses.h poll.h pthread.h \
 +libintl.h ncurses/ncurses.h poll.h pthread.h \
- stropts.h termios.h thread.h \
+ stdint.h stropts.h termios.h thread.h \
  unistd.h utime.h \
  sys/audioio.h sys/bsdtty.h sys/file.h sys/loadavg.h sys/lock.h sys/mkdev.h \

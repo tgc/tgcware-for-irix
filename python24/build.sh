@@ -9,14 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=Python
-version=2.4.3
-pkgver=4
+version=2.4.4
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=Python-2.4.2-tgcware.patch
 patch[1]=Python-2.4.3-irix-shared.patch
 patch[2]=Python-2.4.3-linker.patch
-patch[3]=Python-2.4.3-ncurses.patch
+patch[3]=Python-2.4.4-ncurses.patch
 patch[4]=Python-2.4.3-irixld.patch
 
 # Source function library
@@ -30,7 +30,7 @@ export CXX=g++
 export LDSHARED="$CC -shared -all"
 unset SGI_ABI
 ac_overrides="ac_cv_lib_socket_socket=no"
-configure_args="--prefix=$prefix --enable-shared --disable-ipv6"
+configure_args="$configure_args --enable-shared --disable-ipv6"
 
 reg prep
 prep()
