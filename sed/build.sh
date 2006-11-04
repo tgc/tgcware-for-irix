@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sed
-version=4.1.4
-pkgver=2
+version=4.1.5
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -38,9 +38,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_infodir}/dir
     $RM -rf ${stagedir}${prefix}/${_libdir}
-    doc NEWS ChangeLog BUGS
+    doc NEWS ChangeLog BUGS COPYING
 }
 
 reg pack
