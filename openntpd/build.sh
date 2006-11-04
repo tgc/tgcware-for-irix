@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openntpd
-version=3.7p1
-pkgver=2
+version=3.9p1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openntpd-3.7p1-nochown.patch
