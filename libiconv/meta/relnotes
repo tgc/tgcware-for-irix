@@ -27,3 +27,8 @@ ERRORS/MISCELLANEOUS
 --------------------
 There's a circular dependency here since gettext in turn
 depends on libiconv
+
+Argh! libiconv 1.11 ends up trying to link the newly built iconv command with the already
+installed libiconv library in /usr/tgcware/lib. This ofcourse fails :(
+To make the final package I first had to do one without the iconv command, install it and
+then rebuild and install again allowing the iconv to link correctly.
