@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=sylpheed-claws
 version=2.5.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=sylpheed-claws-2.2.0-maxdname.patch

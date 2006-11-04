@@ -26,3 +26,14 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 A bit of patching required mostly in the etpan dir.
+
+NOTE!
+If you previously installed sylpeed-claws-2.5.6-1 then please
+do this:
+upgrade to sylpheed-claws 2.5.6-2
+remove tgc_bdb44*
+reinstal tgc_bdb43
+
+The db-4.4.20 (tgc_bdb44) package has been removed as it erroneusly
+overwrites part of the files delivered with db-4.3.29 (tgc_bdb43)
+which cause trouble.
