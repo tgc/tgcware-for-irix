@@ -43,3 +43,6 @@ The daemon is controlled via /etc/init.d/tgc_sshd and automatic startup
 can be configured in the usual way with chkconfig.
 
 NOTE: Without prngd openssh will have to generate it's own entropy.
+
+Irix 5.3 specific:
+I had to build with gcc since SGI cc would bomb out with include errors.

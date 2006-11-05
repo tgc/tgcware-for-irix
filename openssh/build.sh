@@ -17,8 +17,6 @@ source[0]=$topdir-$version.tar.gz
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-[ "$_os" = "irix53" ] && patch[0]=openssh-4.3p2-irix-res.patch
-
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
 
@@ -28,7 +26,10 @@ export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib"
 export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
 configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --mandir=$prefix/${_mandir} --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool'
 mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
+if [ "$_os" = "irix53" ]; then
+    export CC=gcc
+    mipspro=0
+fi
 # It uses ac_cv_lib_gen_dirname=yes but that is okay
 check_ac=0
 

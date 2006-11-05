@@ -15,6 +15,8 @@ ${lprefix}/${_sharedir}/openssh/Ssh.bin
 ${lprefix}/$_docdir
 ${lprefix}/${_mandir}/cat1/ssh-keygen.1.*
 ${lprefix}/${_mandir}/cat8/ssh-keysign.8.*
+dir ${lprefix}/$_vdocdir/samples
+dir ${lprefix}/$_vdocdir/contrib
 
 [server]
 subsys=sw.server
