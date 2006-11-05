@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=Python
 version=2.4.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=Python-2.4.2-tgcware.patch
@@ -18,6 +18,8 @@ patch[1]=Python-2.4.3-irix-shared.patch
 patch[2]=Python-2.4.3-linker.patch
 patch[3]=Python-2.4.4-ncurses.patch
 patch[4]=Python-2.4.3-irixld.patch
+patch[5]=Python-2.4.3-cppflags.patch
+patch[6]=Python-2.4.3-ldflags.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -37,6 +39,7 @@ prep()
 {
     generic_prep
     setdir source
+    [ "$_os" = "irix53" ] && $GSED -i 's/N32//' configure.in
     autoheader
     autoconf
 }

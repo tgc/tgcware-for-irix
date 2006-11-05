@@ -1,0 +1,15 @@
+--- Python-2.4.3/Makefile.pre.in.ldflags	Sun Apr 30 17:56:28 2006
++++ Python-2.4.3/Makefile.pre.in	Sun Apr 30 17:57:10 2006
+@@ -352,10 +352,10 @@
+ 
+ libpython$(VERSION).so: $(LIBRARY_OBJS)
+ 	if test $(INSTSONAME) != $(LDLIBRARY); then \
+-		$(LDSHARED) -Wl,-soname,$(INSTSONAME) -Wl,-set_version,sgi$(SOVERSION) -o $(INSTSONAME) $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
++		$(LDSHARED) $(LDFLAGS) -Wl,-soname,$(INSTSONAME) -Wl,-set_version,sgi$(SOVERSION) -o $(INSTSONAME) $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
+ 		$(LN) -f $(INSTSONAME) $@; \
+ 	else\
+-		$(LDSHARED) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
++		$(LDSHARED) $(LDFLAGS) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM); \
+ 	fi
+ 
+ libpython$(VERSION).sl: $(LIBRARY_OBJS)

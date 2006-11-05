@@ -1,0 +1,11 @@
+--- Python-2.4.3/Makefile.pre.in.cppflags	Sun Apr 30 13:04:42 2006
++++ Python-2.4.3/Makefile.pre.in	Sun Apr 30 13:05:03 2006
+@@ -56,7 +56,7 @@
+ OPT=		@OPT@
+ BASECFLAGS=	@BASECFLAGS@
+ CFLAGS=		$(BASECFLAGS) $(OPT)
+-CPPFLAGS=	-I. -I$(srcdir)/Include
++CPPFLAGS=	-I. -I$(srcdir)/Include @CPPFLAGS@
+ LDFLAGS=	@LDFLAGS@
+ LDLAST=		@LDLAST@
+ SGI_ABI=	@SGI_ABI@
