@@ -9,10 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=4.4p1
+version=4.5p1
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
