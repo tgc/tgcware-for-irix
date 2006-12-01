@@ -21,10 +21,16 @@ patch[2]=xsnow-1.42-ldpostlib.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-configure_args="-n32 -mips3 -a"
 __configure="xmkmf"
-mipspro=1
 check_ac=0
+if [ "$_os" = "irix62" ]; then
+configure_args="-n32 -mips3 -a"
+mipspro=1
+fi
+if [ "$_os" = "irix53" ]; then
+    configure_args="-32 -a"
+    mipspro=2
+fi
 
 reg prep
 prep()
