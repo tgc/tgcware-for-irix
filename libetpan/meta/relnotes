@@ -31,8 +31,9 @@ Adding trio support was painful and required way too much patching.
 All in all this was just way too much work :(
 
 NOTE!
-If you previously installed libetpan-0.47-1 then please do this:
-upgrade to libetpan-0.47-2
+If you previously installed libetpan-0.47-1 or you're upgrading from 0.47-1
+then please do this:
+upgrade to libetpan-0.47-2 or later
 remove tgc_bdb44*
 (re)install tgc_bdb43*
 
