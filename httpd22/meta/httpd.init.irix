@@ -1,0 +1,68 @@
+#!/bin/sh
+##
+## Start or stop the HTTPD daemon
+##
+## Set custom options in /etc/config/tgc_@@FLAVOUR@@.options to override
+## default configuration
+
+IS_ON=/etc/chkconfig
+HTTPD=@@BASEPATH@@/bin/httpd
+APCTL=@@BASEPATH@@/bin/apachectl
+CONFIG=/etc/config/tgc_@@FLAVOUR@@.options
+pidfile=@@BASEPATH@@/logs/httpd.pid
+
+OPTIONS=
+if test -r $CONFIG; then
+    OPTIONS=`cat $CONFIG`
+fi
+
+if $IS_ON verbose; then
+    ECHO=echo
+else
+    ECHO=:
+fi
+
+kill_httpd()
+{
+	if [ -r $pidfile ]; then
+	    httpd_pid=`cat $pidfile`
+	    ps -p $httpd_pid | grep httpd > /dev/null
+	    if [ $? -eq 0 ]; then
+		/usr/bin/kill -15 -$httpd_pid
+	    fi
+	fi
+}
+
+case "$1" in
+    start)
+	kill_httpd
+	if $IS_ON tgc_@@FLAVOUR@@ && test -x $HTTPD; then
+	    $ECHO "Starting @@FLAVOUR@@:\c"
+	    $HTTPD $OPTIONS
+	    $ECHO "."
+	fi
+	;;
+
+    restart)
+	if $IS_ON tgc_@@FLAVOUR@@ && test -x $HTTPD && $HTTPD $OPTIONS -t > /dev/null 2>&1; then
+	    $ECHO "Restarting @@FLAVOUR@@:\c"
+	    $HTTPD $OPTIONS -k $1
+	    $ECHO "."
+	fi
+	;;
+
+    stop)
+	$ECHO "Stopping @@FLAVOUR@@:\c"
+	kill_httpd
+	$ECHO "."
+	exit 0
+	;;
+
+    graceful|configtest|fullstatus)
+	$APCTL $@
+	;;
+    *)
+	echo "usage: $0 {start|stop|restart|graceful|configtest|fullstatus}"
+	;;
+esac
+
