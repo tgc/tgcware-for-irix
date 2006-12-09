@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=7
+pkgver=8
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
@@ -78,6 +78,9 @@ install()
 
     # Adjust prngd path in initscript
     $GSED -i "/^PRNGD_BIN/s|=.*|=${prefix}/${_sbindir}/prngd|" ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
+
+    # Dont overwrite prngd-seed on upgrade
+    echo "${prefix#/*}/${_sysconfdir}/prngd/prngd-seed config(noupdate)" >> $metadir/ops
 
     doc 00DESIGN 00README 00README.gatherers ChangeLog
 
