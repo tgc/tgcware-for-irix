@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=apr-util
-version=1.2.7
-pkgver=1
+version=1.2.8
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.bz2
 apuver=1
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-apr=${prefix} --includedir=${prefix}/${_includedir}/apr-${apuver} --with-expat=${prefix} --with-berkeley-db=${prefix} --with-iconv=${prefix}"
+configure_args="$configure_args --with-apr=${prefix} --includedir=${prefix}/${_includedir}/apr-${apuver} --with-expat=${prefix} --with-berkeley-db=${prefix} --with-iconv=${prefix} --with-ldap --with-ldap-include=${prefix}/${_includedir} --with-ldap-lib=${prefix}/${_libdir}"
 
 reg prep
 prep()
