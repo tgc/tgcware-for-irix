@@ -10,10 +10,14 @@
 # Check the following 4 variables before running the script
 topdir=bash
 version=3.2
-pkgver=1
+pkgver=2
 source[0]=bash-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=bash32-001
+patch[1]=bash32-002
+patch[2]=bash32-003
+patch[3]=bash32-004
+patch[4]=bash32-005
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -26,20 +30,12 @@ configure_args="--prefix=$prefix --disable-rpath"
 export CC=cc
 [ "$_os" = "irix62" ] && mipspro=1
 [ "$_os" = "irix53" ] && mipspro=2
+patch_prefix="-p0"
 
 reg prep
 prep()
 {
     generic_prep
-# No patches for 3.2 yet
-#    clean source
-#    unpack 0
-#    for ((i=0; i<patchcount; i++))
-#    do
-#	patch $i -p0
-#    done
-    setdir source
-    $RM -f po/ru.po
 }
 
 reg build
