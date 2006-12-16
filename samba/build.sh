@@ -10,15 +10,16 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=samba
-version=3.0.22
-pkgver=2
+version=3.0.23d
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=samba-3.0.11-ld.patch
-patch[1]=samba-3.0.13-header.patch
+patch[0]=samba-3.0.13-header.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix62" ] && patch[1]=samba-3.0.11-ld.patch
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
@@ -41,7 +42,7 @@ configure_args='\
 	--with-libiconv=/usr/tgcware \
 	'
 
-ac_overrides="samba_stat_hires=no"
+[ "$_os" = "irix62" ] && ac_overrides="samba_stat_hires=no"
 
 topinstalldir=/
 pkgdefprefix=usr/tgcware

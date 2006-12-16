@@ -32,6 +32,8 @@ standard.
 SWAT is not automatically added to inetd. To do this run the included
 startswat.sh script. To remove it again use the removeswat.sh script.
 
-The -ld patch simply hardcodes LD=ld -n32 to force linking n32 objects.
 The -header patch works around the fact that the cups headers also
 include tcp.h which ends up giving a struct tcphdr redefined error.
+
+Irix 6.2 specific:
+The -ld patch simply hardcodes LD=ld -n32 to force linking n32 objects.
