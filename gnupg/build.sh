@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gnupg
-version=1.4.5
+version=1.4.6
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -23,7 +23,7 @@ source[0]=$topdir-$version.tar.bz2
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
 RNG="--enable-static-rnd=egd --with-egd-socket=/var/run/egd-pool"
-configure_args='--prefix=$prefix --enable-nls --disable-rpath --disable-card-support $RNG'
+configure_args="$configure_args --disable-rpath --disable-card-support $RNG"
 
 reg prep
 prep()
