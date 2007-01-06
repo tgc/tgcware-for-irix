@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=lftp
-version=3.4.3
+version=3.5.8
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -23,7 +23,7 @@ patch[2]=lftp-3.4.3-prefer-ncurses.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-shared --enable-static=no --with-gnutls --without-openssl --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware'
+configure_args="$configure_args --enable-shared --enable-static=no --with-gnutls --without-openssl --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware"
 
 reg prep
 prep()
