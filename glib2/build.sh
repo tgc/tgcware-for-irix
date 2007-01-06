@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.8.6
-pkgver=2
+version=2.12.7
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -23,7 +23,7 @@ export PERL=/usr/tgcware/bin/perl
 export PERL_PATH=/usr/tgcware/bin/perl
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-libiconv=gnu'
+configure_args="$configure_args --with-libiconv=gnu"
 # Override getpwuid_r checking
 # The configure test fails but the system does have a POSIX compatible
 # getpwuid_r and AFAIK it does work but needs -lpthread for the implementation.
