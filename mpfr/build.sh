@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpfr
-version=2.2.0
+version=2.2.1
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-gmp=$prefix --enable-shared --disable-dependency-tracking"
+configure_args="$configure_args --with-gmp=$prefix --enable-shared --disable-dependency-tracking"
 
 reg prep
 prep()
