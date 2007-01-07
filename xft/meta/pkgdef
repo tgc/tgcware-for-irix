@@ -11,6 +11,11 @@ files(-,root,sys)
 $_libdir/*.so.*
 $_sharedir
 
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?1
+
 [mandev]
 subsys=man.dev
 files(-,root,sys)
