@@ -25,3 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+On first use fontconfig will create a cache in ~/.fontconfig.
+This can take some minutes so you might want to generate it with
+fc-cache before starting any programs using fontconfig.

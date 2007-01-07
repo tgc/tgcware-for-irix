@@ -12,6 +12,7 @@ $_bindir
 $_docdir/$topdir-$version/COPYING
 $_docdir/$topdir-$version/README
 $_sysconfdir
+dir var/cache/fontconfig
 
 [lib]
 subsys=sw.lib

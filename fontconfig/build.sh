@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=fontconfig
-version=2.3.2
+version=2.4.2
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-confdir=$prefix/${_sysconfdir} --with-docdir=${prefix}/${_docdir}/${topdir}-${version}'
+configure_args="$configure_args --with-confdir=$prefix/${_sysconfdir} --with-docdir=${prefix}/${_docdir}/${topdir}-${version} --with-cache-dir=$prefix/var/cache/fontconfig"
 
 reg prep
 prep()
@@ -40,6 +40,7 @@ reg install
 install()
 {
     generic_install DESTDIR
+    $MKDIR -p ${stagedir}${prefix}/var/cache/fontconfig
     doc README COPYING
 }
 
