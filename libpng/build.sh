@@ -9,11 +9,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.12
+version=1.2.15
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libpng-1.2.12-makefile.patch
+patch[1]=libpng-1.2.15-pkgconfig.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
