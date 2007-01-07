@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=cairo
-version=1.0.4
+version=1.2.6
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=cairo-1.0.2-nostdint.patch
+patch[0]= #cairo-1.0.2-nostdint.patch
 patch[1]=cairo-1.0.2-trio.patch
 
 # Source function library
@@ -31,6 +31,8 @@ prep()
     aclocal-1.9
     autoheader
     autoconf
+    # ARGH! somehow X_LIBS is being translated into /usr/lib on Irix 6.2
+    [ "$_os" = "irix62" ] && sed -i '/-lX11/s|$X_LIBS|-L/usr/lib32|g' configure
 }
 
 reg build
