@@ -10,16 +10,16 @@ subsys=sw.base
 files(-,root,sys)
 $_bindir
 $_sharedir/doc
-$_sharedir/gtk-2.0
 $_sharedir/locale
 $_sharedir/themes
 $_sysconfdir/gtk-2.0
+$_sharedir/gtk-2.0
 
 [lib]
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_libdir/gtk-2.0/2.4.0/*/*.so
+$_libdir/gtk-2.0/2.10.0/*/*.so
 
 [man]
 subsys=man.man
@@ -38,6 +38,6 @@ $_includedir
 $_libdir/*.so
 $_libdir/pkgconfig/*.pc
 $_libdir/gtk-2.0/include
-$_libdir/gtk-2.0/2.4.0/*/*.la
+$_libdir/gtk-2.0/2.10.0/*/*.la
 $_sharedir/aclocal
 
