@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://ftp.gnome.org/pub/gnome/sources/intltool"
+shortdesc="Utility for internationalizing various kinds of data files"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir/intltool
+$_docdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_sharedir/aclocal/*.m4
+
