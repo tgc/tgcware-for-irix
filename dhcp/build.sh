@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=dhcp
 version=3.0.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=dhcp-3.0.5-irix.patch
@@ -24,6 +24,8 @@ check_ac=0
 # No good way around this
 PATH=$(echo $PATH | sed -e 's/gcc//g')
 subsysconf=$metadir/subsys.conf
+CC=cc
+mipspro=1
 
 reg prep
 prep()
