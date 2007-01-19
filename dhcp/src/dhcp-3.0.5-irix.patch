@@ -1,0 +1,229 @@
+diff -urN dhcp-3.0.5/Makefile.conf dhcp-3.0.5.irix/Makefile.conf
+--- dhcp-3.0.5/Makefile.conf	2005-06-16 21:39:35.000000000 +0200
++++ dhcp-3.0.5.irix/Makefile.conf	2007-01-19 20:42:58.926800000 +0100
+@@ -445,8 +445,38 @@
+ #STRIP=/usr/local/i386-unknown-cygwin32/bin/strip
+ ##--cygwin32--
+ 
+-## IRIX 6.x
+-##--irix--
++## IRIX 6.x (using MIPSPro)
++##--irix-cc--
++#LFLAGS = $(DEBUG) -n32
++#CC = cc
++#COPTS = $(BINDDEF) $(CC_OPTIONS) -n32 -woff 1174 \
++#	 -DIRIX_MAJOR=$(MAJORVERSION) -DIRIX_MINOR=$(MINORVERSION)
++#CF = cf/irix.h
++#USERBINDIR = /usr/local/bin
++#BINDIR = /usr/local/sbin
++#CLIENTBINDIR = /sbin
++#ADMMANDIR = /usr/local/man/man8
++#ADMMANEXT = .8
++#FFMANDIR = /usr/local/man/man5
++#FFMANEXT = .5
++#LIBMANDIR = /usr/local/man/man3
++#LIBMANEXT = .3
++#USRMANDIR = /usr/local/man/man1
++#USRMANEXT = .1
++#MANCAT = man
++#INSTALL = cp
++#MANINSTALL = cp
++#CHMOD = chmod
++#ETC = /usr/local/etc
++#VARRUN = /etcsr/local/var/run
++#VARDB = /usr/local/var/dhcp
++#RANLIB = /bin/true
++#CLIENT_PATH = '"PATH=/bin:/usr/bin:/usr/bsd:/sbin:/usr/sbin:/usr/bin/X11:/usr/etc"'
++#SCRIPT = irix
++##--irix-cc--
++
++## IRIX 6.x (gcc)
++##--irix-gcc--
+ #LFLAGS=$(DEBUG) -Wl,-woff,84 -Wl,-woff,85 -Wl,-woff,134
+ #CC=gcc
+ #COPTS = -I/usr/local/include $(BINDDEF) $(CC_OPTIONS)
+@@ -467,7 +497,7 @@
+ #ETC = /etc
+ #VARRUN = /etc
+ #VARDB = /usr/local/etc/dhcp
+-##--irix--
++##--irix-gcc--
+ 
+ ## HP-UX
+ ##--hpux-cc--
+diff -urN dhcp-3.0.5/client/scripts/irix dhcp-3.0.5.irix/client/scripts/irix
+--- dhcp-3.0.5/client/scripts/irix	1970-01-01 01:00:00.000000000 +0100
++++ dhcp-3.0.5.irix/client/scripts/irix	2007-01-18 17:52:10.056400000 +0100
+@@ -0,0 +1,47 @@
++#!/bin/sh
++#
++# simplified dhclient-script for IRIX
++#
++# 1 Dec 2002, Marcus Herbert
++#
++if [ x$reason = xPREINIT ]; then
++  /usr/etc/ifconfig $interface 0.0.0.0 netmask 0.0.0.0 up >/dev/null 2>&1
++  exit 0
++fi
++if [ x$reason = xBOUND ] || [ x$reason = xRENEW ] || \
++   [ x$reason = xREBIND ] || [ x$reason = xREBOOT ]; then
++  current_hostname=`hostname`
++  if [ x$current_hostname = x ] || \
++     [ x$current_hostname = x$old_host_name ]; then
++    if [ x$current_hostname = x ] || \
++       [ x$new_host_name != x$old_host_name ]; then
++      hostname $new_host_name
++    fi
++  fi
++    
++  if [ x$old_ip_address != x ] && [ x$old_ip_address != x$new_ip_address ]
++   then
++    /usr/etc/ifconfig $interface $new_ip_address netmask $new_subnet_mask >/dev/null 2>&1
++    /usr/etc/route add $new_ip_address 127.1 0 >/dev/null 2>&1
++    for router in $new_routers ; do
++      /usr/etc/route add default $router 1 >/dev/null 2>&1
++    done
++  fi
++  if [ "x$new_domain_name" != x ] && [ x"$new_domain_name_servers" != x ]; then
++    echo search $new_domain_name >/etc/resolv.conf
++    for nameserver in $new_domain_name_servers; do
++      echo nameserver $nameserver >>/etc/resolv.conf
++    done
++  fi
++  exit 0
++fi
++if [ x$reason = xEXPIRE ] || [ x$reason = xFAIL ] || [ x$reason = xRELEASE ] \
++   || [ x$reason = xSTOP ]; then
++  if [ x$old_ip_address != x ]; then
++    /usr/etc/route delete $old_ip_address 127.1 >/dev/null 2>&1
++    for $router in $old_routers ; do
++      /usr/etc/route delete default $router >/dev/null 2>&1
++    done
++  fi
++  exit 0
++fi
+diff -urN dhcp-3.0.5/configure dhcp-3.0.5.irix/configure
+--- dhcp-3.0.5/configure	2004-09-10 23:02:30.000000000 +0200
++++ dhcp-3.0.5.irix/configure	2007-01-18 20:03:31.270400000 +0100
+@@ -105,6 +105,29 @@
+ 	     *) sysname=linux-2.2 ;;
+ 	   esac;;
+       esac;;
++    IRIX|IRIX64)
++      release=`uname -r`
++      minor=`echo $release |sed -e 's/[0-9]*\.\([0-9][0-9]*\)\(\..*\)*$/\1/'`
++      major=`echo $release |sed -e 's/\([0-9][0-9]*\)\..*$/\1/'`
++      IFS=":"
++      for foo in $PATH; do
++      if [ x$gcc_path = x ] && [ -x $foo/gcc ]; then
++	gcc_path=$foo/gcc
++      fi 
++      done
++      IFS=" "
++
++      case $major in
++	5) sysname=irix5 ; sysname_print=irix5 ;;
++	6) 
++	  if [ x$gcc_path = x ]; then
++	    sysname=irix-cc
++	    sysname_print=irix6
++	  else
++	    sysname=irix-gcc
++	    sysname_print=irix6
++	  fi;;
++      esac;;
+     SunOS)
+       release=`uname -r`
+       minor=`echo $release |sed -e 's/.*[0-9]*\.\([0-9][0-9]*\).*$/\1/'`
+@@ -210,6 +233,8 @@
+     echo "   freebsd	FreeBSD"
+     echo "   openbsd      OpenBSD (i386/alpha)"
+     echo "   hpux		HP-UX"
++    echo "   irix-cc	Irix 6.x with MIPSPro"
++    echo "   irix-gcc	Irix 6.x with gcc"
+     echo "   qnx		QNX 4.2 or higher"
+     echo "   NEXTSTEP     NeXTSTEP"
+     echo "   sco	SCO Open Server"
+diff -urN dhcp-3.0.5/includes/cf/irix.h dhcp-3.0.5.irix/includes/cf/irix.h
+--- dhcp-3.0.5/includes/cf/irix.h	2004-06-14 23:08:46.000000000 +0200
++++ dhcp-3.0.5.irix/includes/cf/irix.h	2007-01-19 20:36:16.066800000 +0100
+@@ -49,9 +49,6 @@
+ #include <net/if.h>
+ #include <net/if_arp.h>
+ 
+-#define _PATH_DHCPD_CONF "/usr/local/etc/dhcpd.conf"
+-#define _PATH_DHCPD_DB   "/usr/local/etc/dhcp/dhcpd.leases"
+-
+ #ifndef _PATH_DHCPD_PID
+ #define _PATH_DHCPD_PID	"/etc/dhcpd.pid"
+ #endif
+@@ -68,27 +65,50 @@
+ #define va_dcl
+ 
+ /* XXX: System is not believed to have snprintf/vsnprintf.  Please verify. */
+-#define NO_SNPRINTF
++/* They are available from Irix 6.3 and up according to SGI techpubs */
++#if IRIX_MAJOR == 6
++#  if IRIX_MINOR <= 2
++#    define NO_SNPRINTF
++#  endif
++#endif
++
++/* Some versions lack socklen_t (atleast 6.2, but not 6.5) */
++#if IRIX_MAJOR == 6
++#  if IRIX_MINOR < 5
++#    define SOCKLEN_T int
++#  endif
++#endif
+ 
+ #if defined (USE_DEFAULT_NETWORK)
+-# define USE_RAW_SOCKETS
++#  define USE_SOCKETS
+ #endif
+ 
+ #define EOL '\n'
+ #define VOIDPTR void *
+ 
+-#include <time.h>
++/* Atleast Irix 6.2 and up has endian.h */
++#if IRIX_MAJOR == 6
++#  if IRIX_MINOR < 2
++#   if !defined(BYTE_ORDER)
++#     define BYTE_ORDER BIG_ENDIAN
++#   endif
++#   if !defined(BIG_ENDIAN)
++#     define BIG_ENDIAN 1
++#   endif
++# endif
++#endif
+ 
++#include <time.h>
+ #define TIME time_t
+ #define GET_TIME(x)	time ((x))
+ 
+ #define random	rand
+ #ifdef NEED_PRAND_CONF
+ const char *cmds[] = {
+-	"/bin/ps -ef 2>&1",
++	"/sbin/ps -ef 2>&1",
+ 	"/usr/etc/arp -a 2>&1",
+ 	"/usr/etc/netstat -an 2>&1",
+-	"/bin/df  2>&1",
++	"/sbin/df  2>&1",
+ 	"/usr/bin/dig com. soa +ti=1 2>&1",
+ 	"/usr/bsd/uptime  2>&1",
+ 	"/usr/bin/printenv  2>&1",
+diff -urN dhcp-3.0.5/includes/osdep.h dhcp-3.0.5.irix/includes/osdep.h
+--- dhcp-3.0.5/includes/osdep.h	2005-09-28 20:58:27.000000000 +0200
++++ dhcp-3.0.5.irix/includes/osdep.h	2007-01-19 20:47:19.166800000 +0100
+@@ -133,6 +133,10 @@
+ # endif
+ #endif
+ 
++#ifdef __sgi
++#  include "cf/irix.h"
++#endif
++
+ /* snprintf/vsnprintf hacks.  for systems with no libc versions only. */
+ #ifdef NO_SNPRINTF
+   extern int isc_print_snprintf(char *, size_t, const char *, ...);

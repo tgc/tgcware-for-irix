@@ -1,0 +1,81 @@
+#!/bin/sh
+## Contributed by Marcus Herbert for 3.0.1rc10 in 2002.
+## Updated for 3.0.5 and tgcware by Tom G. Christensen in 2007.
+##
+## Start og stop the ISC dhcp daemon
+##
+## Set custom options in /etc/config/tgc_dhcpd.options to override
+## default configuration
+ 
+IS_ON=/sbin/chkconfig
+DHCPD=/usr/tgcware/sbin/dhcpd
+LF=/usr/tgcware/etc/dhcp/dhcpd.leases
+CF=/usr/tgcware/etc/dhcpd.conf
+CONFIG=/etc/config/tgc_dhcpd.options
+
+pidfile=/var/run/dhcpd.pid
+
+if $IS_ON verbose; then
+    ECHO=echo
+else            # For a quiet startup and shutdown
+    ECHO=:
+fi
+
+# With no config file we cannot continue
+[ -f $CF ] || exit 0
+
+check_pid_dir()
+{
+        if [ ! -d /var/run ]; then
+                mkdir -p /var/run
+                chown root.sys /var/run
+                chmod 755 /var/run
+        fi
+}
+
+kill_dhcpd()
+{
+        if [ -r $pidfile ]; then
+            dhcpd=`cat $pidfile`
+            ps -p $dhcpd_pid | grep dhcpd > /dev/null
+            if [ $? -eq 0 ]; then
+                /usr/bin/kill -15 -$dhcpd_pid
+            fi
+        fi
+}
+
+case "$1" in
+    start)
+	kill_dhcpd
+        if $IS_ON tgc_dhcpd  && test -x $DHCPD; then
+            $ECHO "Starting dhcpd:\c"
+	    check_pid_dir
+	    if [ ! -f $LF ]; then
+		touch $LF
+	    fi
+	    if [ -r $CONFIG ]; then
+		$DHCPD `cat $CONFIG`
+	    else
+		$DHCPD
+	    fi
+	    $ECHO "."
+        fi
+        ;;
+
+    stop)
+	$ECHO "Stopping dhcpd:\c"
+	kill_dhcpd
+	$ECHO "."
+	exit 0
+        ;;
+    configtest)
+	if [ -r $CONFIG ]; then
+	    $DHCPD -t `cat $CONFIG`
+	else
+	    $DHCPD -t
+	fi
+	;;
+    *)
+	echo "usage: $0 {start|stop|configtest}"
+        ;;
+esac

@@ -1,0 +1,36 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+The patch for Irix support is based on Marcus Herberts changes made
+to 3.0.1rc10 in 2002.
+The client script is untouched from Marcus Herberts version while the init
+script has been updated to better match the style of other tgcware packages.
+I've not provided an init script for dhcrelay but a copy of the dhcpd init
+script could easily be adapted.
+
+I used site.conf and site.h to customize paths. They're included with the
+docs for reference.
