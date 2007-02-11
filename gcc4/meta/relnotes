@@ -41,3 +41,6 @@ Note that at this time tgcware is strictly n32 due to putting n32 libraries in
 At some point n64 libraries might appear since they would go in /lib64 which
 would not conflict with the standard locations.
 There is currently no plan to make a true multilib aware tgcware distribution.
+
+testresults:
+http://gcc.gnu.org/ml/gcc-testresults/2007-02/msg00419.html
