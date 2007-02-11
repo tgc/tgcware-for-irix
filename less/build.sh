@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=less
-version=382
-pkgver=3
+version=394
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 source[1]=lesspipe.sh
 # If there are no patches, simply comment this
