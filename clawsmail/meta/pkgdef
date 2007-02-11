@@ -9,8 +9,10 @@ shortdesc="Email client"
 subsys=sw.base
 files(-,root,sys)
 $_bindir
-$_sharedir/doc
+$_sharedir/doc/claws-mail-*
 $_sharedir/locale
+$_sharedir/applications/claws-mail.desktop
+$_sharedir/icons/hicolor/48x48/apps/claws-mail.png
 $_libdir/claws-mail
 
 [man]
@@ -21,7 +23,7 @@ $_mandir/?a?[12456789]
 [mandoc]
 subsys=man.doc
 files(-,root,sys)
-$_sharedir/claws-mail
+$_sharedir/doc/claws-mail
 
 [devel]
 subsys=sw.dev
