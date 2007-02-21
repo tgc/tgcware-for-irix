@@ -1,0 +1,12 @@
+See: http://lists.xmms.org/pipermail/xmms-devel/2006-October/003290.html
+diff -ur xmms-1.2.10/General/ir/ir.h xmms-1.2.10-f/General/ir/ir.h
+--- xmms-1.2.10/General/ir/ir.h 2001-03-05 14:17:44.000000000 +0100
++++ xmms-1.2.10-f/General/ir/ir.h       2006-10-12 15:20:00.000000000 +0200
+@@ -49,8 +49,6 @@
+ }
+ irConfig;
+
+-extern pthread_t irapp_thread;
+-extern gboolean keepGoing;
+ extern irConfig ircfg;
+ extern gboolean irconf_is_going;
