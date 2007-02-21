@@ -1,0 +1,11 @@
+--- gaim-2.0.0beta5/libgaim/protocols/gg/lib/libgadu.c.orig	2007-01-15 20:32:22.660400000 +0100
++++ gaim-2.0.0beta5/libgaim/protocols/gg/lib/libgadu.c	2007-01-15 20:36:52.590400000 +0100
+@@ -30,6 +30,8 @@
+ #ifdef sun
+ #  include <sys/filio.h>
+ #endif
++/* Irix 5.3 & 6.2 doesn't define SHUT_RD, SHUT_WR and SHUT_RDWR in socket.h */
++#define SHUT_RDWR 2
+ #else
+ #include <io.h>
+ #include <fcntl.h>

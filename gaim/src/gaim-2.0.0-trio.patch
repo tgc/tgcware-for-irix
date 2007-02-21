@@ -1,0 +1,12 @@
+--- gaim-2.0.0beta5/configure.ac.trio	2007-01-09 21:03:56.889200000 +0100
++++ gaim-2.0.0beta5/configure.ac	2007-01-09 21:06:09.119200000 +0100
+@@ -1785,6 +1785,9 @@
+ 
+ AM_BINRELOC
+ 
++dnl check if we need trio for snprintf/vsnprintf
++NEED_TRIO_CHECK
++
+ AC_MSG_CHECKING(for me pot o' gold)
+ AC_MSG_RESULT(no)
+ AC_CHECK_FUNCS(gethostid lrand48)

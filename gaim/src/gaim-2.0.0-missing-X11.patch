@@ -1,0 +1,12 @@
+--- gaim-2.0.0beta5/gtk/Makefile.am.X11	2007-01-27 17:15:57.222400000 +0100
++++ gaim-2.0.0beta5/gtk/Makefile.am	2007-01-27 17:16:11.252400000 +0100
+@@ -169,7 +169,8 @@
+ 	$(LIBXML_LIBS) \
+ 	$(GTK_LIBS) \
+ 	$(top_builddir)/libgaim/libgaim.la \
+-	$(top_builddir)/gl/libgnu.la
++	$(top_builddir)/gl/libgnu.la \
++	-lX11
+ 
+ if USE_INTERNAL_LIBGADU
+ INTGG_CFLAGS = -DUSE_INTERNAL_LIBGADU

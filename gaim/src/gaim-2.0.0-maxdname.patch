@@ -1,0 +1,26 @@
+--- gaim-2.0.0beta5/libgaim/dnssrv.c.maxdname	2007-01-15 21:38:52.188400000 +0100
++++ gaim-2.0.0beta5/libgaim/dnssrv.c	2007-01-15 21:39:31.368400000 +0100
+@@ -23,8 +23,8 @@
+ #include "internal.h"
+ 
+ #ifndef _WIN32
+-#include <resolv.h>
+ #include <arpa/nameser.h>
++#include <resolv.h>
+ #ifdef HAVE_ARPA_NAMESER_COMPAT_H
+ #include <arpa/nameser_compat.h>
+ #endif
+--- gaim-2.0.0beta5/libgaim/network.c.maxdname	2007-01-15 21:06:02.164400000 +0100
++++ gaim-2.0.0beta5/libgaim/network.c	2007-01-15 21:07:33.314400000 +0100
+@@ -26,10 +26,10 @@
+ #include "internal.h"
+ 
+ #ifndef _WIN32
+-#include <resolv.h>
+ #include <netinet/in.h>
+ #include <arpa/nameser.h>
+ #include <net/if.h>
++#include <resolv.h>
+ #include <sys/ioctl.h>
+ #else
+ #include <nspapi.h>

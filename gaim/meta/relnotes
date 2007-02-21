@@ -25,3 +25,17 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+This was a tough one and I spent quite a few hours on it.
+A big issue was getopt and inet_ntop. The upstream source contains
+an attempt at providing getopt for platforms without a native getopt but
+it's broken on Irix 6.2.
+Instead of trying to fix that I've added the appropriate gnulib modules
+for getopt and inet_ntop support.
+The second big issue was that the new non-blocking DNS code did not work.
+Something goes wrong in the communication between child and parent I think
+but when I found there was a simple blocking fall-back I didn't debug it
+further. Instead I have enabled the blocking DNS code fall-back unconditionally
+in dnsquery.c (changing __unix__ to __lunix__) and now DNS lookups work.
+
+During install stage one must tell make to use SHELL=bash
+since ksh will segfault in gtk/pixmaps/smileys/default.

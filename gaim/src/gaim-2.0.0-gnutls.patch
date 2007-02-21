@@ -1,15 +1,15 @@
---- gaim-1.5.0/configure.ac.gnutls	2006-04-11 20:06:40.526489000 +0200
-+++ gaim-1.5.0/configure.ac	2006-04-11 20:13:50.096489000 +0200
-@@ -563,85 +563,26 @@
+--- gaim-2.0.0beta5/configure.ac.gnutls	2007-01-09 21:09:34.029200000 +0100
++++ gaim-2.0.0beta5/configure.ac	2007-01-09 21:11:01.499200000 +0100
+@@ -1202,86 +1202,25 @@
  dnl #
- dnl # Check for GNUTLS if it's specified.
+ dnl # Check for GnuTLS if it's specified.
  dnl #
 -if test "x$enable_gnutls" != "xno"; then
 -	enable_gnutls="no"
 -	prefix=`eval echo $prefix`
 -
 -	AC_ARG_WITH(gnutls-includes,
--		[  --with-gnutls-includes=PREFIX   Location of GNUTLS includes.],
+-		[  --with-gnutls-includes=PREFIX   location of GnuTLS includes.],
 -		[ with_gnutls_includes="$withval" ],
 -		[ with_gnutls_includes="$prefix/include" ])
 -
@@ -18,7 +18,7 @@
 -	if test "x$with_gnutls_includes" != "xno"; then
 -		CPPFLAGS_save="$CPPFLAGS"
 -
--		AC_MSG_CHECKING(for GNUTLS includes)
+-		AC_MSG_CHECKING(for GnuTLS includes)
 -		AC_MSG_RESULT("")
 -
 -		CPPFLAGS="$CPPFLAGS -I$with_gnutls_includes"
@@ -34,35 +34,35 @@
 -			GNUTLS_CFLAGS=""
 -		fi
 -	else
--		AC_MSG_CHECKING(for GNUTLS includes)
+-		AC_MSG_CHECKING(for GnuTLS includes)
 -		AC_MSG_RESULT(no)
 -	fi
 -
 -	AC_ARG_WITH(gnutls-libs,
--		[  --with-gnutls-libs=PREFIX       Location of GNUTLS libraries.],
+-		[AC_HELP_STRING([--with-gnutls-libs=PREFIX], [location of GnuTLS libraries.])],
 -		[ with_gnutls_libs="$withval" ])
 -
 -	if test "x$with_gnutls_libs"     != "xno" -a \
 -	        "x$have_gnutls_includes" != "xno"; then
 -
--		LDFLAGS_save="$LDFLAGS"
+-		LIBS_save="$LIBS"
 -
 -		case $with_gnutls_libs in
 -			""|-L*) ;;
 -			*) with_gnutls_libs="-L$with_gnutls_libs" ;;
 -		esac
 -
--		AC_CACHE_CHECK([for GNUTLS libraries], gnutls_libs,
+-		AC_CACHE_CHECK([for GnuTLS libraries], gnutls_libs,
 -		[
--			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgcrypt"
+-			LIBS="$LIBS $with_gnutls_libs -lgnutls -lgcrypt"
 -			AC_TRY_LINK_FUNC(gnutls_init, gnutls_libs="yes", gnutls_libs="no")
--			LDFLAGS="$LDFLAGS_save"
+-			LIBS="$LIBS_save"
 -		])
 -
 -		if test "x$gnutls_libs" != "xno"; then
--			AC_DEFINE(HAVE_GNUTLS, 1, [Define if you have GNUTLS])
+-			AC_DEFINE(HAVE_GNUTLS, 1, [Define if you have GnuTLS])
 -			AC_DEFINE(HAVE_SSL)
--			msg_gnutls="GNUTLS"
+-			msg_gnutls="GnuTLS"
 -			GNUTLS_LIBS="$with_gnutls_libs -lgnutls -lgcrypt"
 -
 -			enable_gnutls="yes"
@@ -71,7 +71,7 @@
 -			GNUTLS_LIBS=""
 -		fi
 -	else
--		AC_MSG_CHECKING(for GNUTLS libraries)
+-		AC_MSG_CHECKING(for GnuTLS libraries)
 -		AC_MSG_RESULT(no)
 -	fi
 +if test x$enable_gnutls = xyes; then
@@ -80,7 +80,6 @@
 +   ])
 +fi
 +if test "x$no_libgnutls" = x; then
-+#if test "x$enable_gnutls" = "xyes"; then
 +    AC_DEFINE([HAVE_SSL], 1, [Define if a working SSL configuration was found])
 +    msg_gnutls="GNUTLS"
 +    GNUTLS_CFLAGS="$LIBGNUTLS_CFLAGS"
@@ -91,12 +90,15 @@
 +    GNUTLS_CFLAGS=""
 +    GNUTLS_LIBS=""
  fi
- 
+-
++ 
  AC_SUBST(GNUTLS_CFLAGS)
  AC_SUBST(GNUTLS_LIBS)
- 
+-
 -AM_CONDITIONAL(USE_GNUTLS, test "x$enable_gnutls" = "xyes")
+-
++ 
 +AM_CONDITIONAL(USE_GNUTLS, test "x$no_libgnutls" = "x")
  
- 
  dnl #
+ dnl # Check for NSS if it's specified, or if GnuTLS checks failed.
