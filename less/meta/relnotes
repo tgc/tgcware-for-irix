@@ -26,3 +26,12 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 lesspipe.sh from Fedora Core 5 was added as a bonus.
+
+The author assumes that CODESET is available if the locale functions
+exists sadly that is not the case for Irix 5.3.
+Fortunately the code is properly ifdeffed to handle the case of missing
+locale functions so to avoid the issue I added a condition on the locale check
+in configure in the form of a call to AM_LANGINFO_CODESET which checks for
+nl_langinfo and CODESET.
+
+The destdir patch is just a simple fix to the install target in the makefile.
