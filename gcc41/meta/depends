@@ -1,1 +1,2 @@
 sw.base tgc_binutils.sw.base 21601001 maxint
+sw.base sw.lib auto

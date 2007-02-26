@@ -9,10 +9,20 @@ shortdesc="GNU Compiler Collection"
 subsys=sw.base
 files(-,root,sys)
 ${iprefix}/$_bindir
-${iprefix}/$_libdir
-${iprefix}/${_libdir}32
+${iprefix}/${_libdir}
 ${iprefix}/$_includedir
 ${iprefix}/libexec
+$_sharedir
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+${iprefix}/${_libdir}32
+
+[lib64]
+subsys=sw64.lib
+files(-,root,sys)
+${iprefix}/${_libdir}64
 
 [man]
 subsys=man.man
