@@ -1,0 +1,30 @@
+--- gaim-2.0.0beta6.hacked/libgaim/protocols/zephyr/zephyr.c.orig	2007-02-26 20:20:00.808000000 +0100
++++ gaim-2.0.0beta6.hacked/libgaim/protocols/zephyr/zephyr.c	2007-02-26 20:22:02.388000000 +0100
+@@ -42,6 +42,8 @@
+ #include "zephyr.h"
+ #include "internal.h"
+ 
++#include "inet_ntop.h"
++
+ #include <strings.h>
+ 
+ #define ZEPHYR_FALLBACK_CHARSET "ISO-8859-1"
+@@ -936,7 +938,7 @@
+ 			gcc = gaim_conversation_get_chat_data(gconv1);
+ 
+ 			if (!gaim_conv_chat_find_user(gcc, sendertmp)) {
+-				gchar ipaddr[INET_ADDRSTRLEN];
++				gchar ipaddr[sizeof "255.255.255.255"];
+ 				inet_ntop(AF_INET, &notice.z_sender_addr.s_addr, ipaddr, sizeof(ipaddr));
+ 
+ 				gaim_conv_chat_add_user(gcc, sendertmp, ipaddr, GAIM_CBFLAGS_NONE, TRUE);
+--- gaim-2.0.0beta6.hacked/libgaim/protocols/zephyr/Makefile.am.orig	2007-02-26 20:22:25.868000000 +0100
++++ gaim-2.0.0beta6.hacked/libgaim/protocols/zephyr/Makefile.am	2007-02-26 20:23:22.418000000 +0100
+@@ -103,6 +103,7 @@
+ 	-I$(top_srcdir) \
+ 	-I$(top_srcdir)/libgaim \
+ 	-I$(top_srcdir)/libgaim/protocols \
++	-I$(top_srcdir)/gl \
+ 	-DCONFDIR=\"$(confdir)\" \
+ 	$(GLIB_CFLAGS) \
+ 	$(KRB4_CFLAGS) \

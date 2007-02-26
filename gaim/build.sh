@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gaim
-version=2.0.0beta5
-pkgver=2
+version=2.0.0beta6
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gaim-2.0.0-trio.patch
@@ -18,7 +18,8 @@ patch[1]=gaim-2.0.0-gnutls.patch
 patch[2]=gaim-2.0.0-shutrdwr.patch
 patch[3]=gaim-2.0.0-maxdname.patch
 patch[4]=gaim-2.0.0-gnulib.patch
-patch[5]=gaim-2.0.0-missing-X11.patch
+patch[5]=gaim-2.0.0-zephyr-needs-gnulib.patch
+patch[6]=gaim-2.0.0-missing-X11.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
