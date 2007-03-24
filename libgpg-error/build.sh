@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libgpg-error
-version=1.0
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.5
+pkgver=1
+source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=libgpg-error-1.5-trio.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -27,6 +27,10 @@ reg prep
 prep()
 {
     generic_prep
+    aclocal-1.9 -I m4
+    automake-1.9
+    autoheader
+    autoconf
 }
 
 reg build

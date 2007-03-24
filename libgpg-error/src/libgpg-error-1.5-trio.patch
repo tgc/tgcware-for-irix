@@ -1,0 +1,11 @@
+--- libgpg-error-1.5.hack/configure.ac.trio	2007-03-24 22:28:51.431200000 +0100
++++ libgpg-error-1.5.hack/configure.ac	2007-03-24 22:30:24.921200000 +0100
+@@ -129,6 +129,8 @@
+ AC_SUBST(GPG_ERROR_CONFIG_CFLAGS)
+ AC_CONFIG_FILES([src/gpg-error-config], [chmod +x src/gpg-error-config])
+ 
++# functions
++NEED_TRIO_CHECK
+ 
+ # Special defines for certain platforms
+ if test "$have_w32_system" = yes; then

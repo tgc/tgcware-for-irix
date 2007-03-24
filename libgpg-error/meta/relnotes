@@ -26,4 +26,4 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 gpg_strerror_r really wants strerror_r or there may be problems with
-threadsafety. Irix 6.2 doesn't have strerror_r so beware.
+threadsafety. Irix 6.2 & 5.3 doesn't have strerror_r so beware.

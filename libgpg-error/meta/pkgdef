@@ -1,5 +1,4 @@
 [common]
-#pkgname="$pkgprefix""$topdir"
 pkgname="$pkgprefix""libgpg_error"
 name="$topdir"
 pkgver="$pkgver"
@@ -25,5 +24,6 @@ $_includedir
 $_libdir/*.so
 $_libdir/*.a
 $_sharedir/aclocal
+$_sharedir/common-lisp
 $_bindir/gpg-error-config
 
