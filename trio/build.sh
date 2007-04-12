@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=trio
-version=1.10
-pkgver=8
+version=1.12
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=trio-1.10-automake.patch
+patch[0]=trio-1.12-automake.patch
 patch[1]=trio-1.10-needtrio.m4.patch
 patch[2]=trio-1.10-header.patch
 
@@ -23,6 +23,7 @@ patch[2]=trio-1.10-header.patch
 # Global settings
 export CC=cc
 mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
@@ -30,8 +31,8 @@ prep()
     generic_prep
     setdir source
     libtoolize --copy
-    aclocal
-    automake --foreign --add-missing --copy
+    aclocal-1.9
+    automake-1.9 --foreign --add-missing --copy
     autoconf
 }
 
