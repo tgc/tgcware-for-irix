@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=8
+pkgver=9
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
@@ -20,8 +20,10 @@ patch[0]=prngd-irix53-support.patch
 
 # Global settings
 no_configure=1
-CC=gcc
-cflags_os="-O3 -Wall -DIRIX62"
+CC=cc
+#cflags_os="-O3 -Wall -DIRIX62"
+cflags_os="-O3 -fullwarn -DIRIX62 -woff 1506"
+mipspro=1
 
 if [ "$_os" == "irix53" ]; then
     CC=cc
@@ -65,6 +67,7 @@ install()
 
     # Install entropy gathering script
     $CP contrib/IRIX-53/prngd.conf.irix-53 ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd.conf
+    [ "$_os" = "irix62" ] && $CP contrib/IRIX-65/prngd.conf.irix-65 ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd.conf
 
     # Install initscript
     $CP $metadir/prngd.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_prngd

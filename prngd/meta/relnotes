@@ -26,5 +26,14 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
-You can use chkconfig prngd 'on'/'off' to control automatic startup of this daemon.
+You can use chkconfig prngd 'on'/'off' to control automatic startup of this
+daemon.
 The default setting is 'on' for automatic startup.
+
+Irix 6.2 specific:
+You *MUST* install one of the XFS Rollup patches. Minimum patchlevel is
+SG0001278 which introduces a fix for a problem with O_RSYNC. The bug means
+access to files opened with O_RSYNC would hang after first read.
+This trips up prngd which opens its seedfile with O_RSYNC.
+The only workaround is to add -n to the start script in /etc/init.d/tgc_prngd
+which will cause prngd to not use the seed-file.
