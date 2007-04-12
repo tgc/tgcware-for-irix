@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libiconv
 version=1.11
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=libiconv-1.11-noiconv.patch
@@ -45,6 +45,7 @@ install()
     doc NOTES ChangeLog DESIGN NEWS
     # Nuke "html" manpages :(
     ${RM} -rf ${stagedir}${prefix}/${_docdir}/$topdir
+    ${RM} -rf ${stagedir}${prefix}/${_docdir}/iconv*.html
 }
 
 reg pack
