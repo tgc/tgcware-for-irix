@@ -3,7 +3,7 @@
 @@ -0,0 +1,13 @@
 +lib_LTLIBRARIES = libtrio.la
 +libtrio_la_SOURCES = trio.c  trionan.c  triostr.c trio.h triop.h triodef.h trionan.h triostr.h
-+libtrio_la_LDFLAGS = -lm -version-info 1:10:0
++libtrio_la_LDFLAGS = -lm -version-info 1:12:0
 +
 +check_PROGRAMS = regression
 +regression_SOURCES = regression.c
@@ -20,7 +20,7 @@
  dnl
  
  AC_INIT(triodef.h)
-+AM_INIT_AUTOMAKE(trio, 1.10)
++AM_INIT_AUTOMAKE(trio, 1.12)
  
  AC_PROG_CC
  ifdef([AC_PROG_CC_STDC], [AC_PROG_CC_STDC])
