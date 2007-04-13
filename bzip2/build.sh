@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=bzip2
 version=1.0.3
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=bzip2-1.0.3-soname.patch
