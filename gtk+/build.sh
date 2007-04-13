@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gtk+
 version=1.2.10
-pkgver=8
+pkgver=9
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=gtk+-1.2.10-bellvolume.patch
@@ -29,6 +29,7 @@ patch[12]=gtk+-1.2.8-wrap-alnum.patch
 patch[13]=gtk+-underquoted.patch
 patch[14]=gtk+-1.2.10-autoconf25x.patch
 patch[15]=gtk+-1.2.10-newgt.patch
+patch[16]=gtk+-1.2.10-kpenter.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -37,10 +38,11 @@ patch[15]=gtk+-1.2.10-newgt.patch
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-static=no'
+configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --enable-static=no"
 if [ "$_os" = "irix62" ]; then
     export CC=cc
     mipspro=1
+    configure_args="$configure_args --x-libraries=/usr/lib32"
 fi
 
 reg prep
@@ -50,8 +52,8 @@ prep()
     setdir source
     $RM -f ltconfig ltmain.sh acinclude.m4
     libtoolize -f -c
-    aclocal-1.4
-    automake-1.4
+    aclocal-1.6
+    automake-1.6 -a -f -c
     autoheader
     autoconf
 }
