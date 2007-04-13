@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=flac
 version=1.1.2
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=flac-1.1.2-snprintf.patch
@@ -24,7 +24,7 @@ patch[2]=flac-1.1.2-include.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --disable-rpath'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-rpath'
 
 reg prep
 prep()
