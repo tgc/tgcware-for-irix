@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=vorbis-tools
 version=1.1.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=vorbis-tools-1.1.1-needstrio.patch
@@ -22,7 +22,7 @@ patch[1]=vorbis-tools-1.1.1-include.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-nls --with-libiconv-prefix=/usr/tgcware'
+configure_args='--prefix=$prefix --enable-nls --with-libiconv-prefix=/usr/tgcware --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir}'
 ac_overrides='ac_cv_lib_socket_socket=no'
 
 reg prep
