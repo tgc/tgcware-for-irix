@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=8
+pkgver=9
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
