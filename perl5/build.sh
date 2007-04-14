@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=perl
-version=5.8.7
-pkgver=4
+version=5.8.8
+pkgver=1
 source[0]=perl-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=perl-5.8.7-irix6-gcc34.patch
@@ -22,13 +22,9 @@ patch[3]=perl-5.8.7-dbm.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-# We need to fix the .packlist if we want to convert and compress
-# the manpages :(
-catman=0
-gzman=0
 check_ac=0
 __configure="sh Configure"
-configure_args="-Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/BerkeleyDB.4.3/include /usr/tgcware/include' -Dloclibpth='/usr/tgcware/BerkeleyDB.4.3/lib /usr/tgcware/lib' -des"
+configure_args="-Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'"
 
 reg prep
 prep()
@@ -40,8 +36,8 @@ reg build
 build()
 {
     setdir source
-    $__configure -Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/BerkeleyDB.4.3/include /usr/tgcware/include' -Dloclibpth='/usr/tgcware/BerkeleyDB.4.3/lib /usr/tgcware/lib' -des
-    $MAKE_PROG LDDLFLAGS="-shared -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/BerkeleyDB.4.3/lib -Wl,-rpath,/usr/tgcware/BerkeleyDB.4.3/lib"
+    $__configure -Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'
+    $MAKE_PROG LDDLFLAGS="-shared -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
     $MAKE_PROG test
 }
 

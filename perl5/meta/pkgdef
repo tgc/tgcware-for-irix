@@ -1,5 +1,5 @@
 [common]
-pkgname="$pkgprefix""$topdir""5"
+pkgname="${pkgprefix}${topdir}5"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.perl.org"
@@ -14,5 +14,10 @@ $_libdir
 [man]
 subsys=man.man
 files(-,root,sys)
-$_mandir
+$_mandir/*[12456789]
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/*3
 
