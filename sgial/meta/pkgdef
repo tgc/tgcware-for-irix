@@ -1,0 +1,13 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="Tom G. Christensen <irixpkg@jupiterrise.com>"
+shortdesc="SGI Output plugin for xmms"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/xmms/Output/libsgial.so
+$_docdir
+

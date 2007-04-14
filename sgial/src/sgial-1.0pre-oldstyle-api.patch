@@ -1,0 +1,594 @@
+diff -ur --exclude=configure sgial-1.0pre/about.c sgial-1.0pre.hacked/about.c
+--- sgial-1.0pre/about.c	2001-02-09 21:40:50.000000000 +0100
++++ sgial-1.0pre.hacked/about.c	2007-04-14 13:36:39.000000000 +0200
+@@ -19,7 +19,9 @@
+ The code for this plugin was originally based off of the SGI audio\n \
+ library code from mpg123.  It has since been extensively hacked so as\n \
+ to work on my O2.  Please send patches, bug reports, feature requests,\n \
+-to the address below.  Thanks.\n\nAuthor: Jesse Barnes (jbarnes@sgi.com)");
++to the address below.  Thanks.\n\nAuthor: Jesse Barnes (jbarnes@sgi.com)\n\n\
++This version of the plugin was modified to support the pre-Irix 6.5 audio API.\n \
++Author: Tom G. Christensen (irixpkg@jupiterrise.com)");
+ 
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),label,TRUE,TRUE,0);
+    gtk_widget_show(label);
+Only in sgial-1.0pre.hacked: config.cache
+Only in sgial-1.0pre.hacked: config.log
+Only in sgial-1.0pre.hacked: config.status
+diff -ur --exclude=configure sgial-1.0pre/configure.c sgial-1.0pre.hacked/configure.c
+--- sgial-1.0pre/configure.c	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/configure.c	2007-02-25 15:32:30.000000000 +0100
+@@ -28,22 +28,23 @@
+ void scan_devices(gchar * type, GtkWidget * option_menu, GtkSignalFunc sigfunc)
+ {
+   GtkWidget *menu, *item;
+-  ALpv q[1];
++  // ALpv q[1];
+   char name[32];
+   int i;
+ 
+   menu = gtk_menu_new();
+ 
+-  for(i = 0; i < alinfo.device_count; i++) {
++  /* for(i = 0; i < alinfo.device_count; i++) {
+     q[0].param = AL_NAME;
+     q[0].value.ptr = name;
+     q[0].sizeIn = 32;
+-    alGetParams(alinfo.output_devices[i].i, q, 1);
++    alGetParams(alinfo.output_devices[i].i, q, 1); */
++    g_snprintf(name, 32, "%s", "Default output device");
+     item = gtk_menu_item_new_with_label(name);
+     gtk_signal_connect(GTK_OBJECT(item), "activate", sigfunc, (gpointer) 0);
+     gtk_widget_show(item);
+     gtk_menu_append(GTK_MENU(menu), item);
+-  }
++  /* } */
+   gtk_option_menu_set_menu(GTK_OPTION_MENU(option_menu), menu);
+ }
+ 
+@@ -52,14 +53,16 @@
+  */
+ static void configure_win_audio_dev_cb(GtkWidget * widget, gint device)
+ {
+-  ALpv q[1];
++  // ALpv q[1];
+   char name[32];
+ 
+-  q[0].param = AL_NAME;
++  /* q[0].param = AL_NAME;
+   q[0].value.ptr = name;
+   q[0].sizeIn = 32;
+   alGetParams(alinfo.output_devices[device].i, q, 1);
+-  
++  */ 
++  g_snprintf(name, 32, "%s", "Default output device");
++
+   free(alinfo.current_device);
+   alinfo.current_device = malloc(sizeof(char) * strlen(name));
+   strcpy(alinfo.current_device, name);  
+diff -ur --exclude=configure sgial-1.0pre/configure.in sgial-1.0pre.hacked/configure.in
+--- sgial-1.0pre/configure.in	2001-02-13 00:30:04.000000000 +0100
++++ sgial-1.0pre.hacked/configure.in	2007-02-25 15:32:28.000000000 +0100
+@@ -9,7 +9,7 @@
+ 
+ dnl Checks for the dmedia libraries and includes
+ dnl Replace `main' with a function in -laudio:
+-AC_CHECK_LIB(audio, alNewConfig,,AC_MSG_ERROR([*** dmedia_dev is not installed - please install first]))
++AC_CHECK_LIB(audio, ALnewconfig,,AC_MSG_ERROR([*** dmedia_dev is not installed - please install first]))
+ 
+ dnl Checks for Gtk+
+ AM_PATH_GLIB(1.2.3,,AC_MSG_ERROR([*** GLIB >= 1.2.3 not installed - please install first ***]))
+diff -ur --exclude=configure sgial-1.0pre/init.c sgial-1.0pre.hacked/init.c
+--- sgial-1.0pre/init.c	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/init.c	2007-04-14 16:04:58.000000000 +0200
+@@ -8,8 +8,8 @@
+   /*
+    * These are for the al* calls
+    */
+-  ALparamInfo gaininfo;
+-  ALpv pv[1], qualifiers[1];
++  //ALparamInfo gaininfo;
++  //ALpv pv[1], qualifiers[1];
+ 
+   /* 
+    * AL_MAX_SETSIZE is supposed to be a 32 bit int
+@@ -23,7 +23,7 @@
+   if((cfgfile = xmms_cfg_open_file(filename))) {
+     if(!xmms_cfg_read_string(cfgfile, "SGIAL", "output_device",
+ 			     &alinfo.current_device)) {
+-      alinfo.current_device = g_strdup("AnalogOut");
++      alinfo.current_device = g_strdup("Default output device");
+     }
+     if(!xmms_cfg_read_int(cfgfile, "SGIAL", "buffer_size", &alinfo.bufsize))
+       alinfo.bufsize = 10000;
+@@ -33,26 +33,29 @@
+   /* 
+    * Find the resource that corresponds to alinfo.current_device
+    */
+-  alinfo.current_dev = alGetResourceByName(AL_SYSTEM, alinfo.current_device, 
+-					   AL_OUTPUT_DEVICE_TYPE);
++  /* alinfo.current_dev = alGetResourceByName(AL_SYSTEM, alinfo.current_device, 
++					   AL_OUTPUT_DEVICE_TYPE); */
++  /* oldstyle Irix audio API only has a single device, AL_DEFAULT_DEVICE */
++  alinfo.current_dev = AL_DEFAULT_DEVICE; 
+   
+   if (!alinfo.current_dev) {
+-    fprintf(stderr,"Invalid audio resource: %s (%s)\n", alinfo.current_device,
+-            alGetErrorString(oserror()));
++    fprintf(stderr,"Invalid audio resource: %s (%d)\n", alinfo.current_device,
++            oserror());
+     return;
+   }
+   
+   /*
+    * Allocate enough room to store the list of output devices
+    */
+-  pv[0].param = AL_MAX_SETSIZE;
++/*  pv[0].param = AL_MAX_SETSIZE;
+   alGetParams(AL_SYSTEM, pv, 1);
+   setsize = pv[0].value.i;
+   alinfo.output_devices = (ALvalue *)g_malloc(setsize * sizeof(ALvalue));
+-
++*/
+   /*
+    * Get a list of all output devices for config dialog
+    */
++/*
+   qualifiers[0].param = AL_TYPE;
+   qualifiers[0].value.i = AL_OUTPUT_DEVICE_TYPE;
+   if ( (alinfo.device_count = alQueryValues(AL_SYSTEM, AL_DEVICES, 
+@@ -61,14 +64,14 @@
+     fprintf(stderr, "alQueryValues failed: %s\n", 
+ 	    alGetErrorString(oserror()));
+   }
+-
++*/
+   /*
+    * Get info about the volume
+    * Returns min and max in decibels
+    */
+-  if (alGetParamInfo(alinfo.current_dev, AL_GAIN, &gaininfo) < 0) {
+-    fprintf(stderr, "init: alGetParamInfo failed: %s\n", 
+-	    alGetErrorString(oserror()));
++  if (ALgetminmax(alinfo.current_dev, AL_LEFT_SPEAKER_GAIN, &alinfo.adjusted_mingain, &alinfo.adjusted_maxgain) < 0) {
++    fprintf(stderr, "init: ALgetminmax failed: %d\n", 
++	    oserror());
+   }
+ 
+   /*
+@@ -81,13 +84,10 @@
+    * to get the %, and subtract it from the result of our calculation
+    * in set_volume.
+    */
+-  alinfo.adjusted_maxgain = alFixedToDouble(gaininfo.max.ll);
+-  alinfo.adjusted_mingain = alFixedToDouble(gaininfo.min.ll);
+   alinfo.adjustment = MAX(-alinfo.adjusted_mingain, alinfo.adjusted_mingain);
+   alinfo.adjusted_mingain = 0;
+   alinfo.gainrange = alinfo.adjusted_maxgain + alinfo.adjustment;
+ 
+-
+   /*
+    * Initialize some globals
+    */
+Only in sgial-1.0pre.hacked: libtool
+diff -ur --exclude=configure sgial-1.0pre/misc.c sgial-1.0pre.hacked/misc.c
+--- sgial-1.0pre/misc.c	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/misc.c	2007-04-14 16:08:01.000000000 +0200
+@@ -10,7 +10,7 @@
+   pinfo.written_frames = (gint) ((gfloat)(pinfo.written_frames * 1000) / 
+ 				 (gfloat)(pinfo.rate));
+   pinfo.output_frames = 0;
+-  alDiscardFrames(alinfo.port, alGetFilled(alinfo.port));
++  /* ALflush(alinfo.port, ALgetfilled(alinfo.port)); */
+   return;
+ }
+ 
+@@ -25,9 +25,9 @@
+  */
+ void sgial_pause(short p)
+ {
+-  if (alinfo.port && p) {
+-    alDiscardFrames(alinfo.port, alGetFilled(alinfo.port));
+-  }
++  /* if (alinfo.port && p) {
++    ALflush(alinfo.port, ALgetfilled(alinfo.port));
++  } */
+ 
+   pinfo.paused = p;
+   return;
+@@ -40,7 +40,7 @@
+ gint sgial_free(void)
+ {
+   if(!pinfo.paused)
+-    return alGetFillable(alinfo.port) * alinfo.frame_size;
++    return ALgetfillable(alinfo.port) * alinfo.frame_size;
+   return 0;
+ }
+ 
+@@ -74,13 +74,14 @@
+    * If we're paused, don't count latency
+    */
+   if(!pinfo.paused)
+-    latency = alGetFilled(alinfo.port);
++    latency = ALgetfilled(alinfo.port);
+   if(latency < 0)
+     latency = 0;
+ 
++  /* tgc FIXME: divide by 2 to get the right time, why? is it stereo/mono dependent? */
+   time = pinfo.output_time_offset + 
+     (gint) ((double)((pinfo.output_frames - latency) * 1000) /
+-	    (double)pinfo.rate);
++	    (double)pinfo.rate / 2);
+   if (time < 0)
+     time = 0;
+   
+@@ -96,8 +97,9 @@
+   if(!pinfo.playing) {
+     return 0;
+   }
++  /* tgc FIXME: divide by 2 to get the right time, why? is it stereo/mono dependent? */
+   return (gint) ((double)(pinfo.written_frames * 1000) / 
+-		 (double)pinfo.rate);
++		 (double)pinfo.rate / 2);
+ }
+ 
+ /*
+diff -ur --exclude=configure sgial-1.0pre/open.c sgial-1.0pre.hacked/open.c
+--- sgial-1.0pre/open.c	2001-02-09 21:40:47.000000000 +0100
++++ sgial-1.0pre.hacked/open.c	2007-04-14 13:32:08.000000000 +0200
+@@ -8,13 +8,13 @@
+  */
+ gint sgial_open(AFormat sampsize, gint rate, gint nch)
+ {
+-  ALpv params[1];
++  long params[2];
+ 
+   /*
+    * Make sure we get a valid config handle
+    */
+-  if ( (alinfo.config = alNewConfig()) == 0) {
+-    fprintf(stderr,"open: alNewConfig : %s\n",alGetErrorString(oserror()));
++  if ( (alinfo.config = ALnewconfig()) == 0) {
++    fprintf(stderr,"open: ALnewconfig : %d\n",oserror());
+     return 0;
+   }
+ 
+@@ -30,8 +30,8 @@
+    * dmedia include AL_SAMPFMT_FLOAT and AL_SAMPFMT_DOUBLE
+    */
+   pinfo.format = AL_SAMPFMT_TWOSCOMP;
+-  if(alSetSampFmt(alinfo.config, pinfo.format) < 0) {
+-    fprintf(stderr,"open: alSetSampFmt : %s\n",alGetErrorString(oserror()));
++  if(ALsetsampfmt(alinfo.config, pinfo.format) < 0) {
++    fprintf(stderr,"open: ALsetsampfmt : %d\n",oserror());
+   }
+ 
+   /*
+@@ -53,34 +53,34 @@
+       pinfo.width = AL_SAMPLE_16;
+       break;
+     }
+-  if(alSetWidth(alinfo.config, pinfo.width) < 0) {
+-    fprintf(stderr,"open: alSetWidth : %s\n",alGetErrorString(oserror()));
++  if(ALsetwidth(alinfo.config, pinfo.width) < 0) {
++    fprintf(stderr,"open: ALsetwidth : %d\n",oserror());
+   }
+  
+   /*
+    * Are we stereo or mono?
+    */
+   if(nch == 1) {
+-    if(alSetChannels(alinfo.config, AL_MONO) < 0) {
+-      fprintf(stderr,"open: alSetChannels : %s\n",alGetErrorString(oserror()));
++    if(ALsetchannels(alinfo.config, AL_MONO) < 0) {
++      fprintf(stderr,"open: ALsetchannels : %d\n",oserror());
+     }
+   }
+   else {
+-    if(alSetChannels(alinfo.config, AL_STEREO) < 0) {
+-      fprintf(stderr,"open: alSetChannels : %s\n",alGetErrorString(oserror()));
++    if(ALsetchannels(alinfo.config, AL_STEREO) < 0) {
++      fprintf(stderr,"open: ALsetchannels : %d\n",oserror());
+     }
+   }
+ 
+   /*
+    * Number of bytes per audio frame
+    */
+-  alinfo.frame_size = pinfo.width * nch;
++  alinfo.frame_size = pinfo.width; // * nch;
+ 
+   /*
+    * Set the queue size to the user configured buffer size
+    */
+-  if(alSetQueueSize(alinfo.config, alinfo.bufsize) < 0) {
+-    fprintf(stderr,"open: alSetQueueSize : %s\n",alGetErrorString(oserror()));
++  if(ALsetqueuesize(alinfo.config, alinfo.bufsize) < 0) {
++    fprintf(stderr,"open: ALsetqueuesize : %d\n",oserror());
+   }
+ 
+   /*
+@@ -91,26 +91,25 @@
+   /*
+    * Set the device in the config structure
+    */
+-  if (alSetDevice(alinfo.config, alinfo.current_dev) < 0) {
++  /* if (alSetDevice(alinfo.config, alinfo.current_dev) < 0) {
+     fprintf(stderr,"open: alSetDevice : %s\n",alGetErrorString(oserror()));
+     return 0;
+-  }
++  } */
+ 
+   /*
+    * Setup the default output rate
+    */
+-  params[0].param = AL_RATE;
+-  params[0].sizeIn = 1;
+-  params[0].value.ll = alDoubleToFixed((double)pinfo.rate);
+-  if(alSetParams(alinfo.current_dev, params, 1) < 0) {
+-    fprintf(stderr,"open: alSetParams : %s\n",alGetErrorString(oserror()));
++  params[0] = AL_OUTPUT_RATE;
++  params[1] = pinfo.rate;
++  if(ALsetparams(alinfo.current_dev, params, 2) < 0) {
++    fprintf(stderr,"open: ALsetparams : %d\n", oserror());
+   }
+     
+   /*
+    * The moment of truth, opening the port for writing
+    */
+-  if((alinfo.port = alOpenPort("XMMS", "w", alinfo.config)) == NULL) {
+-    fprintf(stderr, "open: alOpenPort : %s", alGetErrorString(oserror()));
++  if((alinfo.port = ALopenport("XMMS", "w", alinfo.config)) == NULL) {
++    fprintf(stderr, "open: ALopenport : %d", oserror());
+     return 0;
+   }
+ 
+@@ -127,9 +126,9 @@
+ void sgial_close(void)
+ {
+   if (alinfo.port) {
+-    alDiscardFrames(alinfo.port, alGetFilled(alinfo.port));
+-    alClosePort(alinfo.port);
+-    alFreeConfig(alinfo.config);
++    /* ALflush(alinfo.port, ALgetfilled(alinfo.port)); */
++    ALcloseport(alinfo.port);
++    ALfreeconfig(alinfo.config);
+   }
+ 
+   pinfo.playing = FALSE;
+diff -ur --exclude=configure sgial-1.0pre/sgial.h sgial-1.0pre.hacked/sgial.h
+--- sgial-1.0pre/sgial.h	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/sgial.h	2007-04-14 13:32:09.000000000 +0200
+@@ -50,12 +50,13 @@
+ {
+   ALconfig config;
+   ALport port;
+-  ALvalue *output_devices;
++  int *output_devices;
+   gint bufsize;
+   gint device_count;
+   gchar *current_device;
+   gint32 current_dev;
+-  double gainrange, adjusted_mingain, adjusted_maxgain, adjustment;
++  /* double gainrange, adjusted_mingain, adjusted_maxgain, adjustment; */
++  long gainrange, adjusted_mingain, adjusted_maxgain, adjustment;
+   int leftgain, rightgain;
+   gint frame_size;
+ };
+diff -ur --exclude=configure sgial-1.0pre/volume.c sgial-1.0pre.hacked/volume.c
+--- sgial-1.0pre/volume.c	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/volume.c	2007-04-14 16:04:21.000000000 +0200
+@@ -1,37 +1,98 @@
+ #include "sgial.h"
+ 
++/****
++ * These two functions that converts back and forth between
++ * the logarithmic hardware scale and a slider scale are
++ * courtesy of an old usenet post to comp.sys.sgi.audio:
++ * http://groups.google.dk/group/comp.sys.sgi.audio/browse_thread/thread/e58892042e8186f4/00a655b12a6b52e2?lnk=gst&q=sgivolume.c&rnum=1&hl=da#00a655b12a6b52e2
++ *
++ * If the link is not working, then search for sgivolume.c instead
++ */
++
++#include <math.h> 
++
++/* ****************************************************************** 
++ *  HardwareLevelFromSliderValue:  map linear slider range [0 .. 100] 
++ *                                  to exponenetial Audio Library range 
++ *                                  [0 .. 255] 
++ * ****************************************************************** */ 
++long HardwareLevelFromSliderValue(int value) 
++{ 
++float level; 
++
++if (value == 0) 
++    level = 0; 
++/*  10^(0.01*value*log10(255)),      0.01*log10(255) = 0.02406540183 */ 
++else 
++    level = pow(10, 0.02406540183*(double)value) + 0.5; 
++
++return ((long)level); 
++
++} /* ---- end HardwareLevelFromSliderValue() ---- */ 
++
++/*** 
++Increment/decrement the linear value, besure to bound result to range [0..100]. 
++Use following routine to convert back : 
++***/ 
++
++/* ****************************************************************** 
++ *  SliderValueFromHardwareLevel: 
++ *                              return slider value (range [0..100]) from 
++ *                              Audio Library level parameter (range 0..255) 
++ * ****************************************************************** */ 
++int SliderValueFromHardwareLevel(long level) 
++{ 
++float value; 
++
++if (level == 0) 
++    return (0); 
++
++/* 100*log10(level)/log10(255),     100/log10(255) = 41.5534304 */ 
++value = 0.5 + 41.5534304*log10((double)level); 
++
++/* bound slider range to [0..100] */ 
++if (value < 0) 
++    value = 0; 
++else if (value > 100) 
++    value = 100; 
++
++return ((int) value); 
++
++} /* ---- end SliderValueFromHardwareLevel() ---- */ 
++
+ /*
+  * Get the volume 
+  */
+ void sgial_get_volume(int *r, int *l)
+ {
+-  ALpv pvs[1];
+-  ALfixed gain[2];
+-  
++  long params[4];
++
+   /*
+    * If we haven't opened a port yet, use the default
+    */
+   if(alinfo.current_dev == 0) {
+-    alinfo.current_dev = AL_DEFAULT_OUTPUT;
++    alinfo.current_dev = AL_DEFAULT_DEVICE;
+   }
+ 
+-  pvs[0].param = AL_GAIN;
+-  pvs[0].value.ptr = gain;
+-  pvs[0].sizeIn = 2;
++  params[0]=AL_LEFT_SPEAKER_GAIN;
++  params[2]=AL_RIGHT_SPEAKER_GAIN;
+ 
+-  if (alGetParams(alinfo.current_dev, pvs, 1) < 0) {
+-    fprintf(stderr, "get_volume: alGetParams failed: %s\n", 
+-	   alGetErrorString(oserror()));
++  if (ALgetparams(alinfo.current_dev, params, 4) < 0) {
++    fprintf(stderr, "get_volume: ALgetparams failed: %d\n", 
++	   oserror());
+   }
+ 
+-  alinfo.rightgain = alFixedToDouble(gain[0]);  
+-  alinfo.leftgain = alFixedToDouble(gain[1]);
++  alinfo.rightgain = params[3];
++  alinfo.leftgain = params[1];
+ 
+   /*
+    * See above on how we calculate volume
+    */
+-  *l = (int)(((alinfo.leftgain + alinfo.adjustment) / alinfo.gainrange) * 100);
+-  *r = (int)(((alinfo.rightgain + alinfo.adjustment) / alinfo.gainrange) * 100);
++  /* *l = (int)(((alinfo.leftgain + alinfo.adjustment) / alinfo.gainrange) * 100);
++  *r = (int)(((alinfo.rightgain + alinfo.adjustment) / alinfo.gainrange) * 100); */
++
++  *l = SliderValueFromHardwareLevel(alinfo.leftgain);
++  *r = SliderValueFromHardwareLevel(alinfo.rightgain);
+ 
+   return;
+ }
+@@ -43,23 +104,28 @@
+ {
+   double lpct, rpct;
+   double newleft, newright;
+-  ALpv vol[1];
+-  ALfixed newvols[2];
++
++  int pvs;
++  long params[4];
+ 
+   /*
+    * If we haven't opened a port yet, use the default
+    */
+   if(alinfo.current_dev == 0) {
+-    alinfo.current_dev = AL_DEFAULT_OUTPUT;
++    alinfo.current_dev = AL_DEFAULT_DEVICE;
+   }
+ 
+   /*
+    * Calculate the gain (in decibels) based on the % passed in
+    */
+-  lpct = l / 100.0;
++  /* lpct = l / 100.0;
+   rpct = r / 100.0;
+   newleft = (lpct * alinfo.gainrange) - alinfo.adjustment;
+   newright = (rpct * alinfo.gainrange) - alinfo.adjustment;
++  */
++  newleft = HardwareLevelFromSliderValue(l);
++  newright = HardwareLevelFromSliderValue(r);
++
+ 
+   /*
+    * Set the gain on the default output device or
+@@ -68,37 +134,39 @@
+    * as the gain, but not all devices support it, so we
+    * unmute it every time instead.
+    */
+-  if(lpct > 0 || rpct > 0) {
++  if(l > 0 || r > 0) {
+     /*
+      * First unmute it
+      */
+-    vol[0].param = AL_MUTE;
+-    vol[0].value.i = 0;
+-    if (alSetParams(alinfo.current_dev, vol, 1) < 0) {
+-      fprintf(stderr, "set_volume: alSetParams failed: %s\n", 
+-	      alGetErrorString(oserror()));
++    params[0]=AL_SPEAKER_MUTE_CTL;
++    params[1]=AL_SPEAKER_MUTE_OFF;
++
++    if (ALsetparams(alinfo.current_dev, params, 2) < 0) {
++      fprintf(stderr, "set_volume: ALsetparams failed: %d\n", 
++	      oserror());
+     }
+     
+     /* 
+      * Now set the gain
+      */
+-    vol[0].param = AL_GAIN;
+-    vol[0].value.ptr = newvols;
+-    vol[0].sizeIn = 2;
+-    newvols[0] = alDoubleToFixed(newright);
+-    newvols[1] = alDoubleToFixed(newleft);
++    params[0]=AL_LEFT_SPEAKER_GAIN;
++    params[1]=newleft;
++    params[2]=AL_RIGHT_SPEAKER_GAIN;
++    params[3]=newright;
++    pvs=4;
+   }
+   else {
+     /*
+      * We got a zero %, so we mute it
+      */
+-    vol[0].param = AL_MUTE;
+-    vol[0].value.i = 1;
++    params[0]=AL_SPEAKER_MUTE_CTL;
++    params[1]=AL_SPEAKER_MUTE_ON;
++    pvs=2;
+   }
+ 
+-  if (alSetParams(alinfo.current_dev, vol, 1) < 0) {
+-    fprintf(stderr, "set_volume: alSetParams failed: %s\n", 
+-	   alGetErrorString(oserror()));
++  if (ALsetparams(alinfo.current_dev, params, pvs) < 0) {
++    fprintf(stderr, "set_volume: ALsetparams failed: %d\n", 
++	   oserror());
+   }
+ 
+   alinfo.leftgain = l;
+diff -ur --exclude=configure sgial-1.0pre/write.c sgial-1.0pre.hacked/write.c
+--- sgial-1.0pre/write.c	2001-02-09 21:40:48.000000000 +0100
++++ sgial-1.0pre.hacked/write.c	2007-02-25 16:19:27.000000000 +0100
+@@ -31,7 +31,7 @@
+   /*
+    * The actual number of frames we're writing is length / frame size
+    */
+-  alWriteFrames(alinfo.port, (unsigned char *)ptr, length / alinfo.frame_size);
++  ALwritesamps(alinfo.port, (unsigned char *)ptr, length / alinfo.frame_size);
+ 
+   return;
+ }
