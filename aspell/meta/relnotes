@@ -27,7 +27,3 @@ ERRORS/MISCELLANEOUS
 --------------------
 Added support for building with trio for snprint/vsnprint support which the code
 depends on.
-
-NLS is disabled since it breaks the build (missing -lgettext -liconv when linking
-aspell executable)
-
