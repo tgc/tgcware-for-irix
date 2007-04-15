@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libmng
 version=1.0.9
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,6 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir}"
 
 reg prep
 prep()
@@ -33,8 +34,10 @@ build()
 {
     # We need sed, automake, autoconf and libtool for this one
     setdir source
-    $GSED "s/\r//" unmaintained/autogen.sh > unmaintained/autogen.sh.unix
-    $GSED "s/\.\/configure/#\.\/configure/" unmaintained/autogen.sh.unix > unmaintained/autogen.sh
+    $GSED -i "s/\r//" unmaintained/autogen.sh
+    $GSED -i "s/\.\/configure/#\.\/configure/" unmaintained/autogen.sh
+    $GSED -i "/^aclocal/s|aclocal|aclocal-1.9|" unmaintained/autogen.sh
+    $GSED -i "/^automake/s|automake|automake-1.9|" unmaintained/autogen.sh
     $SHELL unmaintained/autogen.sh
     generic_build
 }
