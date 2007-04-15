@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,11 +10,12 @@
 # Check the following 4 variables before running the script
 topdir=cups
 version=1.1.23
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version-source.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=cups-1.1.23-pkg.patch
 patch[1]=cups-1.1.23-libdir.patch
+patch[2]=cups-1.1.23-datarootdir.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -53,6 +54,8 @@ install()
     # Make cups available when doing chkconfig list and don't start automatically
     ${MKDIR} -p ${stagedir}/${_sysconfdir}/config
     echo "off" >${stagedir}/${_sysconfdir}/config/cups
+
+    $GSED -i 's|${datarootdir}|/usr/tgcware/share|g' ${stagedir}${prefix}/${_sysconfdir}/cups/cupsd.conf
 }
 
 reg pack

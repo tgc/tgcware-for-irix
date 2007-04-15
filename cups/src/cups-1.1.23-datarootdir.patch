@@ -1,0 +1,30 @@
+--- cups-1.1.23/cups-config.in.datarootdir	2007-04-15 16:54:21.141200000 +0200
++++ cups-1.1.23/cups-config.in	2007-04-15 16:54:39.021200000 +0200
+@@ -33,6 +33,7 @@
+ libdir=@libdir@
+ datadir=@datadir@
+ sysconfdir=@sysconfdir@
++datarootdir=@datarootdir@
+ cups_datadir=@CUPS_DATADIR@
+ cups_serverbin=@CUPS_SERVERBIN@
+ cups_serverroot=@CUPS_SERVERROOT@
+--- cups-1.1.23/Makedefs.in.datarootdir	2007-04-15 16:53:26.551200000 +0200
++++ cups-1.1.23/Makedefs.in	2007-04-15 16:53:53.591200000 +0200
+@@ -131,6 +131,7 @@
+ srcdir		=	@srcdir@
+ sysconfdir	=	@sysconfdir@
+ top_srcdir	=	@top_srcdir@
++datarootdir	=	@datarootdir@
+ 
+ BUILDROOT	=	$(DSTROOT)
+ 
+--- cups-1.1.23/cups.list.in.datarootdir	2007-04-15 17:36:34.261200000 +0200
++++ cups-1.1.23/cups.list.in	2007-04-15 17:37:09.701200000 +0200
+@@ -69,6 +69,7 @@
+ $sharedstatedir=@sharedstatedir@
+ $srcdir=@srcdir@
+ $sysconfdir=@sysconfdir@
++$datarootdir=@datarootdir@
+ $top_srcdir=@top_srcdir@
+ 
+ #
