@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libwmf
 version=0.2.8.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libwmf-0.2.8.4-system-trio.patch
@@ -21,7 +21,8 @@ patch[0]=libwmf-0.2.8.4-system-trio.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-libxml2 --with-sysfontmap=${prefix}/${_sharedir}/fonts/fontmap --with-gsfontmap=${prefix}/${_sharedir}/ghostscript/8.15/lib/Fontmap --with-gsfontdir=${prefix}/${_sharedir}/fonts/default/ghostscript"
+[ "$_os" = "irix62" ] && xlib=/usr/lib32 || xlib=/usr/lib
+configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-libxml2 --with-sysfontmap=${prefix}/${_sharedir}/fonts/fontmap --with-gsfontmap=${prefix}/${_sharedir}/ghostscript/8.15/lib/Fontmap --with-gsfontdir=${prefix}/${_sharedir}/fonts/default/ghostscript --x-libraries=$xlib"
 
 META_CLEAN="$META_CLEAN ops"
 
