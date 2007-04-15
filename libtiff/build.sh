@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tiff
-version=3.7.4
-pkgver=2
+version=3.8.2
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=tiff-3.7.4-trio.patch
@@ -21,7 +21,8 @@ patch[0]=tiff-3.7.4-trio.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx'
+[ "$_os" = "irix62" ] && xlib=/usr/lib32 || xlib=/usr/lib
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx --x-libraries=$xlib'
 
 reg prep
 prep()
