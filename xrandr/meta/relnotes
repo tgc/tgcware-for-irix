@@ -25,7 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-patch-aa & patch-ab was borrowed the NetBSD pkgsrc project.
+patch-aa & patch-ab was borrowed from the NetBSD pkgsrc project.
 Xrandr links with Xext and it seems satisfied with the
 library deliveried with Irix though it was probably
 expecting the Xorg version.
