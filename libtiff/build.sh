@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=tiff
 version=3.7.4
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=tiff-3.7.4-trio.patch
@@ -21,14 +21,14 @@ patch[0]=tiff-3.7.4-trio.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx'
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
-    aclocal -I m4 -I /usr/tgcware/share/aclocal
+    aclocal-1.9 -I m4 -I /usr/tgcware/share/aclocal
     autoheader
     autoconf
 }
