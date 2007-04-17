@@ -1,0 +1,20 @@
+--- groff-1.19.2/Makefile.in.path	2007-04-15 12:39:38.103600000 +0200
++++ groff-1.19.2/Makefile.in	2007-04-15 12:40:22.473600000 +0200
+@@ -132,7 +132,7 @@
+ datasubdir=$(dataprogramdir)/$(version)$(revision)
+ 
+ # `infodir' says where to install info files.
+-infodir=@infodir@
++infodir=$(prefix)/info
+ 
+ # `docdir' says where to install documentation files.
+ docdir=$(datadir)/doc/groff/$(version)$(revision)
+@@ -225,7 +225,7 @@
+ common_words_file=$(datasubdir)/eign
+ 
+ # `manroot' is the root of the man page directory tree.
+-mandir=@mandir@
++mandir=$(prefix)/man
+ manroot=$(mandir)
+ 
+ # `man1ext' is the man section for user commands.

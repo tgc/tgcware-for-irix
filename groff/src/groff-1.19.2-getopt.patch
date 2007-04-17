@@ -1,0 +1,18 @@
+--- groff-1.19.2/src/utils/pfbtops/Makefile.sub.orig	2007-04-15 12:31:03.213600000 +0200
++++ groff-1.19.2/src/utils/pfbtops/Makefile.sub	2007-04-15 12:29:56.533600000 +0200
+@@ -1,3 +1,4 @@
++EXTRA_CFLAGS=-D__GETOPT_PREFIX=groff_
+ PROG=pfbtops$(EXEEXT)
+ MAN1=pfbtops.n
+ OBJS=pfbtops.$(OBJEXT)
+--- groff-1.19.2/src/utils/xtotroff/Makefile.sub.orig	2007-04-15 12:31:14.733600000 +0200
++++ groff-1.19.2/src/utils/xtotroff/Makefile.sub	2007-04-15 12:31:43.573600000 +0200
+@@ -2,7 +2,7 @@
+ MAN1=xtotroff.n
+ MLIB=$(LIBM)
+ XLIBS=$(LIBXUTIL) $(LIBGROFF)
+-EXTRA_CFLAGS=$(X_CFLAGS)
++EXTRA_CFLAGS=$(X_CFLAGS) -D__GETOPT_PREFIX=groff_
+ EXTRA_LDFLAGS=$(X_LIBS) $(X_PRE_LIBS) -lXaw -lXt -lX11 $(X_EXTRA_LIBS)
+ OBJS=xtotroff.$(OBJEXT)
+ CSRCS=$(srcdir)/xtotroff.c

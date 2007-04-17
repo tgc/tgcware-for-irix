@@ -1,7 +1,7 @@
 --- groff-1.19/src/roff/nroff/nroff.sh.orig	Tue Dec  9 20:41:44 2003
 +++ groff-1.19/src/roff/nroff/nroff.sh	Tue Dec  9 20:41:53 2003
 @@ -1,4 +1,4 @@
--#!/bin/sh
+-#! /bin/sh
 +#!/bin/ksh
  # Emulate nroff with groff.
  

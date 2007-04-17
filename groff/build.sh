@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,13 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=groff
-version=1.19.1
-pkgver=3
+version=1.19.2
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=groff-1.18.1-Imakefile.patch
-patch[1]=groff-1.19-inttypes-irix53.patch
-patch[2]=groff-1.19-nroff-shell.patch
+patch[0]=groff-1.19-inttypes-irix53.patch
+patch[1]=groff-1.19.2-nroff-shell.patch
+patch[2]=groff-1.19.2-getopt.patch
+patch[3]=groff-1.19.2-path.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -23,7 +24,14 @@ patch[2]=groff-1.19-nroff-shell.patch
 # Global settings
 # This package has a shallow stagedir
 shortroot=1
+export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args="$configure_args --with-x=no"
+# Glem alt om mipspro, det bygger fint men programmerne virker ikke
+#export CC=gcc
+#export CXX=g++
+#[ "$_os" = "irix53" ] && export CXX=g++ && mipspro=2
+#[ "$_os" = "irix62" ] && mipspro=1
 
 reg prep
 prep()
@@ -35,33 +43,12 @@ reg build
 build()
 {
     generic_build
-    setdir source
-    (cd doc && makeinfo groff.texinfo)
-    cd src/xditview
-    xmkmf -a # Produces kinda broken makefiles using -mips2 -32 :(
-    if [ "$_os" == "irix53" ]; then
-	$MAKE_PROG CC=cc CCOPTIONS="-xansi -32 -mips1" LDPOSTLIB=
-    else
-	$MAKE_PROG CC=cc CCOPTIONS="-xansi -n32 -mips3 -woff 1116,1174" LDPOSTLIB=
-    fi
 }
 
 reg install
 install()
 {
     generic_install prefix
-    setdir source
-    cd src/xditview
-    $MAKE_PROG DESTDIR=$stagedir install
-    setdir ${stagedir}${prefix}
-    ${RM} -f info/dir
-    ${MV} ../lib/* lib
-    ${MV} ../bin/X11/* bin
-    ${RMDIR} ../bin/X11
-    ${RMDIR} ../bin
-    ${RMDIR} ../lib
-    custom_install=1
-    generic_install
     doc ChangeLog NEWS PROBLEMS PROJECTS TODO COPYING LICENSE
 }
 
