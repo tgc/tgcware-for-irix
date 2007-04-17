@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=nedit
 version=5.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version-src.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=nedit-5.5-sgi.patch
