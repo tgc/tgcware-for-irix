@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=$prefix/${_mandir} --with-libiconv-prefix=/usr/tgcware'
+configure_args="$configure_args --with-libiconv-prefix=/usr/tgcware --disable-rpath"
 
 reg prep
 prep()
@@ -39,14 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS README
-    # Fix up these 4 manpages to use symlinks instead of nroff include style
-    setdir ${stagedir}${prefix}/${_mandir}/man3
-    ${RM} -f dcgettext.3 dcngettext.3 dgettext.3 dngettext.3
-    ${LN} -s gettext.3 dcgettext.3
-    ${LN} -s ngettext.3 dcngettext.3
-    ${LN} -s gettext.3 dgettext.3
-    ${LN} -s ngettext.3 dngettext.3
+    doc NEWS README COPYING
 }
 
 reg pack
