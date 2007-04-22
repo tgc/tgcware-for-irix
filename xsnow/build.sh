@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=xsnow
 version=1.42
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=xsnow-1.42-misc.patch
@@ -24,8 +24,8 @@ patch[2]=xsnow-1.42-ldpostlib.patch
 __configure="xmkmf"
 check_ac=0
 if [ "$_os" = "irix62" ]; then
-configure_args="-n32 -mips3 -a"
-mipspro=1
+    configure_args="-n32 -mips3 -a"
+    mipspro=1
 fi
 if [ "$_os" = "irix53" ]; then
     configure_args="-32 -a"

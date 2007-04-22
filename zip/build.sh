@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=zip
 version=2.31
-pkgver=2
+pkgver=3
 source[0]=${topdir}231.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,7 +20,8 @@ source[0]=${topdir}231.tar.gz
 
 # Global settings
 shortroot=1
-mipspro=1
+[ "$_os" = "irix62" ] && mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
