@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=graphviz
 version=2.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -44,7 +44,6 @@ install()
     ${MV} ${stagedir}${prefix}/${_sharedir}/graphviz/doc/* ${stagedir}${prefix}/${_vdocdir}
     ${RMDIR} ${stagedir}${prefix}/${_sharedir}/graphviz/doc
     ${RM} -f ${stagedir}${prefix}/${_libdir}/graphviz/pkgIndex.tcl
-    ${RMDIR} ${stagedir}${prefix}/${_mandir}/mann
 }
 
 reg pack

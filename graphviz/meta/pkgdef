@@ -32,7 +32,7 @@ $_vdocdir/ChangeLog
 [man]
 subsys=man.man
 files(-,root,sys)
-$_mandir/?a?[12456789]
+$_mandir/?a?[1n2456789]
 
 [mandev]
 subsys=man.dev
