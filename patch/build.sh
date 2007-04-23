@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=patch
 version=2.5.4
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -38,7 +38,7 @@ reg install
 install()
 {
     generic_install prefix
-    doc README NEWS ChangeLog
+    doc README NEWS ChangeLog COPYING
 }
 
 reg pack
