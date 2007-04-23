@@ -22,6 +22,11 @@ subsys=man.doc
 files(-,root,sys)
 $_vdocdir/doc
 
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
 [devel]
 subsys=sw.dev
 files(-,root,sys)
