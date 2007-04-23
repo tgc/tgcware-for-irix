@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=flex
 version=2.5.4a
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=flex-2.5.4a-skel.patch
