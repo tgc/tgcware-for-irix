@@ -25,6 +25,3 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-Irix 5.3 specific notes:
-Even with the included patch building with gcc would fail with header
-issues which is why this is built with SGI cc.
