@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=vim
 version=7.0
-pkgver=2
+pkgver=4
 source[0]=$topdir-7.0.tar.bz2
 # If there are no patches, simply comment this
 # Generate patchlist like this:
@@ -135,7 +135,7 @@ patch[116]=7.0.126
 patch[117]=7.0.127
 patch[118]=7.0.128
 patch[119]=7.0.129
-patch[120]=7.0.132
+patch[120]= #7.0.132 - improperly tagged - depends on 130 which is (extra)
 patch[121]=7.0.133
 patch[122]=7.0.134
 patch[123]=7.0.135
@@ -203,7 +203,7 @@ patch[184]=7.0.204
 patch[185]=7.0.205
 patch[186]=7.0.206
 patch[187]=7.0.207
-patch[188]=7.0.208
+patch[188]= #7.0.208 - VMS only
 patch[189]=7.0.209
 patch[190]=7.0.210
 patch[191]=7.0.211
@@ -230,13 +230,18 @@ patchcount=${#patch[@]}
 # We need to override this
 topsrcdir=vim70
 patchdir=$srcfiles/vim-${version}-patches
-patch_prefix="-p2"
+patch_prefix="-p0"
 export CFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 # What gui should we build?
 gui=motif
-configure_args='--prefix=$prefix --enable-gui=$gui --with-features=huge --with-compiledby="<irixpkg@jupiterrise.com>" --enable-multibyte --disable-netbeans'
+configure_args='--prefix=$prefix --enable-gui=$gui --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<irixpkg@jupiterrise.com>" --disable-netbeans'
 configlog=src/auto/config.log
+
+export CC=cc
+export CFLAGS=-O2
+[ "$_os" = "irix62" ] && mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
