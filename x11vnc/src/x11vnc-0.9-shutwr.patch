@@ -1,0 +1,13 @@
+--- x11vnc-0.9/x11vnc/sslhelper.c.shut_wr	2007-05-04 10:29:54.386800000 +0200
++++ x11vnc-0.9/x11vnc/sslhelper.c	2007-05-04 10:32:09.976800000 +0200
+@@ -27,6 +27,10 @@
+ #define LIBVNCSERVER_HAVE_LIBSSL 0
+ #endif
+ 
++/* For Irix 6.2 and lower */
++#ifndef SHUT_WR
++#define SHUT_WR 1
++#endif
+ 
+ int openssl_sock = -1;
+ int openssl_port_num = 0;

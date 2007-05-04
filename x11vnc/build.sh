@@ -9,13 +9,15 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=x11vnc
-version=0.8.1
-pkgver=1
+version=0.9
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=x11vnc-0.8.1-shutrdwr.patch
-patch[1]=x11vnc-0.8.1-trio.patch
-patch[2]=x11vnc-0.8.1-mapfailed.patch
+patch[1]=x11vnc-0.9-trio.patch
+patch[2]=x11vnc-0.9-shutwr.patch
+patch[3]=x11vnc-0.9-trio-includes.patch
+patch[4]=x11vnc-0.8.1-mapfailed.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -24,7 +26,7 @@ patch[2]=x11vnc-0.8.1-mapfailed.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 ac_overrides="ac_cv_lib_socket_socket=no"
-configure_args="--prefix=$prefix --without-xkeyboard"
+configure_args="$configure_args --without-xkeyboard --x-libraries= --without-xfixes --without-xrandr"
 
 reg prep
 prep()

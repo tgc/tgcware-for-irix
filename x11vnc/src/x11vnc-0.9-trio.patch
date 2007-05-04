@@ -1,0 +1,12 @@
+--- x11vnc-0.8.1/configure.ac.trio	2006-06-24 16:33:53.445200000 +0200
++++ x11vnc-0.8.1/configure.ac	2006-06-24 16:35:00.045200000 +0200
+@@ -466,6 +466,9 @@
+     ;;
+ esac
+ 
++# snprintf/vsnprintf
++NEED_TRIO_CHECK
++
+ # Check for rpm SOURCES path
+ printf "checking for rpm sources path... "
+ RPMSOURCEDIR="NOT-FOUND"

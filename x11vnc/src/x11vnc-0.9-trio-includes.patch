@@ -1,0 +1,90 @@
+--- x11vnc-0.9/x11vnc/user.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/user.c	2007-05-04 17:32:11.352800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- user.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/screen.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/screen.c	2007-05-04 17:32:11.142800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- screen.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/remote.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/remote.c	2007-05-04 17:32:11.062800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- remote.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/connections.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/connections.c	2007-05-04 17:32:10.982800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- connections.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/xevents.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/xevents.c	2007-05-04 17:32:11.422800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- xevents.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/cleanup.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/cleanup.c	2007-05-04 17:32:10.902800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- cleanup.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/x11vnc/unixpw.c.trio	2007-04-19 00:28:58.000000000 +0200
++++ x11vnc-0.9/x11vnc/unixpw.c	2007-05-04 17:32:11.282800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- unixpw.c -- */
+ 
+ #ifdef __linux__
+--- x11vnc-0.9/x11vnc/sslhelper.c.trio	2007-05-04 17:29:10.000000000 +0200
++++ x11vnc-0.9/x11vnc/sslhelper.c	2007-05-04 17:32:11.212800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /* -- sslhelper.c -- */
+ 
+ #include "x11vnc.h"
+--- x11vnc-0.9/libvncserver/stats.c.trio	2006-05-16 21:35:17.000000000 +0200
++++ x11vnc-0.9/libvncserver/stats.c	2007-05-04 17:32:40.652800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /*
+  * stats.c
+  */
+--- x11vnc-0.9/libvncserver/rfbserver.c.trio	2007-03-17 01:13:13.000000000 +0100
++++ x11vnc-0.9/libvncserver/rfbserver.c	2007-05-04 17:32:40.582800000 +0200
+@@ -1,3 +1,6 @@
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
+ /*
+  * rfbserver.c - deal with server-side of the RFB protocol.
+  */
