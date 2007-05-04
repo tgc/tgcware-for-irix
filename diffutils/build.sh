@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=diffutils
 version=2.8.1
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -28,9 +28,10 @@ prep()
     generic_prep
     setdir source
     ${RM} -f m4/gettext.m4
-    aclocal -I m4
-    automake --gnu
+    aclocal-1.6 -I m4
+    automake-1.6 --gnu
     autoconf
+    autoheader
     # Ugly hack
     setdir $srcdir
     $LN -s ${srcdir}/${topsrcdir}/config .
