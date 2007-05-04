@@ -29,3 +29,6 @@ I decided to build without thread support since a number of netdb functions
 in Irix 6.2 lacks reentrant versions (_r).
 
 The .k5login man page was renamed to dot.k5login
+
+I've included the latest security patches for 1.4 taken from the FC5
+src.rpm. The 1.4 branch is nolonger supported upstream.

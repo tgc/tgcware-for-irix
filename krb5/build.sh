@@ -9,16 +9,20 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=krb5
-version=1.4.3
+version=1.4.4
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=2006-002-patch.txt
+patch[1]=krb5-1.4.3-CVE-2007-0957-prelim.patch
+patch[2]=krb5-1.6-CVE-2007-0956-prelim.patch
+patch[3]=krb5-1.6-CVE-2007-1216-prelim.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+patch_prefix="-p0"
 export PERL="/usr/tgcware/bin/perl"
 kerbdir=krb5
 prefix=${prefix}/${kerbdir}
