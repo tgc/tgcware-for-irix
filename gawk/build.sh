@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gawk
 version=3.1.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-$version-ps.tar.gz
 # If there are no patches, simply comment this
@@ -22,6 +22,9 @@ source[1]=$topdir-$version-ps.tar.gz
 # Global options
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export CC=cc
+[ "$_os" = "irix62" ] && mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
