@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=tar
 version=1.15.1
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=tar-1.15.1-trio.patch
@@ -32,8 +32,8 @@ reg build
 build()
 {
     setdir ${srcdir}/${topsrcdir}
-    aclocal -I ./m4 -I /usr/tgcware/share/aclocal
-    automake --gnu
+    aclocal-1.9 -I ./m4 -I /usr/tgcware/share/aclocal
+    automake-1.9 --gnu
     autoconf
     generic_build
 }
@@ -42,9 +42,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_infodir}/dir
     $RMDIR ${stagedir}${prefix}/${_sbindir}
-    doc ChangeLog README NEWS
+    doc ChangeLog README NEWS COPYING
 }
 
 reg pack
