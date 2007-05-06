@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=XML-Parser
 version=2.34
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,6 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 maketest=1
 perlpkgname="$(echo $pkgdir|sed -e 's/-/_/g')"
+distfile='$pkgdir-$version-$pkgver.tgc-$os-$cpu-$pkgdirdesig.tardist'
 __configure="perl"
 configure_args="Makefile.PL"
 
