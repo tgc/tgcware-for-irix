@@ -25,4 +25,11 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-The only working output plugin is esound.
+There are two working output plugins. The generic esound plugin and
+a hacked up version of the sgial 1.0pre plugin that supports the old
+dmedia API.
+Except for perhaps a tendency to "eat" the last second of a file the
+latter plugin works well and uses less CPU time than going through esound.
+Also the plugin may have a problem with mono files but it's untested.
+
+Note that the sgial plugin is packaged seperately.

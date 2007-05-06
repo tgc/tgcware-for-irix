@@ -1,1 +1,2 @@
 sw.base sw.lib auto
+sw.base tgc_esound.sw.base auto

@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=xmms
 version=1.2.10
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 source[1]=xmmsskins-1.0.tar.gz
 # If there are no patches, simply comment this
