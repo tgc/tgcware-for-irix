@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=texinfo
 version=4.8
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -34,8 +34,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_infodir}/dir
-    doc NEWS ChangeLog INTRODUCTION TODO
+    doc NEWS ChangeLog INTRODUCTION TODO COPYING
 }
 
 reg pack
