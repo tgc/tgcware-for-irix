@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=postfix
 version=2.2.10
-pkgver=2
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 
@@ -92,10 +92,11 @@ install()
       $GINSTALL -c -m 755 man/man1/$i.1 ${stagedir}${prefix}/${_mandir}/man1/
     done
 
-    # Fix up postfix-files to recognized converted and compressed manpages
-    [ "$_os" = "irix53" ] && suffix=Z || suffix=gz
-    $GSED -i "s/\(.*man[158]\/.*\.[158]\)/\1.$suffix/g" ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
-    $GSED -i 's/\(.*\)man\([158].*\)/\1cat\2/' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
+    # Fix up postfix-files to leave out manpages, documentation etc. 
+    $GSED -i '/sample_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
+    $GSED -i '/html_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
+    $GSED -i '/readme_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
+    $GSED -i '/manpage_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
 
     # install qshape
     mantools/srctoman - auxiliary/qshape/qshape.pl > qshape.1
@@ -139,6 +140,8 @@ install()
 	$metadir/preinstall.sh > ${stagedir}${prefix}/${_vdocdir}/contrib/preinstall.sh
     chmod 755 ${stagedir}${prefix}/${_vdocdir}/contrib/preinstall.sh
     echo "${lprefix}/${_vdocdir}/contrib/preinstall.sh postop(${prefix}/${_vdocdir}/contrib/preinstall.sh)" >> $metadir/ops
+    # Run set-permissions after installation
+    echo "${lprefix}/${_sbindir}/postfix exitop(${prefix}/${_sbindir}/postfix set-permissions)" >> $metadir/ops
 
     custom_install=1
     generic_install
