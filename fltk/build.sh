@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=fltk
-version=1.1.6
-pkgver=2
+version=1.1.7
+pkgver=1
 source[0]=$topdir-$version-source.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=fltk-1.1.6-fontconfig.patch
