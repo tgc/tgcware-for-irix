@@ -1,0 +1,12 @@
+--- pidgin-2.0.0/configure.ac.trio	2007-05-04 07:20:33.000000000 +0200
++++ pidgin-2.0.0/configure.ac	2007-05-10 20:33:35.508800000 +0200
+@@ -1914,6 +1914,9 @@
+ 	LDFLAGS="$orig_LDFLAGS"
+ fi
+ 
++dnl check if we need trio for snprintf/vsnprintf
++NEED_TRIO_CHECK
++
+ AC_MSG_CHECKING(for me pot o' gold)
+ AC_MSG_RESULT(no)
+ AC_CHECK_FUNCS(gethostid lrand48)

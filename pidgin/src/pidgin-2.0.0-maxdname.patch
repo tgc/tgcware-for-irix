@@ -1,0 +1,26 @@
+--- pidgin-2.0.0/libpurple/dnssrv.c.maxdname	2007-04-30 03:26:53.000000000 +0200
++++ pidgin-2.0.0/libpurple/dnssrv.c	2007-05-10 20:39:15.718800000 +0200
+@@ -24,8 +24,8 @@
+ #include "util.h"
+ 
+ #ifndef _WIN32
+-#include <resolv.h>
+ #include <arpa/nameser.h>
++#include <resolv.h>
+ #ifdef HAVE_ARPA_NAMESER_COMPAT_H
+ #include <arpa/nameser_compat.h>
+ #endif
+--- pidgin-2.0.0/libpurple/network.c.maxdname	2007-04-26 07:35:54.000000000 +0200
++++ pidgin-2.0.0/libpurple/network.c	2007-05-10 20:39:15.728800000 +0200
+@@ -26,10 +26,10 @@
+ #include "internal.h"
+ 
+ #ifndef _WIN32
+-#include <resolv.h>
+ #include <netinet/in.h>
+ #include <arpa/nameser.h>
+ #include <net/if.h>
++#include <resolv.h>
+ #include <sys/ioctl.h>
+ #else
+ #include <nspapi.h>

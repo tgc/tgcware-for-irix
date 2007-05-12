@@ -1,0 +1,30 @@
+--- pidgin-2.0.0/libpurple/protocols/zephyr/Makefile.am.zephyr	2007-05-03 20:14:10.000000000 +0200
++++ pidgin-2.0.0/libpurple/protocols/zephyr/Makefile.am	2007-05-10 20:40:05.328800000 +0200
+@@ -104,6 +104,7 @@
+ 	-I$(top_srcdir)/libpurple \
+ 	-I$(top_builddir)/libpurple \
+ 	-I$(top_srcdir)/libpurple/protocols \
++	-I$(top_srcdir)/gl \
+ 	-DCONFDIR=\"$(confdir)\" \
+ 	$(GLIB_CFLAGS) \
+ 	$(KRB4_CFLAGS) \
+--- pidgin-2.0.0/libpurple/protocols/zephyr/zephyr.c.zephyr	2007-04-30 05:14:26.000000000 +0200
++++ pidgin-2.0.0/libpurple/protocols/zephyr/zephyr.c	2007-05-10 20:40:55.518800000 +0200
+@@ -41,6 +41,8 @@
+ #include "zephyr.h"
+ #include "internal.h"
+ 
++#include "inet_ntop.h"
++
+ #include <strings.h>
+ 
+ #define ZEPHYR_FALLBACK_CHARSET "ISO-8859-1"
+@@ -935,7 +937,7 @@
+ 			gcc = purple_conversation_get_chat_data(gconv1);
+ 
+ 			if (!purple_conv_chat_find_user(gcc, sendertmp)) {
+-				gchar ipaddr[INET_ADDRSTRLEN];
++				gchar ipaddr[sizeof "255.255.255.255"];
+ 				inet_ntop(AF_INET, &notice.z_sender_addr.s_addr, ipaddr, sizeof(ipaddr));
+ 
+ 				purple_conv_chat_add_user(gcc, sendertmp, ipaddr, PURPLE_CBFLAGS_NONE, TRUE);

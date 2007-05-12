@@ -1,0 +1,79 @@
+--- pidgin-2.0.0/libpurple/nat-pmp.c.orig	2007-05-11 20:40:06.729600000 +0200
++++ pidgin-2.0.0/libpurple/nat-pmp.c	2007-05-11 21:46:02.967305000 +0200
+@@ -44,12 +44,12 @@
+ #include <net/route.h>
+ 
+ #include <netdb.h>
+-#include <err.h>
+ #endif
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <bstring.h>
+ 
+ #include <errno.h>
+ 
+@@ -130,7 +130,7 @@
+ 		if (bitmask & (1 << i)) 
+ 		{
+ 			addrs[i] = sa;
+-			sa = (struct sockaddr *)(ROUNDUP(sa->sa_len) + (char *)sa);
++			sa = (struct sockaddr *)(ROUNDUP(sizeof(struct sockaddr_in)) + (char *)sa);
+ 		} 
+ 		else
+ 		{
+@@ -148,10 +148,7 @@
+ 		return 0;
+ 
+     sin = (struct sockaddr_in *)sa;
+-    if ((sin->sin_addr.s_addr == INADDR_ANY) &&
+-		mask &&
+-		(ntohl(((struct sockaddr_in *)mask)->sin_addr.s_addr) == 0L ||
+-		 mask->sa_len == 0))
++    if ((sin->sin_addr.s_addr == INADDR_ANY) && mask && ntohl(((struct sockaddr_in *)mask)->sin_addr.s_addr) == 0L)
+ 		return 1;
+     else
+ 		return 0;
+@@ -212,20 +209,20 @@
+ 			if ((rtm->rtm_flags & RTF_GATEWAY) && sin->sin_addr.s_addr == INADDR_ANY)
+ 			{
+ 				/* We found the default route. Now get the destination address and netmask. */
+-	            struct sockaddr *rti_info[RTAX_MAX];
++				struct sockaddr *rti_info[RTAX_MAX];
+ 				struct sockaddr addr, mask;
+ 
+ 				get_rtaddrs(rtm->rtm_addrs, sa, rti_info);
+ 				bzero(&addr, sizeof(addr));
+ 
+-				if (rtm->rtm_addrs & RTA_DST)
++/*				if (rtm->rtm_addrs & RTA_DST)
+ 					bcopy(rti_info[RTAX_DST], &addr, rti_info[RTAX_DST]->sa_len);
+-
++*/
+ 				bzero(&mask, sizeof(mask));
+ 
+-				if (rtm->rtm_addrs & RTA_NETMASK)
+-					bcopy(rti_info[RTAX_NETMASK], &mask, rti_info[RTAX_NETMASK]->sa_len);
+-
++/*				if (rtm->rtm_addrs & RTA_NETMASK)
++					bcopy(rti_info[RTAX_NETMASK], &mask, rti_info[RTAX_NETMASK]->salen);
++*/
+ 				if (rtm->rtm_addrs & RTA_GATEWAY &&
+ 					is_default_route(&addr, &mask)) 
+ 				{					
+--- pidgin-2.0.0/libpurple/nat-pmp.h.orig	2007-05-11 20:40:54.319600000 +0200
++++ pidgin-2.0.0/libpurple/nat-pmp.h	2007-05-11 20:42:47.989600000 +0200
+@@ -31,7 +31,11 @@
+ #ifndef _PURPLE_NAT_PMP_H
+ #define _PURPLE_NAT_PMP_H
+ 
+-#include <stdint.h>
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++/* #include <stdint.h> */
+ #include <glib.h>
+ 
+ #define PURPLE_PMP_LIFETIME	3600	/* 3600 seconds */

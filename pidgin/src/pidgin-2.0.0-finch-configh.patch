@@ -1,0 +1,20 @@
+--- pidgin-2.0.0/finch/libgnt/gntfilesel.c.configh	2007-05-11 21:59:20.321600000 +0200
++++ pidgin-2.0.0/finch/libgnt/gntfilesel.c	2007-05-11 21:59:26.951600000 +0200
+@@ -1,3 +1,7 @@
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
+ #include "gntbutton.h"
+ #include "gntentry.h"
+ #include "gntfilesel.h"
+--- pidgin-2.0.0/finch/libgnt/gntkeys.c.configh	2007-05-11 21:59:56.991600000 +0200
++++ pidgin-2.0.0/finch/libgnt/gntkeys.c	2007-05-11 22:00:02.061600000 +0200
+@@ -1,3 +1,7 @@
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
+ #include "gntkeys.h"
+ 
+ #include <glib.h>

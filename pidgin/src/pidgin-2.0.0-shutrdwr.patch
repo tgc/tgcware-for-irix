@@ -1,0 +1,11 @@
+--- pidgin-2.0.0/libpurple/protocols/gg/lib/libgadu.c.shutrdwr	2007-03-19 07:15:50.000000000 +0100
++++ pidgin-2.0.0/libpurple/protocols/gg/lib/libgadu.c	2007-05-10 20:38:29.898800000 +0200
+@@ -30,6 +30,8 @@
+ #ifdef sun
+ #  include <sys/filio.h>
+ #endif
++/* Irix 5.3 & 6.2 doesn't define SHUT_RD, SHUT_WR and SHUT_RDWR in socket.h */
++#define SHUT_RDWR 2
+ #else
+ #include <io.h>
+ #include <fcntl.h>

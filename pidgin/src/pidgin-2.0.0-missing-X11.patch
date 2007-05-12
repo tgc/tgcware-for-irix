@@ -1,0 +1,12 @@
+--- pidgin-2.0.0/pidgin/Makefile.am.x11	2007-05-10 20:44:39.638800000 +0200
++++ pidgin-2.0.0/pidgin/Makefile.am	2007-05-10 20:44:50.448800000 +0200
+@@ -178,7 +178,8 @@
+ 	$(LIBXML_LIBS) \
+ 	$(GTK_LIBS) \
+ 	$(top_builddir)/libpurple/libpurple.la \
+-	$(top_builddir)/gl/libgnu.la
++	$(top_builddir)/gl/libgnu.la \
++	-lX11
+ 
+ if USE_INTERNAL_LIBGADU
+ INTGG_CFLAGS = -DUSE_INTERNAL_LIBGADU
