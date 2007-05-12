@@ -10,13 +10,15 @@
 # Check the following 4 variables before running the script
 topdir=findutils
 version=4.2.30
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=findutils-4.2.27-mbchar.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix62" ] && patch[0]=findutils-4.2.30-assert.patch
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
