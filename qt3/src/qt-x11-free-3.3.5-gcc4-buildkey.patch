@@ -1,0 +1,11 @@
+--- qt-x11-free-3.3.5/configure.gcc4-buildkey	2005-09-11 18:15:27.000000000 +0200
++++ qt-x11-free-3.3.5/configure	2005-09-11 18:18:53.000000000 +0200
+@@ -3093,7 +3093,7 @@
+ 	COMPILER_VERSION="3.*"
+ 	;;
+     *4.*)
+-	COMPILER_VERSION="4"
++	COMPILER_VERSION="4.*"
+ 	;;
+     *)
+ 	;;

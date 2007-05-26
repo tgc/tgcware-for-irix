@@ -9,13 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=qt-x11-free
-version=3.3.6
-pkgver=2
+version=3.3.8
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=qt-3.3.4-irix6.2-glfix.patch
 patch[1]=qt-3.1.0-makefile.patch
 patch[2]=qt-uic-nostdlib.patch
+patch[3]=qt-x11-free-3.3.5-gcc4-buildkey.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -26,7 +27,7 @@ qt=qt-3.3
 prefix=$prefix/$qt
 final_qtdir=$prefix
 #plugins_style="-qt-style-cde -qt-style-motifplus -qt-style-platinum -qt-style-sgi -qt-style-windows -qt-style-compact -qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng"
-plugins_style="-qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng"
+#plugins_style="-qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng"
 configure_args='\
     -platform irix-g++ \
     -prefix $final_qtdir \
@@ -41,15 +42,14 @@ configure_args='\
     -no-ipv6 \
     -no-exceptions \
     -no-g++-exceptions \
+    -qt-imgfmt-png \
+    -qt-imgfmt-jpeg \
+    -qt-imgfmt-mng \
     -I/usr/tgcware/include \
     -L/usr/tgcware/lib \
     -R/usr/tgcware/lib \
     -L$final_qtdir/${_libdir} \
-    -R$final_qtdir/${_libdir} \
-    $plugin_style'
-
-# Manpages uses .so style linking but the autoformatter doesn't handle that
-catman=0
+    -R$final_qtdir/${_libdir}'
 
 reg prep
 prep()
