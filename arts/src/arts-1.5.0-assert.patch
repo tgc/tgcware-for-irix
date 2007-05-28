@@ -1,0 +1,11 @@
+--- arts-1.5.0/flow/synth_play_impl.cc.orig	2005-12-23 16:30:58.109748445 +0100
++++ arts-1.5.0/flow/synth_play_impl.cc	2005-12-23 16:40:17.363350539 +0100
+@@ -260,7 +260,7 @@
+ 
+ 		if(type & IOType::read)		asType |= AudioSubSystem::ioRead;
+ 		if(type & IOType::write)	asType |= AudioSubSystem::ioWrite;
+-		assert(asType != 0);
++		//assert(asType != 0);
+ 
+ 		restartIOHandling = false;
+ 		inProgress = true;

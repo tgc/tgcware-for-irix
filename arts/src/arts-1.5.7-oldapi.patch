@@ -1,0 +1,56 @@
+--- arts-1.5.7/configure.oldapi	2007-05-27 15:39:39.752400000 +0200
++++ arts-1.5.7/configure	2007-05-27 15:40:27.772400000 +0200
+@@ -41843,9 +41843,9 @@
+ 	test "$GCC" = yes && LDFLAGS="-Wl,$LDFLAGS"
+ 	;;
+      esac
+-     { echo "$as_me:$LINENO: checking for alOpenPort in -laudio" >&5
+-echo $ECHO_N "checking for alOpenPort in -laudio... $ECHO_C" >&6; }
+-if test "${ac_cv_lib_audio_alOpenPort+set}" = set; then
++     { echo "$as_me:$LINENO: checking for ALopenport in -laudio" >&5
++echo $ECHO_N "checking for ALopenport in -laudio... $ECHO_C" >&6; }
++if test "${ac_cv_lib_audio_ALopenport+set}" = set; then
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+@@ -41863,11 +41863,11 @@
+ #ifdef __cplusplus
+ extern "C"
+ #endif
+-char alOpenPort ();
++char ALopenport ();
+ int
+ main ()
+ {
+-return alOpenPort ();
++return ALopenport ();
+   ;
+   return 0;
+ }
+@@ -41906,21 +41906,21 @@
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }; }; then
+-  ac_cv_lib_audio_alOpenPort=yes
++  ac_cv_lib_audio_ALopenport=yes
+ else
+   echo "$as_me: failed program was:" >&5
+ sed 's/^/| /' conftest.$ac_ext >&5
+ 
+-	ac_cv_lib_audio_alOpenPort=no
++	ac_cv_lib_audio_ALopenport=no
+ fi
+ 
+ rm -f core conftest.err conftest.$ac_objext \
+       conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
+-{ echo "$as_me:$LINENO: result: $ac_cv_lib_audio_alOpenPort" >&5
+-echo "${ECHO_T}$ac_cv_lib_audio_alOpenPort" >&6; }
+-if test $ac_cv_lib_audio_alOpenPort = yes; then
++{ echo "$as_me:$LINENO: result: $ac_cv_lib_audio_ALopenport" >&5
++echo "${ECHO_T}$ac_cv_lib_audio_ALopenport" >&6; }
++if test $ac_cv_lib_audio_ALopenport = yes; then
+   SGILIBAUDIO="-laudio"
+ 
+ cat >>confdefs.h <<\_ACEOF

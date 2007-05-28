@@ -1,0 +1,11 @@
+--- arts-1.5.7/configure.srandom	2007-05-27 15:41:22.552400000 +0200
++++ arts-1.5.7/configure	2007-05-27 15:41:40.252400000 +0200
+@@ -39919,7 +39919,7 @@
+ 
+ 
+ #include <stdlib.h>
+-
++#include <math.h>
+ 
+ int
+ main ()

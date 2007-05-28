@@ -14,39 +14,14 @@ Compiler:
 %%COMPILER%%
 
 Environment:
-export CPPFLAGS="-I/usr/local/include -I/usr/local/qt-3.3/include"
-export LDFLAGS="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L/usr/local/qt-3.3/lib -Wl,-rpath,/usr/local/qt-3.3/lib"
+%%ENVIRONMENT%%
 
 Configure:
 %%CONFIGURE%%
 
 KNOWN DEPENDENCIES
 ------------------
-glib2
-gettext
-libogg
-libmadd
-libiconv
-libvorbis
-qt
+%%DEPENDENCIES%%
 
 ERRORS/MISCELLANEOUS
 --------------------
-There where multiple problems that needed fixing so here's a summary:
-arts-1.4.0-sgiaudio.patch: 
-- Make configure check for ALopenport instead of alOpenPort
-arts-1.4.0-oldaudio.patch:
-- Add support for pre Irix 6.5 audio API to the Dmedia audio driver
-arts-1.4.0-srandom.patch:
-- srandom is in math.h on Irix 6.2
-arts-1.4.0-socklen_t.patch:
-- Irix 6.2 doesn't have socklen_t and while the configure scripts notices that
-  it only defines kde_socklen_t. This patch just adds a socklen_t define.
-arts-1.4.0-sched.patch:
-- SCHED_FIFO and friends are in sys/sched.h on Irix 6.2 so mcop_mt didn't find
-  them.
-
-The changes that are needed to configure really should be done in acinclude.m4
-or configure.in.in but I couldn't be bothered to do it.
-The check for alOpenPort vs. ALopenport should be enhanced to check for one then
-the other.

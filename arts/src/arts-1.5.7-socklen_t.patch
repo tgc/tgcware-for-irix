@@ -1,0 +1,31 @@
+--- arts-1.5.7/mcop/unixserver.cc.socklen_t	2007-05-27 15:46:37.526400000 +0200
++++ arts-1.5.7/mcop/unixserver.cc	2007-05-27 15:46:55.306400000 +0200
+@@ -130,7 +130,7 @@
+ 	{
+ 		int clientfd;
+ 		struct sockaddr_un incoming;
+-		socklen_t size_in = sizeof(struct sockaddr_un);
++		kde_socklen_t size_in = sizeof(struct sockaddr_un);
+ 
+ 		clientfd = accept(theSocket, (struct sockaddr*) &incoming, &size_in );
+ 		if(clientfd > 0)
+--- arts-1.5.7/mcop/tcpserver.cc.socklen_t	2007-05-27 15:46:01.366400000 +0200
++++ arts-1.5.7/mcop/tcpserver.cc	2007-05-27 15:46:27.386400000 +0200
+@@ -129,7 +129,7 @@
+ 		return false;
+     }
+ 
+-    socklen_t sz = sizeof(struct sockaddr_in);
++    kde_socklen_t sz = sizeof(struct sockaddr_in);
+ 	int r = getsockname (theSocket,(struct sockaddr *)&socket_addr, &sz);
+ 	if(r == 0) {
+ 		thePort = ntohs(socket_addr.sin_port);
+@@ -170,7 +170,7 @@
+ 	{
+ 		int clientfd;
+ 		struct sockaddr_in incoming;
+-		socklen_t size_in = sizeof(struct sockaddr_in);
++		kde_socklen_t size_in = sizeof(struct sockaddr_in);
+ 
+ 		clientfd = accept(theSocket, (struct sockaddr*) &incoming, &size_in );
+ 		if(clientfd > 0)

@@ -1,8 +1,1 @@
 sw.base sw.lib auto
-sw.base tgc_glib2.sw.lib 26100002 maxint
-sw.base tgc_gettext.sw.lib 01410007 maxint
-sw.base tgc_libiconv.sw.lib 19200006 maxint
-sw.base tgc_libmad.sw.lib 01510001 maxint
-sw.base tgc_libogg.sw.lib 11200001 maxint
-sw.base tgc_libvorbis.sw.lib 11000001 maxint
-sw.lib tgc_qt.sw.lib 33400001 maxint
