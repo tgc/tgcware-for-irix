@@ -1,0 +1,22 @@
+--- kdelibs-3.5.2/kio/misc/kpac/Makefile.in.setuid	2006-04-08 20:50:36.109028000 +0200
++++ kdelibs-3.5.2/kio/misc/kpac/Makefile.in	2006-04-08 20:50:52.659028000 +0200
+@@ -967,7 +967,7 @@
+ 
+ 
+ install-exec-local:
+-	@(chown root $(DESTDIR)$(bindir)/kpac_dhcp_helper && chmod 4755 $(DESTDIR)$(bindir)/kpac_dhcp_helper) || echo "Please make kpac_dhcp_helper setuid root"
++	@echo "Please make kpac_dhcp_helper setuid root"
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
+--- kdelibs-3.5.2/kdecore/Makefile.in.setuid	2006-04-08 20:45:57.879028000 +0200
++++ kdelibs-3.5.2/kdecore/Makefile.in	2006-04-08 20:46:36.109028000 +0200
+@@ -1550,7 +1550,7 @@
+ 
+ # kgrantpty needs to be installed setuid root
+ install-exec-hook:
+-	@(chown 0 $(DESTDIR)$(bindir)/kgrantpty && chmod 4755 $(DESTDIR)$(bindir)/kgrantpty) || echo "Please make kgrantpty setuid root" >&2
++	@echo "Please make kgrantpty setuid root"
+ 	@echo ""
+ 	@echo "kgrantpty is by default installed with a set SETUID root bit!"
+ 	@echo "This is needed for konsole, etc. to ensure that they can't be eavesdropped."

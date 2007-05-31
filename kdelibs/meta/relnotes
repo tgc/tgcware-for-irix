@@ -30,6 +30,17 @@ Irix 6.2.
 Most of the patches are trivial. Some are the right solutions and some
 are just quick and dirty hacks.
 
-The worst problem was the socklen_t crap. There seems to be some 
-inconsistency and while the configure scripts know to check for socklen_t
-the alternative (kde_socklen_t) is used far from everywhere.
+The worst problem was the socklen_t crap. Internally KDE has two different
+socklen_t representations. One is ksocklen_t which is typedeffed to an unsigned
+int and used in external includes and another is kde_socklen_t defined as
+plain int and used internally. Despite this seemingly consistent state there
+are a number of places where just socklen_t is referenced.
+It's obvious that the build is not tested on a platform that does not
+actually define socklen_t since the build will fail in that case.
+
+For the snprintf stuff in DCOP I just linked in libkdefakes which implements
+snprintf. Again it's quite obvious that this is not tested on a platform that
+actually lacks snprintf as the build will fail early without it.
+
+I've purposely avoided patching the M4 and automake files since it takes such
+a long time to rebuild them. 

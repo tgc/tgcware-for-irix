@@ -1,0 +1,11 @@
+--- kdelibs-3.5.7/configure.noisinf	2007-05-28 16:52:58.917600000 +0200
++++ kdelibs-3.5.7/configure	2007-05-28 16:53:12.347600000 +0200
+@@ -56798,7 +56798,7 @@
+ int
+ main ()
+ {
+-float f = 0.0; isinf(f)
++float f = 0.0; it_really_isnt_there_isinf(f)
+   ;
+   return 0;
+ }

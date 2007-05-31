@@ -1,0 +1,34 @@
+--- kdelibs-3.5.7/dcop/Makefile.in.kdefakes	2007-05-28 13:25:00.131600000 +0200
++++ kdelibs-3.5.7/dcop/Makefile.in	2007-05-28 13:37:47.491600000 +0200
+@@ -126,7 +126,8 @@
+ #>- dcopserver_shutdown_OBJECTS = $(am_dcopserver_shutdown_OBJECTS)
+ #>+ 1
+ dcopserver_shutdown_OBJECTS = dcopserver_shutdown.$(OBJEXT)
+-dcopserver_shutdown_LDADD = $(LDADD)
++dcopserver_shutdown_LDADD = $(LDADD) $(top_srcdir)/kdecore/libkdefakes.la
++dcopserver_shutdown_DEPENDENCIES = $(top_srcdir)/kdecore/libkdefakes.la
+ am_testdcop_OBJECTS = testdcop.$(OBJEXT)
+ #>- testdcop_OBJECTS = $(am_testdcop_OBJECTS)
+ #>+ 1
+@@ -1333,8 +1334,8 @@
+ 	echo 'extern "C" int kdemain(int argc, char* argv[]);' >> dcopserver_dummy.cpp; \
+ 	echo 'extern "C" KDE_EXPORT int kdeinitmain(int argc, char* argv[]) { return kdemain(argc,argv); }' >> dcopserver_dummy.cpp
+ dcopserver_LDFLAGS = $(KDE_RPATH) -no-undefined $(all_libraries)
+-dcopserver_LDADD = libkdeinit_dcopserver.la
+-dcopserver_DEPENDENCIES = libkdeinit_dcopserver.la
++dcopserver_LDADD = libkdeinit_dcopserver.la $(top_srcdir)/kdecore/libkdefakes.la
++dcopserver_DEPENDENCIES = libkdeinit_dcopserver.la $(top_srcdir)/kdecore/libkdefakes.la
+ 
+ #>+ 3
+ dcopclient.moc: $(srcdir)/dcopclient.h
+--- kdelibs-3.5.7/dcop/Makefile.in.kdefakes	2007-05-28 17:18:48.337600000 +0200
++++ kdelibs-3.5.7/dcop/Makefile.in	2007-05-28 17:20:03.857600000 +0200
+@@ -699,6 +699,8 @@
+ 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe);; \
+ 	esac;
+ 
++$(top_srcdir)/kdecore/libkdefakes.la:
++	cd $(top_builddir)/kdecore && $(MAKE) libkdefakes.la
+ $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
+ 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+ 
