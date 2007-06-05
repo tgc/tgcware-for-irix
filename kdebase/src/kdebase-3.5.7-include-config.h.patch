@@ -1,0 +1,22 @@
+--- kdebase-3.5.7/kdmlib/dmctl.h.config	2007-06-01 20:46:25.146000000 +0200
++++ kdebase-3.5.7/kdmlib/dmctl.h	2007-06-01 20:46:36.266000000 +0200
+@@ -21,6 +21,8 @@
+ #ifndef DMCTL_H
+ #define DMCTL_H
+ 
++#include <config.h>
++
+ #include <kapplication.h>
+ 
+ struct SessEnt {
+--- kdebase-3.5.7/kcontrol/kcontrol/toplevel.cpp.config	2007-06-02 15:39:29.852000000 +0200
++++ kdebase-3.5.7/kcontrol/kcontrol/toplevel.cpp	2007-06-02 15:39:39.152000000 +0200
+@@ -18,6 +18,8 @@
+   MA  02110-1301, USA.
+ */
+ 
++#include <config.h>
++
+ #include <kapplication.h>
+ #include <kstandarddirs.h>
+ #include <kconfig.h>

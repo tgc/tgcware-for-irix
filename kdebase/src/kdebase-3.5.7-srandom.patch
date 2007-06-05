@@ -1,0 +1,10 @@
+--- kdebase-3.5.7/configure.srandom	2007-06-01 17:10:07.504000000 +0200
++++ kdebase-3.5.7/configure	2007-06-01 17:11:27.134000000 +0200
+@@ -43516,6 +43516,7 @@
+ 
+ 
+ #include <stdlib.h>
++#include <math.h>
+ 
+ 
+ int

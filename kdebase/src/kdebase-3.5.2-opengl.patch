@@ -1,0 +1,79 @@
+--- kdebase-3.5.2/kcontrol/info/opengl.cpp.irix	2006-04-09 14:10:12.190489000 +0200
++++ kdebase-3.5.2/kcontrol/info/opengl.cpp	2006-04-09 14:19:46.630489000 +0200
+@@ -41,7 +41,12 @@
+ #endif
+ 
+ #include <GL/gl.h>
++/* On Irix the OpenGL version is supposedly determined by the graphics hw
++ * My I2/R10K has HighImpact gfx and seems to implement OpenGL 1.0
++ * plus enough extensions to mostly cover OpenGL 1.1
++ * But it does not have glext.h
+ #include <GL/glext.h>
++*/
+ #include <GL/glx.h>
+ 
+ #include <stdio.h>
+@@ -268,8 +273,12 @@
+       { 1, GL_MAX_PIXEL_MAP_TABLE, 	i18n("Max. pixel map table size") },
+       { 1, GL_MAX_LIST_NESTING, 	i18n("Max. display list nesting level") },
+       { 1, GL_MAX_EVAL_ORDER, 		i18n("Max. evaluator order") },
++#ifdef GL_MAX_ELEMENTS_VERTICES
+       { 1, GL_MAX_ELEMENTS_VERTICES, 	i18n("Max. recommended vertex count") },
++#endif
++#ifdef GL_MAX_ELEMENTS_INDICES
+       { 1, GL_MAX_ELEMENTS_INDICES, 	i18n("Max. recommended index count") },
++#endif
+ #ifdef GL_QUERY_COUNTER_BITS
+       { 1, GL_QUERY_COUNTER_BITS, 	i18n("Occlusion query counter bits")},
+ #endif
+@@ -284,8 +293,12 @@
+ 
+    const struct token_name texture_limits[] = {
+       { 1, GL_MAX_TEXTURE_SIZE, 	i18n("Max. texture size") },
++#ifdef GL_MAX_TEXTURE_UNITS_ARB
+       { 1, GL_MAX_TEXTURE_UNITS_ARB, 	i18n("Num. of texture units") },
++#endif
++#ifdef GL_MAX_3D_TEXTURE_SIZE
+       { 1, GL_MAX_3D_TEXTURE_SIZE, 		i18n("Max. 3D texture size") },
++#endif
+ #ifdef GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB
+       { 1, GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB, 	i18n("Max. cube map texture size") },
+ #endif
+@@ -305,12 +318,24 @@
+      };
+ 
+    const struct token_name float_limits[] = {
++#ifdef GL_ALIASED_POINT_SIZE_RANGE
+       { 2 | KCMGL_FLOAT, GL_ALIASED_POINT_SIZE_RANGE, 	"ALIASED_POINT_SIZE_RANGE" },
++#endif
++#ifdef GL_SMOOTH_POINT_SIZE_RANGE
+       { 2 | KCMGL_FLOAT, GL_SMOOTH_POINT_SIZE_RANGE, 	"SMOOTH_POINT_SIZE_RANGE" },
++#endif
++#ifdef GL_SMOOTH_POINT_SIZE_GRANULARITY
+       { 1 | KCMGL_FLOAT, GL_SMOOTH_POINT_SIZE_GRANULARITY,"SMOOTH_POINT_SIZE_GRANULARITY"},
++#endif
++#ifdef GL_ALIASED_LINE_WIDTH_RANGE
+       { 2 | KCMGL_FLOAT, GL_ALIASED_LINE_WIDTH_RANGE, 	"ALIASED_LINE_WIDTH_RANGE" },
++#endif
++#ifdef GL_SMOOTH_LINE_WIDTH_RANGE
+       { 2 | KCMGL_FLOAT, GL_SMOOTH_LINE_WIDTH_RANGE, 	"SMOOTH_LINE_WIDTH_RANGE" },
++#endif
++#ifdef GL_SMOOTH_LINE_WIDTH_GRANULARITY
+       { 1 | KCMGL_FLOAT, GL_SMOOTH_LINE_WIDTH_GRANULARITY,"SMOOTH_LINE_WIDTH_GRANULARITY"},
++#endif
+       {0,0,0}
+      };
+ 
+@@ -320,8 +345,12 @@
+       { 1, GL_MAX_TEXTURE_STACK_DEPTH, 		"MAX_TEXTURE_STACK_DEPTH" },
+       { 1, GL_MAX_NAME_STACK_DEPTH, 		"MAX_NAME_STACK_DEPTH" },
+       { 1, GL_MAX_ATTRIB_STACK_DEPTH, 		"MAX_ATTRIB_STACK_DEPTH" },
++#ifdef GL_MAX_CLIENT_ATTRIB_STACK_DEPTH
+       { 1, GL_MAX_CLIENT_ATTRIB_STACK_DEPTH, 	"MAX_CLIENT_ATTRIB_STACK_DEPTH" },
++#endif
++#ifdef GL_MAX_COLOR_MATRIX_STACK_DEPTH
+       { 1, GL_MAX_COLOR_MATRIX_STACK_DEPTH, 	"MAX_COLOR_MATRIX_STACK_DEPTH" },
++#endif
+ #ifdef GL_MAX_MATRIX_PALETTE_STACK_DEPTH_ARB
+       { 1, GL_MAX_MATRIX_PALETTE_STACK_DEPTH_ARB,"MAX_MATRIX_PALETTE_STACK_DEPTH"},
+ #endif

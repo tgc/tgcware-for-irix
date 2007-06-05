@@ -1,0 +1,22 @@
+--- kdebase-3.5.7/kcheckpass/Makefile.in.nochown	2007-06-02 18:30:37.352000000 +0200
++++ kdebase-3.5.7/kcheckpass/Makefile.in	2007-06-02 18:31:29.872000000 +0200
+@@ -895,7 +895,7 @@
+ 	-@test -n "$(DESTDIR)" || test -z "$(PAM)" || $(top_srcdir)/mkpamserv $(PAM)
+ 
+ install-exec-hook:
+-	@(chown 0 $(DESTDIR)$(bindir)/kcheckpass && chmod 4755 $(DESTDIR)$(bindir)/kcheckpass) \
++	@(echo chown 0 $(DESTDIR)$(bindir)/kcheckpass && chmod 4755 $(DESTDIR)$(bindir)/kcheckpass) \
+ 	|| echo "Error: Could not install kcheckpass as setuid root (possibly you won't be able to unlock)!!"
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+--- kdebase-3.5.7/kdesu/kdesud/Makefile.in.nochown	2007-06-02 18:29:48.582000000 +0200
++++ kdebase-3.5.7/kdesu/kdesud/Makefile.in	2007-06-02 18:30:02.712000000 +0200
+@@ -904,7 +904,7 @@
+ 	@echo "********************************************************"
+ 
+ install-exec-hook: 
+-	@(chown root:@nogroup@ $(DESTDIR)$(bindir)/kdesud && chmod 2755  $(DESTDIR)$(bindir)/kdesud) \
++	@(echo chown root:@nogroup@ $(DESTDIR)$(bindir)/kdesud && chmod 2755  $(DESTDIR)$(bindir)/kdesud) \
+ 	|| echo "Error: Could not install kdesud as setgid nogroup!!\n" \
+ 	"The password caching feature is disabled."
+ 

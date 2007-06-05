@@ -1,0 +1,14 @@
+--- kdebase-3.5.7/nsplugins/viewer/qxteventloop.cpp.rtld_next	2007-06-02 12:04:00.462000000 +0200
++++ kdebase-3.5.7/nsplugins/viewer/qxteventloop.cpp	2007-06-02 12:11:31.092000000 +0200
+@@ -476,8 +476,10 @@
+ 
+ static void handle_xquerykeymap( Display* dpy, XEvent* event )
+ {
++    void *handle;
+     if( real_xquerykeymap == NULL )
+-        real_xquerykeymap = (int (*)( Display*, char[32] )) dlsym( RTLD_NEXT, "XQueryKeymap" );
++	handle = dlopen("/usr/lib32/libX11.so", RTLD_NOW);
++        real_xquerykeymap = (int (*)( Display*, char[32] )) dlsym(handle , "XQueryKeymap" );
+     if( event->type == XFocusIn || event->type == XKeyPress || event->type == XKeyRelease )
+         real_xquerykeymap( dpy, xquerykeymap_data );
+     if( event->type == XFocusOut )

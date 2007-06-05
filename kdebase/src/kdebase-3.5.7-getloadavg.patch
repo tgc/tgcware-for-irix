@@ -1,0 +1,15 @@
+--- kdebase-3.5.7/kicker/extensions/kasbar/kasloaditem.cpp.getlavg	2005-09-10 10:25:29.000000000 +0200
++++ kdebase-3.5.7/kicker/extensions/kasbar/kasloaditem.cpp	2007-06-01 17:05:30.664000000 +0200
+@@ -49,7 +49,11 @@
+ {
+   double load[3];
+   
+-  int ret = getloadavg( load, 3 );
++/*  int ret = getloadavg( load, 3 );
++ *  Irix 6.2 has no getloadavg function. loadavg can be retrieved through /dev/kmem
++ *  but that is normally only readable by root and group sys for security reasons
++ */
++  int ret = -1;
+   if ( ret == -1 )
+     return;
+ 

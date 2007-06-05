@@ -1,0 +1,31 @@
+--- kdebase-3.5.7/kdesu/kdesud/secure.cpp.socklen_t	2007-06-01 20:08:40.969120000 +0200
++++ kdebase-3.5.7/kdesu/kdesud/secure.cpp	2007-06-01 20:08:52.066900000 +0200
+@@ -31,7 +31,7 @@
+ 
+ SocketSecurity::SocketSecurity(int sockfd)
+ {
+-    ksocklen_t len = sizeof(struct ucred);
++    kde_socklen_t len = sizeof(struct ucred);
+     if (getsockopt(sockfd, SOL_SOCKET, SO_PEERCRED, &cred, &len) < 0) {
+ 	kdError() << "getsockopt(SO_PEERCRED) " << perror << endl;
+ 	return;
+--- kdebase-3.5.7/kdesu/kdesud/kdesud.cpp.socklen_t	2007-06-01 20:08:12.544806000 +0200
++++ kdebase-3.5.7/kdesu/kdesud/kdesud.cpp	2007-06-01 20:08:27.831748000 +0200
+@@ -154,7 +154,7 @@
+ int create_socket()
+ {
+     int sockfd;
+-    ksocklen_t addrlen;
++    kde_socklen_t addrlen;
+     struct stat s;
+ 
+     QCString display(getenv("DISPLAY"));
+@@ -318,7 +318,7 @@
+ 
+     // Main execution loop 
+ 
+-    ksocklen_t addrlen;
++    kde_socklen_t addrlen;
+     struct sockaddr_un clientname;
+ 
+     fd_set tmp_fds, active_fds;

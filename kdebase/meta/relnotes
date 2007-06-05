@@ -1,0 +1,34 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+Like with kdelibs there's just a lot of little nits that needs to be fixed
+up when building on an old system like Irix 6.2.
+The patches are trivial and a few fix what looks like real bugs.
+Again like with kdelibs socklen_t is a problem, the 2 different socklen_t
+representations are confusing even to the KDE developers themselves.
+Also libkdefakes was missing as a dep for snprintf in kdm, it was obviously
+never built on a platform with no snprintf.

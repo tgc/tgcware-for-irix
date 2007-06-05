@@ -1,0 +1,11 @@
+--- kdebase-3.4.0/kdm/backend/sessreg.c.nolastlog	Sun Apr  3 15:53:12 2005
++++ kdebase-3.4.0/kdm/backend/sessreg.c	Sun Apr  3 15:55:05 2005
+@@ -39,7 +39,7 @@
+ #include "dm.h"
+ #include "dm_error.h"
+ 
+-#if defined(__svr4__) || defined(__Lynx__) || defined(__QNX__) || defined(__APPLE__) || defined(_SEQUENT_) /*|| defined(USE_PAM)*/
++#if defined(__svr4__) || defined(__Lynx__) || defined(__QNX__) || defined(__APPLE__) || defined(_SEQUENT_) || defined(sgi) /*|| defined(USE_PAM)*/
+ # define NO_LASTLOG
+ #endif
+ 
