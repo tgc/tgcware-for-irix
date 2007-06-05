@@ -1,0 +1,14 @@
+--- samba-3.0.25a/source/lib/replace/system/network.h.tcp	2007-06-05 14:51:53.818000000 +0200
++++ samba-3.0.25a/source/lib/replace/system/network.h	2007-06-05 14:52:10.468000000 +0200
+@@ -41,9 +41,9 @@
+ #include <netdb.h>
+ #endif
+ 
+-#ifdef HAVE_NETINET_TCP_H
++/* #ifdef HAVE_NETINET_TCP_H
+ #include <netinet/tcp.h>
+-#endif
++#endif */
+ 
+ /*
+  * The next three defines are needed to access the IPTOS_* options

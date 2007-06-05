@@ -10,11 +10,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=samba
-version=3.0.23d
+version=3.0.25a
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=samba-3.0.13-header.patch
+patch[0]=samba-3.0.25a-no-tcp.h.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -32,6 +32,7 @@ configure_args='\
 	--with-ads \
 	--with-cups \
 	--prefix=$prefix \
+	--mandir=${prefix}/${_mandir} \
 	--with-lockdir=${prefix}/var/locks \
 	--with-piddir=${prefix}/var/run \
 	--with-privatedir=${prefix}/${_sysconfdir}/samba \
@@ -132,12 +133,14 @@ EOF
 
     doc README COPYING Manifest
     doc WHATSNEW.txt Roadmap
-    doc docs/REVISION docs/Samba-Developers-Guide.pdf docs/Samba-Guide.pdf
-    doc docs/Samba-HOWTO-Collection.pdf docs/THANKS docs/history
+    doc docs/REVISION docs/Samba3-Developers-Guide.pdf docs/Samba3-ByExample.pdf
+    doc docs/Samba3-HOWTO.pdf docs/THANKS docs/history
     doc docs/htmldocs
     doc docs/registry
     doc examples/autofs examples/LDAP examples/libsmbclient examples/misc examples/printer-accounting
     doc examples/printing
+
+    $MKDIR -p ${stagedir}${prefix}/var/log/samba
 }
 
 reg pack

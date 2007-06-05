@@ -55,6 +55,7 @@ $pkgdefprefix/$_libdir/samba/auth/script.so
 $pkgdefprefix/$_libdir/samba/charset/CP*.so
 $pkgdefprefix/$_libdir/libsmbclient.so
 $pkgdefprefix/$_libdir/libmsrpc.so
+$pkgdefprefix/$_libdir/samba/libsmbsharemodes.so
 $pkgdefprefix/$_includedir/libsmbclient.h
 $pkgdefprefix/$_includedir/libmsrpc.h
 $pkgdefprefix/$_bindir/net
@@ -70,6 +71,7 @@ $pkgdefprefix/$_sysconfdir/samba/smb.conf
 $pkgdefprefix/$_sysconfdir/samba/lmhosts
 dir $pkgdefprefix/var/locks
 dir $pkgdefprefix/var/run/winbindd
+dir $pkgdefprefix/var/log/samba
 $_sysconfdir/init.d/tgc_winbind
 $_sysconfdir/rc0.d/*tgc_winbind
 $_sysconfdir/rc2.d/*tgc_winbind
@@ -101,6 +103,30 @@ $pkgdefprefix/$_mandir/cat8/pdbedit.8*
 $pkgdefprefix/$_mandir/cat8/smbd.8*
 $pkgdefprefix/$_mandir/cat8/tdbbackup.8*
 $pkgdefprefix/$_mandir/cat8/tdbdump.8*
+$pkgdefprefix/$_mandir/cat8/tdbtool.8*
+$pkgdefprefix/$_mandir/cat8/vfs_audit.8*
+$pkgdefprefix/$_mandir/cat8/vfs_cacheprime.8*
+$pkgdefprefix/$_mandir/cat8/vfs_cap.8*
+$pkgdefprefix/$_mandir/cat8/vfs_catia.8*
+$pkgdefprefix/$_mandir/cat8/vfs_commit.8*
+$pkgdefprefix/$_mandir/cat8/vfs_default_quota.8*
+$pkgdefprefix/$_mandir/cat8/vfs_extd_audit.8*
+$pkgdefprefix/$_mandir/cat8/vfs_fake_perms.8*
+$pkgdefprefix/$_mandir/cat8/vfs_full_audit.8*
+$pkgdefprefix/$_mandir/cat8/vfs_gpfs.8*
+$pkgdefprefix/$_mandir/cat8/vfs_netatalk.8*
+$pkgdefprefix/$_mandir/cat8/vfs_notify_fam.8*
+$pkgdefprefix/$_mandir/cat8/vfs_prealloc.8*
+$pkgdefprefix/$_mandir/cat8/vfs_readahead.8*
+$pkgdefprefix/$_mandir/cat8/vfs_readonly.8*
+$pkgdefprefix/$_mandir/cat8/vfs_recycle.8*
+$pkgdefprefix/$_mandir/cat8/vfs_shadow_copy.8*
+$pkgdefprefix/$_mandir/cat8/eventlogadm.8*
+$pkgdefprefix/$_mandir/cat8/idmap_ad.8*
+$pkgdefprefix/$_mandir/cat8/idmap_ldap.8*
+$pkgdefprefix/$_mandir/cat8/idmap_nss.8*
+$pkgdefprefix/$_mandir/cat8/idmap_rid.8*
+$pkgdefprefix/$_mandir/cat8/idmap_tdb.8*
 
 [manclient]
 subsys=man.client
