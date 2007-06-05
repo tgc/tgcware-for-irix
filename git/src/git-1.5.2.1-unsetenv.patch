@@ -1,0 +1,23 @@
+--- git-1.5.2.1/configure.ac.unsetenv	2007-06-05 14:44:53.898000000 +0200
++++ git-1.5.2.1/configure.ac	2007-06-05 14:45:20.458000000 +0200
+@@ -266,6 +266,11 @@
+ [NO_SETENV=],
+ [NO_SETENV=YesPlease])
+ AC_SUBST(NO_SETENV)
++# Define NO_UNSETENV if you don't have unsetenv in the C library.
++AC_CHECK_FUNC(unsetenv,
++[NO_UNSETENV=],
++[NO_UNSETENV=YesPlease])
++AC_SUBST(NO_UNSETENV)
+ #
+ # Define NO_MMAP if you want to avoid mmap.
+ #
+--- git-1.5.2.1/config.mak.in.unsetenv	2007-06-05 14:54:16.728000000 +0200
++++ git-1.5.2.1/config.mak.in	2007-06-05 14:54:26.528000000 +0200
+@@ -37,5 +37,6 @@
+ NO_STRCASESTR=@NO_STRCASESTR@
+ NO_STRLCPY=@NO_STRLCPY@
+ NO_SETENV=@NO_SETENV@
++NO_UNSETENV=@NO_UNSETENV@
+ NO_ICONV=@NO_ICONV@
+ 

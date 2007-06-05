@@ -1,0 +1,24 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://git.or.cz"
+shortdesc="Fast Version Control System"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+$_libdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/?a?3
+

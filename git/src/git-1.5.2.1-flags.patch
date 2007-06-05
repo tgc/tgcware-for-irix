@@ -1,0 +1,14 @@
+--- git-1.5.2.1/Makefile.flags	2007-06-05 14:00:51.994817000 +0200
++++ git-1.5.2.1/Makefile	2007-06-05 14:02:26.622000000 +0200
+@@ -473,9 +473,9 @@
+ 	NO_STRLCPY = YesPlease
+ 	NO_SOCKADDR_STORAGE=YesPlease
+ 	SHELL_PATH=/usr/tgcware/bin/bash
+-	BASIC_CFLAGS += -DPATH_MAX=1024
++	BASIC_CFLAGS += -DPATH_MAX=1024 -I/usr/tgcware/include
+ 	# for now, build 32-bit version
+-	BASIC_LDFLAGS += -L/usr/lib32
++	BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib
+ endif
+ ifneq (,$(findstring arm,$(uname_M)))
+ 	ARM_SHA1 = YesPlease

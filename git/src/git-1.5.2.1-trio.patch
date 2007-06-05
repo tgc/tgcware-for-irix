@@ -1,0 +1,23 @@
+--- git-1.5.2.1/Makefile.trio	2007-06-05 14:32:35.218000000 +0200
++++ git-1.5.2.1/Makefile	2007-06-05 14:32:46.408000000 +0200
+@@ -383,7 +383,7 @@
+ 	builtin-pack-refs.o
+ 
+ GITLIBS = $(LIB_FILE) $(XDIFF_LIB)
+-EXTLIBS = -lz
++EXTLIBS = -lz -ltrio
+ 
+ #
+ # Platform specific tweaks
+--- git-1.5.2.1/git-compat-util.h.trio	2007-06-05 14:34:20.968000000 +0200
++++ git-1.5.2.1/git-compat-util.h	2007-06-05 14:33:23.178000000 +0200
+@@ -339,3 +339,9 @@
+ }
+ 
+ #endif
++
++#ifndef HAVE_SNPRINTF
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_snprintf
++#endif
