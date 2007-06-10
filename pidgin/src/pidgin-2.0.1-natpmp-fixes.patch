@@ -1,20 +1,6 @@
---- pidgin-2.0.0/libpurple/nat-pmp.c.orig	2007-05-11 20:40:06.729600000 +0200
-+++ pidgin-2.0.0/libpurple/nat-pmp.c	2007-05-11 21:46:02.967305000 +0200
-@@ -44,12 +44,12 @@
- #include <net/route.h>
- 
- #include <netdb.h>
--#include <err.h>
- #endif
- 
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <bstring.h>
- 
- #include <errno.h>
- 
-@@ -130,7 +130,7 @@
+--- pidgin-2.0.1/libpurple/nat-pmp.c.natpmp	2007-06-10 13:58:14.311200000 +0200
++++ pidgin-2.0.1/libpurple/nat-pmp.c	2007-06-10 13:58:27.241200000 +0200
+@@ -124,7 +124,7 @@
  		if (bitmask & (1 << i)) 
  		{
  			addrs[i] = sa;
@@ -23,7 +9,7 @@
  		} 
  		else
  		{
-@@ -148,10 +148,7 @@
+@@ -142,10 +142,7 @@
  		return 0;
  
      sin = (struct sockaddr_in *)sa;
@@ -35,7 +21,7 @@
  		return 1;
      else
  		return 0;
-@@ -212,20 +209,20 @@
+@@ -206,20 +203,20 @@
  			if ((rtm->rtm_flags & RTF_GATEWAY) && sin->sin_addr.s_addr == INADDR_ANY)
  			{
  				/* We found the default route. Now get the destination address and netmask. */
@@ -62,18 +48,17 @@
  				if (rtm->rtm_addrs & RTA_GATEWAY &&
  					is_default_route(&addr, &mask)) 
  				{					
---- pidgin-2.0.0/libpurple/nat-pmp.h.orig	2007-05-11 20:40:54.319600000 +0200
-+++ pidgin-2.0.0/libpurple/nat-pmp.h	2007-05-11 20:42:47.989600000 +0200
-@@ -31,7 +31,11 @@
+--- pidgin-2.0.1/libpurple/nat-pmp.h.natpmp	2007-06-10 13:58:14.311200000 +0200
++++ pidgin-2.0.1/libpurple/nat-pmp.h	2007-06-10 14:00:08.311200000 +0200
+@@ -31,6 +31,11 @@
  #ifndef _PURPLE_NAT_PMP_H
  #define _PURPLE_NAT_PMP_H
  
--#include <stdint.h>
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
 +#endif
 +
-+/* #include <stdint.h> */
++#include <bstring.h>
  #include <glib.h>
  
  #define PURPLE_PMP_LIFETIME	3600	/* 3600 seconds */

@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pidgin
-version=2.0.0
+version=2.0.1
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -20,7 +20,7 @@ patch[3]=pidgin-2.0.0-maxdname.patch
 patch[4]=pidgin-2.0.0-gnulib.patch
 patch[5]=pidgin-2.0.0-zephyr-needs-gnulib.patch
 patch[6]=pidgin-2.0.0-missing-X11.patch
-patch[7]=pidgin-2.0.0-natpmp-fixes.patch
+patch[7]=pidgin-2.0.1-natpmp-fixes.patch
 patch[8]=pidgin-2.0.0-finch-configh.patch
 
 # Source function library
