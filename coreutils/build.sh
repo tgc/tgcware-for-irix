@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=coreutils
 version=5.2.1
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,11 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-ac_overrides="ac_cv_lib_sun_getmntent=no ac_cv_lib_gen_getmntent=no"
+[ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_sun_getmntent=no ac_cv_lib_gen_getmntent=no"
+if [ "$_os" = "irix53" ]; then
+	export CC=cc
+	mipspro=2
+fi
 
 reg prep
 prep()
