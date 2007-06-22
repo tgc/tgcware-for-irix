@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libetpan
-version=0.48
+version=0.49
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
