@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.7
+version=1.4.9
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -22,7 +22,6 @@ source[0]=$topdir-$version.tar.bz2
 export CC=cc
 mipspro=1
 [ "$_os" = "irix53" ] && mipspro=2
-configure_args="$configure_args --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir}"
 
 reg prep
 prep()
@@ -40,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc ChangeLog NEWS README COPYING
+    doc ChangeLog NEWS README COPYING THANKS
 }
 
 reg pack
