@@ -1,0 +1,45 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+Irix 6.2 specific:
+This build is multilib aware and can build binaries for all 3 ABIs
+(o32,n32,n64). It should default to n32/mips3.
+Note that the o32 and n62 parts are packaged seperately in swo32.base and
+sw64.base respectively.
+
+Note that at this time tgcware is strictly n32 due to putting n32 libraries in
+/lib which is normally occupied by o32 objects (n32 objects defaults to /lib32).
+At some point n64 libraries might appear since they would go in /lib64 which
+would not conflict with the standard locations.
+There is currently no plan to make a true multilib aware tgcware distribution.
+
+testresults:
+http://gcc.gnu.org/ml/gcc-testresults/2007-05/msg01003.html
+
+libgomp patch:
+http://gcc.gnu.org/bugzilla/show_bug.cgi?id=32013

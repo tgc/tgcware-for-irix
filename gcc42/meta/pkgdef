@@ -1,0 +1,122 @@
+[common]
+pkgname="${pkgprefix}gcc${abbrev_ver}"
+name="gcc"
+pkgver="$pkgver"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="GNU Compiler Collection"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+${iprefix}/$_bindir
+${iprefix}/${_libdir}32
+dir ${iprefix}/${_libdir}/gcc
+dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2
+dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/ada*
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/include
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/finclude
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/install-tools
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/crtbegin.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/crtend.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/crtend.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/irix-crti.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/irix-crtn.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/libgcc.a
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/libgcov.a
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/libgfortranbegin.a
+${iprefix}/libexec
+$_sharedir
+dir ${iprefix}/$_includedir/c++
+dir ${iprefix}/$_includedir/c++/4.2.0
+dir ${iprefix}/$_includedir/c++/4.2.0/tr1
+dir ${iprefix}/$_includedir/c++/4.2.0/bits
+dir ${iprefix}/$_includedir/c++/4.2.0/debug
+dir ${iprefix}/$_includedir/c++/4.2.0/backward
+dir ${iprefix}/$_includedir/c++/4.2.0/mips-sgi-irix6.2
+${iprefix}/$_includedir/c++/4.2.0/mips-sgi-irix6.2/bits
+${iprefix}/$_includedir/c++/4.2.0/ext
+${iprefix}/$_includedir/c++/4.2.0/ios
+${iprefix}/$_includedir/c++/4.2.0/map
+${iprefix}/$_includedir/c++/4.2.0/new
+${iprefix}/$_includedir/c++/4.2.0/set
+${iprefix}/$_includedir/c++/4.2.0/tr1
+${iprefix}/$_includedir/c++/4.2.0/bits
+${iprefix}/$_includedir/c++/4.2.0/list
+${iprefix}/$_includedir/c++/4.2.0/cxxabi.h
+${iprefix}/$_includedir/c++/4.2.0/valarray
+${iprefix}/$_includedir/c++/4.2.0/queue
+${iprefix}/$_includedir/c++/4.2.0/iterator
+${iprefix}/$_includedir/c++/4.2.0/cmath
+${iprefix}/$_includedir/c++/4.2.0/ciso646
+${iprefix}/$_includedir/c++/4.2.0/cassert
+${iprefix}/$_includedir/c++/4.2.0/stack
+${iprefix}/$_includedir/c++/4.2.0/cstdio
+${iprefix}/$_includedir/c++/4.2.0/ctime
+${iprefix}/$_includedir/c++/4.2.0/cctype
+${iprefix}/$_includedir/c++/4.2.0/cwctype
+${iprefix}/$_includedir/c++/4.2.0/cstddef
+${iprefix}/$_includedir/c++/4.2.0/cstdarg
+${iprefix}/$_includedir/c++/4.2.0/cstdlib
+${iprefix}/$_includedir/c++/4.2.0/debug
+${iprefix}/$_includedir/c++/4.2.0/deque
+${iprefix}/$_includedir/c++/4.2.0/algorithm
+${iprefix}/$_includedir/c++/4.2.0/sstream
+${iprefix}/$_includedir/c++/4.2.0/ostream
+${iprefix}/$_includedir/c++/4.2.0/istream
+${iprefix}/$_includedir/c++/4.2.0/fstream
+${iprefix}/$_includedir/c++/4.2.0/string
+${iprefix}/$_includedir/c++/4.2.0/cstring
+${iprefix}/$_includedir/c++/4.2.0/iostream
+${iprefix}/$_includedir/c++/4.2.0/vector
+${iprefix}/$_includedir/c++/4.2.0/memory
+${iprefix}/$_includedir/c++/4.2.0/typeinfo
+${iprefix}/$_includedir/c++/4.2.0/cerrno
+${iprefix}/$_includedir/c++/4.2.0/csetjmp
+${iprefix}/$_includedir/c++/4.2.0/exception
+${iprefix}/$_includedir/c++/4.2.0/cfloat
+${iprefix}/$_includedir/c++/4.2.0/streambuf
+${iprefix}/$_includedir/c++/4.2.0/cwchar
+${iprefix}/$_includedir/c++/4.2.0/csignal
+${iprefix}/$_includedir/c++/4.2.0/utility
+${iprefix}/$_includedir/c++/4.2.0/limits
+${iprefix}/$_includedir/c++/4.2.0/climits
+${iprefix}/$_includedir/c++/4.2.0/bitset
+${iprefix}/$_includedir/c++/4.2.0/backward
+${iprefix}/$_includedir/c++/4.2.0/exception_defines.h
+${iprefix}/$_includedir/c++/4.2.0/iomanip
+${iprefix}/$_includedir/c++/4.2.0/numeric
+${iprefix}/$_includedir/c++/4.2.0/complex
+${iprefix}/$_includedir/c++/4.2.0/functional
+${iprefix}/$_includedir/c++/4.2.0/locale
+${iprefix}/$_includedir/c++/4.2.0/clocale
+${iprefix}/$_includedir/c++/4.2.0/iosfwd
+${iprefix}/$_includedir/c++/4.2.0/stdexcept
+
+[baseo32]
+subsys=swo32.base
+files(-,root,sys)
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/32
+${iprefix}/$_includedir/c++/4.2.0/mips-sgi-irix6.2/32
+${iprefix}/${_libdir}/*.a
+${iprefix}/${_libdir}/*.so
+${iprefix}/${_libdir}/*.so*
+${iprefix}/${_libdir}/libgomp.spec
+
+[basen64]
+subsys=sw64.base
+files(-,root,sys)
+${iprefix}/${_libdir}64
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/4.2.0/64
+${iprefix}/$_includedir/c++/4.2.0/mips-sgi-irix6.2/64
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${iprefix}/$_mandir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+${iprefix}/$_infodir
+
