@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.2.0
-pkgver=2
+version=4.2.1
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gcc-4.2.0-libgomp-posix95.patch
@@ -51,12 +51,12 @@ if [ "$_os" = "irix62" ]; then
     #configure_args="$global_config_args --disable-multilib --enable-shared=libstdc++"
     #export CC='/usr/people/tgc/bin/cc -n32 -mips3'
     configure_args="$global_config_args --enable-shared=libstdc++"
-    export CC=/usr/tgcware/gcc-4.1.2/bin/gcc
+    export CC=/usr/tgcware/gcc-4.2.0/bin/gcc
     export CONFIG_SHELL=/bin/ksh
     withada=1
     gas=1
     objdir=cccfooa_gas
-    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.1.2/bin
+    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.2.0/bin
     [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
 fi
 
@@ -135,7 +135,8 @@ check()
 {
     setdir source
     setdir ../$objdir
-    $MAKE_PROG -k check
+    #$MAKE_PROG -k check
+    $MAKE_PROG -k RUNTESTFLAGS="--target_board='unix{,-mabi=32,-mabi=64}'" check
 }
 
 reg pack

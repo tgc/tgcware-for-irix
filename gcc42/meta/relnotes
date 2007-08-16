@@ -39,7 +39,7 @@ would not conflict with the standard locations.
 There is currently no plan to make a true multilib aware tgcware distribution.
 
 testresults:
-http://gcc.gnu.org/ml/gcc-testresults/2007-05/msg01003.html
+http://gcc.gnu.org/ml/gcc-testresults/2007-08/msg00507.html
 
 libgomp patch:
 http://gcc.gnu.org/bugzilla/show_bug.cgi?id=32013
