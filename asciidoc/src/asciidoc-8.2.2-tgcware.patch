@@ -1,0 +1,37 @@
+--- asciidoc-8.2.2/asciidoc.py.tgcware	2007-08-25 13:36:54.180800000 +0200
++++ asciidoc-8.2.2/asciidoc.py	2007-08-25 13:37:21.000800000 +0200
+@@ -3917,7 +3917,7 @@
+ # ---------
+ APP_DIR = None              # This file's directory.
+ USER_DIR = None             # ~/.asciidoc
+-CONF_DIR = "/etc/asciidoc"  # Global configuration files directory.
++CONF_DIR = "/usr/tgcware/etc/asciidoc"  # Global configuration files directory.
+ HELP_FILE = 'help.conf'
+ 
+ # Globals
+--- asciidoc-8.2.2/a2x.tgcware	2007-08-25 13:36:37.820800000 +0200
++++ asciidoc-8.2.2/a2x	2007-08-25 13:36:46.410800000 +0200
+@@ -14,7 +14,7 @@
+     REALNAME=$(which "$REALNAME")
+ fi
+ REALNAME="$(readlink -f "$REALNAME")"
+-CONF_DIR=/etc/asciidoc
++CONF_DIR=/usr/tgcware/etc/asciidoc
+ 
+ #--------------------------------------------------------------------
+ # Constants.
+--- asciidoc-8.2.2/install.sh.tgcware	2007-08-25 13:35:26.250800000 +0200
++++ asciidoc-8.2.2/install.sh	2007-08-25 13:36:31.410800000 +0200
+@@ -8,9 +8,9 @@
+ # directory) then you will also need to change the CONF_DIR constant definition
+ # values in both a2x and asciiidoc.py scripts.
+ 
+-CONFDIR=/etc/asciidoc
+-BINDIR=/usr/local/bin
+-MANDIR=/usr/local/man
++CONFDIR=/usr/tgcware/etc/asciidoc
++BINDIR=/usr/tgcware/bin
++MANDIR=/usr/tgcware/man
+ VIM_CONFDIR=/etc/vim
+ 
+ if [ `basename $0` = uninstall.sh ]; then

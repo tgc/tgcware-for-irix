@@ -1,0 +1,20 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.methods.co.nz/asciidoc/"
+shortdesc="Text based document generation"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_sharedir
+$_docdir
+$_sysconfdir
+
+[man]
+subsys=man.man
+files(-,root,sys)
+$_mandir/?a?[12456789]
+
