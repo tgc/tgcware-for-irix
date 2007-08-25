@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.5.2.1
+version=1.5.2.5
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-manpages-$version.tar.bz2
@@ -36,7 +36,7 @@ prep()
 {
     generic_prep
     setdir source
-    ${MAKE_PROG} configure
+    ${__make} configure
 }
 
 reg build
