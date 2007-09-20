@@ -33,3 +33,11 @@ Choosing the sjlj/ssjlj/sas combo for mtcx instead enabled both gcc
 and native SGI cc built libraries to pass all tests both with and
 without --enable-optimize.
 All tests where done with hard syscall mapping enabled.
+
+WARNING! The pthread compatibility library has some API issues when used
+with apr (and possible others).
+This means apr cannot use pth pthread compatibility for thread support and
+it means that programs using the affect apr API's may run into problems if they
+use the pth pthread compatibility layer.
+The pthread compatibilty was not enabled since apr includes (among others
+I'm sure) will break when using it.
