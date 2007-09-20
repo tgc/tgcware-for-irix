@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=apr
-version=1.2.8
-pkgver=2
+version=1.2.11
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -35,7 +35,7 @@ build()
 {
     generic_build
     setdir source
-    $MAKE_PROG dox
+    ${__make} dox
 }
 
 reg install
@@ -43,9 +43,9 @@ install()
 {
     generic_install DESTDIR
     doc CHANGES LICENSE NOTICE docs/APRDesign.html docs/canonical_filenames.html docs/incomplete_types docs/non_apr_programs
-    $MKDIR -p ${stagedir}${prefix}/${_vdocdir}/html
-    $GINSTALL -m 644 $srcdir/$topsrcdir/docs/dox/html/* ${stagedir}${prefix}/${_vdocdir}/html
-    $RM -f ${stagedir}${prefix}/${_libdir}/apr.exp
+    ${__mkdir} -p ${stagedir}${prefix}/${_vdocdir}/html
+    ${__install} -m 644 $srcdir/$topsrcdir/docs/dox/html/* ${stagedir}${prefix}/${_vdocdir}/html
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/apr.exp
 }
 
 reg pack
