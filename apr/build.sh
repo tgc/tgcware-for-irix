@@ -23,6 +23,7 @@ aprver=1
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --includedir=${prefix}/${_includedir}/apr-${aprver} --with-installbuilddir=${prefix}/${_libdir}/apr-${aprver}/build --with-egd=/var/run/egd-pool"
+[ "$_os" = "irix53" ] && configure_args="$configure_args --disable-threads"
 
 reg prep
 prep()
