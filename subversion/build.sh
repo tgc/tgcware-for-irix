@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=subversion
-version=1.4.3
+version=1.4.5
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -30,8 +30,8 @@ prep()
 {
     generic_prep
     setdir source
-    $GSED -i 's/la-file/libs/g' configure
-    $GSED -i 's/hardcode_into_libs=yes/hardcode_into_libs=no/g' configure
+    ${__gsed} -i 's/la-file/libs/g' configure
+    ${__gsed} -i 's/hardcode_into_libs=yes/hardcode_into_libs=no/g' configure
 }
 
 reg build
