@@ -44,5 +44,11 @@ can be configured in the usual way with chkconfig.
 
 NOTE: Without prngd openssh will have to generate it's own entropy.
 
+NOTE: openssh is anal about the openssl version, so if you get an error similar
+to this: OpenSSL version mismatch. Built against 90805f, you have 908070
+
+Then please make sure that you have the newest tgcware version of both
+openssl and openssh installed.
+
 Irix 5.3 specific:
 SGI cc is not able to build openssh at this point so gcc had to be used.
