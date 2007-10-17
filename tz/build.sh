@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2007d
-pkgver=3 # Increase for each lettered release within the same year!
+version=2007h
+pkgver=5 # Increase for each lettered release within the same year!
 source[0]=${topdir}code${version}.tar.gz
 source[1]=${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
@@ -23,8 +23,8 @@ patch[0]=tz2004g-makefile.patch
 # Irix 5.3 needs an extra define
 [ "$_os" = "irix53" ] && CDEF="-D_XOPEN_SOURCE"
 export CC="gcc"
-# hackisk for the sake of relnotes mostly
-__configure="$MAKE_PROG"
+# hackish for the sake of relnotes mostly
+__configure="${__make}"
 # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
 configure_args="CC=$CC TOPDIR=$prefix TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only"
 check_ac=0
@@ -34,12 +34,12 @@ prep()
 {
     clean source
     # No topleveldir in the tarballs :(
-    ${MKDIR} -p $srcdir/tz-$version
+    ${__mkdir} -p $srcdir/tz-$version
     setdir $srcdir/tz-$version
-    ${GZIP} -dc $srcfiles/${source[0]} | ${TAR} -xf -
-    ${GZIP} -dc $srcfiles/${source[1]} | ${TAR} -xf -
+    ${__gzip} -dc $srcfiles/${source[0]} | ${TAR} -xf -
+    ${__gzip} -dc $srcfiles/${source[1]} | ${TAR} -xf -
     patch 0
-    $GSED -i "/^CFLAGS/s/=.*/=$CDEF/" Makefile
+    ${__gsed} -i "/^CFLAGS/s/=.*/=$CDEF/" Makefile
 }
 
 reg build
@@ -53,7 +53,7 @@ install()
 {	
     clean stage
     setdir source
-    $MAKE_PROG $configure_args DESTDIR=$stagedir install
+    ${__make} $configure_args DESTDIR=$stagedir install
     doc Theory README
     custom_install=1
     generic_install
