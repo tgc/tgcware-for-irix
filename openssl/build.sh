@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=openssl
 version=0.9.8f
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -43,10 +43,16 @@ build()
 {
     setdir source
     $__configure $configure_args
-    $GSED -i '/EX_LIBS/s;-lz;-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile
-    $GSED -i '/^CFLAG=/s;.*=;CFLAG= -I/usr/tgcware/include;' Makefile
-    $MAKE_PROG SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}" depend
-    $MAKE_PROG SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}"
+    ${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/tgcware/include;' Makefile
+    if [ "$_os" == "irix53" ]; then
+	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile
+	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}" depend
+	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}"
+    else
+	${__gsed} -i '/EX_LIBS/s;-lz;-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile
+	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}" depend
+	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}"
+    fi
 }
 
 reg install
@@ -54,7 +60,7 @@ install()
 {
     clean stage
     setdir source
-    $MAKE_PROG INSTALL_PREFIX=$stagedir MANDIR=${prefix}/${_mandir} install
+    ${__make} INSTALL_PREFIX=$stagedir MANDIR=${prefix}/${_mandir} install
     setdir ${stagedir}${prefix}/${_mandir}
     for j in $($LS -1d man?)
     do
