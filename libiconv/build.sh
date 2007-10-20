@@ -21,10 +21,6 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
 configure_args='--prefix=$prefix --mandir=$prefix/${_mandir} --enable-extra-encodings'
-if [ "$_os" = "irix53" ]; then
-    export CC=cc
-    mipspro=2
-fi
 
 reg prep
 prep()
