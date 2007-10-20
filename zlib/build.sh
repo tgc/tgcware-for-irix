@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/tgcware/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=zlib
 version=1.2.3
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -35,17 +35,15 @@ build()
 {
     generic_build
     setdir source
-    $MAKE_PROG test
+    ${__make} test
 }
 
 reg install
 install()
 {
     generic_install prefix
-    setdir source
-    doc README ChangeLog algorithm.txt minigzip.c example.c
-    setdir stage
-    $MV ${stagedir}${prefix}/share/${_mandir} ${stagedir}${prefix}
+    doc README ChangeLog algorithm.txt minigzip.c example.c FAQ
+    ${__mv} ${stagedir}${prefix}/share/${_mandir} ${stagedir}${prefix}
 }
 
 reg pack
