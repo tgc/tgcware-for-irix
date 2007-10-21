@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=bison
 version=2.3
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,7 +22,10 @@ source[0]=$topdir-$version.tar.bz2
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
-[ "$_os" = "irix53" ] && mipspro=2
+if [ "$_os" = "irix53" ]; then
+   mipspro=2
+   LDFLAGS="-Wl,-no_rqs $LDFLAGS"
+fi
 [ "$_os" = "irix62" ] && mipspro=1
 
 reg prep
@@ -41,7 +44,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f $stagedir$prefix/info/dir
+    ${__rm} -f $stagedir$prefix/info/dir
     doc ChangeLog TODO COPYING
 }
 
