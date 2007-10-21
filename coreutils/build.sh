@@ -21,8 +21,9 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_sun_getmntent=no ac_cv_lib_gen_getmntent=no"
 if [ "$_os" = "irix53" ]; then
-	export CC=cc
-	mipspro=2
+    export CC=cc
+    mipspro=2
+    export LDFLAGS="-Wl,-no_rqs"
 fi
 
 reg prep
