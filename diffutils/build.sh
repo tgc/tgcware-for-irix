@@ -10,10 +10,10 @@
 # Check the following 4 variables before running the script
 topdir=diffutils
 version=2.8.1
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=diffutils-2.8.1-gettextize.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -27,14 +27,13 @@ prep()
 {
     generic_prep
     setdir source
-    ${RM} -f m4/gettext.m4
-    aclocal-1.6 -I m4
-    automake-1.6 --gnu
+    aclocal-1.10 -I m4
+    automake-1.10 --gnu
     autoconf
     autoheader
     # Ugly hack
     setdir $srcdir
-    $LN -s ${srcdir}/${topsrcdir}/config .
+    ${__ln} -s ${srcdir}/${topsrcdir}/config .
 }
 
 reg build
@@ -47,7 +46,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_infodir}/dir
+    ${__rm} -f ${stagedir}${prefix}/${_infodir}/dir
     doc NEWS THANKS AUTHORS COPYING
 }
 
@@ -61,7 +60,7 @@ reg distclean
 distclean()
 {
     clean distclean
-    $RM -f ${srcdir}/config
+    ${__rm} -f ${srcdir}/config
 }
 
 ###################################################
