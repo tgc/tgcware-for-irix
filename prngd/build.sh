@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=9
+pkgver=10
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=prngd-irix53-support.patch
@@ -25,9 +25,9 @@ CC=cc
 cflags_os="-O3 -fullwarn -DIRIX62 -woff 1506"
 mipspro=1
 
-if [ "$_os" == "irix53" ]; then
+if [ "$_os" = "irix53" ]; then
     CC=cc
-    cflags_os="-O2 -fullwarn -DIRIX53"
+    cflags_os="-O2 -fullwarn -DIRIX53 -Wl,-no_rqs"
     mipspro=2
 fi
 __configure="make"
