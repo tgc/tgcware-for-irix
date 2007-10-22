@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=cvs
 version=1.11.22
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,7 +20,6 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 export LDFLAGS="-L${prefix}/${_libdir} -Wl,-rpath,${prefix}/${_libdir}"
-shortroot=1
 ignore_deps="tgc_perl5"
 
 reg prep
@@ -38,9 +37,9 @@ build()
 reg install
 install()
 {
-    generic_install prefix
+    generic_install DESTDIR
     doc FAQ README NEWS COPYING* doc/*.pdf
-    $RM -f ${stagedir}${prefix}/${_infodir}/dir
+    ${__rm} -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
