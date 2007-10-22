@@ -2,7 +2,7 @@
 pkgname="${pkgprefix}${topdir}"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.gnu.org/software/screen/screen.html"
+pkgvendor="http://ftp.uni-erlangen.de/pub/utilities/screen/"
 shortdesc="Terminal multiplexer"
 
 [base]
