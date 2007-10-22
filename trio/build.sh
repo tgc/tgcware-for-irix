@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=trio
 version=1.12
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=trio-1.12-automake.patch
@@ -23,7 +23,10 @@ patch[2]=trio-1.10-header.patch
 # Global settings
 export CC=cc
 mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
+if [ "$_os" = "irix53" ]; then
+    mipspro=2
+    export LDFLAGS="-Wl,-no_rqs"
+fi
 
 reg prep
 prep()
