@@ -25,16 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-I had to patch groff in 3 places to get it to behave.
-
 Two of the patches are probably only really needed on Irix 5.3
 but I couldn't see any problem with applying them on 6.2 & 6.5 too.
 
-While groff itself was built with the gcc compiler above gxditview
-was built with MIPSpro 7.3 due to its build system being Imake based
-(and me being too lazy to bother hacking it up to use gcc)
-For building gxditview these options where passed to make:
-Irix 6.x:
-CC=cc CCOPTIONS="-xansi -n32 -mips3 -woff 1116,1174" LDPOSTLIB=
-Irix 5.3:
-CC=cc CCOPTIONS="-xansi -32 -mips1" LDPOSTLIB=
+Building with MIPSpro on 6.2 yielded non-working binaries.
