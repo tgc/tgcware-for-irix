@@ -25,3 +25,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+I updated gnulib and imported regex at the same time.
+This was necessary for util/install-info.c since it depends
+unconditionally on regex.h which Irix 5.3 lacks.

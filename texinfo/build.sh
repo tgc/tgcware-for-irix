@@ -9,14 +9,19 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=texinfo
-version=4.8
-pkgver=2
+version=4.11
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=texinfo-4.11-gnulib-update.patch
+patch[1]=texinfo-4.11-gnulib-regex.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+# Global settings
+export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export CPPFLAGS="-I/usr/tgcware/include"
 
 reg prep
 prep()

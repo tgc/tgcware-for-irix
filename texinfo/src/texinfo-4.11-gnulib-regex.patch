@@ -1,0 +1,11 @@
+--- texinfo-4.11/util/install-info.c.gnulib	2007-10-24 19:33:12.180000000 +0200
++++ texinfo-4.11/util/install-info.c	2007-10-24 19:33:24.900000000 +0200
+@@ -19,7 +19,7 @@
+ 
+ #include "system.h"
+ #include <getopt.h>
+-#include <regex.h>
++#include "regex.h"
+ 
+ static char *progname = "install-info";
+ 
