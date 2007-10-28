@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gawk
 version=3.1.5
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 source[1]=$topdir-$version-ps.tar.gz
 # If there are no patches, simply comment this
@@ -20,11 +20,14 @@ source[1]=$topdir-$version-ps.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global options
-export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
 [ "$_os" = "irix62" ] && mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
+if [ "$_os" = "irix53" ]; then
+    mipspro=2
+    NO_RQS="-Wl,-no_rqs "
+fi
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="$NO_RQS-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
