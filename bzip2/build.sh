@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=bzip2
 version=1.0.3
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=bzip2-1.0.3-soname.patch
@@ -28,8 +28,8 @@ reg build
 build()
 {
     setdir source
-    $MAKE_PROG -f Makefile LDFLAGS="-Wl,-rpath,/usr/tgcware/lib"
-    $MAKE_PROG -f Makefile-libbz2_so CC="gcc -Wl,-rpath,/usr/tgcware/lib"
+    ${__make} -f Makefile LDFLAGS="-Wl,-rpath,/usr/tgcware/lib"
+    ${__make} -f Makefile-libbz2_so CC="gcc -Wl,-rpath,/usr/tgcware/lib"
 }
 
 reg install
