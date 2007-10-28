@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre
-version=6.7
-pkgver=1
+version=7.4
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -38,7 +38,8 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS AUTHORS ChangeLog LICENCE
+    ${__rm} -f ${stagedir}${prefix}/${_docdir}/${topdir}/pcre*
+    ${__mv} ${stagedir}${prefix}/${_docdir}/${topdir} ${stagedir}${prefix}/${_vdocdir}
 }
 
 reg pack

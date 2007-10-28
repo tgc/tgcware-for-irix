@@ -10,7 +10,12 @@ subsys=sw.base
 files(-,root,sys)
 $_bindir/pcregrep
 $_bindir/pcretest
-$_sharedir
+$_vdocdir/COPYING
+$_vdocdir/LICENCE
+$_vdocdir/AUTHORS
+$_vdocdir/README
+$_vdocdir/NEWS
+$_vdocdir/ChangeLog
 
 [lib]
 subsys=sw.lib
@@ -20,7 +25,17 @@ $_libdir/*.so.*
 [man]
 subsys=man.man
 files(-,root,sys)
-$_mandir
+$_mandir/*[12456789]
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/*3
+
+[doc]
+subsys=man.doc
+files(-,root,sys)
+$_vdocdir/html
 
 [devel]
 subsys=sw.dev
