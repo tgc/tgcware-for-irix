@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=audiofile
 version=0.2.6
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=audiofile-examples-irix62.patch
@@ -32,7 +32,7 @@ prep()
 {
     generic_prep
     setdir source
-    $RM -f ltmain.sh
+    ${__rm} -f ltmain.sh
     libtoolize -f -c
     aclocal-1.9
     automake-1.9 -c -f
