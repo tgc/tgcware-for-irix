@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=rcs
 version=5.7
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.gz
 
 # Global settings
 shortroot=1
-configure_args="$configure_args --with-diffutils"
+configure_args="--prefix=$prefix --with-diffutils"
 
 reg prep
 prep()
