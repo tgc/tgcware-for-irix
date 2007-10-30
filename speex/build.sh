@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=speex
 version=1.0.5
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=speex-1.0.4-getopt.patch
