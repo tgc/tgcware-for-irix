@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=lzo
 version=2.02
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -42,7 +42,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $GINSTALL -D -m 755 $srcdir/$topsrcdir/examples/.libs/lzopack ${stagedir}${prefix}/${_bindir}/lzopack
+    ${__install} -D -m 755 $srcdir/$topsrcdir/examples/.libs/lzopack ${stagedir}${prefix}/${_bindir}/lzopack
     doc AUTHORS BUGS COPYING NEWS THANKS doc
     custom_install=1
     generic_install
