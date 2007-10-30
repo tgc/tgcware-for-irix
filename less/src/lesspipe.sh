@@ -40,7 +40,9 @@ lesspipe() {
 		*.gz)	DECOMPRESSOR="gunzip -c" ;;
 		*.bz2)	DECOMPRESSOR="bunzip2 -c" ;;
 	esac
-	$DECOMPRESSOR -- "$1" ;;
+	if [ ! -z $DECOMPRESSOR ] ; then
+		$DECOMPRESSOR -- "$1" ;
+	fi
   esac
 }
 
