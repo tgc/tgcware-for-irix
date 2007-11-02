@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gnutls
 version=1.2.11
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gnutls-1.2.10-shutrdwr.patch
