@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libjpeg
 version=6b
-pkgver=9
+pkgver=10
 source[0]=jpegsrc.v6b.tar.gz
 # If there are no patches, simply comment this
 patch[0]=jpeg-c++.patch
@@ -26,24 +26,28 @@ shortroot=1
 mipspro=1
 topsrcdir=jpeg-$version
 configure_args='--prefix=$prefix --disable-static --enable-shared'
-export LDFLAGS='-rpath /usr/tgcware/lib'
 export INSTALL="/usr/tgcware/bin/install -c -D"
 export CC=cc
-[ "$_os" = "irix53" ] && mipspro=2
+if [ "$_os" = "irix53" ]; then
+    NO_RQS="-Wl,-no_rqs "
+    mipspro=2
+fi
+export LDFLAGS="$NO_RQS-Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
 {
     generic_prep
+    setdir source
+    [ "$_os" = "irix53" ] && ${__gsed} -i '/^LD=/ s;.*;LD="$LD -no_rqs";' ltconfig
 }
 
 reg build
 build()
 {
+    generic_build
     setdir source
-    $__configure $(_upls $configure_args)
-    LD_LIBRARY_PATH=$PWD $MAKE_PROG test
-    $MAKE_PROG
+    LD_LIBRARY_PATH=$PWD ${__make} test
 }
 
 reg install
