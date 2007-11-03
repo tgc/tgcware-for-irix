@@ -9,7 +9,17 @@ shortdesc="A utility for transferring files with URL syntax"
 subsys=sw.base
 files(-,root,sys)
 $_bindir/curl
-$_docdir
+$_vdocdir/CHANGES
+$_vdocdir/README*
+$_vdocdir/COPYING
+$_vdocdir/RELEASE-NOTES
+$_vdocdir/docs/BUGS
+$_vdocdir/docs/FAQ
+$_vdocdir/docs/FEATURES
+$_vdocdir/docs/MANUAL
+$_vdocdir/docs/RESOURCES
+$_vdocdir/docs/TODO
+$_vdocdir/docs/TheArtOfHttpScripting
 
 [lib]
 subsys=sw.lib
@@ -27,6 +37,13 @@ subsys=man.dev
 files(-,root,sys)
 $_mandir/?a?3
 
+[mandoc]
+subsys=man.doc
+files(-,root,sys)
+$_vdocdir/docs/examples
+$_vdocdir/docs/INTERNALS
+$_vdocdir/docs/CONTRIBUTE
+
 [devel]
 subsys=sw.dev
 files(-,root,sys)
@@ -34,4 +51,5 @@ $_includedir
 $_libdir/*.so
 $_libdir/pkgconfig/*.pc
 $_bindir/curl-config
+$_sharedir/aclocal/libcurl.m4
 
