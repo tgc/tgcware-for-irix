@@ -11,7 +11,7 @@
 # Check the following 4 variables before running the script
 topdir=fontconfig
 version=2.4.2
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -40,7 +40,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $MKDIR -p ${stagedir}${prefix}/var/cache/fontconfig
+    ${__mkdir} -p ${stagedir}${prefix}/var/cache/fontconfig
     doc README COPYING
 }
 
