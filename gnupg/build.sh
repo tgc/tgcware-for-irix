@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gnupg
 version=1.4.7
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -42,8 +42,8 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING NEWS PROJECTS README THANKS TODO
-    ${MV} ${stagedir}${prefix}/${_sharedir}/${name}/* ${stagedir}${prefix}/${_vdocdir}
-    ${MV} ${stagedir}${prefix}/${_vdocdir}/options.skel ${stagedir}${prefix}/${_sharedir}/${name}/
+    ${__mv} ${stagedir}${prefix}/${_sharedir}/${name}/* ${stagedir}${prefix}/${_vdocdir}
+    ${__mv} ${stagedir}${prefix}/${_vdocdir}/options.skel ${stagedir}${prefix}/${_sharedir}/${name}/
 }
 
 reg pack
