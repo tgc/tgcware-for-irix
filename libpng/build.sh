@@ -9,15 +9,23 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.15
+version=1.2.22
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=libpng-1.2.12-makefile.patch
-patch[1]=libpng-1.2.15-pkgconfig.patch
+patch[0]=libpng-1.2.22-tgcware.patch
+patch[1]=libpng-1.2.22-trio.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix53" ] && patch[2]=libpng-1.2.22-norqs.patch
+
+# Global settings
+configure_args="-f scripts/makefile.sgi"
+__configure="$(basename ${__make})"
+[ "$_os" = "irix62" ] && mipspro=1
+[ "$_os" = "irix53" ] && mipspro=2
 
 reg prep
 prep()
@@ -29,21 +37,21 @@ reg build
 build()
 {
     setdir source
-    ${CP} scripts/makefile.sggcc Makefile
-    $GSED -i "/^prefix/s;=.*;=${prefix};" Makefile
-    $MAKE_PROG 
+    ${__cp} scripts/makefile.sgi Makefile
+    ${__gsed} -i "/^prefix/s;=.*;=${prefix};" Makefile
+    ${__make} 
 }
 
 reg install
 install()
 {
     clean stage
-    mkdir -p ${stagedir}${prefix}
+    ${__mkdir} -p ${stagedir}${prefix}
     setdir source
-    $MAKE_PROG DESTDIR=$stagedir install
+    ${__make} DESTDIR=$stagedir install
     custom_install=1
     generic_install
-    doc CHANGES README TODO example.c libpng.txt
+    doc CHANGES README TODO example.c libpng-$version.txt
 }
 
 reg pack

@@ -1,0 +1,34 @@
+--- libpng-1.2.22/scripts/makefile.sgi.trio	2007-11-06 17:41:56.130000000 +0100
++++ libpng-1.2.22/scripts/makefile.sgi	2007-11-06 17:42:44.090000000 +0100
+@@ -47,8 +47,8 @@
+ # Note: -KPIC is the default anyhow
+ #CFLAGS= $(ABI) -I$(ZLIBINC) -O $(WARNMORE) -KPIC -DPNG_NO_MMX_CODE # -g -DPNG_DEBUG=5
+ CFLAGS=$(ABI) -I$(ZLIBINC) -O $(WARNMORE) -DPNG_NO_MMX_CODE
+-LDFLAGS_A=$(ABI) -L. -L$(ZLIBLIB) -lpng12 -lz -lm
+-LDFLAGS=$(ABI) -L. -L$(ZLIBLIB) -lpng -lz -lm
++LDFLAGS_A=$(ABI) -L. -L$(ZLIBLIB) -lpng12 -lz -lm -ltrio
++LDFLAGS=$(ABI) -L. -L$(ZLIBLIB) -lpng -lz -lm -ltrio
+ LDSHARED=cc $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -soname $(LIBSOMAJ) \
+   -set_version sgi$(PNGMAJ).0
+ LDLEGACY=cc $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -soname $(OLDSOMAJ) \
+@@ -93,7 +93,7 @@
+ 	-e s!@exec_prefix@!$(exec_prefix)! \
+ 	-e s!@libdir@!$(LIBPATH)! \
+ 	-e s!@includedir@!$(INCPATH)! \
+-	-e s!-lpng12!-lpng12\ -lz\ -lm! > libpng.pc
++	-e s!-lpng12!-lpng12\ -lz\ -lm\ -ltrio! > libpng.pc
+ 
+ libpng-config:
+ 	( cat scripts/libpng-config-head.in; \
+--- libpng-1.2.22/pngconf.h.trio	2007-11-06 17:35:40.020000000 +0100
++++ libpng-1.2.22/pngconf.h	2007-11-06 17:41:46.780000000 +0100
+@@ -19,6 +19,9 @@
+ 
+ #define PNG_1_2_X
+ 
++#include <trio.h>
++#define snprintf trio_snprintf
++
+ /* 
+  * PNG_USER_CONFIG has to be defined on the compiler command line. This
+  * includes the resource compiler for Windows DLL configurations.

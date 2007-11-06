@@ -1,9 +1,0 @@
---- libpng-1.2.15/scripts/libpng.pc.in.orig	2007-01-07 21:26:04.308000000 +0100
-+++ libpng-1.2.15/scripts/libpng.pc.in	2007-01-07 21:26:18.568000000 +0100
-@@ -6,5 +6,5 @@
- Name: libpng
- Description: Loads and saves PNG files
- Version: 1.2.15
--Libs: -L${libdir} -lpng12
-+Libs: -L${libdir} -lpng12 -lz -lm
- Cflags: -I${includedir}
