@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gtk+
 version=1.2.10
-pkgver=9
+pkgver=10
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=gtk+-1.2.10-bellvolume.patch
@@ -52,8 +52,8 @@ prep()
     setdir source
     $RM -f ltconfig ltmain.sh acinclude.m4
     libtoolize -f -c
-    aclocal-1.6
-    automake-1.6 -a -f -c
+    aclocal-1.10
+    automake-1.10 -a -f -c
     autoheader
     autoconf
 }
@@ -71,8 +71,8 @@ install()
     doc AUTHORS COPYING ChangeLog NEWS README TODO
     doc docs/html
     doc examples
-    ${MV} ${stagedir}${prefix}/${_vdocdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
-    ${RMDIR} ${stagedir}${prefix}/${_vdocdir}/docs
+    ${__mv} ${stagedir}${prefix}/${_vdocdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
+    ${__rmdir} ${stagedir}${prefix}/${_vdocdir}/docs
 }
 
 reg pack
