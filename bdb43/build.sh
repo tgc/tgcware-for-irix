@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=db
 version=4.3.29
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=patch.4.3.29.1
@@ -44,16 +44,16 @@ install()
 {
     generic_install DESTDIR build_unix
     doc LICENSE README
-    $MV ${stagedir}${prefix}/docs/* ${stagedir}${prefix}/${_vdocdir}
-    $RMDIR ${stagedir}${prefix}/docs
+    ${__mv} ${stagedir}${prefix}/docs/* ${stagedir}${prefix}/${_vdocdir}
+    ${__rmdir} ${stagedir}${prefix}/docs
     setdir ${stagedir}${prefix}/${_libdir}
-    $LN -sf libdb-4.3.a libdb.a
+    ${__ln} -sf libdb-4.3.a libdb.a
     setdir ${stagedir}${prefix}/${_includedir}
-    $MKDIR db4
-    $MV *.h db4
+    ${__mkdir} db4
+    ${__mv} *.h db4
     for header in db4/*.h
     do
-	$LN -s $header .
+	${__ln} -s $header .
     done
 }
 
