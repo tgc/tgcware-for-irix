@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.18
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.bz2
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CONFIG_SHELL=/bin/ksh
-configure_args="--prefix=$prefix --program-prefix=g --disable-nls"
+configure_args="$configure_args --disable-nls"
 
 reg prep
 prep()
@@ -40,15 +40,18 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_mandir}/man1/g{dlltool,nlmconv,windres}*
+    ${__rm} -f ${stagedir}${prefix}/${_mandir}/man1/{dlltool,nlmconv,windres,windmc}*
     doc COPYING*
     setdir ${stagedir}${prefix}/${_libdir}
-    ${__mv} ../lib32/*.a .
-    ${__rmdir} ../lib32
+    if [ -d ../lib32 ]; then
+	${__mv} ../lib32/*.a .
+	${__rmdir} ../lib32
+    fi
     # Convert hardlinks to symlinks
     setdir ${stagedir}${prefix}/${_bindir}
-    for p in ar as ld nm objcopy objdump ranlib strip; do
-	${__ln} -sf ${prefix}/mips-sgi-${os}/bin/$p g$p
+    ${__rm} -f as ld
+    for p in ar nm objcopy objdump ranlib strip; do
+	${__ln} -sf ${prefix}/mips-sgi-${os}/bin/$p $p
     done
 }
 
