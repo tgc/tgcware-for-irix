@@ -20,6 +20,7 @@ pkgver=1
 # Global settings
 gcc=4.2.2
 [ "$_os" = "irix53" ] && gcc=3.4.6
+version=$gcc
 
 reg prep
 prep()
