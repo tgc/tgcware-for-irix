@@ -11,7 +11,6 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-This is libstdc++.so.7 from gcc 3.4.x (for Irix 5.3) and from gcc 4.2.0
-for Irix 6.2.
+This is libstdc++.so.7 from gcc @@GCCVER@@
 It should be compatible with any previous libstdc++.so with major
 version 7.
