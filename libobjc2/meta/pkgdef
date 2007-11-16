@@ -1,0 +1,12 @@
+[common]
+pkgname="$pkgprefix""$topdir"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="GNU Objective-C shared support library"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+

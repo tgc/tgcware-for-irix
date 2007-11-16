@@ -1,0 +1,16 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+This is libobjc.so.2 from gcc @@GCCVER@@
+It should be compatible with any previous libobjc.so with major
+version 2.
