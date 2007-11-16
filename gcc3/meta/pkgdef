@@ -12,7 +12,7 @@ ${iprefix}/$_bindir
 ${iprefix}/$_libdir
 ${iprefix}/$_includedir
 ${iprefix}/libexec
-${iprefix}/$_sharedir
+$_sharedir
 
 [man]
 subsys=man.man

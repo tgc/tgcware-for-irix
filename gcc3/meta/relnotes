@@ -33,3 +33,8 @@ http://gcc.gnu.org/ml/gcc-patches/2004-08/msg02371.html
 
 There where also problems linking with GNU libiconv. This turned out to be
 a typo in the aclocal.m4 file. Patch is included.
+
+Irix 5.3 specific:
+To combat the problems I had with rqs(1) this gcc will *by default* call the
+linker with -no_rqs when linking dynamic objects.
+If you don't want that then please remove -no_rqs from the gcc specs file.
