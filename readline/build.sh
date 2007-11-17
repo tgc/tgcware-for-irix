@@ -39,7 +39,6 @@ install()
 {
     generic_install DESTDIR
     doc NEWS CHANGES COPYING
-    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
 }
 
 reg pack
