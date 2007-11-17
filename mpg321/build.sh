@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=mpg321
 version=0.2.10
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=mpg321-0.2.10-extra-checks.patch
@@ -29,7 +29,7 @@ prep()
 {
     generic_prep
     setdir source
-    $GSED -i 's/AM_PATH_AO/XIPH_PATH_AO/g' configure.ac
+    ${__gsed} -i 's/AM_PATH_AO/XIPH_PATH_AO/g' configure.ac
     aclocal-1.9 -I m4
     automake-1.9 -a -c
     autoheader
