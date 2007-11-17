@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=expat
-version=2.0.0
-pkgver=3
+version=2.0.1
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -40,7 +40,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $RM -f ${stagedir}${prefix}/${_libdir}/*.a
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/*.a
     doc README Changes COPYING doc/reference.html doc/*.png doc/*.css
 }
 
