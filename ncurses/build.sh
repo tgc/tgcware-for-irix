@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=ncurses
-version=5.5
+version=5.6
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -39,7 +39,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS INSTALL TO-DO ANNOUNCE
+    doc NEWS INSTALL TO-DO ANNOUNCE AUTHORS
 }
 
 reg pack
