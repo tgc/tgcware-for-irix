@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.18
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -53,6 +53,9 @@ install()
     for p in ar nm objcopy objdump ranlib strip; do
 	${__ln} -sf ${prefix}/mips-sgi-${os}/bin/$p $p
     done
+
+    # Make compat symlink for gcc packages < 4.2.2 on 6.2
+    ${__ln} -s as gas
 }
 
 reg pack
