@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=libao
 version=0.8.6
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libao-0.8.6-oldirix-support.patch
@@ -46,7 +46,7 @@ install()
 {
     generic_install DESTDIR
     doc TODO README CHANGES COPYING AUTHORS
-    ${RM} -f ${stagedir}${prefix}/${_libdir}/ao/plugins-2/lib*.la
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/ao/plugins-2/lib*.la
 }
 
 reg pack
