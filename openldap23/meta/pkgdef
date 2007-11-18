@@ -3,7 +3,7 @@ pkgname="$pkgprefix""$pkgdir"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.openldap.org"
-shortdesc="An open source suite of LDAP Protocol) applications and development tools"
+shortdesc="An open source suite of LDAP Protocol applications and development tools"
 
 [base]
 subsys=sw.base
