@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=Python
 version=2.4.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=Python-2.4.2-tgcware.patch
@@ -39,7 +39,7 @@ prep()
 {
     generic_prep
     setdir source
-    [ "$_os" = "irix53" ] && $GSED -i 's/N32//' configure.in
+    [ "$_os" = "irix53" ] && ${__gsed} -i 's/N32//' configure.in
     autoheader
     autoconf
 }
@@ -54,7 +54,7 @@ reg test
 test()
 {
     setdir source
-    $MAKE_PROG test
+    ${__make} test
 }
 
 reg install
