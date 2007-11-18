@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=rsync
 version=2.6.9
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,13 +19,18 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-export CPPFLAGS="-I/usr/tgcware/include"
 configure_args='--prefix=${prefix} --mandir=${prefix}/${_mandir} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6'
-[ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
-
-[ "$_os" = "irix53" ] && export CC=cc && mipspro=2
-[ "$_os" = "irix62" ] && export CC=cc && mipspro=1
+export CC=cc
+export CPPFLAGS="-I/usr/tgcware/include"
+if [ "$_os" = "irix62" ]; then
+    ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
+    mipspro=1
+fi
+if [ "$_os" = "irix53" ]; then
+    mipspro=2
+    NO_RQS="-Wl,-no_rqs"
+fi
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
