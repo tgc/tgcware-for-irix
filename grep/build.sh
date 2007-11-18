@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=grep
-version=2.5.1a
-pkgver=4
+version=2.5.3
+pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,7 +21,6 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-nls --with-libiconv-prefix=/usr/tgcware'
 
 reg prep
 prep()
@@ -39,13 +38,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc NEWS
-    ${RM} -f ${stagedir}${prefix}/${_infodir}/dir
-    # Symlink manpages don't use .so for references
-    setdir ${stagedir}${prefix}/${_mandir}/man1
-    ${RM} -f egrep.1 fgrep.1
-    ${LN} -s grep.1 egrep.1
-    ${LN} -s grep.1 fgrep.1
+    doc NEWS COPYING AUTHORS THANKS
 }
 
 reg pack
