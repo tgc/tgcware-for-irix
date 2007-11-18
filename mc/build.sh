@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=mc
 version=4.6.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=mc-4.6.1-snprintf.patch
@@ -42,9 +42,9 @@ install()
     generic_install DESTDIR
     doc AUTHORS COPYING FAQ NEWS MAINTAINERS TODO README
     # Cleanup stage
-    $RM -rf ${stagedir}${prefix}/${_libdir}
-    $RMDIR ${stagedir}${prefix}/${_sbindir}
-    $RM -rf ${stagedir}${prefix}/${_mandir}/{es,hu,it,man8,pl,ru,sr}
+    ${__rm} -rf ${stagedir}${prefix}/${_libdir}
+    ${__rmdir} ${stagedir}${prefix}/${_sbindir}
+    ${__rm} -rf ${stagedir}${prefix}/${_mandir}/{es,hu,it,man8,pl,ru,sr}
 }
 
 reg pack
