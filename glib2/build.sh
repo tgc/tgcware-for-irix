@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.12.7
+version=2.14.3
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -23,18 +23,19 @@ export PERL=/usr/tgcware/bin/perl
 export PERL_PATH=/usr/tgcware/bin/perl
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-libiconv=gnu"
 # Override getpwuid_r checking
 # The configure test fails but the system does have a POSIX compatible
 # getpwuid_r and AFAIK it does work but needs -lpthread for the implementation.
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_posix_getpwuid_r=yes"
+# Don't build with pth on 5.3
+[ "$_os" = "irix53" ] && configure_args="$configure_args --with-threads=none"
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
-    [ "$_os" = "irix62" ] && $GSED -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
+    [ "$_os" = "irix62" ] && ${__gsed} -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
 }
 
 reg build
@@ -47,7 +48,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${GSED} -i 's|local/perl|tgcware/perl|' ${stagedir}${prefix}/${_bindir}/glib-mkenums
+    ${__gsed} -i 's|local/perl|tgcware/perl|' ${stagedir}${prefix}/${_bindir}/glib-mkenums
     doc NEWS README COPYING
 }
 
