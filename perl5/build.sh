@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=perl
 version=5.8.8
-pkgver=1
+pkgver=2
 source[0]=perl-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=perl-5.8.7-irix6-gcc34.patch
@@ -25,6 +25,7 @@ patch[3]=perl-5.8.7-dbm.patch
 check_ac=0
 __configure="sh Configure"
 configure_args="-Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'"
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 
 reg prep
 prep()
@@ -37,8 +38,14 @@ build()
 {
     setdir source
     $__configure -Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'
-    $MAKE_PROG LDDLFLAGS="-shared -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-    $MAKE_PROG test
+    ${__make} LDDLFLAGS="-shared -L/usr/tgcware/lib -rpath /usr/tgcware/lib" CLDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+}
+
+reg check
+check()
+{
+    setdir source
+    ${__make} test
 }
 
 reg install
