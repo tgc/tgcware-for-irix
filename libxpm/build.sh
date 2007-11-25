@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=xpm
 version=3.4k
-pkgver=8
+pkgver=9
 source[0]=xpm-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libxpm-3.4k-shlib.patch
@@ -53,7 +53,7 @@ reg build
 build()
 {
     setdir source
-    $MAKE_PROG -f Makefile.noX INCLUDES="-I. -I.. -I../lib -I${prefix}/${_includedir}"
+    ${__make} -f Makefile.noX INCLUDES="-I. -I.. -I../lib -I${prefix}/${_includedir}"
 }
 
 reg install
@@ -61,8 +61,8 @@ install()
 {
     clean stage
     setdir source
-    $MAKE_PROG INSTALL=$GINSTALL DESTDIR=$stagedir -f Makefile.noX install
-    $MAKE_PROG INSTALL=$GINSTALL DESTDIR=$stagedir -f Makefile.noX install.man
+    ${__make} INSTALL=${__install} DESTDIR=$stagedir -f Makefile.noX install
+    ${__make} INSTALL=${__install} DESTDIR=$stagedir -f Makefile.noX install.man
     setdir ${stagedir}${prefix}/${_libdir}
     ln -s libXpm.so.4.11 libXpm.so.4
     ln -s libXpm.so.4.11 libXpm.so
