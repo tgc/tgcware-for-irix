@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=nano
 version=1.2.5
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -24,7 +24,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-all --with-libiconv-prefix=$prefix --with-glib-prefix=$prefix"
+configure_args="$configure_args --enable-all --with-libiconv-prefix=$prefix --with-glib-prefix=$prefix"
 
 reg prep
 prep()
