@@ -1,0 +1,10 @@
+--- xsnow-1.42/Imakefile.no_rqs	2007-11-25 14:56:40.980000000 +0100
++++ xsnow-1.42/Imakefile	2007-11-25 14:56:56.460000000 +0100
+@@ -1,6 +1,6 @@
+ LDPOSTLIB = 
+ CC = cc
+-SYS_LIBRARIES = -lm -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lXpm -ltrio
++SYS_LIBRARIES = -Wl,-no_rqs -lm -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lXpm -ltrio
+ EXTRA_INCLUDES= -I/usr/tgcware/include
+ LOCAL_LIBRARIES = $(XLIB)
+ DEPLIBS = $(DEPXLIB)

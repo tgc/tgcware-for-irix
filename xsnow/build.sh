@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=xsnow
 version=1.42
-pkgver=6
+pkgver=7
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=xsnow-1.42-misc.patch
@@ -28,6 +28,7 @@ if [ "$_os" = "irix62" ]; then
     mipspro=1
 fi
 if [ "$_os" = "irix53" ]; then
+    patch[3]=xsnow-1.42-no_rqs.patch
     configure_args="-32 -a"
     mipspro=2
 fi
