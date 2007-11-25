@@ -18,6 +18,7 @@ files(-,root,sys)
 $_vdocdir/*.png
 $_vdocdir/*.txt
 $_vdocdir/*.html
+$_vdocdir/*.xml
 $_vdocdir/vorbisenc
 $_vdocdir/vorbisfile
 
