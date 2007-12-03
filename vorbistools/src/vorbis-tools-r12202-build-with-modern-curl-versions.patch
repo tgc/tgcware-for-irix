@@ -1,0 +1,12 @@
+Index: /trunk/vorbis-tools/ogg123/http_transport.c
+===================================================================
+--- vorbis-tools/ogg123/http_transport.c (revision 9605)
++++ vorbis-tools/ogg123/http_transport.c (revision 12202)
+@@ -117,5 +117,7 @@
+     curl_easy_setopt (handle, CURLOPT_HTTPPROXYTUNNEL, inputOpts.ProxyTunnel);
+   */
++#ifdef CURLOPT_MUTE
+   curl_easy_setopt(handle, CURLOPT_MUTE, 1);
++#endif
+   curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, private->error);
+   curl_easy_setopt(handle, CURLOPT_PROGRESSFUNCTION, progress_callback);
