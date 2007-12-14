@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.18
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -55,7 +55,7 @@ install()
     done
 
     # Make compat symlink for gcc packages < 4.2.2 on 6.2
-    ${__ln} -s as gas
+    ${__ln} -s ${prefix}/mips-sgi-${os}/bin/as gas
 }
 
 reg pack
