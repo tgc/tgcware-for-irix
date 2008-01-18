@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=nedit
 version=5.5
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version-src.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=nedit-5.5-sgi.patch
@@ -32,7 +32,7 @@ prep()
     generic_prep
     setdir source
     if [ "$_os" = "irix53" ]; then
-	$GSED -i 's/\(CFLAGS=.*\)/\1 -DUSE_MOTIF_GLOB/' makefiles/Makefile.sgi
+	$GSED -i 's/\(CFLAGS=.*\)/\1 -Wl,-no_rqs -DUSE_MOTIF_GLOB/' makefiles/Makefile.sgi
 	$GSED -i 's/\(BIGGER_STRINGS=\)/\1 -Wf,-XNl10000/' makefiles/Makefile.sgi
     fi
 }
