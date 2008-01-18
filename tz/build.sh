@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2007h
-pkgver=5 # Increase for each lettered release within the same year!
+version=2007k
+pkgver=8 # Increase for each lettered release within the same year!
 source[0]=${topdir}code${version}.tar.gz
 source[1]=${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
