@@ -1,0 +1,11 @@
+--- samba-3.0.28/source/lib/util_tdb.c.fnmatch	2008-01-15 16:50:37.810000000 +0100
++++ samba-3.0.28/source/lib/util_tdb.c	2008-01-15 17:00:51.170000000 +0100
+@@ -730,7 +730,7 @@
+ 		next = tdb_nextkey(tdb, key);
+ 
+ 		/* do the pattern checking */
+-		if (fnmatch(pattern, key_str, 0) == 0) {
++		if (gen_fnmatch(pattern, key_str) == 0) {
+ 			rec = SMB_MALLOC_P(TDB_LIST_NODE);
+ 			ZERO_STRUCTP(rec);
+ 

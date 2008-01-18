@@ -1,0 +1,11 @@
+--- samba-3.0.28/source/configure.irixld	2008-01-14 19:50:34.940000000 +0100
++++ samba-3.0.28/source/configure	2008-01-14 19:50:55.490000000 +0100
+@@ -39367,7 +39367,7 @@
+ 			;;
+ 			esac
+ 			BLDSHARED="true"
+-			LDSHFLAGS="-set_version sgi1.0 -shared"
++			LDSHFLAGS="-shared -set_version sgi1.0"
+ 			SONAMEFLAG="-soname "
+ 			SHLD="\${LD}"
+ 			if test "${GCC}" = "yes"; then

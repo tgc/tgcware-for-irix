@@ -32,8 +32,28 @@ standard.
 SWAT is not automatically added to inetd. To do this run the included
 startswat.sh script. To remove it again use the removeswat.sh script.
 
-The -header patch works around the fact that the cups headers also
-include tcp.h which ends up giving a struct tcphdr redefined error.
+The -irix-ld-argorder patch simply reorders the args for ld when building
+shared libraries. Without it the build fails on Irix 5.3.
 
-Irix 6.2 specific:
+I had to override samba_stat_hires since the build fails otherwise. It's
+most likely a header issue but I was not able to resolve it.
+
+Overriding samba_cv_fpie is perhaps not strictly necessary but since PIE is
+not supported anyway even though gcc will accept I thought it more correct
+to turn it off.
+
+The -replace-pread_pwrite patch enables use of replacement pread/pwrite
+functions in lib/replace.
+
+Irix 6.2 specific notes:
 The -ld patch simply hardcodes LD=ld -n32 to force linking n32 objects.
+
+Irix 5.3 specific notes:
+I specifically disabled pread/pwrite to make sure the
+replacements are used.
+Irix 5.3 does have pread/pwrite in libc but they're undocumented and
+don't work like expected (they're part of unix98 which Irix 5.3 predates).
+
+The -use-included-fnmatch is needed because Irix 5.3 lacks fnmatch. It's
+used only in util/util_tdb.c everywhere else the included ms_fnmatch or 
+gen_fnmatch is used. I hope it makes sense to replace fnmatch with gen_fnmatch.
