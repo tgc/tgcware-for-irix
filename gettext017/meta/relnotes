@@ -1,0 +1,31 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+I chose not to follow the authors packaging proposal.
+Mostly because I found it to not translate that well to the way
+Irix packages are built and also because of the fact that
+the proposed Runtime package actually contains some headerfiles etc. which
+to me didn't make much sense.
+Instead I opted for the standard layout so with base you'll get everything
+except docs and development libraries.

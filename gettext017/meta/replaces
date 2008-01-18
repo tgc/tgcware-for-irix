@@ -1,0 +1,15 @@
+# Replace gettext 0.14.x except libs
+man.doc tgc_gettext.man.doc 01400000 01405005
+man.info tgc_gettext.man.info 01400000 01405005
+man.man tgc_gettext.man.man 01400000 01405005
+sw.base tgc_gettext.sw.base 01400000 01405005
+sw.dev tgc_gettext.sw.dev 01400000 01405005
+# Replace gettext 0.16.x incl. libs
+man.doc tgc_gettext016.man.doc 01601000 01601009
+man.info tgc_gettext016.man.info 01601000 01601009
+man.man tgc_gettext016.man.man 01601000 01601009
+sw.base tgc_gettext016.sw.base 01601000 01601009
+sw.lib tgc_gettext016.sw.lib 01601000 01601009
+sw.dev tgc_gettext016.sw.dev 01601000 01601009
+opt.relnotes tgc_gettext016.opt.relnotes 01601000 01601009
+opt.dist tgc_gettext016.opt.dist 01601000 01601009
