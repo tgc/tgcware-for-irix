@@ -16,7 +16,6 @@ source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=samba-3.0.28-irix-ld-argorder.patch
 patch[1]=samba-3.0.28-replace-pread_pwrite.patch
-#patch[0]=samba-3.0.25a-no-tcp.h.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -42,6 +41,7 @@ if [ "$_os" = "irix53" ]; then
 fi
 if [ "$_os" = "irix62" ]; then
     patch[2]=samba-3.0.11-ld.patch
+    patch[3]=samba-3.0.25a-no-tcp.h.patch
     ac_overrides="samba_stat_hires=no samba_cv_fpie=no"
     configure_args="$configure_args --with-ldap --with-ads --with-cups"
 fi
