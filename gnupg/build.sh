@@ -10,13 +10,14 @@
 # Check the following 4 variables before running the script
 topdir=gnupg
 version=1.4.7
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
+
+[ "$_os" = "irix62" ] && patch[0]=gnupg-1.4.7-link-curses.patch
 
 # BuildRequires: readline, libz, gettext, iconv, openldap, libbz2
 # Global settings
