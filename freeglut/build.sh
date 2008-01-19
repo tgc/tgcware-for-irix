@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=freeglut
 version=2.4.0
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=freeglut-2.4.0-irix62.patch
@@ -21,8 +21,9 @@ patch[0]=freeglut-2.4.0-irix62.patch
 # Global settings
 export CC=cc
 mipspro=1
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
