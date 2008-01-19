@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=freetype
 version=2.1.10
-pkgver=2
+pkgver=4
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
