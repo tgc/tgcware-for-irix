@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=readline
 version=5.2
-pkgver=1
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -21,6 +21,8 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export CC=cc
+mipspro=1
 
 reg prep
 prep()
