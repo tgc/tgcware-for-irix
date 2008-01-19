@@ -10,7 +10,7 @@ WINBINDD=/usr/tgcware/sbin/winbindd
 OPTIONS=/etc/config/tgc_samba.options
 CONFIG=/usr/tgcware/etc/samba/smb.conf
 
-pidfile_winbindd=/usr/tgcware/var/run/winbind.pid
+pidfile_winbindd=/usr/tgcware/var/run/winbindd.pid
 
 # Source config
 if [ -f $OPTIONS ]; then

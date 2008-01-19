@@ -11,7 +11,7 @@
 # Check the following 4 variables before running the script
 topdir=samba
 version=3.0.28
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=samba-3.0.28-irix-ld-argorder.patch
