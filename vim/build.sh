@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=vim
 version=7.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-7.1.tar.bz2
 # If there are no patches, simply comment this
 # Generate patchlist like this:
@@ -160,6 +160,7 @@ patchcount=${#patch[@]}
 topsrcdir=vim71
 patchdir=$srcfiles/vim-${version}-patches
 patch_prefix="-p0"
+mipspro=1
 export CC=cc
 export CPPFLAGS="-I/usr/tgcware/include"
 # What gui should we build?
@@ -167,9 +168,7 @@ gui=motif
 configure_args='--prefix=$prefix --enable-gui=$gui --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<irixpkg@jupiterrise.com>" --disable-netbeans'
 configlog=src/auto/config.log
 
-[ "$_os" = "irix62" ] && mipspro=1
 if [ "$_os" = "irix53" ]; then
-    mipspro=2
     NO_RQS="-Wl,-no_rqs"
 fi
 
