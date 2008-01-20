@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=expat
 version=1.95.8
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
