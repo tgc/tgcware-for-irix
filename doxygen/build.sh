@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=doxygen
 version=1.4.7
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.src.tar.gz
 # If there are no patches, simply comment this
 patch[0]=doxygen-1.4.5-rpath.patch
@@ -37,7 +37,7 @@ build()
 {
     generic_build
     setdir source
-    $MAKE_PROG docs
+    ${__make} docs
 }
 
 reg install
