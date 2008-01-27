@@ -25,3 +25,21 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+Irix 6.2:
+Three of the CXX tests fails:
+terminate called after throwing an instance of 'std::invalid_argument'
+  what():  mpz_set_str
+  /bin/ksh[9]: 547 Abort(coredump)
+FAIL: t-assign
+terminate called after throwing an instance of 'std::invalid_argument'
+  what():  mpz_set_str
+/bin/ksh[9]: 590 Abort(coredump)
+FAIL: t-constr
+terminate called after throwing an instance of 'std::length_error'
+  what():  gmp_randinit_lc_2exp_size
+/bin/ksh[9]: 712 Abort(coredump)
+FAIL: t-rand
+
+All other tests in the testsuite completes successfully.
+

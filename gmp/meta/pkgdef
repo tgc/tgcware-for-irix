@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.gnu.org/software/gmp/gmp.html"
+pkgvendor="http://gmplib.org"
 shortdesc="A free library for arbitrary precision arithmetic"
 
 [lib]
