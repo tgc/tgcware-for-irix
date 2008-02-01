@@ -9,14 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mpfr
-version=2.3.0
-pkgver=1
+version=2.3.1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=patch01
-patch[1]=patch02
-patch[2]=patch03
-patch[3]=patch04
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -25,6 +22,8 @@ patch[3]=patch04
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --with-gmp=$prefix --enable-shared"
+mipspro=1
+export CC=cc
 
 reg prep
 prep()
