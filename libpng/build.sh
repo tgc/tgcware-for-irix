@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.22
+version=1.2.24
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
