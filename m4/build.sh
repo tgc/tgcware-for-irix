@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.9
+version=1.4.10
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -21,8 +21,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CC=cc
 mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
-
+[ "$_os" = "irix53" ] && export LDFLAGS="-Wl,-no_rqs"
 reg prep
 prep()
 {
