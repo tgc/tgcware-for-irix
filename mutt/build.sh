@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=mutt
-version=1.4.2.2i
+version=1.4.2.3
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,9 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-imap --enable-pop --with-ssl --with-ncurses=/usr/tgcware/include/ncurses"
-
-topsrcdir=$topdir-1.4.2.2
+configure_args="$configure_args --enable-imap --enable-pop --with-ssl --with-curses=/usr/tgcware"
 
 reg prep
 prep()
@@ -41,11 +39,12 @@ reg install
 install()
 {
     generic_install DESTDIR
-    $MKDIR -p ${stagedir}${prefix}/doc/mutt ${stagedir}${prefix}/${_sharedir}/doc
-    $MV ${stagedir}${prefix}/doc/mutt ${stagedir}${prefix}/${_vdocdir}
-    ${RMDIR} ${stagedir}${prefix}/doc
+    ${__mkdir} -p ${stagedir}${prefix}/${_sharedir}/doc
+    ${__mv} ${stagedir}${prefix}/doc/mutt ${stagedir}${prefix}/${_vdocdir}
+    ${__rmdir} ${stagedir}${prefix}/doc
     echo "${_sysconfdir}/Muttrc config(noupdate)" > $metadir/ops
     echo "${_sysconfdir}/mime.types config(noupdate)" >> $metadir/ops
+    #doc README README.SSL COPYRIGHT GPL ChangeLog NEWS
 }
 
 reg pack
