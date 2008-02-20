@@ -10,7 +10,7 @@ subsys=sw.base
 files(-,root,sys)
 $pkgdefprefix/$_sharedir
 $pkgdefprefix/libexec/*
-dir var/run
+dir var/run/sudo
 files(0440,root,root)
 $pkgdefprefix/$_sysconfdir/sudoers
 files(0111,root,root)

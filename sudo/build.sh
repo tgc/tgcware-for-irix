@@ -10,16 +10,16 @@
 # Check the following 4 variables before running the script
 topdir=sudo
 version=1.6.9p13
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=sudo-1.6.8p12-mansect.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --sysconfdir=$prefix/${_sysconfdir} --with-logging=syslog --with-logfac=auth --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-insults --with-all-insults --with-timedir=/var/run"
+configure_args="$configure_args --sysconfdir=$prefix/${_sysconfdir} --with-logging=syslog --with-logfac=auth --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-insults --with-all-insults --with-timedir=/var/run/sudo"
 ac_overrides="sudo_cv_func_isblank=no"
 
 topinstalldir=/
@@ -44,7 +44,8 @@ install()
     doc BUGS HISTORY LICENSE README UPGRADE
     echo "$pkgdefprefix/${_sysconfdir}/sudoers config(suggest)" > $metadir/ops
     ${__rm} -f ${stagedir}${prefix}/libexec/*.la
-    ${__mkdir} -p ${stagedir}/var/run
+    ${__mkdir} -p ${stagedir}/var/run/sudo
+    chmod 700 ${stagedir}/var/run/sudo
     # Turn hardlink into symlink
     setdir ${stagedir}${prefix}/${_bindir}
     ${__rm} -f sudoedit
