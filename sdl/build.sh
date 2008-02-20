@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=SDL
 version=1.2.11
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=sdl-1.2.9-dmedia.patch
@@ -49,7 +49,7 @@ install()
 {
     generic_install DESTDIR
     doc COPYING README-SDL.txt BUGS CREDITS
-    ${CP} -pr ${srcdir}/${topsrcdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
+    ${__cp} -pr ${srcdir}/${topsrcdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
 }
 
 reg pack
