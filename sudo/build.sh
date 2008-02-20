@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sudo
-version=1.6.8p12
+version=1.6.9p13
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=sudo-1.6.8p12-mansect.patch
+#patch[0]=sudo-1.6.8p12-mansect.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -41,10 +41,26 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc BUGS HISTORY LICENSE README TODO
+    doc BUGS HISTORY LICENSE README UPGRADE
     echo "$pkgdefprefix/${_sysconfdir}/sudoers config(suggest)" > $metadir/ops
-    $RM -f ${stagedir}${prefix}/libexec/*.la
-    $MKDIR -p ${stagedir}/var/run
+    ${__rm} -f ${stagedir}${prefix}/libexec/*.la
+    ${__mkdir} -p ${stagedir}/var/run
+    # Turn hardlink into symlink
+    setdir ${stagedir}${prefix}/${_bindir}
+    ${__rm} -f sudoedit
+    ${__ln} -sf sudo sudoedit
+    # Fix manpage locations
+    setdir ${stagedir}${prefix}/${_mandir}
+    ${__mv} man1m man8
+    ${__mv} man4 man5
+    setdir man5
+    ${__mv} sudoers.4 sudoers.5 
+    setdir ../man8
+    for f in visudo sudo sudoedit; do
+	${__mv} $f.1m $f.8
+    done
+    ${__rm} -f sudoedit.8
+    ${__ln} -sf sudo.8 sudoedit.8
 }
 
 reg pack

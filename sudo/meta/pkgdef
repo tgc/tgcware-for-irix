@@ -14,9 +14,9 @@ dir var/run
 files(0440,root,root)
 $pkgdefprefix/$_sysconfdir/sudoers
 files(0111,root,root)
-$pkgdefprefix/$_sbindir
+$pkgdefprefix/$_sbindir/visudo
 files(4111,root,root)
-$pkgdefprefix/$_bindir
+$pkgdefprefix/$_bindir/sudo*
 
 [man]
 subsys=man.man
