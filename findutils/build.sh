@@ -9,24 +9,24 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=findutils
-version=4.2.30
-pkgver=2
+version=4.2.33
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=findutils-4.2.33-assert.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-[ "$_os" = "irix62" ] && patch[0]=findutils-4.2.30-assert.patch
+#[ "$_os" = "irix62" ] && patch[0]=findutils-4.2.30-assert.patch
 
 # Global settings
-export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware"
-export CC=cc
-[ "$_os" = "irix53" ] && mipspro=2
-[ "$_os" = "irix62" ] && mipspro=1
+#export CC=cc
+#mipspro=1
+#[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+export CPPFLAGS="-I/usr/tgcware/include"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
 reg prep
 prep()
@@ -44,7 +44,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${RMDIR} ${stagedir}${prefix}/var
+    ${__rmdir} ${stagedir}${prefix}/var
     doc AUTHORS COPYING NEWS README THANKS TODO
 }
 

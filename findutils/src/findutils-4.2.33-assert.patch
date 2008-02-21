@@ -1,6 +1,6 @@
---- findutils-4.2.30/xargs/xargs.c.orig	2007-05-12 15:44:54.844000000 +0200
-+++ findutils-4.2.30/xargs/xargs.c	2007-05-12 15:46:55.114000000 +0200
-@@ -440,9 +440,9 @@
+--- findutils-4.2.33/xargs/xargs.c.assert	2008-02-20 22:16:25.200000000 +0100
++++ findutils-4.2.33/xargs/xargs.c	2008-02-20 22:16:48.590000000 +0100
+@@ -439,9 +439,9 @@
         * environment list shall not exceed {ARG_MAX}-2048 bytes.  It also 
         * specifies that it shall be at least LINE_MAX.
         */
@@ -9,6 +9,6 @@
        assert(bc_ctl.arg_max <= (ARG_MAX-2048));
 -#endif
 +#endif */
+ #ifdef LINE_MAX
        assert(bc_ctl.arg_max >= LINE_MAX);
-       
-       bc_ctl.exec_callback = xargs_do_exec;
+ #endif

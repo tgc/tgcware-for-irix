@@ -26,7 +26,6 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
-Irix 6.2 specific:
 The patch that comments the assert in xargs.c is probably somewhat dubious
 since I'm not sure why it's even triggered in the first place.
 Without the patch xargs will simply fail because of the assert even when run
