@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=x11vnc
-version=0.9
-pkgver=2
+version=0.9.3
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=x11vnc-0.8.1-shutrdwr.patch
@@ -18,6 +18,7 @@ patch[1]=x11vnc-0.9-trio.patch
 patch[2]=x11vnc-0.9-shutwr.patch
 patch[3]=x11vnc-0.9-trio-includes.patch
 patch[4]=x11vnc-0.8.1-mapfailed.patch
+patch[5]=x11vnc-0.9.3-usleep.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
