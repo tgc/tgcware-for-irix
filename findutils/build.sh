@@ -18,12 +18,12 @@ patch[0]=findutils-4.2.33-assert.patch
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-#[ "$_os" = "irix62" ] && patch[0]=findutils-4.2.30-assert.patch
-
 # Global settings
 configure_args="$configure_args --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware"
-#export CC=cc
-#mipspro=1
+if [ "$_os" = "irix62" ]; then
+    export CC=cc
+    mipspro=1
+fi
 #[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
