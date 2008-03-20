@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=x11vnc
 version=0.9.3
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=x11vnc-0.8.1-shutrdwr.patch
@@ -27,7 +27,7 @@ patch[5]=x11vnc-0.9.3-usleep.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 ac_overrides="ac_cv_lib_socket_socket=no"
-configure_args="$configure_args --without-xkeyboard --x-libraries= --without-xfixes --without-xrandr"
+configure_args="$configure_args --without-xkeyboard --x-libraries= --without-xfixes --without-xrandr --without-pthread"
 
 reg prep
 prep()
