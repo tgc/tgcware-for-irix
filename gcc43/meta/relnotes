@@ -1,0 +1,56 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+Irix 6.2 specific:
+This build is multilib aware and can build binaries for all 3 ABIs
+(o32,n32,n64). It should default to n32/mips3.
+Note that the o32 and n64 parts are packaged seperately in swo32.base and
+sw64.base respectively.
+
+Note that at this time tgcware is strictly n32 due to putting n32 libraries in
+/lib which is normally occupied by o32 objects (n32 objects defaults to /lib32).
+At some point n64 libraries might appear since they would go in /lib64 which
+would not conflict with the standard locations.
+There is currently no plan to make a true multilib aware tgcware distribution.
+
+The build was specifically built *without* threads since they are not a
+standard feature of Irix 6.2 and would limit the use to only people who are
+in possession of the POSIX threads patchset.
+
+Patches:
+3 patches are included but they are not necessary for this particular build
+configuration.
+They do however enable the possibility of building with libgomp and
+--enable-threads=posix95.
+
+testresults:
+None available for this particular build but full testresults was posted
+for a posix95 threads enabled build (including libgomp).
+testresults may come at a later date however it takes around 72 hours or more
+to run the tests for all 3 ABIs on an Indigo2 R10K/195 and sometimes I just get
+tired of listening to the damn thing :)

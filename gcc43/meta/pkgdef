@@ -1,0 +1,146 @@
+[common]
+pkgname="${pkgprefix}gcc${abbrev_ver}"
+name="gcc"
+pkgver="$pkgver"
+pkgvendor="http://gcc.gnu.org"
+shortdesc="GNU Compiler Collection"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+${iprefix}/$_bindir
+${iprefix}/${_libdir}32
+dir ${iprefix}/${_libdir}/gcc
+dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2
+dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/ada*
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/include-fixed
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/include
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/finclude
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/install-tools
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/crtbegin.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/crtend.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/crtend.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/irix-crti.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/irix-crtn.o
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/libgcc.a
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/libgcov.a
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/libgfortranbegin.a
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/libgcc_eh.a
+${iprefix}/libexec
+$_sharedir
+dir ${iprefix}/$_includedir/c++
+dir ${iprefix}/$_includedir/c++/${version}
+dir ${iprefix}/$_includedir/c++/${version}/ext
+dir ${iprefix}/$_includedir/c++/${version}/tr1
+dir ${iprefix}/$_includedir/c++/${version}/tr1_impl
+dir ${iprefix}/$_includedir/c++/${version}/bits
+dir ${iprefix}/$_includedir/c++/${version}/parallel
+dir ${iprefix}/$_includedir/c++/${version}/debug
+dir ${iprefix}/$_includedir/c++/${version}/backward
+dir ${iprefix}/$_includedir/c++/${version}/mips-sgi-irix6.2
+${iprefix}/$_includedir/c++/${version}/mips-sgi-irix6.2/bits
+${iprefix}/$_includedir/c++/${version}/ext
+${iprefix}/$_includedir/c++/${version}/ios
+${iprefix}/$_includedir/c++/${version}/map
+${iprefix}/$_includedir/c++/${version}/new
+${iprefix}/$_includedir/c++/${version}/set
+${iprefix}/$_includedir/c++/${version}/tr1
+${iprefix}/$_includedir/c++/${version}/tr1_impl
+${iprefix}/$_includedir/c++/${version}/bits
+${iprefix}/$_includedir/c++/${version}/parallel
+${iprefix}/$_includedir/c++/${version}/list
+${iprefix}/$_includedir/c++/${version}/cxxabi.h
+${iprefix}/$_includedir/c++/${version}/valarray
+${iprefix}/$_includedir/c++/${version}/queue
+${iprefix}/$_includedir/c++/${version}/iterator
+${iprefix}/$_includedir/c++/${version}/cmath
+${iprefix}/$_includedir/c++/${version}/ciso646
+${iprefix}/$_includedir/c++/${version}/cassert
+${iprefix}/$_includedir/c++/${version}/stack
+${iprefix}/$_includedir/c++/${version}/cstdio
+${iprefix}/$_includedir/c++/${version}/ctime
+${iprefix}/$_includedir/c++/${version}/cctype
+${iprefix}/$_includedir/c++/${version}/cwctype
+${iprefix}/$_includedir/c++/${version}/cstddef
+${iprefix}/$_includedir/c++/${version}/cstdarg
+${iprefix}/$_includedir/c++/${version}/cstdlib
+${iprefix}/$_includedir/c++/${version}/debug
+${iprefix}/$_includedir/c++/${version}/deque
+${iprefix}/$_includedir/c++/${version}/algorithm
+${iprefix}/$_includedir/c++/${version}/sstream
+${iprefix}/$_includedir/c++/${version}/ostream
+${iprefix}/$_includedir/c++/${version}/istream
+${iprefix}/$_includedir/c++/${version}/fstream
+${iprefix}/$_includedir/c++/${version}/string
+${iprefix}/$_includedir/c++/${version}/cstring
+${iprefix}/$_includedir/c++/${version}/iostream
+${iprefix}/$_includedir/c++/${version}/vector
+${iprefix}/$_includedir/c++/${version}/memory
+${iprefix}/$_includedir/c++/${version}/typeinfo
+${iprefix}/$_includedir/c++/${version}/cerrno
+${iprefix}/$_includedir/c++/${version}/csetjmp
+${iprefix}/$_includedir/c++/${version}/exception
+${iprefix}/$_includedir/c++/${version}/cfloat
+${iprefix}/$_includedir/c++/${version}/streambuf
+${iprefix}/$_includedir/c++/${version}/cwchar
+${iprefix}/$_includedir/c++/${version}/csignal
+${iprefix}/$_includedir/c++/${version}/utility
+${iprefix}/$_includedir/c++/${version}/limits
+${iprefix}/$_includedir/c++/${version}/climits
+${iprefix}/$_includedir/c++/${version}/bitset
+${iprefix}/$_includedir/c++/${version}/backward
+${iprefix}/$_includedir/c++/${version}/exception_defines.h
+${iprefix}/$_includedir/c++/${version}/iomanip
+${iprefix}/$_includedir/c++/${version}/numeric
+${iprefix}/$_includedir/c++/${version}/complex
+${iprefix}/$_includedir/c++/${version}/functional
+${iprefix}/$_includedir/c++/${version}/locale
+${iprefix}/$_includedir/c++/${version}/clocale
+${iprefix}/$_includedir/c++/${version}/iosfwd
+${iprefix}/$_includedir/c++/${version}/stdexcept
+${iprefix}/$_includedir/c++/${version}/array
+${iprefix}/$_includedir/c++/${version}/c++0x_warning.h
+${iprefix}/$_includedir/c++/${version}/ccomplex
+${iprefix}/$_includedir/c++/${version}/cfenv
+${iprefix}/$_includedir/c++/${version}/cinttypes
+${iprefix}/$_includedir/c++/${version}/complex.h
+${iprefix}/$_includedir/c++/${version}/cstdbool
+${iprefix}/$_includedir/c++/${version}/cstdint
+${iprefix}/$_includedir/c++/${version}/ctgmath
+${iprefix}/$_includedir/c++/${version}/cxxabi-forced.h
+${iprefix}/$_includedir/c++/${version}/fenv.h
+${iprefix}/$_includedir/c++/${version}/random
+${iprefix}/$_includedir/c++/${version}/regex
+${iprefix}/$_includedir/c++/${version}/tgmath.h
+${iprefix}/$_includedir/c++/${version}/tuple
+${iprefix}/$_includedir/c++/${version}/type_traits
+${iprefix}/$_includedir/c++/${version}/unordered_map
+${iprefix}/$_includedir/c++/${version}/unordered_set
+
+[baseo32]
+subsys=swo32.base
+files(-,root,sys)
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/32
+${iprefix}/$_includedir/c++/${version}/mips-sgi-irix6.2/32
+${iprefix}/${_libdir}/*.a
+${iprefix}/${_libdir}/*.so
+${iprefix}/${_libdir}/*.so*
+
+[basen64]
+subsys=sw64.base
+files(-,root,sys)
+${iprefix}/${_libdir}64
+${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}/64
+${iprefix}/$_includedir/c++/${version}/mips-sgi-irix6.2/64
+
+[man]
+subsys=man.man
+files(-,root,sys)
+${iprefix}/$_mandir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+${iprefix}/$_infodir
+
