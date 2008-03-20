@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.17.1
+version=7.18.0
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -48,9 +48,6 @@ install()
       docs/MANUAL docs/RESOURCES docs/TODO docs/TheArtOfHttpScripting \
       docs/examples/*.c docs/examples/Makefile.example docs/INTERNALS \
       docs/CONTRIBUTE
-
-    # socklen_t is used in a header file, we replace it with int
-    ${__gsed} -i 's/socklen_t/int/g' ${stagedir}${prefix}/${_includedir}/curl/curl.h
 
     # Install libcurl.m4
     ${__install} -D -m 644 docs/libcurl/libcurl.m4 ${stagedir}${prefix}/${_sharedir}/aclocal/libcurl.m4
