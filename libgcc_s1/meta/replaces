@@ -1,0 +1,3 @@
+opt.relnotes tgc_libgcc1.opt.relnotes 10000001 10000001
+opt.dist tgc_libgcc1.opt.dist 10000001 10000001
+sw.lib tgc_libgcc1.sw.lib 10000001 10000001

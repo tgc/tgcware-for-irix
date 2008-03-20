@@ -18,7 +18,7 @@ pkgver=1
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-gcc=4.2.2
+gcc=4.3.0
 [ "$_os" = "irix53" ] && gcc=3.4.6
 version=$gcc
 
