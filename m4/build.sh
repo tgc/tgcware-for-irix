@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.10
+version=1.4.11
 pkgver=1
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -32,6 +32,12 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
