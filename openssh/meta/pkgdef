@@ -25,7 +25,7 @@ ${_sysconfdir}
 ${lprefix}/${_sysconfdir}/ssh/sshd_config
 ${lprefix}/libexec/sftp-server
 ${lprefix}/${_sbindir}/sshd
-dir var/empty
+dir var/empty/sshd
 # manpages, should they be seperate?
 ${lprefix}/${_mandir}/cat5/sshd_config.5.*
 ${lprefix}/${_mandir}/cat8/sftp-server.8.*
