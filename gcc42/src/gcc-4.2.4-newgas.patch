@@ -1,0 +1,11 @@
+--- gcc-4.2.4/gcc/configure.newgas	2008-05-26 12:56:18.368000000 +0200
++++ gcc-4.2.4/gcc/configure	2008-05-26 12:56:34.858000000 +0200
+@@ -14045,7 +14045,7 @@
+   # arbitrary sections are supported and try the test.
+   as_ver=`$gcc_cv_as --version 2>/dev/null | sed 1q`
+   if echo "$as_ver" | grep GNU > /dev/null; then
+-    as_ver=`echo $as_ver | sed -e 's/GNU assembler \([0-9.][0-9.]*\).*/\1/'`
++    as_ver=`echo $as_ver | sed -e 's/GNU assembler.* \([0-9.][0-9.]*\).*/\1/'`
+     as_major=`echo $as_ver | sed 's/\..*//'`
+     as_minor=`echo $as_ver | sed 's/[^.]*\.\([0-9]*\).*/\1/'`
+     if test $as_major -eq 2 && test $as_minor -lt 11
