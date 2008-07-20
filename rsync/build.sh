@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=rsync
-version=2.6.9
-pkgver=2
+version=3.0.3
+pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-configure_args='--prefix=${prefix} --mandir=${prefix}/${_mandir} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6'
+configure_args='--prefix=${prefix} --mandir=${prefix}/${_mandir} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6 --disable-acl-support'
 export CC=cc
 export CPPFLAGS="-I/usr/tgcware/include"
 if [ "$_os" = "irix62" ]; then
@@ -27,7 +27,8 @@ if [ "$_os" = "irix62" ]; then
     mipspro=1
 fi
 if [ "$_os" = "irix53" ]; then
-    mipspro=2
+    mipspro=0
+    export CC=gcc
     NO_RQS="-Wl,-no_rqs"
 fi
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
