@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2007k
-pkgver=8 # Increase for each lettered release within the same year!
-source[0]=${topdir}code${version}.tar.gz
+version=2008d
+pkgver=1 # Increase for each lettered release within the same year!
+source[0]=${topdir}code2008a.tar.gz
 source[1]=${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
 patch[0]=tz2004g-makefile.patch
