@@ -28,6 +28,7 @@ ${lprefix}/${_sbindir}/sshd
 dir var/empty/sshd
 # manpages, should they be seperate?
 ${lprefix}/${_mandir}/cat5/sshd_config.5.*
+${lprefix}/${_mandir}/cat5/moduli.5.*
 ${lprefix}/${_mandir}/cat8/sftp-server.8.*
 ${lprefix}/${_mandir}/cat8/sshd.8.*
 

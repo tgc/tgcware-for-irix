@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.0p1
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=5.1p1
+pkgver=1
+source[0]=ftp://ftp.dkuug.dk/pub/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -71,7 +71,7 @@ install()
 
     custom_install=1
     generic_install
-    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README README.privsep README.smartcard RFC.nroff TODO WARNING.RNG
+    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO WARNING.RNG
 
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do ${__cp} $i $i.default; echo "${prefix#/*}/${_sysconfdir}/ssh/$i config(noupdate)" >> $metadir/ops; done
