@@ -25,7 +25,6 @@ $_vdocdir/docs/TheArtOfHttpScripting
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_sharedir/curl
 
 [man]
 subsys=man.man

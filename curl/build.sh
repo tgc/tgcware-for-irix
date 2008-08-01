@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.18.0
+version=7.18.2
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=curl-7.17.1-pkgconfig.patch
 
@@ -22,6 +22,7 @@ patch[0]=curl-7.17.1-pkgconfig.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --disable-ipv6 --enable-cookies --enable-crypto --with-egd-socket=/var/run/egd-pool --with-libidn"
+make_check_target="test"
 
 reg prep
 prep()
@@ -51,6 +52,12 @@ install()
 
     # Install libcurl.m4
     ${__install} -D -m 644 docs/libcurl/libcurl.m4 ${stagedir}${prefix}/${_sharedir}/aclocal/libcurl.m4
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg pack
