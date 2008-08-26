@@ -23,7 +23,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libsigsegv
-version=2.5
+version=2.6
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libsigsegv/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
