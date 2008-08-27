@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=automake
-version=1.10
-pkgver=1
-source[0]=$topdir-$version.tar.bz2
+version=1.10.1
+pkgver=2
+source[0]=ftp://ftp.sunet.se/pub/gnu/automake/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -19,7 +19,6 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --program-suffix=-$version"
 
 reg prep
 prep()
@@ -37,8 +36,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    # What where they thinking :(
-    ${RM} -f ${stagedir}${prefix}/${_bindir}/*-${version}-${version}
+    ${__rm} -f ${stagedir}${prefix}/${_bindir}/{aclocal,automake}
     doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
 }
 
