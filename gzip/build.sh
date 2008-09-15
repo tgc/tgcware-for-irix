@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gzip
-version=1.3.11
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.3.12
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/gzip/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -43,6 +43,12 @@ install()
 {
     generic_install DESTDIR
     doc COPYING AUTHORS TODO NEWS README README-alpha ChangeLog
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg pack
