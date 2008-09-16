@@ -25,6 +25,3 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-The -trio patch add support for linking with the trio string library for
-snprintf/vsnprintf support instead of using the included snprintf.c
-

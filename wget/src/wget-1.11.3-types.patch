@@ -1,0 +1,10 @@
+--- wget-1.11.3/src/host.c.orig	2008-09-16 21:14:41.250000000 +0200
++++ wget-1.11.3/src/host.c	2008-09-16 21:15:11.030000000 +0200
+@@ -34,6 +34,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <assert.h>
++#include <sys/types.h>
+ 
+ #ifndef WINDOWS
+ # include <sys/socket.h>
