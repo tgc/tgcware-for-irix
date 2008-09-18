@@ -19,10 +19,12 @@ patch[0]=curl-7.17.1-pkgconfig.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-mipspro=1
-export CC=cc
-[ "$_os" = "irix53" ] && export CPP="cc -acpp -E"
-[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+if [ "$_os" = "irix53" ]; then
+    mipspro=1
+    export CC=cc
+    export CPP="cc -acpp -E"
+    NO_RQS="-Wl,-no_rqs"
+fi
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --disable-ipv6 --enable-cookies --enable-crypto --with-egd-socket=/var/run/egd-pool --with-libidn"
