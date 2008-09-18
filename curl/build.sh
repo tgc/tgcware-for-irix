@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.18.2
+version=7.19.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -19,8 +19,12 @@ patch[0]=curl-7.17.1-pkgconfig.patch
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+mipspro=1
+export CC=cc
+[ "$_os" = "irix53" ] && export CPP="cc -acpp -E"
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --enable-static=no --enable-http --enable-ftp --enable-file --disable-ldap --enable-manual --disable-ipv6 --enable-cookies --enable-crypto --with-egd-socket=/var/run/egd-pool --with-libidn"
 make_check_target="test"
 
