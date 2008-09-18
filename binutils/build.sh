@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=binutils
 version=2.18
-pkgver=5
+pkgver=6
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
@@ -47,14 +47,20 @@ install()
 	${__mv} ../lib32/*.a .
 	${__rmdir} ../lib32
     fi
-    # Convert hardlinks to symlinks
+
     setdir ${stagedir}${prefix}/${_bindir}
-    ${__rm} -f as ld
-    for p in ar nm objcopy objdump ranlib strip; do
+    # Remove known not working
+    ${__rm} -f as ld strip
+
+    # These might work but are not needed, rename them with g prefix
+    ${__rm} -f ar nm objcopy ranlib
+
+    # We leave objdump as it works well enough for our ldd replacement
+    for p in objdump; do
 	${__ln} -sf ${prefix}/mips-sgi-${os}/bin/$p $p
     done
 
-    # Make compat symlink for gcc packages < 4.2.2 on 6.2
+    # Make compat symlink for gcc packages (on 6.2)
     ${__ln} -s ${prefix}/mips-sgi-${os}/bin/as gas
 }
 
