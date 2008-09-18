@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=0.6.6
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.10
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -19,9 +19,12 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+mipspro=1
+export CC=cc
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware --enable-nls --enable-rpath'
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args="$configure_args --disable-static"
 
 reg prep
 prep()
@@ -35,11 +38,17 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
-    doc README README-alpha TODO NEWS COPYING COPYING.LIB FAQ THANKS AUTHORS
+    doc README TODO NEWS COPYING COPYING.LIB FAQ THANKS AUTHORS
 }
 
 reg pack
