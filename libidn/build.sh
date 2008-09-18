@@ -19,9 +19,11 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-mipspro=1
-export CC=cc
-[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+if [ "$_os" = "irix53" ]; then 
+    NO_RQS="-Wl,-no_rqs"
+    mipspro=1
+    export CC=cc
+fi
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --disable-static"
