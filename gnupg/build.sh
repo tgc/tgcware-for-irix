@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gnupg
-version=1.4.7
-pkgver=3
-source[0]=$topdir-$version.tar.bz2
+version=1.4.9
+pkgver=1
+source[0]=ftp://ftp.gnupg.org/gcrypt/gnupg/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 
 # Source function library
@@ -21,8 +21,12 @@ source[0]=$topdir-$version.tar.bz2
 
 # BuildRequires: readline, libz, gettext, iconv, openldap, libbz2
 # Global settings
+mipspro=1
+export CC=cc
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+[ "$_os" = "irix53" ] && gzinfo=0 # gzipping the gnupg1.info file hangs compress during gendist :(
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 RNG="--enable-static-rnd=egd --with-egd-socket=/var/run/egd-pool"
 configure_args="$configure_args --disable-rpath --disable-card-support $RNG"
 
@@ -36,6 +40,12 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
