@@ -25,3 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+Irix 6.2:
+Building with MIPSpro causes ld32 to die with "Bus error" when linking
+libidn.so.
