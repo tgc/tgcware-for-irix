@@ -17,8 +17,6 @@ source[0]=ftp://ftp.gnupg.org/gcrypt/gnupg/$topdir-$version.tar.bz2
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-[ "$_os" = "irix62" ] && patch[0]=gnupg-1.4.7-link-curses.patch
-
 # BuildRequires: readline, libz, gettext, iconv, openldap, libbz2
 # Global settings
 mipspro=1
@@ -29,6 +27,7 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 RNG="--enable-static-rnd=egd --with-egd-socket=/var/run/egd-pool"
 configure_args="$configure_args --disable-rpath --disable-card-support $RNG"
+[ "$_os" = "irix62" ] && ac_overrides="ac_cv_header_pthread_h=no"
 
 reg prep
 prep()
