@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.11
+version=1.4.12
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=ftp://ftp.sunet.se/pub/gnu/m4/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -22,6 +22,9 @@ source[0]=$topdir-$version.tar.bz2
 export CC=cc
 mipspro=1
 [ "$_os" = "irix53" ] && export LDFLAGS="-Wl,-no_rqs"
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
+
 reg prep
 prep()
 {
