@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=cvs
-version=1.11.22
-pkgver=3
-source[0]=$topdir-$version.tar.bz2
+version=1.11.23
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/non-gnu/cvs/source/stable/$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -20,6 +20,8 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 export LDFLAGS="-L${prefix}/${_libdir} -Wl,-rpath,${prefix}/${_libdir}"
+export CC=cc
+mipspro=1
 ignore_deps="tgc_perl5"
 
 reg prep
