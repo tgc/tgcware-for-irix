@@ -1,6 +1,6 @@
---- gmp-4.2.2/configure.ldflags	2007-12-14 11:20:07.157600000 +0100
-+++ gmp-4.2.2/configure	2007-12-14 11:31:41.881600000 +0100
-@@ -3861,7 +3861,7 @@
+--- gmp-4.2.4/configure.orig	2008-09-11 22:03:04.000000000 +0200
++++ gmp-4.2.4/configure	2008-11-11 21:25:17.530333000 +0100
+@@ -3870,7 +3870,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: " >&5
@@ -9,7 +9,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -3915,7 +3915,7 @@
+@@ -3924,7 +3924,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: function pointer return" >&5
@@ -18,7 +18,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -3971,7 +3971,7 @@
+@@ -3980,7 +3980,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: cmov instruction" >&5
@@ -27,7 +27,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4028,7 +4028,7 @@
+@@ -4037,7 +4037,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double -> ulong conversion" >&5
@@ -36,7 +36,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4083,7 +4083,7 @@
+@@ -4092,7 +4092,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double negation" >&5
@@ -45,7 +45,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4139,7 +4139,7 @@
+@@ -4148,7 +4148,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double -> float conversion" >&5
@@ -54,7 +54,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4223,7 +4223,7 @@
+@@ -4233,7 +4233,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: gnupro alpha ev6 char spilling" >&5
@@ -63,7 +63,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4274,7 +4274,7 @@
+@@ -4284,7 +4284,7 @@
  int k; int foo () { __builtin_alloca (k); }
  EOF
    echo "Test compile: __builtin_alloca availability" >&5
@@ -72,7 +72,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4320,7 +4320,7 @@
+@@ -4330,7 +4330,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: alloca array" >&5
@@ -81,7 +81,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4398,7 +4398,7 @@
+@@ -4408,7 +4408,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: abs int -> double conversion" >&5
@@ -90,7 +90,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4462,7 +4462,7 @@
+@@ -4472,7 +4472,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: long long reliability test 1" >&5
@@ -99,7 +99,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4522,7 +4522,7 @@
+@@ -4532,7 +4532,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: long long reliability test 2" >&5
@@ -108,7 +108,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4613,7 +4613,7 @@
+@@ -4631,7 +4631,7 @@
  
  EOF
    echo "Test compile: mpn_lshift_com optimization" >&5
@@ -117,7 +117,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4713,7 +4713,7 @@
+@@ -4739,7 +4739,7 @@
  
  EOF
    echo "Test compile: mpn_lshift_com optimization 2" >&5
@@ -126,7 +126,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4772,7 +4772,7 @@
+@@ -4798,7 +4798,7 @@
  int bar () { return foo; }
  EOF
  tmp_got_emitted=no
@@ -135,7 +135,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4846,7 +4846,7 @@
+@@ -4872,7 +4872,7 @@
  	.byte	254, 220, 186, 152, 118, 84, 50, 16
  EOF
  tmp_got_good=yes
@@ -144,7 +144,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -4896,7 +4896,7 @@
+@@ -4922,7 +4922,7 @@
  int main () { return 0; }
  EOF
  gmp_prog_cc_works=no
@@ -153,7 +153,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5180,7 +5180,7 @@
+@@ -5206,7 +5206,7 @@
  	xorl	%eax, %eax
  	ret
  EOF
@@ -162,7 +162,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5309,7 +5309,7 @@
+@@ -5335,7 +5335,7 @@
  cat >conftest.c <<EOF
  EOF
  echo "with empty conftest.c" >&5
@@ -171,7 +171,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5317,7 +5317,7 @@
+@@ -5343,7 +5343,7 @@
    (exit $ac_status); }; then : ;
  else
    # empty fails
@@ -180,7 +180,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5353,7 +5353,7 @@
+@@ -5379,7 +5379,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: " >&5
@@ -189,7 +189,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5407,7 +5407,7 @@
+@@ -5433,7 +5433,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: function pointer return" >&5
@@ -198,7 +198,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5463,7 +5463,7 @@
+@@ -5489,7 +5489,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: cmov instruction" >&5
@@ -207,7 +207,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5520,7 +5520,7 @@
+@@ -5546,7 +5546,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double -> ulong conversion" >&5
@@ -216,7 +216,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5575,7 +5575,7 @@
+@@ -5601,7 +5601,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double negation" >&5
@@ -225,7 +225,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5631,7 +5631,7 @@
+@@ -5657,7 +5657,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: double -> float conversion" >&5
@@ -234,7 +234,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5715,7 +5715,7 @@
+@@ -5742,7 +5742,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: gnupro alpha ev6 char spilling" >&5
@@ -243,7 +243,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5766,7 +5766,7 @@
+@@ -5793,7 +5793,7 @@
  int k; int foo () { __builtin_alloca (k); }
  EOF
    echo "Test compile: __builtin_alloca availability" >&5
@@ -252,7 +252,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5812,7 +5812,7 @@
+@@ -5839,7 +5839,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: alloca array" >&5
@@ -261,7 +261,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5890,7 +5890,7 @@
+@@ -5917,7 +5917,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: abs int -> double conversion" >&5
@@ -270,7 +270,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -5954,7 +5954,7 @@
+@@ -5981,7 +5981,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: long long reliability test 1" >&5
@@ -279,7 +279,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -6014,7 +6014,7 @@
+@@ -6041,7 +6041,7 @@
  int main () { return 0; }
  EOF
    echo "Test compile: long long reliability test 2" >&5
@@ -288,7 +288,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -6105,7 +6105,7 @@
+@@ -6140,7 +6140,7 @@
  
  EOF
    echo "Test compile: mpn_lshift_com optimization" >&5
@@ -297,7 +297,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -6205,7 +6205,7 @@
+@@ -6248,7 +6248,7 @@
  
  EOF
    echo "Test compile: mpn_lshift_com optimization 2" >&5
@@ -306,7 +306,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -6264,7 +6264,7 @@
+@@ -6307,7 +6307,7 @@
  int bar () { return foo; }
  EOF
  tmp_got_emitted=no
@@ -315,7 +315,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -6338,7 +6338,7 @@
+@@ -6381,7 +6381,7 @@
  	.byte	254, 220, 186, 152, 118, 84, 50, 16
  EOF
  tmp_got_good=yes
@@ -324,7 +324,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -8375,7 +8375,7 @@
+@@ -8418,7 +8418,7 @@
  int main (void) { return 0; }
  EOF
    echo "Test compile: " >&5
@@ -333,7 +333,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_cxxcompile\"") >&5
    (eval $gmp_cxxcompile) 2>&5
    ac_status=$?
-@@ -8415,7 +8415,7 @@
+@@ -8458,7 +8458,7 @@
  int main (void) { return 0; }
  EOF
    echo "Test compile: namespace" >&5
@@ -342,7 +342,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_cxxcompile\"") >&5
    (eval $gmp_cxxcompile) 2>&5
    ac_status=$?
-@@ -8461,7 +8461,7 @@
+@@ -8504,7 +8504,7 @@
  int main (void) { return 0; }
  EOF
    echo "Test compile: std iostream" >&5
@@ -351,7 +351,7 @@
    if { (eval echo "$as_me:$LINENO: \"$gmp_cxxcompile\"") >&5
    (eval $gmp_cxxcompile) 2>&5
    ac_status=$?
-@@ -26264,7 +26264,7 @@
+@@ -26346,7 +26346,7 @@
    cat >conftest.c <<EOF
  void *foo (int x) __attribute__ ((malloc));
  EOF
@@ -360,7 +360,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -27301,7 +27301,7 @@
+@@ -27383,7 +27383,7 @@
    { '\376', '\334', '\272', '\230', '\166', '\124', '\062', '\020' },
  };
  EOF
@@ -369,7 +369,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -29051,7 +29051,7 @@
+@@ -29133,7 +29133,7 @@
  cat >conftest.c <<EOF
  int gurkmacka;
  EOF
@@ -378,7 +378,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -29131,7 +29131,7 @@
+@@ -29213,7 +29213,7 @@
  EOF
  echo "Test program:" >&5
  cat conftest.c >&5
@@ -387,7 +387,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -29794,7 +29794,7 @@
+@@ -29876,7 +29876,7 @@
  EOF
  echo "Test program:" >&5
  cat conftest.c >&5
@@ -396,7 +396,7 @@
  if { (eval echo "$as_me:$LINENO: \"$gmp_compile\"") >&5
    (eval $gmp_compile) 2>&5
    ac_status=$?
-@@ -30078,7 +30078,7 @@
+@@ -30160,7 +30160,7 @@
  ${tmp_gsym_prefix}main$gmp_cv_asm_label_suffix
  	addl	$ ${tmp_underscore}_GLOBAL_OFFSET_TABLE_, %ebx
  EOF

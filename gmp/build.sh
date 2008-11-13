@@ -13,7 +13,7 @@ version=4.2.4
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gmp-4.2.4-use-ldflags-during-configure.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
