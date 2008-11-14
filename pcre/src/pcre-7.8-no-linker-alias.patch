@@ -1,0 +1,11 @@
+--- pcre-7.8/configure.nolinkeralias	2008-11-14 21:32:04.689974000 +0100
++++ pcre-7.8/configure	2008-11-14 21:47:28.533974000 +0100
+@@ -20953,7 +20953,7 @@
+        $as_test_x conftest$ac_exeext; then
+   { echo "$as_me:$LINENO: result: yes" >&5
+ echo "${ECHO_T}yes" >&6; };
+-                  EXTRA_LIBPCRECPP_LDFLAGS="$EXTRA_LIBPCRECPP_LDFLAGS -Wl,$flag";
++                  EXTRA_LIBPCRECPP_LDFLAGS="$EXTRA_LIBPCRECPP_LDFLAGS";
+                   break;
+ else
+   echo "$as_me: failed program was:" >&5

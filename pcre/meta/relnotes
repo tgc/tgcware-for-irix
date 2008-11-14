@@ -26,8 +26,14 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
+There's potential ABI breakage in the C++ part of PCRE.
+The pcrecpp::no_arg symbol was moved to pcrecpp::RE::no_arg and the author
+is trying to use the linker to create a symbol alias to hide it.
+Unfortunately this is not supported on IRIX which breaks the ABI.
+
 CHANGELOG
 ---------
 * Fri Nov 14 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 7.8-1
 - Update to 7.8
 - Switch to building with MIPSpro and GNU g++
+- Build with --enable-unicode-properties

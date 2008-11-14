@@ -13,7 +13,7 @@ version=7.8
 pkgver=1
 source[0]=http://downloads.sourceforge.net/pcre/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=pcre-7.8-no-linker-alias.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -21,7 +21,8 @@ source[0]=http://downloads.sourceforge.net/pcre/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-utf8"
+configure_args="$configure_args --enable-unicode-properties"
+export CXX=g++
 export CC=cc
 mipspro=1
 
