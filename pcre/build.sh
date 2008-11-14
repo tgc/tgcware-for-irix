@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pcre
-version=7.5
+version=7.8
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://downloads.sourceforge.net/pcre/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -22,6 +22,8 @@ source[0]=$topdir-$version.tar.bz2
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --enable-utf8"
+export CC=cc
+mipspro=1
 
 reg prep
 prep()
@@ -41,6 +43,12 @@ install()
     generic_install DESTDIR
     ${__rm} -f ${stagedir}${prefix}/${_docdir}/${topdir}/pcre*
     ${__mv} ${stagedir}${prefix}/${_docdir}/${topdir} ${stagedir}${prefix}/${_vdocdir}
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg pack

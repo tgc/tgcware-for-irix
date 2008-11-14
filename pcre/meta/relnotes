@@ -25,3 +25,9 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+CHANGELOG
+---------
+* Fri Nov 14 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 7.8-1
+- Update to 7.8
+- Switch to building with MIPSpro and GNU g++
