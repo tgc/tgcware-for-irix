@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.24
+version=1.2.33
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://prdownloads.sourceforge.net/libpng/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libpng-1.2.22-tgcware.patch
 patch[1]=libpng-1.2.22-trio.patch
@@ -24,8 +24,7 @@ patch[1]=libpng-1.2.22-trio.patch
 # Global settings
 configure_args="-f scripts/makefile.sgi"
 __configure="$(basename ${__make})"
-[ "$_os" = "irix62" ] && mipspro=1
-[ "$_os" = "irix53" ] && mipspro=2
+mipspro=1
 
 reg prep
 prep()
