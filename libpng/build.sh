@@ -25,6 +25,8 @@ patch[1]=libpng-1.2.22-trio.patch
 configure_args="-f scripts/makefile.sgi"
 __configure="$(basename ${__make})"
 mipspro=1
+# Not using configure
+platform_ac_overrides=""
 
 reg prep
 prep()
