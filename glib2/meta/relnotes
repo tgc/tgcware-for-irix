@@ -26,11 +26,14 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
-For Irix 6.2:
-I forced the detection of getpwuid_r since the configure test fails.
-This may be because it needs to link with -lpthread to work and
-the test doesn't.
-This means that anything linking with glib2 must also link with -lpthread
-or risk running into problems with getpwuid_r being unresolved.
-I've patched the pkgconfig file to include -lpthread on the link line
-for glib2.
+On IRIX 6.2 previous tgc_glib2 versions forced the detection of getpwuid_r
+and since that needs -lpthread this also required libglib users to link
+with -lpthread. That decision has been reversed.
+This tgc_glib2 does not use the thread safe getpwuid_r and the pkgconfig file
+for libglib nolonger forces linking with -lpthread.
+
+CHANGELOG
+---------
+Fri Nov 14 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 2.18.2
+- Update to 2.18.2
+- Don't force detection of getpwuid_r and linking with -lpthread on IRIX 6.2

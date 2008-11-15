@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.14.3
+version=2.18.2
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://ftp.gnome.org/pub/gnome/sources/glib/2.18/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=glib-2.18.2-no-pthread.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -23,10 +23,7 @@ export PERL=/usr/tgcware/bin/perl
 export PERL_PATH=/usr/tgcware/bin/perl
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-# Override getpwuid_r checking
-# The configure test fails but the system does have a POSIX compatible
-# getpwuid_r and AFAIK it does work but needs -lpthread for the implementation.
-[ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_posix_getpwuid_r=yes"
+configure_args="$configure_args --with-pcre=system --with-libiconv=gnu"
 # Don't build with pth on 5.3
 [ "$_os" = "irix53" ] && configure_args="$configure_args --with-threads=none"
 
@@ -34,14 +31,14 @@ reg prep
 prep()
 {
     generic_prep
-    setdir source
-    [ "$_os" = "irix62" ] && ${__gsed} -i '/^Libs/s/$/ -lpthread/' glib-2.0.pc.in
 }
 
 reg build
 build()
 {
     generic_build
+    setdir source
+    ${__make} README
 }
 
 reg install

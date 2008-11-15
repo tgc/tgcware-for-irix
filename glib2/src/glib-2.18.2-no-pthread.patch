@@ -1,0 +1,13 @@
+--- glib-2.18.2/configure.nopthread	2008-11-14 22:12:33.773974000 +0100
++++ glib-2.18.2/configure	2008-11-14 22:13:47.613974000 +0100
+@@ -39979,8 +39979,8 @@
+ 
+           CFLAGS="$glib_save_CFLAGS"
+           if test $glib_flag_works = yes ; then
+-             G_THREAD_CFLAGS=-$flag
+-	     G_THREAD_LIBS=-$flag
++             G_THREAD_CFLAGS=
++	     G_THREAD_LIBS=
+ 	     break;
+           fi
+         done
