@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=freetype
-version=2.1.10
-pkgver=4
-source[0]=$topdir-$version.tar.bz2
+version=2.3.7
+pkgver=1
+source[0]=http://downloads.sourceforge.net/freetype/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -19,11 +19,11 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-export CFLAGS="-fno-strict-aliasing"
-export CXXFLAGS="-fno-strict-aliasing"
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configlog=builds/unix/config.log
+export CC=cc
+mipspro=1
 
 reg prep
 prep()
