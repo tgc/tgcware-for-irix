@@ -1,0 +1,20 @@
+[common]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.cairographics.org/"
+shortdesc="A library that provides low-level pixel manipulation features"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir/pixman-1
+$_libdir/*.so
+$_libdir/pkgconfig/pixman-1.pc
+
