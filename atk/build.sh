@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=atk
-version=1.12.4
+version=1.24.0
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://ftp.acc.umu.se/pub/gnome/sources/atk/1.24/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
