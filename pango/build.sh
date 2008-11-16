@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pango
-version=1.15.2
+version=1.20.5
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://ftp.gnome.org/pub/GNOME/sources/pango/1.20/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=pango-1.20.5-fix-initializers.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -21,13 +21,13 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export CC=cc
+mipspro=1
 
 reg prep
 prep()
 {
     generic_prep
-    setdir source
-    [ "$_os" = "irix62" ] && sed -i '/-lX11/s|$X_LIBS|-L/usr/lib32|g' configure
 }
 
 reg build
