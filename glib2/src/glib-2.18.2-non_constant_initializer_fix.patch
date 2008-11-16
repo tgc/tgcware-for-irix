@@ -1,0 +1,71 @@
+--- glib-2.18.2/glib/tests/option-context.c.c89	2008-11-15 23:14:47.357402000 +0100
++++ glib-2.18.2/glib/tests/option-context.c	2008-11-15 23:26:20.757402000 +0100
+@@ -852,10 +852,12 @@
+   gchar **argv;
+   int argc;
+   GOptionEntry entries [] =
+-    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, &dummy, NULL },
++    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, 0, NULL },
+       { "test", 't', G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, 
+ 	callback_parse_optional, NULL, NULL },
+       { NULL } };
++
++  entries[0].arg_data = &dummy;
+   
+   context = g_option_context_new (NULL);
+   g_option_context_add_main_entries (context, entries, NULL);
+@@ -887,10 +889,12 @@
+   gchar **argv;
+   int argc;
+   GOptionEntry entries [] =
+-    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, &dummy, NULL },
++    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, 0, NULL },
+       { "test", 't', G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, 
+ 	callback_parse_optional, NULL, NULL },
+       { NULL } };
++
++  entries[0].arg_data = &dummy;
+   
+   context = g_option_context_new (NULL);
+   g_option_context_add_main_entries (context, entries, NULL);
+@@ -922,10 +926,12 @@
+   gchar **argv;
+   int argc;
+   GOptionEntry entries [] =
+-    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, &dummy, NULL },
++    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, 0, NULL },
+       { "test", 't', G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, 
+ 	callback_parse_optional, NULL, NULL },
+       { NULL } };
++
++  entries[0].arg_data = &dummy;
+   
+   context = g_option_context_new (NULL);
+   g_option_context_add_main_entries (context, entries, NULL);
+@@ -957,10 +963,12 @@
+   gchar **argv;
+   int argc;
+   GOptionEntry entries [] =
+-    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, &dummy, NULL },
++    { { "dummy", 'd', 0, G_OPTION_ARG_NONE, 0, NULL },
+       { "test", 't', G_OPTION_FLAG_OPTIONAL_ARG, G_OPTION_ARG_CALLBACK, 
+ 	callback_parse_optional, NULL, NULL },
+       { NULL } };
++
++  entries[0].arg_data = &dummy;
+   
+   context = g_option_context_new (NULL);
+   g_option_context_add_main_entries (context, entries, NULL);
+@@ -1614,9 +1622,11 @@
+   int argc;
+   gchar *arg = NULL;
+   GOptionEntry entries [] =
+-    { { "test", 't', 0, G_OPTION_ARG_STRING, &arg, NULL, NULL },
++    { { "test", 't', 0, G_OPTION_ARG_STRING, 0, NULL, NULL },
+       { NULL } };
+ 
++  entries[0].arg_data = &arg;
++
+   g_test_bug ("305576");
+ 
+   context = g_option_context_new (NULL);

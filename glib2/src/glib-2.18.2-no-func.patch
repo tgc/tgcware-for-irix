@@ -1,0 +1,15 @@
+--- glib-2.18.2/glib/gmacros.h.nofunc	2008-11-15 20:41:38.937402000 +0100
++++ glib-2.18.2/glib/gmacros.h	2008-11-15 21:13:34.797872000 +0100
+@@ -148,7 +148,11 @@
+ #if defined (__GNUC__)
+ #  define G_STRFUNC     ((const char*) (__PRETTY_FUNCTION__))
+ #elif defined (__STDC_VERSION__) && __STDC_VERSION__ >= 19901L
+-#  define G_STRFUNC     ((const char*) (__func__))
++#  if defined (_COMPILER_VERSION) && _COMPILER_VERSION < 0x740 
++#    define G_STRFUNC	  ((const char*) ("???"))
++#  else
++#    define G_STRFUNC     ((const char*) (__func__))
++#  endif
+ #else
+ #  define G_STRFUNC     ((const char*) ("???"))
+ #endif
