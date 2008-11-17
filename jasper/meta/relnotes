@@ -25,3 +25,8 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+CHANGELOG
+---------
+* Sun Nov 16 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.900.1-2
+- Rebuild with MIPSpro instead of gcc
