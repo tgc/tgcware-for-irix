@@ -10,10 +10,11 @@
 # Check the following 4 variables before running the script
 topdir=pango
 version=1.20.5
-pkgver=1
+pkgver=2
 source[0]=http://ftp.gnome.org/pub/GNOME/sources/pango/1.20/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=pango-1.20.5-fix-initializers.patch
+patch[1]=pango-1.20.5-no-libtool-rpath.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions

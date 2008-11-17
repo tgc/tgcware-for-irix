@@ -29,7 +29,16 @@ ERRORS/MISCELLANEOUS
 pango-1.20.5-fix-initializers.patch:
 Fix some non-constant initializers
 
+pango-1.20.5-no-libtool-rpath.patch:
+libtool likes to use -rpath unfortunately in some cases it misbehaves.
+In this case it ends up adding rpaths pointing into the build directories.
+This patch will disable libtools use of -rpaths so only rpaths listed
+LDFLAGS will be active.
+
 CHANGELOG
 ---------
+* Mon Nov 17 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.20.5-2
+- Don't let libtool add rpaths pointing to the build directory
+
 * Sun Nov 16 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.20.5-1
 - Update to 1.20.5
