@@ -9,20 +9,23 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=apr
-version=1.2.11
-pkgver=2
-source[0]=$topdir-$version.tar.bz2
+version=1.3.3
+pkgver=1
+source[0]=http://mirrors.dotsrc.org/apache/apr/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=apr-1.3.3-warning-unsupported.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 aprver=1
+export CC=cc
+mipspro=1
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --includedir=${prefix}/${_includedir}/apr-${aprver} --with-installbuilddir=${prefix}/${_libdir}/apr-${aprver}/build --with-egd=/var/run/egd-pool"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+configure_args="$configure_args --disable-static --includedir=${prefix}/${_includedir}/apr-${aprver} --with-installbuilddir=${prefix}/${_libdir}/apr-${aprver}/build --with-egd=/var/run/egd-pool"
 [ "$_os" = "irix53" ] && configure_args="$configure_args --disable-threads"
 
 reg prep
@@ -37,6 +40,12 @@ build()
     generic_build
     setdir source
     ${__make} dox
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
