@@ -23,6 +23,6 @@ files(-,root,sys)
 $_bindir/apu*config
 $_includedir/apr*
 $_libdir/*.so
-$_libdir/*.a
+$_libdir/apr-util-1/*.so
 $_libdir/pkgconfig/*
 
