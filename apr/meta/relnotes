@@ -25,4 +25,3 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-SGI cc does not support the #warning directive so I patched it out.
