@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=subversion
-version=1.4.5
-pkgver=1
-source[0]=$topdir-$version.tar.bz2
+version=1.5.4
+pkgver=2
+source[0]=http://subversion.tigris.org/downloads/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=subversion-1.4.0-norpath.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -21,8 +21,7 @@ patch[0]=subversion-1.4.0-norpath.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-neon=${prefix} --with-apr=${prefix} --with-apr-util=${prefix} --without-python --without-jdk --disable-neon-version-check"
-
+configure_args="$configure_args --with-neon=${prefix} --with-apr=${prefix} --with-apr-util=${prefix} --without-jdk"
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket_socket=no"
 
 reg prep

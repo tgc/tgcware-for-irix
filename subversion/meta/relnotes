@@ -28,3 +28,6 @@ ERRORS/MISCELLANEOUS
 I've only packaged up what a make install installs. There are lots
 of stuff in the source tree that could possibly be included but sorting
 through it all is not at the moment on my list of things todo.
+
+To avoid bogus RPATHs configure was massaged by sed to make sure
+hardcode_into_libs=no in the libtool config.
