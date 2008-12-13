@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=apr
 version=1.3.3
-pkgver=2
+pkgver=3
 source[0]=http://mirrors.dotsrc.org/apache/apr/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
