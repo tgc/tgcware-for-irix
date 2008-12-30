@@ -38,19 +38,13 @@ At some point n64 libraries might appear since they would go in /lib64 which
 would not conflict with the standard locations.
 There is currently no plan to make a true multilib aware tgcware distribution.
 
-The build was specifically built *without* threads since they are not a
-standard feature of Irix 6.2 and would limit the use to only people who are
-in possession of the POSIX threads patchset.
+Note that this build specifically enables the use of POSIX pthreads. This was
+not a standard feature on Irix 6.2 so parts of the compiler may require the
+installation of the POSIX pthreads patchset.
 
 Patches:
-3 patches are included but they are not necessary for this particular build
-configuration.
-They do however enable the possibility of building with libgomp and
+3 patches are included which enables building with libgomp and
 --enable-threads=posix95.
 
 testresults:
-None available for this particular build but full testresults was posted
-for a posix95 threads enabled build (including libgomp).
-testresults may come at a later date however it takes around 72 hours or more
-to run the tests for all 3 ABIs on an Indigo2 R10K/195 and sometimes I just get
-tired of listening to the damn thing :)
+See http://gcc.gnu.org/gcc-4.3/buildstat.html

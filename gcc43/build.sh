@@ -9,14 +9,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.3.0
-pkgver=2
-#source[0]=$topdir-$version.tar.bz2
-source[0]=gcc-4.3.0.tar.bz2
+version=4.3.2
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=gcc-4.3-posix95-fix.patch
-patch[1]=gcc-4.3.0-include-sched_h.patch
-patch[2]=gcc-4.2.0-libgomp-posix95.patch
+patch[0]=gcc-4.3.0-include-sched_h.patch
+patch[1]=gcc-4.2.0-libgomp-posix95.patch
+patch[2]=gcc-4.3.2-no_pthread.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -58,15 +57,15 @@ if [ "$_os" = "irix62" ]; then
     #configure_args="$global_config_args --disable-multilib --enable-shared=libstdc++"
     #export CC='cc -n32 -mips3'
     #configure_args="$global_config_args --enable-shared=libstdc++"
-    #configure_args="$global_config_args --enable-shared --enable-threads=posix95"
-    configure_args="$global_config_args --enable-threads=single --disable-libgomp"
-    export CC=/usr/tgcware/gcc-4.2.1/bin/gcc
+    #configure_args="$global_config_args --enable-threads=single --disable-libgomp"
+    configure_args="$global_config_args --enable-shared --enable-threads=posix95"
+    export CC=/usr/tgcware/gcc-4.3.0/bin/gcc
     export CONFIG_SHELL=/usr/tgcware/bin/bash
     withada=1
     gas=1
     #objdir=cccfooa_gas
-    objdir=all_gas_nothreads
-    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.2.1/bin
+    objdir=all_gas_pthreads
+    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.0/bin
     [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
 fi
 
@@ -81,14 +80,14 @@ if [ $gas -eq 1 -o $gld -eq 1 ]; then
 #    done
 #    #$LN -sf /bin/ld .
 ##    export PATH=/usr/tgcware/mips-sgi-$os/bin:$PATH
-   : export NM=/usr/tgcware/bin/gnm
-   : export AR=/usr/tgcware/bin/gar
-   : export RANLIB=/usr/tgcware/bin/granlib
-   : export OBJDUMP=/usr/tgcware/bin/gobjdump
-   : export NM_FOR_TARGET=/usr/tgcware/bin/gnm
-   : export AR_FOR_TARGET=/usr/tgcware/bin/gar
-   : export RANLIB_FOR_TARGET=/usr/tgcware/bin/granlib
-   : export OBJDUMP_FOR_TARGET=/usr/tgcware/bin/gobjdump
+   export NM=/usr/tgcware/mips-sgi-$os/bin/nm
+   export AR=/usr/tgcware/mips-sgi-$os/bin/ar
+   export RANLIB=/usr/tgcware/mips-sgi-$os/bin/ranlib
+   export OBJDUMP=/usr/tgcware/mips-sgi-$os/bin/objdump
+   export NM_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/nm
+   export AR_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ar
+   export RANLIB_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ranlib
+   export OBJDUMP_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/objdump
 fi
 [ $withada -eq 1 ] && langs="$langs,ada"
 [ $withjava -eq 1 ] && langs="$langs,java"
@@ -150,8 +149,7 @@ check()
 {
     setdir source
     setdir ../$objdir
-    #$MAKE_PROG -k check
-    ${__make} -k RUNTESTFLAGS="--target_board='unix{,-mabi=32,-mabi=64}'" check
+    ${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check
 }
 
 reg pack

@@ -10,6 +10,7 @@ subsys=sw.base
 files(-,root,sys)
 ${iprefix}/$_bindir
 ${iprefix}/${_libdir}32
+${iprefix}/${_libdir}/libgomp.spec
 dir ${iprefix}/${_libdir}/gcc
 dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2
 dir ${iprefix}/${_libdir}/gcc/mips-sgi-irix6.2/${version}
