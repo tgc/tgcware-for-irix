@@ -9,13 +9,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.3.2
+version=4.3.3
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gcc-4.3.0-include-sched_h.patch
-patch[1]=gcc-4.2.0-libgomp-posix95.patch
-patch[2]=gcc-4.3.2-no_pthread.patch
+patch[1]=gcc-4.3.3-libgomp-pthreads.patch
+patch[2]=gcc-4.3.2-setrunon_np.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -59,13 +59,13 @@ if [ "$_os" = "irix62" ]; then
     #configure_args="$global_config_args --enable-shared=libstdc++"
     #configure_args="$global_config_args --enable-threads=single --disable-libgomp"
     configure_args="$global_config_args --enable-shared --enable-threads=posix95"
-    export CC=/usr/tgcware/gcc-4.3.0/bin/gcc
+    export CC=/usr/tgcware/gcc-4.3.2/bin/gcc
     export CONFIG_SHELL=/usr/tgcware/bin/bash
     withada=1
     gas=1
     #objdir=cccfooa_gas
     objdir=all_gas_pthreads
-    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.0/bin
+    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.2/bin
     [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
 fi
 

@@ -1,0 +1,18 @@
+--- gcc-4.3.3/libgomp/configure.tgt.libgomp	2008-01-08 17:14:49.000000000 +0100
++++ gcc-4.3.3/libgomp/configure.tgt	2009-01-27 17:32:41.460000000 +0100
+@@ -107,6 +107,15 @@
+ 	XLDFLAGS="${XLDFLAGS} -lposix4"
+ 	;;
+ 
++  *-*-irix6.2)
++   config_path="posix95 posix"
++   XLDFLAGS="${XLDFLAGS} -lpthread"
++   ;;
++
++  *-*-irix6.5)
++   XLDFLAGS="${XLDFLAGS} -lpthread"
++   ;;
++
+   *)
+ 	;;
+ 

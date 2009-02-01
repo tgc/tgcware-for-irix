@@ -42,9 +42,14 @@ Note that this build specifically enables the use of POSIX pthreads. This was
 not a standard feature on Irix 6.2 so parts of the compiler may require the
 installation of the POSIX pthreads patchset.
 
+If you intend to use this compiler on Irix 6.3, 6.4 or 6.5 I would recommend
+that the fixed-includes be regenerated with the included mkheader script.
+
 Patches:
-3 patches are included which enables building with libgomp and
+2 patches are included which enables building with libgomp and
 --enable-threads=posix95.
+Also included is a patch for bz#38400 which fixes all the pthread related
+failures in the ada testsuite.
 
 testresults:
 See http://gcc.gnu.org/gcc-4.3/buildstat.html
