@@ -1,0 +1,33 @@
+--- libgpg-error-1.7.pristine/src/mkstrtable.awk.orig	2009-03-20 21:13:34.630000000 +0100
++++ libgpg-error-1.7.pristine/src/mkstrtable.awk	2009-03-20 21:13:45.750000000 +0100
+@@ -157,7 +157,7 @@
+   print "    " pos[coded_msgs];
+   print "  };";
+   print "";
+-  print "static inline int";
++  print "static __inline int";
+   print namespace "msgidxof (int code)";
+   print "{";
+   print "  return (0 ? 0";
+--- libgpg-error-1.7.pristine/src/err-codes.h.orig	2009-03-20 21:13:55.040000000 +0100
++++ libgpg-error-1.7.pristine/src/err-codes.h	2009-03-20 21:14:04.640000000 +0100
+@@ -506,7 +506,7 @@
+     4611
+   };
+ 
+-static inline int
++static __inline int
+ msgidxof (int code)
+ {
+   return (0 ? 0
+--- libgpg-error-1.7.pristine/src/err-sources.h.orig	2009-03-20 21:14:18.590000000 +0100
++++ libgpg-error-1.7.pristine/src/err-sources.h	2009-03-20 21:14:24.710000000 +0100
+@@ -70,7 +70,7 @@
+     205
+   };
+ 
+-static inline int
++static __inline int
+ msgidxof (int code)
+ {
+   return (0 ? 0
