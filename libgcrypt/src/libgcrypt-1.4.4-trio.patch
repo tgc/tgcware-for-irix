@@ -1,0 +1,10 @@
+--- libgcrypt-1.4.4/configure.ac.trio	2009-03-21 14:51:54.880000000 +0100
++++ libgcrypt-1.4.4/configure.ac	2009-03-21 14:54:48.260000000 +0100
+@@ -705,6 +705,7 @@
+ 
+ GNUPG_CHECK_MLOCK
+ 
++NEED_TRIO_CHECK
+ 
+ #
+ # Check wether it is necessary to link against libdl.
