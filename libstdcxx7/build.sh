@@ -8,7 +8,7 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=libstdcxx7
+topdir=libstdcxx_7
 version=1
 pkgver=1
 # If there are no patches, simply comment this
