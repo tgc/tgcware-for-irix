@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libstdcxx7
-version=7
-pkgver=6
+version=1
+pkgver=1
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -18,8 +18,9 @@ pkgver=6
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-gcc=4.2.2
+gcc=4.3.3
 [ "$_os" = "irix53" ] && gcc=3.4.6
+version=$gcc
 
 reg prep
 prep()
@@ -50,13 +51,13 @@ install()
 reg pack
 pack()
 {
-    META_CLEAN="$META_CLEAN relnotes.$_os.txt"
     generic_pack
 }
 
 reg distclean
 distclean()
 {
+    META_CLEAN="$META_CLEAN relnotes.$_os.txt"
     clean distclean
 }
 

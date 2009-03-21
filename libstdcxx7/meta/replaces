@@ -1,0 +1,3 @@
+opt.relnotes tgc_libstdcxx7.opt.relnotes 70000001 70000005
+opt.dist tgc_libstdcxx7.opt.dist 70000001 70000005
+sw.lib tgc_libstdcxx7.sw.lib 70000001 70000005
