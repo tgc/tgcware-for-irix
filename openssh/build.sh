@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.1p1
+version=5.2p1
 pkgver=1
 source[0]=ftp://ftp.dkuug.dk/pub/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=openssh-5.2p1-no-in_port_t.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -22,15 +22,16 @@ source[0]=ftp://ftp.dkuug.dk/pub/OpenSSH/portable/$topdir-$version.tar.gz
 subsysconf=$metadir/subsys.conf
 
 # Global settings
-export CC=cc
-export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib"
-export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
-configure_args='--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --mandir=$prefix/${_mandir} --with-default-path=$prefix:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool'
 mipspro=1
+export CC=cc
+configure_args="--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --mandir=$prefix/${_mandir} --with-default-path=$prefix/bin:/usr/bsd:/usr/bin --with-mantype=man --disable-suid-ssh --without-rsh --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool"
 if [ "$_os" = "irix53" ]; then
     export CC=gcc
     mipspro=0
 fi
+[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
+export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"
 # It uses ac_cv_lib_gen_dirname=yes but that is okay
 check_ac=0
 
