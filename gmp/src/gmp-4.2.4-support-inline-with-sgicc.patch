@@ -1,0 +1,20 @@
+--- gmp-4.2.4/gmp-h.in.orig	2008-09-10 23:02:01.000000000 +0200
++++ gmp-4.2.4/gmp-h.in	2009-03-22 14:07:16.274000000 +0100
+@@ -455,6 +455,17 @@
+ #endif
+ #endif
+ 
++/* Empirical evidence shows that SGI cc supports the __inline keyword
++   atleast for the IRIX 5.3 IDO and MIPSpro 7.3.x/7.4.x.
++   It is believed that extern __inline is unsupported or unsuitable
++   while static __inline is useable.
++   Both gcc and SGI cc defines sgi on IRIX.
++   Later versions of SGI cc can be recognized by _COMPILER_VERSION.
++*/
++#if defined(sgi) && ! defined(__GNUC__)
++#define __GMP_EXTERN_INLINE static __inline
++#endif
++
+ /* C++ always has "inline" and since it's a normal feature the linker should
+    discard duplicate non-inlined copies, or if it doesn't then that's a
+    problem for everyone, not just GMP.  */

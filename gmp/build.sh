@@ -10,10 +10,14 @@
 # Check the following 4 variables before running the script
 topdir=gmp
 version=4.2.4
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gmp-4.2.4-use-ldflags-during-configure.patch
+patch[1]=gmp-4.2.4-support-inline-with-sgicc.patch
+patch[2]=perfpow.c.diff
+patch[3]=mpf_set_str.c.4.diff
+patch[4]=mpf_eq.diff
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
