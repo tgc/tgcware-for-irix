@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=openssh
 version=5.2p1
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.dkuug.dk/pub/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssh-5.2p1-no-in_port_t.patch
@@ -34,6 +34,7 @@ export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
 export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"
 # It uses ac_cv_lib_gen_dirname=yes but that is okay
 check_ac=0
+useautodir=0
 
 reg prep
 prep()
@@ -45,6 +46,13 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    setdir source
+    ${__make} tests
 }
 
 reg install
