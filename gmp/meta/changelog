@@ -1,3 +1,7 @@
+* Sun Mar 22 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.2.4-3
+- Dump the __inline patch for gmp.h. Too risky for
+  a public header
+
 * Sat Mar 21 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.2.4-2
 - Add the 3 upstream patches currently published for 4.2.4
 - Add experimental support for __inline to gmp.h
