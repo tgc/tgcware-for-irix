@@ -43,6 +43,12 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
