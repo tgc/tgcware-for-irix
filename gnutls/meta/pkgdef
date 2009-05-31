@@ -11,7 +11,9 @@ files(-,root,sys)
 $_bindir/certtool
 $_bindir/gnutls-*
 $_bindir/srptool
+$_bindir/psktool
 $_sharedir/doc
+$_sharedir/locale/*/LC_MESSAGES/libgnutls.mo
 
 [lib]
 subsys=sw.lib
@@ -36,10 +38,7 @@ $_infodir
 [devel]
 subsys=sw.dev
 files(-,root,sys)
-$_bindir/*-config
 $_includedir
 $_libdir/*.so
-$_libdir/*.a
 $_libdir/pkgconfig
-$_sharedir/aclocal
 

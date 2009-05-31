@@ -9,25 +9,20 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gnutls
-version=1.2.11
-pkgver=2
-source[0]=$topdir-$version.tar.bz2
+version=2.8.0
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/gnutls/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=gnutls-1.2.10-shutrdwr.patch
-patch[1]=gnutls-1.2.10-vsnprintf.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
-[ "$_os" = "irix53" ] && patch[2]=gnutls-1.2.10-mapfailed.patch
-[ "$_os" = "irix53" ] && patch[3]=gnutls-1.2.10-siginterrupt.patch
-[ "$_os" = "irix53" ] && patch[4]=gnutls-1.2.10-inet_pton.patch
-
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-openssl-compatibility"
-ac_overrides="ac_cv_func_inet_ntop=no"
+configure_args="$configure_args --disable-static --disable-ld-version-script --disable-openssl-compatibility"
+ac_overrides="ac_cv_func_inet_ntop=no ac_cv_func_inet_pton=no"
 
 reg prep
 prep()
@@ -41,11 +36,17 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS COPYING COPYING.LIB NEWS README THANKS
+    doc AUTHORS COPYING COPYING NEWS README THANKS
 }
 
 reg pack
