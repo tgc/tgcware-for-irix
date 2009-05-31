@@ -9,14 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gmp
-version=4.2.4
-pkgver=3
+version=4.3.1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gmp-4.2.4-use-ldflags-during-configure.patch
-patch[1]=perfpow.c.diff
-patch[2]=mpf_set_str.c.4.diff
-patch[3]=mpf_eq.diff
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -24,7 +21,7 @@ patch[3]=mpf_eq.diff
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-cxx --enable-mpbsd --with-readline=no"
+configure_args="--prefix=$prefix --enable-cxx --with-readline=no"
 if [ "$_os" = "irix62" ]; then
     mipspro=1
     export ABI=n32

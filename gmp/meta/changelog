@@ -1,3 +1,7 @@
+* Sun May 31 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.3.1-2
+- Update to 4.3.1
+- Disable BSD MP compat library
+
 * Sun Mar 22 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.2.4-3
 - Dump the __inline patch for gmp.h. Too risky for
   a public header
