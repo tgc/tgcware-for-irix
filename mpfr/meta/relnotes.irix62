@@ -1,0 +1,42 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+The tadd_d test hangs indefinitely on IRIX 6.2.
+The problem can be traced to a call to mpfr_set_d inside mpfr_add_d and
+only manifests itself when mpfr_add_d is called with arguments larger than
+180,80. The default for the test is 1000,100. With smaller arguments the test
+completes without issues.
+
+Testresults:
+FAIL: tadd_d
+Error in test #32, mpfr_printf printed 26 characters instead of 25
+FAIL: tprintf
+Error in test #32, mpfr_vfprintf printed 26 characters instead of 25
+FAIL: tfprintf
+=====================
+3 of 148 tests failed
+=====================
