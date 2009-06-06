@@ -25,3 +25,8 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+On IRIX 6.2 the teststr testcase has some problems.
+Either it dumps core (segfault) or fails 2 out of 13 tests.
+Except when running testall teststr by hand it only fails one test:
+teststr             : |Line 287: strtoff failed for 1234
+
