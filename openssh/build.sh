@@ -34,6 +34,7 @@ export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
 export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"
 # It uses ac_cv_lib_gen_dirname=yes but that is okay
 check_ac=0
+ac_overrides="ac_cv_func_inet_ntop=no ac_cv_func___b64_ntop=no ac_cv_func___b64_pton=no"
 useautodir=0
 
 reg prep

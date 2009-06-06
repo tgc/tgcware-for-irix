@@ -50,5 +50,10 @@ to this: OpenSSL version mismatch. Built against 90805f, you have 908070
 Then please make sure that you have the newest tgcware version of both
 openssl and openssh installed.
 
+Irix 6.2 specific:
+The use of __b64_ntop and __b64_pton libc symbols was disabled for compatibility
+with early 6.5.x releases which apparently lacks these.
+(Confirmed by Jorgen Tegner on IRIX 6.5.2).
+
 Irix 5.3 specific:
 SGI cc is not able to build openssh at this point so gcc had to be used.
