@@ -1,0 +1,11 @@
+--- apr-util-1.3.7/misc/apr_thread_pool.c.orig	2008-05-07 21:48:28.000000000 +0200
++++ apr-util-1.3.7/misc/apr_thread_pool.c	2009-06-07 14:19:59.834000000 +0200
+@@ -90,7 +90,7 @@
+     me->thd_max = max_threads;
+     me->idle_max = init_threads;
+     me->threshold = init_threads / 2;
+-    rv = apr_thread_mutex_create(&me->lock, APR_THREAD_MUTEX_NESTED,
++    rv = apr_thread_mutex_create(&me->lock, APR_THREAD_MUTEX_UNNESTED,
+                                  me->pool);
+     if (APR_SUCCESS != rv) {
+         return rv;

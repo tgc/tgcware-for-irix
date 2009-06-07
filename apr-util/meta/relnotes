@@ -25,3 +25,9 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+IRIX 6.2 pthreads is a bit peculiar and does not support nested mutexes.
+The apr_thread_pool_create function tries to use this type by default
+rendering it non-functional on IRIX 6.2.
+To avoid this I've replaced APR_THREAD_MUTEX_NESTED with
+APR_THREAD_MUTEX_UNNESTED and since the testsuite passes I deem it safe.
+The alternative would be to disable thread support entirely in apr.
