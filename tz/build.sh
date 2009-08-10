@@ -9,10 +9,10 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2008d
+version=2009k
 pkgver=1 # Increase for each lettered release within the same year!
-source[0]=${topdir}code2008a.tar.gz
-source[1]=${topdir}data${version}.tar.gz
+source[0]=ftp://elsie.nci.nih.gov/pub/${topdir}code${version}.tar.gz
+source[1]=ftp://elsie.nci.nih.gov/pub/${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
 patch[0]=tz2004g-makefile.patch
 
@@ -32,12 +32,14 @@ check_ac=0
 reg prep
 prep()
 {
+    fetch_source 0
+    fetch_source 1
     clean source
     # No topleveldir in the tarballs :(
     ${__mkdir} -p $srcdir/tz-$version
     setdir $srcdir/tz-$version
-    ${__gzip} -dc $srcfiles/${source[0]} | ${TAR} -xf -
-    ${__gzip} -dc $srcfiles/${source[1]} | ${TAR} -xf -
+    ${__gzip} -dc $srcfiles/$(get_source_filename 0) | ${__tar} -xf -
+    ${__gzip} -dc $srcfiles/$(get_source_filename 1) | ${__tar} -xf -
     patch 0
     ${__gsed} -i "/^CFLAGS/s/=.*/=$CDEF/" Makefile
 }
