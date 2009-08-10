@@ -1,8 +1,22 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
+# Copyright (C) 2003-2008 Tom G. Christensen <tgc@jupiterrise.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Written by Tom G. Christensen <tgc@jupiterrise.com>.
+
 # build.sh helper functions
 . ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
@@ -10,8 +24,8 @@
 # Check the following 4 variables before running the script
 topdir=bash
 version=3.2
-pkgver=3
-source[0]=bash-$version.tar.gz
+pkgver=4
+source[0]=bash-3.2.tar.gz
 # If there are no patches, simply comment this
 patch[0]=bash32-001
 patch[1]=bash32-002
@@ -38,6 +52,31 @@ patch[21]=bash32-022
 patch[22]=bash32-023
 patch[23]=bash32-024
 patch[24]=bash32-025
+patch[25]=bash32-026
+patch[26]=bash32-027
+patch[27]=bash32-028
+patch[28]=bash32-029
+patch[29]=bash32-030
+patch[30]=bash32-031
+patch[31]=bash32-032
+patch[32]=bash32-033
+patch[33]=bash32-034
+patch[34]=bash32-035
+patch[35]=bash32-036
+patch[36]=bash32-037
+patch[37]=bash32-038
+patch[38]=bash32-039
+patch[39]=bash32-040
+patch[40]=bash32-041
+patch[41]=bash32-042
+patch[42]=bash32-043
+patch[43]=bash32-044
+patch[44]=bash32-045
+patch[45]=bash32-046
+patch[46]=bash32-047
+patch[47]=bash32-048
+patch[48]=bash32-049
+patch[49]=bash32-050
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -48,9 +87,8 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --disable-rpath"
 export CC=cc
-[ "$_os" = "irix62" ] && mipspro=1
+mipspro=1
 if [ "$_os" = "irix53" ]; then
-    mipspro=2
     LDFLAGS="-Wl,-no_rqs $LDFLAGS"
 fi
 patch_prefix="-p0"
@@ -65,6 +103,12 @@ reg build
 build()
 {
     generic_build
+}
+
+reg check
+check()
+{
+    generic_check
 }
 
 reg install
