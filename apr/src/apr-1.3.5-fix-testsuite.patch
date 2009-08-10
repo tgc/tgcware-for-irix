@@ -1,0 +1,16 @@
+--- apr-1.3.5/test/testcond.c.orig	2009-06-06 21:30:52.578000000 +0200
++++ apr-1.3.5/test/testcond.c	2009-06-06 21:40:49.758000000 +0200
+@@ -659,9 +659,13 @@
+     abts_run_test(suite, dynamic_binding, NULL);
+     abts_run_test(suite, broadcast_threads, NULL);
+     fnptr.func = nested_lock_and_wait;
++#ifdef HAVE_PTHREAD_MUTEX_RECURSIVE
+     abts_run_test(suite, nested_wait, &fnptr);
++#endif
+     fnptr.func = nested_lock_and_unlock;
++#ifdef HAVE_PTHREAD_MUTEX_RECURSIVE
+     abts_run_test(suite, nested_wait, &fnptr);
++#endif
+     abts_run_test(suite, pipe_producer_consumer, NULL);
+     abts_run_test(suite, ping_pong, NULL);
+ #endif
