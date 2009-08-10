@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
 # Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
 
