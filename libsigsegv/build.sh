@@ -1,6 +1,6 @@
 #!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
-# Copyright (C) 2003-2008 Tom G. Christensen <tgc@jupiterrise.com>
+# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libsigsegv
-version=2.6
+version=2.7
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libsigsegv/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -33,12 +33,12 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/libsigsegv/$topdir-$version.tar.gz
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
+irix53 && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
 mipspro=1
 configure_args="$configure_args --disable-static --enable-shared"
-[ "$_os" = "irix5.3" ] && LDFLAGS="$LDFLAGS -Wl,-no_rqs"
 
 reg prep
 prep()
