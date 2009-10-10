@@ -1,15 +1,29 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
+# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Written by Tom G. Christensen <tgc@jupiterrise.com>.
+
 # build.sh helper functions
 . ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.3.3
+version=4.3.4
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -26,13 +40,9 @@ prefix=/usr/tgcware/$topdir-$version
 __configure="../$topsrcdir/configure"
 make_build_target="bootstrap"
 
-gnuld="--with-gnu-ld --with-ld=/usr/tgcware/bin/gld"
-gnuas="--with-gnu-as --with-as=/usr/tgcware/bin/gas"
-langs="--enable-languages=c,c++,fortran,objc,obj-c++"
-withada=0
+asld="--with-gnu-as --with-as=/usr/tgcware/bin/gas --without-gnu-ld --with-ld=/usr/bin/ld"
+langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
 withjava=0
-gas=0
-gld=0
 
 datestamp()
 {
@@ -46,54 +56,48 @@ if [ "$_os" = "irix53" ]; then
     #export CC="cc -Wf,-XNg1500"
     export CC="/usr/tgcware/gcc-3.4.6/bin/gcc"
     gas=1
-    gld=1
-    withada=0
     withjava=0
     objdir=cccfoo_gtools
     [ $withada -eq 1 ] && export GNAT_ROOT=$HOME/gcc-3.4.0-20040204-mips-sgi-irix5.3 # Location of gnatbind
     configure_args="$global_config_args --enable-shared=libstdc++ $gnuas $gnuld"
 fi
 if [ "$_os" = "irix62" ]; then
-    #configure_args="$global_config_args --disable-multilib --enable-shared=libstdc++"
-    #export CC='cc -n32 -mips3'
-    #configure_args="$global_config_args --enable-shared=libstdc++"
-    #configure_args="$global_config_args --enable-threads=single --disable-libgomp"
     configure_args="$global_config_args --enable-shared --enable-threads=posix95"
-    export CC=/usr/tgcware/gcc-4.3.2/bin/gcc
     export CONFIG_SHELL=/usr/tgcware/bin/bash
-    withada=1
     gas=1
-    #objdir=cccfooa_gas
     objdir=all_gas_pthreads
-    [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.2/bin
+    #[ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.2/bin
     [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
 fi
 
-if [ $gas -eq 1 -o $gld -eq 1 ]; then
-#    configure_args="$configure_args --with-build-time-tools=$srcdir/tools"
-#    setdir $srcdir
-#    ${MKDIR} tools
-#    setdir tools
-#    for tool in nm ar ranlib objdump as strip
-#    do
-#	$LN -sf /usr/tgcware/bin/g${tool} ${tool}
-#    done
-#    #$LN -sf /bin/ld .
-##    export PATH=/usr/tgcware/mips-sgi-$os/bin:$PATH
-   export NM=/usr/tgcware/mips-sgi-$os/bin/nm
-   export AR=/usr/tgcware/mips-sgi-$os/bin/ar
-   export RANLIB=/usr/tgcware/mips-sgi-$os/bin/ranlib
-   export OBJDUMP=/usr/tgcware/mips-sgi-$os/bin/objdump
-   export NM_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/nm
-   export AR_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ar
-   export RANLIB_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ranlib
-   export OBJDUMP_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/objdump
-fi
-[ $withada -eq 1 ] && langs="$langs,ada"
 [ $withjava -eq 1 ] && langs="$langs,java"
-[ $gas -eq 1 ] && configure_args="$configure_args $gnuas"
-[ $gld -eq 1 ] && configure_args="$configure_args $gnuld"
-configure_args="$configure_args $langs"
+configure_args="$configure_args $asld $langs"
+
+
+# Setup tools
+# 'ar' is safe for both IRIX 5.3 (needs it unconditionally with GNU as)
+# and IRIX 6.x (needs it for running multi-abi testsuite, since IRIX ar
+# will refuse to generate libtestc++.a with both 32bit and 64bit objs)
+# With GNU ar we should also use GNU ranlib
+setdir $srcdir
+${__mkdir} -p tools
+setdir tools
+for tool in ar ranlib
+do
+    ${__ln} -sf /usr/tgcware/mips-sgi-$os/${tool} ${tool}
+done
+export PATH=$srcdir/tools:$PATH
+
+#if [ $gas -eq 1 ]; then
+#   export NM=/usr/tgcware/mips-sgi-$os/bin/nm
+#   export AR=/usr/tgcware/mips-sgi-$os/bin/ar
+#   export RANLIB=/usr/tgcware/mips-sgi-$os/bin/ranlib
+#   export OBJDUMP=/usr/tgcware/mips-sgi-$os/bin/objdump
+#   export NM_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/nm
+#   export AR_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ar
+#   export RANLIB_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/ranlib
+#   export OBJDUMP_FOR_TARGET=/usr/tgcware/mips-sgi-$os/bin/objdump
+#fi
 
 # Define abbreviated version number
 abbrev_ver=$(echo $version|${__sed} -e 's/\.//g')
@@ -147,9 +151,11 @@ install()
 reg check
 check()
 {
+    datestamp
     setdir source
     setdir ../$objdir
     ${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check
+    datestamp
 }
 
 reg pack
