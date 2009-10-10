@@ -1,0 +1,8 @@
+CHANGELOG
+---------
+* Sat Oct 10 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 0.16.2-1
+- Update to 0.16.2
+- Switch to gcc build because of decl-after-stmt
+
+* Sat Nov 15 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 0.12.0
+- Initial release 

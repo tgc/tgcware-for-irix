@@ -1,0 +1,11 @@
+--- pixman-0.16.2/pixman/pixman.h.sgi	2009-10-10 14:16:06.329600000 +0200
++++ pixman-0.16.2/pixman/pixman.h	2009-10-10 14:16:15.019600000 +0200
+@@ -74,7 +74,7 @@
+ /*
+  * Standard integers
+  */
+-#if defined (_SVR4) || defined (SVR4) || defined (__OpenBSD__) || defined (_sgi) || defined (__sun) || defined (sun) || defined (__digital__)
++#if defined (_SVR4) || defined (SVR4) || defined (__OpenBSD__) || defined (__sgi) || defined (__sun) || defined (sun) || defined (__digital__)
+ #  include <inttypes.h>
+ #elif defined (_MSC_VER)
+ typedef __int8 int8_t;

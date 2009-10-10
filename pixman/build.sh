@@ -1,6 +1,6 @@
 #!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
-# Copyright (C) 2003-2008 Tom G. Christensen <tgc@jupiterrise.com>
+# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,11 +23,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=pixman
-version=0.12.0
-pkgver=2
+version=0.16.2
+pkgver=1
 source[0]=http://www.cairographics.org/releases/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=pixman-0.12.0-sgi.patch
+patch[0]=pixman-0.16.2-sgi.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -35,8 +35,6 @@ patch[0]=pixman-0.12.0-sgi.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-export CC=cc
-mipspro=1
 configure_args="$configure_args --disable-static --disable-gtk"
 
 reg prep
