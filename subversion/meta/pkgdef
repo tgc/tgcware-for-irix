@@ -27,5 +27,4 @@ subsys=sw.dev
 files(-,root,sys)
 $_includedir/subversion*
 $_libdir/*.so
-$_libdir/*.a
 
