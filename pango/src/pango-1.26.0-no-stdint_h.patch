@@ -1,0 +1,11 @@
+--- pango-1.26.0/pango/opentype/hb-common.h.orig	2009-10-24 17:00:55.272000000 +0200
++++ pango-1.26.0/pango/opentype/hb-common.h	2009-10-24 17:01:03.412000000 +0200
+@@ -27,7 +27,7 @@
+ #ifndef HB_COMMON_H
+ #define HB_COMMON_H
+ 
+-#include <stdint.h>
++#include <inttypes.h>
+ 
+ # ifdef __cplusplus
+ #  define HB_BEGIN_DECLS	extern "C" {

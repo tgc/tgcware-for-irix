@@ -26,19 +26,13 @@ KNOWN DEPENDENCIES
 ERRORS/MISCELLANEOUS
 --------------------
 
-pango-1.20.5-fix-initializers.patch:
-Fix some non-constant initializers
+pango-1.26.9-no-stdint_h.patch:
+No stdint.h on IRIX < 6.5
 
-pango-1.20.5-no-libtool-rpath.patch:
 libtool likes to use -rpath unfortunately in some cases it misbehaves.
 In this case it ends up adding rpaths pointing into the build directories.
-This patch will disable libtools use of -rpaths so only rpaths listed
-LDFLAGS will be active.
+This was disabled using:
+sed -i 's/hardcode_into_libs=yes/hardcode_into_libs=no/g' configure
 
-CHANGELOG
----------
-* Mon Nov 17 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.20.5-2
-- Don't let libtool add rpaths pointing to the build directory
-
-* Sun Nov 16 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.20.5-1
-- Update to 1.20.5
+If the exitop fails to run correctly you'll need to run it by hand:
+pango-querymodules > /usr/tgcware/etc/pango/pango.modules
