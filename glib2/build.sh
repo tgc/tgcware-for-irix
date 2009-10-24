@@ -55,18 +55,27 @@ build()
     ${__make} README
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
     ${__gsed} -i 's|local/perl|tgcware/perl|' ${stagedir}${prefix}/${_bindir}/glib-mkenums
     doc NEWS README COPYING
-}
 
-reg check
-check()
-{
-    generic_check
+    # Libtool won't install these because of DESTDIR
+    ${__install} -m755 gobject/.libs/gobject-query ${stagedir}${prefix}/${_bindir}
+    ${__install} -m755 gobject/.libs/glib-genmarshal ${stagedir}${prefix}/${_bindir}
+    ${__install} -m755 glib/.libs/gtester ${stagedir}${prefix}/${_bindir}
+
+    # Rerun strip etc.
+    custom_install=1
+    generic_install DESTDIR
 }
 
 reg pack
