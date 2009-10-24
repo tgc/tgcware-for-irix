@@ -1,0 +1,25 @@
+--- gnutls-2.8.3/src/tests.c.siginterrupt	2009-06-02 20:59:32.000000000 +0200
++++ gnutls-2.8.3/src/tests.c	2009-08-14 16:11:09.300000000 +0200
+@@ -54,6 +54,22 @@
+ static int handshake_output = 0;
+ 
+ static int
++siginterrupt (sig, flag)
++     int sig, flag;
++{
++  struct sigaction act;
++
++  sigaction (sig, (struct sigaction *)NULL, &act);
++
++  if (flag)
++    act.sa_flags &= ~SA_RESTART;
++  else
++    act.sa_flags |= SA_RESTART;
++
++  return (sigaction (sig, &act, (struct sigaction *)NULL));
++}
++
++static int
+ do_handshake (gnutls_session_t session)
+ {
+   int ret, alert;

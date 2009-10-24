@@ -1,0 +1,4 @@
+CHANGELOG
+---------
+* Sat Oct 24 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 2.8.3-2
+- Fix build on IRIX 5.3
