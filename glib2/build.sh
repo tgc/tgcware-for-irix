@@ -1,22 +1,33 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
+# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Written by Tom G. Christensen <tgc@jupiterrise.com>.
+
 # build.sh helper functions
 . ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=glib
-version=2.18.2
-pkgver=2
-source[0]=http://ftp.gnome.org/pub/gnome/sources/glib/2.18/$topdir-$version.tar.bz2
+version=2.20.5
+pkgver=1
+source[0]=http://ftp.gnome.org/pub/gnome/sources/glib/2.20/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=glib-2.18.2-no-pthread.patch
-patch[1]=glib-2.18.2-no-func.patch
-patch[2]=glib-2.18.2-non_constant_initializer_fix.patch
-patch[3]=glib-2.18.2-no-variadic-macros.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -29,12 +40,6 @@ export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --with-pcre=system --with-libiconv=gnu"
 # Don't build with pth on 5.3
 [ "$_os" = "irix53" ] && configure_args="$configure_args --with-threads=none"
-# SGI cc has a nasty a habit of ignoring the #error directive
-# For IRIX 5.3 we can use the old GNU ANSI preprocesser as a workaround
-[ "$_os" = "irix53" ] && export CPP="cc -acpp -E"
-# For MIPSpro we use -diag_error 1035 to make #error work properly
-[ "$_os" = "irix62" ] && extra_cc_args="-diag_error 1035"
-export CC="cc $extra_cc_args"
 
 reg prep
 prep()

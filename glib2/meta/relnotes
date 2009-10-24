@@ -34,31 +34,8 @@ for libglib nolonger forces linking with -lpthread.
 This should make sure that glib using programs that do not make use of the
 gthread library can also run on IRIX 6.2 hosts without the pthread patchset.
 
-glib-2.18.2-no-func.patch:
-MIPSpro 7.3 passes the __STDC_VERSION__ check for __func__ yet does not seem
-to support it.
-
 glib-2.18.2-no-pthread.patch:
 We must use -lpthread and not -pthread.
 
-glib-2.18.2-non_constant_initializer_fix.patch:
-MIPSpro chokes on non-constant initializers.
-
-glib-2.18.2-no-variadic-macros.patch:
-Using ... in macro defintions seems to be a C99 feature which MIPSpro 7.3 does
-not support.
-
 The testsuite has some problems with the gthread tests. Hopefully they are
 cornercases and real-life apps won't be affected.
-
-Note that building with MIPSpro enlarges the shared libraries with
-several 100 KBs compared to the similar GCC versions.
-
-CHANGELOG
----------
-Sat Nov 15 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 2.18.2-2
-- Build with MIPSpro.
-
-Fri Nov 14 2008 Tom G. Christensen <irixpkg@jupiterrise.com> - 2.18.2-1
-- Update to 2.18.2
-- Don't force detection of getpwuid_r on IRIX 6.2
