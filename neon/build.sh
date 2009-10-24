@@ -41,6 +41,14 @@ reg prep
 prep()
 {
     generic_prep
+    if irix53; then
+        setdir source
+        # We must "massage" libtool to not try and use the exported_symbol
+        # and exports_file options since its use provokes an error from ld
+        # export* and hidden* options are mutually exclusive so this will make
+        # the linker error out in the feature test
+        ${__gsed} -i '/LDFLAGS.*\${wl}-exported_symbol/ s;exported_symbol;exported_symbol \${wl}foo \${wl}-hidden_symbol;' configure
+    fi
 }
 
 reg build
