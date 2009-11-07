@@ -1,8 +1,22 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
+# Copyright (C) 2003-2009 Tom G. Christensen <tgc@jupiterrise.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Written by Tom G. Christensen <tgc@jupiterrise.com>.
+
 # build.sh helper functions
 . ${BUILDPKG_BASE}/scripts/build.sh.functions
 #
@@ -10,10 +24,12 @@
 # Check the following 4 variables before running the script
 topdir=libwmf
 version=0.2.8.4
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=libwmf-0.2.8.4-system-trio.patch
+patch[1]=libwmf-0.2.8.4-realloc.patch
+patch[2]=libwmf-0.2.8.4-intoverflow.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -32,8 +48,8 @@ prep()
     generic_prep
     setdir source
     # This broken piece of crap software has *both* configure.ac and configure.in :(
-    ${RM} -f configure.in
-    ${RM} -rf src/extra/trio
+    ${__rm} -f configure.in
+    ${__rm} -rf src/extra/trio
     libtoolize --force --copy
     aclocal-1.9
     automake-1.9 -a -c
@@ -51,13 +67,10 @@ reg install
 install()
 {
     generic_install DESTDIR
-    ${RM} -f ${stagedir}${prefix}/${_libdir}/gtk-2.0/*/loaders/*.{a,la}
+    ${__rm} -rf ${stagedir}${prefix}/${_libdir}/gtk-2.0
     doc CREDITS COPYING ChangeLog
-    ${MV} ${stagedir}${prefix}/${_sharedir}/doc/libwmf/* ${stagedir}${prefix}/${_vdocdir}
-    ${RMDIR} ${stagedir}${prefix}/${_sharedir}/doc/libwmf
-
-    # Add ops
-    echo "lastop exitop(${prefix}/${_bindir}/gdk-pixbuf-query-loaders > ${prefix}/${_sysconfdir}/gtk-2.0/gdk-pixbuf.loaders)" > $metadir/ops
+    ${__mv} ${stagedir}${prefix}/${_sharedir}/doc/libwmf/* ${stagedir}${prefix}/${_vdocdir}
+    ${__rmdir} ${stagedir}${prefix}/${_sharedir}/doc/libwmf
 }
 
 reg pack

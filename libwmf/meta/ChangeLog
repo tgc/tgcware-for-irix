@@ -1,0 +1,5 @@
+CHANGELOG
+---------
+* Sat Nov 07 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 0.2.8.4-3
+- Rebuild without the GDK pixbuf plugin 
+- Add two security fixes from Fedora

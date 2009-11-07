@@ -16,7 +16,6 @@ $_sharedir/libwmf
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_libdir/gtk-2.0
 $_vdocdir/{CREDITS,COPYING,ChangeLog}
 
 [doc]

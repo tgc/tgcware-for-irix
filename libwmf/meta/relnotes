@@ -29,3 +29,7 @@ Spent half a day beating this mess into submission.
 The autotools stuff in the source distribution has been severely
 mistreated and as a result it's a real mess to make changes
 to.
+
+The io-wmf.so GDK pixbuf plugin was not built since it causes a segfault
+in gdk-pixbuf-query-loaders.
+
