@@ -25,3 +25,16 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
+
+libtool likes to use -rpath unfortunately in some cases it misbehaves.
+In this case it ends up adding rpaths pointing into the build directories.
+This was disabled using:
+sed -i 's/hardcode_into_libs=yes/hardcode_into_libs=no/g' configure
+
+Manpages are missing. Though prebuilt ones are in the source 'make install'
+refuses to install them.
+
+If the exitops fail to run correctly you'll have to run them by hand:
+/usr/tgcware/bin/gdk-pixbuf-query-loaders > /usr/tgcware/etc/gtk-2.0/gdk-pixbuf.loaders
+/usr/tgcware/bin/gtk-query-immodules-2.0 > /usr/tgcware/etc/gtk-2.0/gtk.immodules
+

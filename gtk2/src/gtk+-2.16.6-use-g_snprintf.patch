@@ -1,0 +1,22 @@
+--- gtk+-2.16.6/gdk/quartz/gdkevents-quartz.c.orig	2009-10-31 22:08:43.348800000 +0100
++++ gtk+-2.16.6/gdk/quartz/gdkevents-quartz.c	2009-10-31 22:09:00.798800000 +0100
+@@ -98,7 +98,7 @@
+   if (!name)
+     name = "unknown";
+ 
+-  snprintf (buf, 256, "<%s (%p)%s>", 
++  g_snprintf (buf, 256, "<%s (%p)%s>", 
+             name, window, 
+             window == current_mouse_window ? ", is mouse" : "");
+ 
+--- gtk+-2.16.6/gtk/gtkxembed.c.orig	2009-10-31 22:06:16.068800000 +0100
++++ gtk+-2.16.6/gtk/gtkxembed.c	2009-10-31 22:06:26.288800000 +0100
+@@ -238,7 +238,7 @@
+       CASE (GTK_UNGRAB_KEY);
+ #undef CASE
+     default:
+-      snprintf (unk, 24, "UNKNOWN(%d)", message);
++      g_snprintf (unk, 24, "UNKNOWN(%d)", message);
+       return unk;
+     }
+ }

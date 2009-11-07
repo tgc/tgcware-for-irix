@@ -20,11 +20,8 @@ subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
 $_libdir/gtk-2.0/2.10.0/*/*.so
-
-[man]
-subsys=man.man
-files(-,root,sys)
-$_mandir/?a?[12456789]
+$_libdir/gtk-2.0/modules/libferret.*
+$_libdir/gtk-2.0/modules/libgail.*
 
 [doc]
 subsys=man.doc
