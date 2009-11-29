@@ -1,0 +1,18 @@
+[common]
+pkgname="$pkgprefix""$perlpkgname"
+name="$pkgdir"
+pkgver="$pkgver"
+pkgvendor="http://search.cpan.org/dist/Error/"
+shortdesc="Error/exception handling in an OO-ish way"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_docdir
+$_libdir
+
+[mandev]
+subsys=man.dev
+files(-,root,sys)
+$_mandir/?a?3
+
