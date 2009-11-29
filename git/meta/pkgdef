@@ -1,8 +1,8 @@
 [common]
-pkgname="$pkgprefix""$topdir"
+pkgname="${pkgprefix}${topdir}"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://git.or.cz"
+pkgvendor="http://git-scm.com/"
 shortdesc="Fast Version Control System"
 
 [base]
@@ -11,6 +11,7 @@ files(-,root,sys)
 $_bindir
 $_sharedir
 $_libdir
+libexec
 
 [man]
 subsys=man.man

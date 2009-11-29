@@ -1,0 +1,23 @@
+--- git-1.6.5.3/Makefile.symlinks	2009-11-28 17:48:37.338000000 +0100
++++ git-1.6.5.3/Makefile	2009-11-28 17:49:16.078000000 +0100
+@@ -1418,7 +1418,6 @@
+ 
+ $(BUILT_INS): git$X
+ 	$(QUIET_BUILT_IN)$(RM) $@ && \
+-	ln git$X $@ 2>/dev/null || \
+ 	ln -s git$X $@ 2>/dev/null || \
+ 	cp git$X $@
+ 
+@@ -1745,11 +1744,10 @@
+ 	{ test "$$bindir/" = "$$execdir/" || \
+ 		{ $(RM) "$$execdir/git$X" && \
+ 		test -z "$(NO_CROSS_DIRECTORY_HARDLINKS)" && \
+-		ln "$$bindir/git$X" "$$execdir/git$X" 2>/dev/null || \
++		ln -s "$$bindir/git$X" "$$execdir/git$X" 2>/dev/null || \
+ 		cp "$$bindir/git$X" "$$execdir/git$X"; } ; } && \
+ 	{ for p in $(BUILT_INS); do \
+ 		$(RM) "$$execdir/$$p" && \
+-		ln "$$execdir/git$X" "$$execdir/$$p" 2>/dev/null || \
+ 		ln -s "git$X" "$$execdir/$$p" 2>/dev/null || \
+ 		cp "$$execdir/git$X" "$$execdir/$$p" || exit; \
+ 	  done; } && \

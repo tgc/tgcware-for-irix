@@ -9,19 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.5.2.5
+version=1.6.5.3
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
-source[1]=$topdir-manpages-$version.tar.bz2
+source[0]=http://kernel.org/pub/software/scm/git/$topdir-$version.tar.bz2
+source[1]=http://kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=git-1.5.2.1-shell.patch
-patch[1]=git-1.5.2.1-flags.patch
-patch[2]=git-1.5.2.1-trio.patch
-patch[3]=git-1.5.2.1-unsetenv.patch
-patch[4]=git-1.5.2.1-strtoumax.patch
-patch[5]=git-1.5.2.1-socklen_t.patch
-patch[6]=git-1.5.2.1-perl.patch
-patch[7]=git-1.5.2.1-symlink.patch
+patch[0]=git-1.6.5.3-trio.patch
+patch[1]=git-1.6.5.3-socklen_t.patch
+patch[2]=git-1.6.5.3-symlinks.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
@@ -30,13 +25,58 @@ patch[7]=git-1.5.2.1-symlink.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=gcc
+export PERL_PATH=$prefix/bin/perl
+export SHELL_PATH=$prefix/bin/bash
+no_configure=1
+__configure="make -e"
+configure_args=""
+# HACK: -e must be last or echo will think it's an argument
+__make="/usr/tgcware/bin/make -e"
+make_build_target="V=1"
+make_check_target="test"
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
-    ${__make} configure
+    # Common defines for Irix 5.3 & 6.2
+    cat <<EOF> config.mak
+BASIC_CFLAGS += -I/usr/tgcware/include
+BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib
+EXTLIBS += -ltrio
+NEEDS_LIBICONV=YesPlease
+NO_C99_FORMAT=YesPlease
+NO_D_TYPE_IN_DIRENT=YesPlease
+NO_INET_NTOP=YesPlease
+NO_INET_PTON=YesPlease
+NO_IPV6=YesPlease
+NO_MEMMEM=YesPlease
+NO_MKDTEMP=YesPlease
+NO_SETENV=YesPlease
+NO_SOCKADDR_STORAGE=YesPlease
+NO_STRCASESTR=YesPlease
+NO_STRLCPY=YesPlease
+NO_STRTOUMAX=YesPlease
+NO_UNSETENV=YesPlease
+NO_PTHREADS=YesPlease
+# trio (v)snprintf is fine
+SNPRINTF_RETURNS_BOGUS=
+prefix=$prefix
+EOF
+
+    if [ "$_os" = "irix53" ]; then
+	# Defines for IRIX 5.3
+	cat <<EOF>> config.mak
+COMPAT_CFLAGS += -Icompat/regex -Icompat/fnmatch
+COMPAT_OBJS += compat/regex/regex.o compat/fnmatch/fnmatch.o
+FREAD_READS_DIRECTORIES=UnfortunatelyYes
+NO_PREAD=YesPlease
+EOF
+
+	# Strip -g from cflags
+	#${__gsed} -i '/^CFLAGS/s/-g//' Makefile
+    fi
 }
 
 reg build
@@ -49,9 +89,22 @@ reg install
 install()
 {
     generic_install DESTDIR
+    ${__mv} ${stagedir}${prefix}/${_sharedir}/man ${stagedir}${prefix}
     setdir ${stagedir}${prefix}/${_mandir}
-    ${TAR} -xjf $srcfiles/${source[1]}
+    ${__tar} -xjf $(get_source_absfilename "${source[1]}")
     doc COPYING Documentation/RelNotes-${version}.txt README
+
+    # cleanup perl install
+    ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/5.*
+    ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/site_perl/*/mips*
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/perl5/site_perl/*/Error.pm
+}
+
+reg check
+check()
+{
+    setdir source
+    ${__make} -k test
 }
 
 reg pack
