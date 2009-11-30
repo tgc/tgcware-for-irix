@@ -24,7 +24,7 @@
 # Check the following 4 variables before running the script
 topdir=Python
 version=2.4.6
-pkgver=1
+pkgver=2
 source[0]=http://www.python.org/ftp/python/2.4.6/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=Python-2.4.2-tgcware.patch
@@ -53,7 +53,8 @@ prep()
 {
     generic_prep
     setdir source
-    [ "$_os" = "irix53" ] && ${__gsed} -i 's/N32//' configure.in
+    irix53 && ${__gsed} -i 's/N32//' configure.in
+    irix62 && ${__gsed} -i '/set_version/ s/SHLIBS)/SHLIBS) -lpthread/g' Makefile.pre.in
     autoheader
     autoconf
 }
