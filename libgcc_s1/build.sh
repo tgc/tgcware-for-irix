@@ -24,7 +24,7 @@
 # Check the following 4 variables before running the script
 topdir=libgcc_s1
 version=1
-pkgver=1
+pkgver=2
 # If there are no patches, simply comment this
 #patch[0]=
 
