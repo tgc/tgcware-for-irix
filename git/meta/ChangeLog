@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Tue Dec 01 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.6.5.3-2
+- Fix build on IRIX 5.3
+
 * Sat Nov 28 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.6.5.3-1
 - First working release of git
