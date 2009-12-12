@@ -1,5 +1,5 @@
 [common]
-pkgname="${pkgprefix}${topdir}"
+pkgname="${pkgprefix}${name}"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://gcc.gnu.org"

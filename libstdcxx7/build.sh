@@ -22,9 +22,16 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=libstdcxx_7
-version=1
-pkgver=1
+if [ "$(uname -r)" = "5.3" ]; then
+  # Can't use 'updates' on IRIX 5.3, so no renaming/re-versioning possible :(
+  topdir=libstdcxx7
+  version=7
+  pkgver=7
+else
+  topdir=libstdcxx_7
+  version=1
+  pkgver=2
+fi
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -32,9 +39,8 @@ pkgver=1
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
 
 # Global settings
-gcc=4.3.4
-[ "$_os" = "irix53" ] && gcc=3.4.6
-version=$gcc
+irix62 && gcc=4.3.4 && version=$gcc
+irix53 && gcc=3.4.6
 
 reg prep
 prep()
