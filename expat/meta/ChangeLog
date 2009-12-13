@@ -1,0 +1,5 @@
+CHANGELOG
+---------
+* Sun Dec 13 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 2.0.1-2
+- add security fix for CVE-2009-3560
+- add security fix for CVE-2009-3720
