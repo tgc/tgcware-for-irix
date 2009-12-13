@@ -24,10 +24,11 @@
 # Check the following 4 variables before running the script
 topdir=mpfr
 version=2.4.2
-pkgver=1
+pkgver=2
 source[0]=http://www.mpfr.org/mpfr-current/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=mpfr-2.4.2-r6264-mips.patch
+patch[1]=mpfr-2.4.2-patch01.patch
 
 # Source function library
 . ${BUILDPKG_BASE}/scripts/buildpkg.functions
