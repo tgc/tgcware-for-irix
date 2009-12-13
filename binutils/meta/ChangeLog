@@ -1,0 +1,18 @@
+CHANGELOG
+---------
+* Sat Dec 12 2009 <irixpkg@jupiterrise.com> - 2.20-2
+- Prefer native 'strip'
+
+* Thu Nov 26 2009 <irixpkg@jupiterrise.com> - 2.20-1
+- Update to 2.20
+
+* Sat Mar 21 2009 <irixpkg@jupiterrise.com> - 2.19.1-1
+- Update to 2.19.1
+
+* Fri Nov 14 2008 <irixpkg@jupiterrise.com> - 2.19-1
+- Update to 2.19
+
+* Thu Sep 18 2008 <irixpkg@jupiterrise.com> - 2.18-6
+- Yet another rearranging of what is put where.
+  Since many of the utilities has problems on Irix they
+  should not be in the path with the rest of tgcware.
