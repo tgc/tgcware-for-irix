@@ -23,8 +23,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.6.5.3
-pkgver=2
+version=1.6.5.7
+pkgver=1
 source[0]=http://kernel.org/pub/software/scm/git/$topdir-$version.tar.bz2
 source[1]=http://kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -88,9 +88,6 @@ COMPAT_OBJS += compat/regex/regex.o compat/fnmatch/fnmatch.o
 FREAD_READS_DIRECTORIES=UnfortunatelyYes
 NO_PREAD=YesPlease
 EOF
-
-	# Strip -g from cflags
-	#${__gsed} -i '/^CFLAGS/s/-g//' Makefile
     fi
 }
 
@@ -108,6 +105,10 @@ install()
     setdir ${stagedir}${prefix}/${_mandir}
     ${__tar} -xjf $(get_source_absfilename "${source[1]}")
     doc COPYING Documentation/RelNotes-${version}.txt README
+
+    # fix git symlink
+    ${__rm} -f ${stagedir}${prefix}/libexec/git-core/git
+    ${__ln} -s ${prefix}/${_bindir}/git ${stagedir}${prefix}/libexec/git-core/git
 
     # cleanup perl install
     ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/5.*
