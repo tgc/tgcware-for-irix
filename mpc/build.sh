@@ -34,6 +34,11 @@ source[0]=http://www.multiprecision.org/mpc/download/$topdir-$version.tar.gz
 
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
+if irix62; then
+  mipspro=1
+  export CC=cc
+  export CXX=g++
+fi
 
 reg prep
 prep()
