@@ -66,10 +66,10 @@ install()
     # Remove known not working
     ${__rm} -f ld strip
 
-    # These might work but are not needed, rename them with g prefix
-    #${__rm} -f ar nm objcopy ranlib
+    # Not strictly needed for 6.2 so don't ship them
+    irix62 && ${__rm} -f ar nm objcopy
 
-    # We leave objdump as it works well enough for our ldd replacement
+    # Turn the rest into symlinks
     for p in $(ls 2>/dev/null); do
 	${__ln} -sf ${prefix}/mips-sgi-${os}/bin/$p $p
     done
