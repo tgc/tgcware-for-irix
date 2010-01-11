@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -19,7 +19,7 @@ patch[2]=audiofile-0.2.6-trio.patch
 patch[3]=audiofile-0.2.6-old-dmedia.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 [ "$_os" = "irix53" ] && patch[4]=audiofile-0.2.6-irix53.patch
 

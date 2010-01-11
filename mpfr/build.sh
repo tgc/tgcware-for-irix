@@ -1,7 +1,7 @@
 #!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -14,7 +14,7 @@ patch[0]=mpfr-2.4.2-r6264-mips.patch
 patch[1]=mpfr-2.4.2-patch01.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"

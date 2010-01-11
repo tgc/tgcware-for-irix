@@ -1,7 +1,7 @@
 #!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -41,7 +41,7 @@ patch[27]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-027
 patch[28]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-028
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 patchdir=$

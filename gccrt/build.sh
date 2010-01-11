@@ -14,7 +14,7 @@ pkgver=3
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 source[0]=$srcdir/$topdir-$version.tar.bz2
 

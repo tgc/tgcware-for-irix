@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -17,7 +17,7 @@ patch[0]=libgpg-error-1.5-trio.patch
 patch[1]=libgpg-error-1.7-inline.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 configure_args='--prefix=$prefix --enable-nls --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware'

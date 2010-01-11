@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -18,7 +18,7 @@ patch[1]=cups-1.1.23-libdir.patch
 patch[2]=cups-1.1.23-datarootdir.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"

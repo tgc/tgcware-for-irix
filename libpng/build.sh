@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -17,7 +17,7 @@ patch[0]=libpng-1.2.22-tgcware.patch
 patch[1]=libpng-1.2.22-trio.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 [ "$_os" = "irix53" ] && patch[2]=libpng-1.2.22-norqs.patch
 

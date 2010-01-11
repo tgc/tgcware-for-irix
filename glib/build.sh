@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -21,7 +21,7 @@ patch[4]=glib-1.2.10-dlopen.patch
 patch[5]=glib-1.2.10-am16.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CC=gcc

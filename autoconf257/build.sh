@@ -15,7 +15,7 @@ source[0]=autoconf-$version.tar.bz2
 #patch[0]=
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc

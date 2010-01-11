@@ -1,7 +1,7 @@
 #!/usr/tgcware/bin/bash
 # This is a buildpkg build.sh script
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -15,7 +15,7 @@ patch[1]=gcc-4.3.3-libgomp-pthreads.patch
 patch[2]=gcc-4.3.2-setrunon_np.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 defprefix=$prefix

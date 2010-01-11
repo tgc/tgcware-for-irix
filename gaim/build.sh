@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 #
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -22,7 +22,7 @@ patch[5]=gaim-2.0.0-zephyr-needs-gnulib.patch
 patch[6]=gaim-2.0.0-missing-X11.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"

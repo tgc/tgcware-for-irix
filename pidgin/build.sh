@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 #
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -24,7 +24,7 @@ patch[7]=pidgin-2.0.1-natpmp-fixes.patch
 patch[8]=pidgin-2.0.0-finch-configh.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"

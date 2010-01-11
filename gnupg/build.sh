@@ -4,7 +4,7 @@
 # It can be used nearly unmodified with many packages
 # 
 # build.sh helper functions
-. ${BUILDPKG_BASE}/scripts/build.sh.functions
+. ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
@@ -15,7 +15,7 @@ source[0]=ftp://ftp.gnupg.org/gcrypt/gnupg/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # BuildRequires: readline, libz, gettext, iconv, openldap, libbz2
 # Global settings

@@ -18,7 +18,7 @@ patch[1]=WindowMaker-appicon_captions_maxprotect.patch
 patch[2]=WindowMaker-fpo-80.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc

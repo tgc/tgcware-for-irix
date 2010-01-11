@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.gz
 patch[0]=rxvt-2.7.8-security.patch
 
 # Source function library
-. ${BUILDPKG_BASE}/scripts/buildpkg.functions
+. ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Fill in pkginfo values if necessary
 # using pkgname,name,pkgcat,pkgvendor & pkgdesc
