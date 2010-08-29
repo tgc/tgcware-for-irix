@@ -1,5 +1,5 @@
 [common]
-pkgname="$pkgprefix""$topdir"
+pkgname="${pkgprefix}${topdir}"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.zlib.org"
@@ -9,16 +9,25 @@ shortdesc="Data compression library"
 subsys=sw.lib
 files(-,root,sys)
 $_libdir/*.so.*
-$_docdir
+$_vdocdir/README
 
 [man]
 subsys=man.man
 files(-,root,sys)
 $_mandir
 
+[doc}
+subsys=man.doc
+files(-,root,sys)
+$_vdocdir/FAQ
+$_vdocdir/ChangeLog
+$_vdocdir/*.c
+$_vdocdir/doc
+
 [devel]
 subsys=sw.dev
 files(-,root,sys)
 $_includedir
 $_libdir/*.so
+$_libdir/pkgconfig/zlib.pc
 

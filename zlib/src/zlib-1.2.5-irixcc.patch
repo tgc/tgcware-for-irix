@@ -1,0 +1,16 @@
+diff -urN zlib-1.2.5.pristine/configure zlib-1.2.5/configure
+--- zlib-1.2.5.pristine/configure	2010-04-20 06:15:19.000000000 +0200
++++ zlib-1.2.5/configure	2010-08-25 21:19:49.460000000 +0200
+@@ -169,9 +169,9 @@
+              shared_ext='.sl'
+              SHAREDLIB='libz.sl' ;;
+          esac ;;
+-  IRIX*)     SFLAGS=${CFLAGS-"-ansi -O2 -rpath ."}
+-             CFLAGS=${CFLAGS-"-ansi -O2"}
+-             LDSHARED=${LDSHARED-"cc -shared -Wl,-soname,libz.so.1"} ;;
++  IRIX*)     SFLAGS=${CFLAGS-"-O2"}
++             CFLAGS=${CFLAGS-"-O2"}
++             LDSHARED=${LDSHARED-"cc -shared -Wl,-woff,84 -Wl,-soname,libz.so.1 -Wl,-set_version,sgi${VER}"} ;;
+   OSF1\ V4*) SFLAGS=${CFLAGS-"-O -std1"}
+              CFLAGS=${CFLAGS-"-O -std1"}
+              LDFLAGS="${LDFLAGS} -Wl,-rpath,."
