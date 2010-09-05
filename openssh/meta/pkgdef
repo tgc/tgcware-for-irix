@@ -11,7 +11,6 @@ files(-,root,sys)
 ${lprefix}/${_sysconfdir}/ssh/moduli
 ${lprefix}/${_bindir}/ssh-keygen
 ${lprefix}/libexec/ssh-keysign
-${lprefix}/${_sharedir}/openssh/Ssh.bin
 ${lprefix}/$_docdir
 ${lprefix}/${_mandir}/cat1/ssh-keygen.1.*
 ${lprefix}/${_mandir}/cat8/ssh-keysign.8.*
@@ -43,6 +42,7 @@ ${lprefix}/${_bindir}/ssh
 ${lprefix}/${_bindir}/ssh-add
 ${lprefix}/${_bindir}/ssh-agent
 ${lprefix}/${_bindir}/ssh-keyscan
+${lprefix}/libexec/ssh-pkcs11-helper
 # manpages, should they be seperate?
 ${lprefix}/${_mandir}/cat1/scp.1.*
 ${lprefix}/${_mandir}/cat1/sftp.1.*
@@ -52,4 +52,5 @@ ${lprefix}/${_mandir}/cat1/ssh-agent.1.*
 ${lprefix}/${_mandir}/cat1/ssh-keyscan.1.*
 ${lprefix}/${_mandir}/cat1/ssh.1.*
 ${lprefix}/${_mandir}/cat5/ssh_config.5.*
+${lprefix}/${_mandir}/cat8/ssh-pkcs11-helper.8.*
 
