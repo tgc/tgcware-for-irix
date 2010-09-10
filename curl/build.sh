@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.19.6
+version=7.21.1
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=curl-7.17.1-pkgconfig.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -19,7 +19,6 @@ patch[0]=curl-7.17.1-pkgconfig.patch
 mipspro=1
 export CC=cc
 if irix53; then
-    export CPP="cc -acpp -E"
     NO_RQS="-Wl,-no_rqs"
 fi
 export CPPFLAGS="-I/usr/tgcware/include"
