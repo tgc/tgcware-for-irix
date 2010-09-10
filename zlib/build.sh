@@ -32,7 +32,7 @@ prep()
     generic_prep
 
     setdir source
-    irix53 && ${__gsed} -i 's/^off64_t/no_off64_t/' configure
+    ${__gsed} -i 's/^off64_t/no_off64_t/' configure
     irix53 && ${__gsed} -i '/woff,84/ s/shared/shared -Wl,-no_rqs/' configure
 }
 
