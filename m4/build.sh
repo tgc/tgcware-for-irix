@@ -9,11 +9,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.13
+version=1.4.15
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/m4/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=gnulib-strtod.patch
+patch[1]=m4-1.4.15-testsuite.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -21,9 +22,9 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/m4/$topdir-$version.tar.bz2
 # Global settings
 export CC=cc
 mipspro=1
-[ "$_os" = "irix53" ] && export LDFLAGS="-Wl,-no_rqs"
+[ "$_os" = "irix53" ] && export NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I$prefix/include"
-export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
+export LDFLAGS="$NO_RQS -L$prefix/lib -Wl,-rpath,$prefix/lib"
 
 reg prep
 prep()
