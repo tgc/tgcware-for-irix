@@ -6,15 +6,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.6.5.7
+version=1.7.2.3
 pkgver=1
 source[0]=http://kernel.org/pub/software/scm/git/$topdir-$version.tar.bz2
 source[1]=http://kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=git-1.6.5.3-trio.patch
-patch[1]=git-1.6.5.3-socklen_t.patch
-patch[2]=git-1.6.5.3-symlinks.patch
-patch[3]=git-1.6.3.1-mapfailed.patch
+patch[1]=git-1.7.2.3-symlinks.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -38,12 +36,13 @@ prep()
 {
     generic_prep
     setdir source
-    # Common defines for Irix 5.3 & 6.2
+    # Common defines for IRIX 5.3 & 6.2
     cat <<EOF> config.mak
 BASIC_CFLAGS += -I/usr/tgcware/include
 BASIC_LDFLAGS += -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib
 EXTLIBS += -ltrio
 NEEDS_LIBICONV=YesPlease
+NEEDS_LIBGEN=YesPlease
 NO_C99_FORMAT=YesPlease
 NO_D_TYPE_IN_DIRENT=YesPlease
 NO_INET_NTOP=YesPlease
@@ -51,13 +50,17 @@ NO_INET_PTON=YesPlease
 NO_IPV6=YesPlease
 NO_MEMMEM=YesPlease
 NO_MKDTEMP=YesPlease
+NO_PTHREADS=YesPlease
+NO_PYTHON=YesPlease
+NO_R_TO_GCC_LINKER=YesPlease
+NO_REGEX=YesPlease
 NO_SETENV=YesPlease
 NO_SOCKADDR_STORAGE=YesPlease
 NO_STRCASESTR=YesPlease
 NO_STRLCPY=YesPlease
 NO_STRTOUMAX=YesPlease
 NO_UNSETENV=YesPlease
-NO_PTHREADS=YesPlease
+SOCKLEN_T=int
 # trio (v)snprintf is fine
 SNPRINTF_RETURNS_BOGUS=
 prefix=$prefix
@@ -66,8 +69,8 @@ EOF
     if [ "$_os" = "irix53" ]; then
 	# Defines for IRIX 5.3
 	cat <<EOF>> config.mak
-COMPAT_CFLAGS += -Icompat/regex -Icompat/fnmatch
-COMPAT_OBJS += compat/regex/regex.o compat/fnmatch/fnmatch.o
+COMPAT_CFLAGS += -Icompat/fnmatch
+COMPAT_OBJS += compat/fnmatch/fnmatch.o
 FREAD_READS_DIRECTORIES=UnfortunatelyYes
 NO_PREAD=YesPlease
 EOF
@@ -89,9 +92,12 @@ install()
     ${__tar} -xjf $(get_source_absfilename "${source[1]}")
     doc COPYING Documentation/RelNotes-${version}.txt README
 
-    # fix git symlink
-    ${__rm} -f ${stagedir}${prefix}/libexec/git-core/git
-    ${__ln} -s ${prefix}/${_bindir}/git ${stagedir}${prefix}/libexec/git-core/git
+    # fix symlinks
+    for p in git git-upload-pack git-shell git-cvsserver
+    do
+      ${__rm} -f ${stagedir}${prefix}/libexec/git-core/$p
+      ${__ln} -s ${prefix}/${_bindir}/$p ${stagedir}${prefix}/libexec/git-core/$p
+    done
 
     # cleanup perl install
     ${__rm} -rf ${stagedir}${prefix}/${_libdir}/perl5/5.*
