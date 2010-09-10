@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.10
+version=1.19
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -21,9 +21,9 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # Global settings
 if [ "$_os" = "irix53" ]; then 
     NO_RQS="-Wl,-no_rqs"
-    mipspro=1
-    export CC=cc
 fi
+mipspro=1
+export CC=cc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args="$configure_args --disable-static"
