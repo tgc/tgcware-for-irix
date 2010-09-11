@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sat Sep 11 2010 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.0.0a-1
+- Tweak for IRIX 6.2
+
 * Sun Aug 29 2010 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.0.0a-1
 - Initial package for openssl 1.0
