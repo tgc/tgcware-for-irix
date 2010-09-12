@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 version=4.0
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]= #
@@ -39,13 +39,23 @@ patch[25]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-025
 patch[26]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-026
 patch[27]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-027
 patch[28]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-028
+patch[29]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-029
+patch[30]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-030
+patch[31]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-031
+patch[32]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-032
+patch[33]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-033
+patch[34]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-034
+patch[35]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-035
+patch[36]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-036
+patch[37]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-037
+patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-038
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-patchdir=$
-patch_prefix=-p2
+patchdir=$srcfiles
+patch_prefix=-p0
 
 export CPPFLAGS="-I/usr/tgcware/include"
 export CC=cc
