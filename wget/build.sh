@@ -9,24 +9,28 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=wget
-version=1.11.4
+version=1.12
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/wget/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=wget-1.11.3-types.patch
-patch[1]=wget-1.11.4-test_h.patch
+patch[1]=wget-1.12-bogus-prototypes.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
 mipspro=1
-export CC=cc
-[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
+CC=cc
+if [ "$_os" = "irix53" ]; then
+  NO_RQS="-Wl,-no_rqs"
+  CC=gcc
+  mipspro=0
+fi 
+export CC=$CC
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 ac_overrides="ac_cv_lib_socket_socket=no"
-make_check_target="test"
 
 reg prep
 prep()
