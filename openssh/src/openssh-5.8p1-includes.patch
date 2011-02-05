@@ -1,0 +1,13 @@
+--- openssh-5.8p1/defines.h.orig	2011-02-05 16:23:58.600000000 +0100
++++ openssh-5.8p1/defines.h	2011-02-05 16:24:19.250000000 +0100
+@@ -56,8 +56,8 @@
+ /*
+  * Definitions for DiffServ Codepoints as per RFC2474
+  */
+-#include <netinet/in_systm.h>
+-#include <netinet/ip.h>
++/* #include <netinet/in_systm.h> */
++/* #include <netinet/ip.h> */
+ #ifndef IPTOS_DSCP_AF11
+ # define	IPTOS_DSCP_AF11		0x28
+ # define	IPTOS_DSCP_AF12		0x30

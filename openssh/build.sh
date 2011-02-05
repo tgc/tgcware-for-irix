@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.6p1
+version=5.8p1
 pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
+source[0]=http://ftp.openbsd.dk/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=openssh-5.8p1-includes.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -20,15 +20,16 @@ subsysconf=$metadir/subsys.conf
 
 # Global settings
 mipspro=1
-export CC=cc
+CC=cc
 configure_args="--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --mandir=$prefix/${_mandir} --with-default-path=$prefix/bin:/usr/bsd:/usr/bin --with-mantype=man --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool"
 if [ "$_os" = "irix53" ]; then
-    export CC=gcc
+    CC=gcc
     mipspro=0
 fi
 [ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
 export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"
+export CC=$CC
 # It uses ac_cv_lib_gen_dirname=yes but that is okay
 check_ac=0
 ac_overrides="ac_cv_func_inet_ntop=no ac_cv_func___b64_ntop=no ac_cv_func___b64_pton=no"
