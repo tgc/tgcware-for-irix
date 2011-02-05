@@ -1,0 +1,19 @@
+--- wget-1.12/src/openssl.c.orig	2011-02-05 18:21:58.365040000 +0100
++++ wget-1.12/src/openssl.c	2011-02-05 18:24:44.135040000 +0100
+@@ -486,6 +486,7 @@
+ ssl_check_certificate (int fd, const char *host)
+ {
+   X509 *cert;
++  X509_NAME *xname;
+   char common_name[256];
+   long vresult;
+   bool success = true;
+@@ -569,7 +570,7 @@
+      - Ensure that ASN1 strings from the certificate are encoded as
+        UTF-8 which can be meaningfully compared to HOST.  */
+ 
+-  X509_NAME *xname = X509_get_subject_name(cert);
++  xname = X509_get_subject_name(cert);
+   common_name[0] = '\0';
+   X509_NAME_get_text_by_NID (xname, NID_commonName, common_name,
+                              sizeof (common_name));

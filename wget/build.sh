@@ -10,11 +10,12 @@
 # Check the following 4 variables before running the script
 topdir=wget
 version=1.12
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/wget/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=wget-1.11.3-types.patch
 patch[1]=wget-1.12-bogus-prototypes.patch
+patch[2]=wget-1.12-no-decl-after-stmt.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
