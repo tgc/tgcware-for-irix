@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0a
-pkgver=2
+version=1.0.0c
+pkgver=1
 source[0]=http://www.openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-1.0.0a-no-multilib.patch
@@ -75,17 +75,17 @@ install()
     setdir source
     ${__make} INSTALL_PREFIX=$stagedir MANDIR=${prefix}/${_mandir} install
     setdir ${stagedir}${prefix}/${_mandir}
-    for j in $($LS -1d man?)
+    for j in $(${__ls} -1d man?)
     do
         cd $j
         for manpage in *
         do
             if [ -L "${manpage}" ]; then
-                TARGET=`$LS -l "${manpage}" | $AWK '{ print $NF }'`
-                $LN -sf "${TARGET}"ssl "${manpage}"ssl
-                $RM -f "${manpage}"
+                TARGET=`${__ls} -l "${manpage}" | ${__awk} '{ print $NF }'`
+                ${__ln} -sf "${TARGET}"ssl "${manpage}"ssl
+                ${__rm} -f "${manpage}"
             else
-                $MV "$manpage" "$manpage""ssl"
+                ${__mv} "$manpage" "$manpage""ssl"
             fi
         done
         cd ..
