@@ -9,12 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=m4
-version=1.4.15
+version=1.4.16
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/m4/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=gnulib-strtod.patch
-patch[1]=m4-1.4.15-testsuite.patch
+patch[0]=m4-1.4.16-attribute.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
