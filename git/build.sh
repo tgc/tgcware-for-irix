@@ -6,13 +6,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=git
-version=1.7.2.3
+version=1.7.4.1
 pkgver=1
 source[0]=http://kernel.org/pub/software/scm/git/$topdir-$version.tar.bz2
 source[1]=http://kernel.org/pub/software/scm/git/$topdir-manpages-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=git-1.6.5.3-trio.patch
 patch[1]=git-1.7.2.3-symlinks.patch
+patch[2]=git-1.7.4.1-shut_wr.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -90,7 +91,7 @@ install()
     ${__mv} ${stagedir}${prefix}/${_sharedir}/man ${stagedir}${prefix}
     setdir ${stagedir}${prefix}/${_mandir}
     ${__tar} -xjf $(get_source_absfilename "${source[1]}")
-    doc COPYING Documentation/RelNotes-${version}.txt README
+    doc COPYING Documentation/RelNotes/${version}.txt README
 
     # fix symlinks
     for p in git git-upload-pack git-shell git-cvsserver
