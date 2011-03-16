@@ -1,0 +1,25 @@
+[common]
+pkgname="${pkgprefix}${topdir}5"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://gmplib.org"
+shortdesc="A free library for arbitrary precision arithmetic"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_libdir/*.so.*
+$_sharedir
+
+[info]
+subsys=man.info
+files(-,root,sys)
+$_infodir
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+
