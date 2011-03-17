@@ -22,6 +22,7 @@ patch[0]=m4-1.4.16-attribute.patch
 export CC=cc
 mipspro=1
 [ "$_os" = "irix53" ] && export NO_RQS="-Wl,-no_rqs"
+irix62 && export CFLAGS="-O1"
 export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="$NO_RQS -L$prefix/lib -Wl,-rpath,$prefix/lib"
 
