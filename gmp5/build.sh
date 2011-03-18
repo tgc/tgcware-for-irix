@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=gmp
 version=5.0.1
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gmp-5.0.1-use-ldflags-during-configure.patch
@@ -23,14 +23,16 @@ patch[2]=gmp-5.0.1-limb-type.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-cxx --with-readline=no"
 if [ "$_os" = "irix62" ]; then
     mipspro=1
     export ABI=n32
     export CC=cc
     export CXX=g++
     export CXXFLAGS="-O2 -mabi=$ABI"
+    configure_args="$configure_args --with-readline=no"
 fi
+# Leave out C++ interface until libstdc++ ABI issue is fixed
+irix53 && configure_args="$configure_args --disable-cxx --with-readline=no"
 
 reg prep
 prep()
