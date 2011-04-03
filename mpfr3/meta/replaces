@@ -1,3 +1,3 @@
 # Replace mpfr 2.4.2 except for libs
-man.info tgc_gmp.man.info 20402001 20402004
-sw.dev tgc_gmp.sw.dev 20402001 20402004
+man.info tgc_mpfr.man.info 20402001 20402004
+sw.dev tgc_mpfr.sw.dev 20402001 20402004

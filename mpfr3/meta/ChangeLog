@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sat Mar 19 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 3.0.0-3
+- Fix typo in replaces metadata
+
 * Thu Mar 17 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 3.0.0-2
 - Update to 3.0.0pl8
 
