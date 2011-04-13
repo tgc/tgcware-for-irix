@@ -13,7 +13,7 @@ if [ "$(uname -r)" = "5.3" ]; then
 else
   topdir=libstdcxx_7
   version=1
-  pkgver=2
+  pkgver=3
 fi
 # If there are no patches, simply comment this
 #patch[0]=
@@ -22,8 +22,8 @@ fi
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-irix62 && gcc=4.3.4 && version=$gcc
-irix53 && gcc=3.4.6
+irix62 && gccver=4.5.2 && gccdir=gcc45 && version=$gccver
+irix53 && gccver=3.4.6 && gccdir=gcc-$gccver
 
 reg prep
 prep()
@@ -40,15 +40,17 @@ build()
 reg install
 install()
 {
-    echo "BuildRequires: tgc_gcc $gcc"
+    echo "BuildRequires: tgc_gcc $gccver"
     clean stage
     ${__mkdir} -p ${stagedir}${prefix}/$_libdir
     [ "$_os" = "irix62" ] && libsuffix=32
-    (cd $prefix/gcc-$gcc/${_libdir}${libsuffix}; ${__tar} -cf - libstdc++.so.7*) |
+    (cd $prefix/$gccdir/${_libdir}${libsuffix}; ${__tar} -cf - libstdc++.so.7) |
     (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xvpf -)
+    # cleanup
+    ${__rm} -f ${stagedir}${prefix}/${_libdir}/*.py
 
     # fix up relnotes
-    ${__sed} -e "s/@@GCCVER@@/$gcc/" ${metadir}/relnotes > ${metadir}/relnotes.$_os.txt
+    ${__sed} -e "s/@@GCCVER@@/$gccver/" ${metadir}/relnotes > ${metadir}/relnotes.$_os.txt
 }
 
 reg pack

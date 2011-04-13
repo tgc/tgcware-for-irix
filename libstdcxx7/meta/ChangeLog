@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Wed Apr 13 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.5.2-3
+- Update to gcc 4.5.2 for IRIX 6.2
+
 * Mon Nov 30 2009 Tom G. Christensen <irixpkg@jupiterrise.com> - 7-7
 - gcc 3.4.6 was rebuilt for IRIX 5.3
