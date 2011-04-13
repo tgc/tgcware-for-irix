@@ -12,6 +12,7 @@ $_sysconfdir
 files(0644,root,sys)
 ${lprefix}/${postfix_config_dir}/access
 ${lprefix}/${postfix_config_dir}/canonical
+${lprefix}/${postfix_config_dir}/bounce.cf.default
 ${lprefix}/${postfix_config_dir}/generic
 ${lprefix}/${postfix_config_dir}/header_checks
 ${lprefix}/${postfix_config_dir}/main.cf
@@ -23,7 +24,6 @@ ${lprefix}/${postfix_config_dir}/virtual
 ${lprefix}/${postfix_config_dir}/LICENSE
 ${lprefix}/${postfix_config_dir}/TLS_LICENSE
 ${lprefix}/${postfix_config_dir}/main.cf.default
-${lprefix}/${postfix_config_dir}/postfix-files
 ${lprefix}/${postfix_config_dir}/aliases
 ${lprefix}/${_vdocdir}/RELEASE_NOTES
 ${lprefix}/${_vdocdir}/AAAREADME
@@ -40,12 +40,11 @@ ${lprefix}/${postfix_command_dir}/postkick
 ${lprefix}/${postfix_command_dir}/postlock
 ${lprefix}/${postfix_command_dir}/postlog
 ${lprefix}/${postfix_command_dir}/postmap
+${lprefix}/${postfix_command_dir}/postmulti
 ${lprefix}/${postfix_command_dir}/postsuper
 ${lprefix}/${postfix_command_dir}/qshape
 ${lprefix}/${postfix_command_dir}/smtp-sink
 ${lprefix}/${postfix_command_dir}/smtp-source
-${lprefix}/${postfix_config_dir}/post-install
-${lprefix}/${postfix_config_dir}/postfix-script
 ${lprefix}/${postfix_daemon_dir}/*
 ${lprefix}/${_sbindir}/sendmail
 # Directories
@@ -68,6 +67,8 @@ dir ${varspoolprefix}${postfix_queue_dir}/incoming
 dir ${varspoolprefix}${postfix_queue_dir}/private
 dir ${varspoolprefix}${postfix_queue_dir}/saved
 dir ${varspoolprefix}${postfix_queue_dir}/trace
+dir var/lib
+dir var/lib/postfix
 files(0710,$postfix_user,$maildrop_group)
 dir ${varspoolprefix}${postfix_queue_dir}/public
 files(0730,$postfix_user,$maildrop_group)

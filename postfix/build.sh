@@ -9,21 +9,21 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=postfix
-version=2.2.11
+version=2.8.2
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.acat.se/official/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
-[ "$_os" = "irix62" ] && patch[0]=postfix-2.2.10-sa_len.patch
-
 # Global settings
 export CC=gcc
-export CCARGS="-I/usr/tgcware/include -DHAS_PCRE -DNO_IPV6 -DDEF_CONFIG_DIR=\\\"${prefix}/${_sysconfdir}/postfix\\\""
-export AUXLIBS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lpcre"
+export CCARGS="-I/usr/tgcware/include -DUSE_TLS -DHAS_PCRE -DNO_IPV6 -DDEF_CONFIG_DIR=\\\"${prefix}/${_sysconfdir}/postfix\\\""
+export AUXLIBS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lpcre -lssl -lcrypto"
 no_configure=1
+useautodir=0
 
 lprefix=${prefix#/*}
 
@@ -93,10 +93,10 @@ install()
     done
 
     # Fix up postfix-files to leave out manpages, documentation etc. 
-    ${__gsed} -i '/sample_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
-    ${__gsed} -i '/html_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
-    ${__gsed} -i '/readme_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
-    ${__gsed} -i '/manpage_directory/d' ${stagedir}${prefix}/${postfix_config_dir}/postfix-files
+    ${__gsed} -i '/sample_directory/d' ${stagedir}${prefix}/${postfix_daemon_dir}/postfix-files
+    ${__gsed} -i '/html_directory/d' ${stagedir}${prefix}/${postfix_daemon_dir}/postfix-files
+    ${__gsed} -i '/readme_directory/d' ${stagedir}${prefix}/${postfix_daemon_dir}/postfix-files
+    ${__gsed} -i '/manpage_directory/d' ${stagedir}${prefix}/${postfix_daemon_dir}/postfix-files
 
     # install qshape
     mantools/srctoman - auxiliary/qshape/qshape.pl > qshape.1
@@ -112,8 +112,8 @@ install()
 
     ${__cp} $metadir/postfix.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_postfix
     chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_postfix
-    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_postfix K02tgc_postfix)
-    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_postfix S99tgc_postfix)
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; ${__ln} -sf ../init.d/tgc_postfix K02tgc_postfix)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; ${__ln} -sf ../init.d/tgc_postfix S99tgc_postfix)
     # Don't run by default
     echo "off" > ${stagedir}/${_sysconfdir}/config/tgc_postfix
     # Preserve existing on/off setting
