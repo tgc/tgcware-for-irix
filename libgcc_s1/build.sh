@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=libgcc_s1
 version=1
-pkgver=2
+pkgver=3
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -15,9 +15,10 @@ pkgver=2
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-gcc=4.3.4
-[ "$_os" = "irix53" ] && gcc=3.4.6
-version=$gcc
+gccdir=gcc45
+gccver=4.5.2
+[ "$_os" = "irix53" ] && gccver=3.4.6 && gccdir=gcc-$gccver
+version=$gccver
 
 reg prep
 prep()
@@ -38,11 +39,11 @@ install()
     clean stage
     ${__mkdir} -p ${stagedir}${prefix}/$_libdir
     [ "$_os" = "irix62" ] && libsuffix=32
-    (cd $prefix/gcc-$gcc/${_libdir}${libsuffix}; ${__tar} -cf - libgcc_s.so.1*) |
+    (cd $prefix/$gccdir/${_libdir}${libsuffix}; ${__tar} -cf - libgcc_s.so.1*) |
     (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xvpf -)
     
     # fix up relnotes
-    ${__sed} -e "s/@@GCCVER@@/$gcc/" ${metadir}/relnotes > ${metadir}/relnotes.$_os.txt
+    ${__sed} -e "s/@@GCCVER@@/$gccver/" ${metadir}/relnotes > ${metadir}/relnotes.$_os.txt
 }
 
 reg pack
