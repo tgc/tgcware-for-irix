@@ -1,0 +1,22 @@
+--- gcc-4.3.2.orig/gcc/ada/adaint.c	2008-01-03 10:35:04.000000000 +0100
++++ gcc-4.3.2/gcc/ada/adaint.c	2008-12-12 17:09:13.417078000 +0100
+@@ -3052,3 +3052,19 @@
+ }
+ #endif
+ #endif
++
++#ifdef __sgi
++/* Find out whether it's safe to #include <pthreads.h> */
++#include <sys/syssgi.h>
++#ifdef SGI_INITIAL_PT_SPROC
++/* we're on IRIX 6.x, not 5.x */
++#include <pthread.h>
++#ifndef pthread_setrunon_np
++/* IRIX 6.2 does not have this, but libgnat wants to use it */
++int pthread_setrunon_np (int cpu)
++{
++  return 0;
++}
++#endif
++#endif
++#endif

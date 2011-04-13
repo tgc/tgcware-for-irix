@@ -1,0 +1,18 @@
+sw.base tgc_binutils.sw.base 22001001 maxint
+sw64.base sw.base auto
+swo32.base sw.base auto
+sw.ada sw.base auto
+swo32.ada swo32.base auto
+sw64.ada sw64.base auto
+sw.cxx sw.base auto
+swo32.cxx swo32.base auto
+sw64.cxx sw64.base auto
+sw.objc sw.base auto
+swo32.objc swo32.base auto
+sw64.objc sw64.base auto
+sw.objcxx sw.base auto
+swo32.objcxx swo32.base auto
+sw64.objcxx sw64.base auto
+sw.fortran sw.base auto
+swo32.fortran swo32.base auto
+sw64.fortran sw64.base auto

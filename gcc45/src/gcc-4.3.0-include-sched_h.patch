@@ -1,0 +1,10 @@
+--- gcc-4.3.0/gcc/gthr-posix95.h.sched	2008-03-10 22:03:15.568562000 +0100
++++ gcc-4.3.0/gcc/gthr-posix95.h	2008-03-10 22:04:13.426000000 +0100
+@@ -40,6 +40,7 @@
+ #endif
+ 
+ #include <pthread.h>
++#include <sched.h>
+ #include <unistd.h>
+ 
+ typedef pthread_key_t __gthread_key_t;

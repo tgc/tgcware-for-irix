@@ -1,0 +1,76 @@
+On IRIX <inttypes.h> and <sys/types.h> use a guard to protect against multiple
+definitions of the same types when they're both included.
+The gcc replacement <stdint.h> does not have that guard which causes problems when
+the ABI is n64 (mabi=64). In that case the definitions does not match between the
+replacement <stdint.h> and the system defines of the types. While the size is the same
+the types used to get there are not. To protect against this it's necessary for the
+replacement <stdint.h> to also guard its definitions the same way the system headers do.
+This patch rearranges the replacement <stdint.h> and wraps the affected types in
+the guard define used for the system headers so that it matches the native <stdint.h>
+found in later IRIX 6.5 releases.
+
+This patch is specific to IRIX 6.x < 6.5.18 (6.5.18 and later has native <stdint.h>)
+and is not necessary if just building the compiler for n32 (the default ABI).
+
+--- gcc-4.5.2/gcc/ginclude/stdint-gcc.h.irix	2011-03-18 16:01:57.780096000 +0100
++++ gcc-4.5.2/gcc/ginclude/stdint-gcc.h	2011-03-18 16:09:58.226351000 +0100
+@@ -28,6 +28,15 @@
+ #ifndef _GCC_STDINT_H
+ #define _GCC_STDINT_H
+ 
++/*
++ * inttypes.h  and types.h also defines these.
++ * Avoid compiler errors if either inttypes.h
++ * or types.h is also included.
++ */
++
++#ifndef __inttypes_INCLUDED
++#define __inttypes_INCLUDED
++
+ /* 7.8.1.1 Exact-width integer types */
+ 
+ #ifdef __INT8_TYPE__
+@@ -55,6 +64,22 @@
+ typedef __UINT64_TYPE__ uint64_t;
+ #endif
+ 
++/* 7.8.1.4 Integer types capable of holding object pointers */
++
++#ifdef __INTPTR_TYPE__
++typedef __INTPTR_TYPE__ intptr_t;
++#endif
++#ifdef __UINTPTR_TYPE__
++typedef __UINTPTR_TYPE__ uintptr_t;
++#endif
++
++/* 7.8.1.5 Greatest-width integer types */
++
++typedef __INTMAX_TYPE__ intmax_t;
++typedef __UINTMAX_TYPE__ uintmax_t;
++
++#endif /* !__inttypes_INCLUDED */
++
+ /* 7.8.1.2 Minimum-width integer types */
+ 
+ typedef __INT_LEAST8_TYPE__ int_least8_t;
+@@ -77,20 +102,6 @@
+ typedef __UINT_FAST32_TYPE__ uint_fast32_t;
+ typedef __UINT_FAST64_TYPE__ uint_fast64_t;
+ 
+-/* 7.8.1.4 Integer types capable of holding object pointers */
+-
+-#ifdef __INTPTR_TYPE__
+-typedef __INTPTR_TYPE__ intptr_t;
+-#endif
+-#ifdef __UINTPTR_TYPE__
+-typedef __UINTPTR_TYPE__ uintptr_t;
+-#endif
+-
+-/* 7.8.1.5 Greatest-width integer types */
+-
+-typedef __INTMAX_TYPE__ intmax_t;
+-typedef __UINTMAX_TYPE__ uintmax_t;
+-
+ #if !defined __cplusplus || defined __STDC_LIMIT_MACROS
+ 
+ /* 7.18.2 Limits of specified-width integer types */

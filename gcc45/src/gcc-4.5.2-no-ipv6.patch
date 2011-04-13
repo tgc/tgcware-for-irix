@@ -1,0 +1,12 @@
+--- gcc-4.5.2/gcc/ada/s-oscons-tmplt.c.irix62	2009-11-30 22:12:13.000000000 +0100
++++ gcc-4.5.2/gcc/ada/s-oscons-tmplt.c	2011-03-18 08:17:15.524351000 +0100
+@@ -940,6 +940,9 @@
+ # undef AF_INET6
+ #endif
+ 
++/** IRIX 6.2 defines this but IPv6 is unimplemented **/
++#undef AF_INET6
++
+ #ifndef AF_INET6
+ # define AF_INET6 -1
+ #else

@@ -1,0 +1,60 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+This build is multilib aware and can build binaries for all 3 ABIs
+(o32,n32,n64). It should default to n32/mips3.
+Note that the o32 and n64 parts are packaged seperately.
+
+Note that at this time tgcware is strictly n32 due to putting n32 libraries in
+/lib which is normally occupied by o32 objects (n32 objects defaults to /lib32).
+At some point n64 libraries might appear since they would go in /lib64 which
+would not conflict with the standard locations.
+There is currently no plan to make a true multilib aware tgcware distribution.
+
+Note that this build specifically enables the use of POSIX pthreads. This was
+not a standard feature on IRIX 6.2 so parts of the compiler may require the
+installation of the POSIX pthreads patchset.
+
+If you intend to use this compiler on IRIX 6.3, 6.4 or 6.5 I would recommend
+that the fixed-includes be regenerated with the included mkheader script.
+
+Patches:
+2 patches are included which enables building with libgomp and
+--enable-threads=posix95.
+Also included is a patch for bz#38400 which fixes all the pthread related
+failures in the ada testsuite.
+To build gnat is was necessary to undefine AF_INET6 since IRIX 6.2 does not
+actually support IPv6.
+For the n64 ABI there is a problem with the gcc provided stdint.h, some of the
+types conflict with system header files. For this reason I've included a patch
+which rearranges the gcc stdint.h replacement and adds the same guards as used
+in the system headers.
+To avoid the broken libstdc++ testresults for n64 a patch from 4.5 trunk was
+backported. It avoids mixing 32 & 64 bit objects in libtestc++.a.
+
+testresults:
+http://gcc.gnu.org/ml/gcc-testresults/2011-04/msg01059.html
