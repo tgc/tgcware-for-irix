@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=postfix
 version=2.8.2
-pkgver=1
+pkgver=2
 source[0]=ftp://ftp.acat.se/official/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
@@ -19,7 +19,11 @@ source[0]=ftp://ftp.acat.se/official/$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-export CC=gcc
+mipspro=1
+export CC=cc
+export DEBUG=""
+irix62 && CFLAGS="-woff 1009"
+export OPT="-O $CFLAGS"
 export CCARGS="-I/usr/tgcware/include -DUSE_TLS -DHAS_PCRE -DNO_IPV6 -DDEF_CONFIG_DIR=\\\"${prefix}/${_sysconfdir}/postfix\\\""
 export AUXLIBS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lpcre -lssl -lcrypto"
 no_configure=1
@@ -57,7 +61,7 @@ build()
 
     setdir source
     ${__make} -f Makefile.init makefiles
-    unset CCARGS AUXLIBS
+    unset OPT DEBUG CCARGS AUXLIBS
     generic_build
 }
 
