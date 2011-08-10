@@ -6,23 +6,23 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.5.2
+version=4.5.3
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=gcc-4.3.0-include-sched_h.patch
-patch[1]=gcc-4.3.3-libgomp-pthreads.patch
+patch[1]=gcc-4.5.3-libgomp-pthreads.patch
 patch[2]=gcc-4.3.2-setrunon_np.patch
 patch[3]=gcc-4.5.2-no-ipv6.patch
 patch[4]=gcc-4.5.2-fix-stdint_h.patch
-patch[5]=gcc-4.5.2-libtestcxx.patch
+patch[5]=gcc-4.5.3-iris5-hidden_symbol.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Custom subsystems...
-irix62 && subsysconf=$metadir/subsys.conf.62
 irix53 && subsysconf=$metadir/subsys.conf.53
+irix62 && subsysconf=$metadir/subsys.conf.62
 
 # Global settings
 abbrev_ver=45
@@ -48,8 +48,8 @@ global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls -
 if [ "$_os" = "irix53" ]; then
     export CC="/usr/tgcware/gcc-3.4.6/bin/gcc"
     withjava=0
-    objdir=cccfoo_gtools
-    configure_args="$global_config_args"
+    objdir=all
+    configure_args="$global_config_args --enable-libstdcxx-pch=no"
 fi
 if [ "$_os" = "irix62" ]; then
     configure_args="$global_config_args --enable-threads=posix95"
@@ -144,7 +144,10 @@ check()
     datestamp
     setdir source
     setdir ../$objdir
-    ${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check
+    # Single ABI
+    irix53 && ${__make} -k check
+    # Three ABIs
+    irix62 && ${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check
     #${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check-target-libstdc++-v3
     datestamp
 }
@@ -152,6 +155,10 @@ check()
 reg pack
 pack()
 {
+    # Custom pkgdef, yes should have been a var like subsysconf but is not...
+    # We keep this here so that the 'cp' is only done when it matters
+    irix53 && ${__rm} -f $metadir/pkgdef && ${__cp} -p $metadir/pkgdef.irix53 $metadir/pkgdef
+    irix62 && ${__rm} -f $metadir/pkgdef && ${__cp} -p $metadir/pkgdef.irix62 $metadir/pkgdef
     __configure="configure"
     iprefix=${topdir}${abbrev_ver}
     generic_pack
@@ -160,6 +167,7 @@ pack()
 reg distclean
 distclean()
 {
+    META_CLEAN="$META_CLEAN pkgdef"
     clean distclean
     setdir $srcdir
     ${__rm} -rf $objdir

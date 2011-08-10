@@ -1,0 +1,15 @@
+sw.base default GNU C compiler
+sw.lib default shared libraries
+sw.dev nodefault development files
+man.doc default other documentation
+man.man default man pages
+man.info default info pages
+man.dev nodefault development man pages
+opt.relnotes default release notes
+opt.src nodefault source, patches etc.
+opt.dist nodefault distribution files
+sw.ada nodefault GNU Ada compiler
+sw.cxx nodefault GNU C++ compiler
+sw.objc nodefault GNU Objective-C compiler
+sw.objcxx nodefault GNU Objective-C++ compiler
+sw.fortran nodefault GNU Fortran compiler

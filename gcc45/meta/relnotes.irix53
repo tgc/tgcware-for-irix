@@ -1,0 +1,54 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+
+You may need to rerun the included mkheader script to regenerate the
+fixed-includes.
+
+Pre-compiled header support (PCH) was disabled since it caused a build error.
+If you absolutely desperately need it then you're on your own.
+
+Unfortunately libstdc++ in this release is incompatible with libstdc++
+from tgcware gcc-3.4.6-7 and older. The tgcware gcc-3.4.6-9 libstdc++ is
+compatible with this release.
+To resolve this issue it is necessary to update any libstdc++ using binaries
+to the latest tgcware versions which will have been built with the new ABI.
+If you do not update libstdc++ using binaries after installing the new
+libstdcxx support package you may see programs fail to launch with
+this error:
+rld: Error: unresolvable symbol in ./groff: __gxx_personality_sj0
+
+Patches:
+There is only one patch which is specific to IRIX 5.3 and that is the
+gcc-4.5.3-iris5-hidden_symbol.patch.
+This enables the use of the -hidden_symbol parameter with IRIX ld when
+linking shared objects. This is the same as used on IRIX 6.x.
+
+The rest of the patches only make a difference on IRIX 6.x.
+
+testresults:
+http://gcc.gnu.org/ml/gcc-testresults/2011-08/msg01356.html

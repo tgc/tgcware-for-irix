@@ -1,0 +1,16 @@
+--- gcc-4.5.3/libgomp/configure.tgt.orig	2011-07-09 16:32:12.000000000 +0200
++++ gcc-4.5.3/libgomp/configure.tgt	2011-07-09 16:33:45.000000000 +0200
+@@ -125,7 +125,12 @@
+ 	config_path="bsd posix"
+ 	;;
+ 
+-  mips-sgi-irix6*)
++  mips-sgi-irix6.2)
++        config_path="posix95 posix"
++	# Need to link with -lpthread so libgomp.so is self-contained.
++	XLDFLAGS="${XLDFLAGS} -lpthread"
++	;;
++  mips-sgi-irix6.5)
+ 	# Need to link with -lpthread so libgomp.so is self-contained.
+ 	XLDFLAGS="${XLDFLAGS} -lpthread"
+ 	;;

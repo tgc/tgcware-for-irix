@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Mon Aug  8 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.5.3-1
+- Updated to 4.5.3 on IRIX 5.3
+
 * Tue Apr  5 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.5.2-1
 - Initial package

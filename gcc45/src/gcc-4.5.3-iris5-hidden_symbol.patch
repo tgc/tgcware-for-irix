@@ -1,0 +1,13 @@
+--- gcc-4.5.3/gcc/config/mips/iris5.h.hidden	2011-07-09 17:23:55.000000000 +0200
++++ gcc-4.5.3/gcc/config/mips/iris5.h	2011-07-09 17:25:52.000000000 +0200
+@@ -21,7 +21,9 @@
+ #ifdef IRIX_USING_GNU_LD
+ #define IRIX_SUBTARGET_LINK_SPEC "-melf32bsmip"
+ #else
+-#define IRIX_SUBTARGET_LINK_SPEC "-_SYSTYPE_SVR4"
++#define IRIX_SUBTARGET_LINK_SPEC \
++  "%{w} -_SYSTYPE_SVR4 \
++   %{shared:-hidden_symbol __dso_handle}"
+ #endif
+ 
+ #undef STARTFILE_SPEC
