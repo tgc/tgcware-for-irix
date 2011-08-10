@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=groff
 version=1.19.2
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=groff-1.19-inttypes-irix53.patch
