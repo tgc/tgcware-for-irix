@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=doxygen
 version=1.4.7
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.src.tar.gz
 # If there are no patches, simply comment this
 patch[0]=doxygen-1.4.5-rpath.patch
