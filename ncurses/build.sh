@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=ncurses
 version=5.6
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=ncurses-5.5-destdir.patch
