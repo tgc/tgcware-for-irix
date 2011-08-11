@@ -8,5 +8,8 @@ shortdesc="Small and fast webbrowser"
 [base]
 subsys=sw.base
 files(-,root,sys)
-*
+$_bindir/*
+$_libdir/dillo
+$_sharedir/doc
+etc
 
