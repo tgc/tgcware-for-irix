@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=pcre
 version=7.8
-pkgver=1
+pkgver=2
 source[0]=http://downloads.sourceforge.net/pcre/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=pcre-7.8-no-linker-alias.patch
