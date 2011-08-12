@@ -1,0 +1,12 @@
+--- flac-1.2.1/configure.in.trio	2007-11-25 16:55:40.110000000 +0100
++++ flac-1.2.1/configure.in	2007-11-25 16:57:33.550000000 +0100
+@@ -259,6 +259,9 @@
+ AM_ICONV
+ AM_LANGINFO_CODESET
+ 
++dnl We need trio for snprintf
++NEED_TRIO_CHECK
++
+ AC_CHECK_PROGS(DOCBOOK_TO_MAN, docbook-to-man docbook2man)
+ AM_CONDITIONAL(FLaC__HAS_DOCBOOK_TO_MAN, test -n "$DOCBOOK_TO_MAN")
+ if test -n "$DOCBOOK_TO_MAN" ; then

@@ -34,6 +34,7 @@ subsys=sw.dev
 files(-,root,sys)
 $_includedir
 $_libdir/*.so
-$_libdir/*.a
 $_sharedir/aclocal
+$_libdir/pkgconfig/flac.pc
+$_libdir/pkgconfig/flac++.pc
 

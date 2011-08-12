@@ -1,0 +1,125 @@
+--- flac-1.2.1/src/test_libFLAC/decoders.c.fo	2007-11-25 20:47:05.880000000 +0100
++++ flac-1.2.1/src/test_libFLAC/decoders.c	2007-11-25 20:47:15.870000000 +0100
+@@ -24,12 +24,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#if defined _MSC_VER || defined __MINGW32__
+-#if _MSC_VER <= 1600 /* @@@ [2G limit] */
+ #define fseeko fseek
+ #define ftello ftell
+-#endif
+-#endif
+ #include "decoders.h"
+ #include "FLAC/assert.h"
+ #include "FLAC/stream_decoder.h"
+--- flac-1.2.1/src/test_libFLAC/metadata_manip.c.fo	2007-11-25 20:47:25.620000000 +0100
++++ flac-1.2.1/src/test_libFLAC/metadata_manip.c	2007-11-25 20:48:00.110000000 +0100
+@@ -35,6 +35,8 @@
+ #include <utime.h> /* for utime() */
+ #include <unistd.h> /* for chown(), unlink() */
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <sys/stat.h> /* for stat(), maybe chmod() */
+ #include "FLAC/assert.h"
+ #include "FLAC/stream_decoder.h"
+--- flac-1.2.1/src/flac/encode.c.fo	2007-11-25 20:48:08.820000000 +0100
++++ flac-1.2.1/src/flac/encode.c	2007-11-25 20:48:35.390000000 +0100
+@@ -33,6 +33,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <errno.h>
+ #include <limits.h> /* for LONG_MAX */
+ #include <math.h> /* for floor() */
+--- flac-1.2.1/src/flac/foreign_metadata.c.fo	2007-11-25 20:48:41.820000000 +0100
++++ flac-1.2.1/src/flac/foreign_metadata.c	2007-11-25 20:48:52.640000000 +0100
+@@ -27,6 +27,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <stdio.h> /* for FILE etc. */
+ #include <stdlib.h> /* for calloc() etc. */
+ #include <string.h> /* for memcmp() etc. */
+--- flac-1.2.1/src/flac/decode.c.fo	2007-11-25 20:48:59.110000000 +0100
++++ flac-1.2.1/src/flac/decode.c	2007-11-25 20:49:11.300000000 +0100
+@@ -33,6 +33,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <errno.h>
+ #include <math.h> /* for floor() */
+ #include <stdio.h> /* for FILE etc. */
+--- flac-1.2.1/src/flac/iffscan.c.fo	2007-11-25 20:49:19.370000000 +0100
++++ flac-1.2.1/src/flac/iffscan.c	2007-11-25 20:49:36.510000000 +0100
+@@ -30,6 +30,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include "foreign_metadata.h"
+ 
+ static FLAC__uint32 unpack32be_(const FLAC__byte *b)
+--- flac-1.2.1/src/test_libFLAC++/metadata_manip.cpp.fo	2007-11-25 20:49:55.090000000 +0100
++++ flac-1.2.1/src/test_libFLAC++/metadata_manip.cpp	2007-11-25 20:50:06.080000000 +0100
+@@ -35,6 +35,8 @@
+ #include <utime.h> /* for utime() */
+ #include <unistd.h> /* for chown(), unlink() */
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <sys/stat.h> /* for stat(), maybe chmod() */
+ #include "FLAC/assert.h"
+ #include "FLAC++/decoder.h"
+--- flac-1.2.1/src/test_libFLAC++/decoders.cpp.fo	2007-11-25 20:50:12.550000000 +0100
++++ flac-1.2.1/src/test_libFLAC++/decoders.cpp	2007-11-25 20:50:21.620000000 +0100
+@@ -30,6 +30,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include "decoders.h"
+ #include "FLAC/assert.h"
+ #include "FLAC/metadata.h" // for ::FLAC__metadata_object_is_equal()
+--- flac-1.2.1/src/libFLAC/metadata_iterators.c.fo	2007-11-25 20:50:39.280000000 +0100
++++ flac-1.2.1/src/libFLAC/metadata_iterators.c	2007-11-25 20:51:04.870000000 +0100
+@@ -55,6 +55,8 @@
+ #include <utime.h> /* for utime() */
+ #include <unistd.h> /* for chown(), unlink() */
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include <sys/stat.h> /* for stat(), maybe chmod() */
+ 
+ #include "private/metadata.h"
+--- flac-1.2.1/src/libFLAC/stream_decoder.c.fo	2007-11-25 20:51:16.630000000 +0100
++++ flac-1.2.1/src/libFLAC/stream_decoder.c	2007-11-25 20:51:29.710000000 +0100
+@@ -52,6 +52,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include "FLAC/assert.h"
+ #include "share/alloc.h"
+ #include "protected/stream_decoder.h"
+--- flac-1.2.1/src/libFLAC/stream_encoder.c.fo	2007-11-25 20:51:42.350000000 +0100
++++ flac-1.2.1/src/libFLAC/stream_encoder.c	2007-11-25 20:52:03.720000000 +0100
+@@ -52,6 +52,8 @@
+ #define ftello ftell
+ #endif
+ #endif
++#define fseeko fseek
++#define ftello ftell
+ #include "FLAC/assert.h"
+ #include "FLAC/stream_decoder.h"
+ #include "share/alloc.h"

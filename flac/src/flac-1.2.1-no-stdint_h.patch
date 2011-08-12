@@ -1,0 +1,26 @@
+--- flac-1.2.1/include/share/alloc.h.nostdint	2007-11-25 19:05:15.000000000 +0100
++++ flac-1.2.1/include/share/alloc.h	2007-11-25 19:11:55.540000000 +0100
+@@ -28,21 +28,10 @@
+  */
+ 
+ #include <limits.h> /* for SIZE_MAX */
+-#if !defined _MSC_VER && !defined __MINGW32__ && !defined __EMX__
+-#include <stdint.h> /* for SIZE_MAX in case limits.h didn't get it */
+-#endif
+ #include <stdlib.h> /* for size_t, malloc(), etc */
+ 
+-#ifndef SIZE_MAX
+-# ifndef SIZE_T_MAX
+-#  ifdef _MSC_VER
+-#   define SIZE_T_MAX UINT_MAX
+-#  else
+-#   error
+-#  endif
+-# endif
+-# define SIZE_MAX SIZE_T_MAX
+-#endif
++#define SIZE_MAX ((size_t) -1)
++#define SIZE_T_MAX SIZE_MAX
+ 
+ #ifndef FLaC__INLINE
+ #define FLaC__INLINE

@@ -1,0 +1,4 @@
+CHANGELOG
+---------
+* Fri Aug 12 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.2.1-2
+- Rebuild for libstdc++ ABI change
