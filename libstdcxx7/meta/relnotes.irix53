@@ -1,0 +1,22 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+This is libstdc++.so.7 from gcc @@GCCVER@@
+
+It's compatible with libstdcxx7-7-7 but nothing before that since
+the ABI changed when gcc 3.4.6 was rebuilt in 2009.
+
+Note that certain functions in this libstdc++ also requires libgcc_s
+from the same gcc version.
+That means binaries built with g++ @@GCCVER@@ will require libgcc_s from
+@@GCCVER@@ or there may be unresolved symbols at runtime.

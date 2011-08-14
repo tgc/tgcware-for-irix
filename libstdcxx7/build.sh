@@ -9,7 +9,7 @@ if [ "$(uname -r)" = "5.3" ]; then
   # Can't use 'updates' on IRIX 5.3, so no renaming/re-versioning possible :(
   topdir=libstdcxx7
   version=7
-  pkgver=7
+  pkgver=8
 else
   topdir=libstdcxx_7
   version=1
@@ -23,7 +23,7 @@ fi
 
 # Global settings
 irix62 && gccver=4.5.2 && gccdir=gcc45 && version=$gccver
-irix53 && gccver=3.4.6 && gccdir=gcc-$gccver
+irix53 && gccver=4.5.3 && gccdir=gcc45
 
 reg prep
 prep()
@@ -44,13 +44,13 @@ install()
     clean stage
     ${__mkdir} -p ${stagedir}${prefix}/$_libdir
     [ "$_os" = "irix62" ] && libsuffix=32
-    (cd $prefix/$gccdir/${_libdir}${libsuffix}; ${__tar} -cf - libstdc++.so.7) |
+    (cd $prefix/$gccdir/${_libdir}${libsuffix}; ${__tar} -cf - libstdc++.so.7*) |
     (cd ${stagedir}${prefix}/${_libdir}; ${__tar} -xvpf -)
     # cleanup
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/*.py
 
     # fix up relnotes
-    ${__sed} -e "s/@@GCCVER@@/$gccver/" ${metadir}/relnotes > ${metadir}/relnotes.$_os.txt
+    ${__sed} -e "s/@@GCCVER@@/$gccver/g" ${metadir}/relnotes.${_os} > ${metadir}/relnotes.$_os.txt
 }
 
 reg pack
