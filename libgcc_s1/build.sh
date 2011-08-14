@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=libgcc_s1
 version=1
-pkgver=3
+pkgver=4
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -17,7 +17,7 @@ pkgver=3
 # Global settings
 gccdir=gcc45
 gccver=4.5.2
-[ "$_os" = "irix53" ] && gccver=3.4.6 && gccdir=gcc-$gccver
+[ "$_os" = "irix53" ] && gccver=4.5.3 && gccdir=gcc45
 version=$gccver
 
 reg prep
