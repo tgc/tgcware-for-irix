@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=5.8p1
+version=5.9p1
 pkgver=1
 source[0]=http://ftp.openbsd.dk/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssh-5.8p1-includes.patch
+patch[0]=openssh-5.9p1-includes.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -79,7 +79,7 @@ install()
 
     custom_install=1
     generic_install
-    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO WARNING.RNG
+    doc CREDITS ChangeLog INSTALL LICENCE OVERVIEW README* PROTOCOL* TODO
 
     setdir ${stagedir}${prefix}/${_sysconfdir}/ssh
     for i in *; do ${__cp} $i $i.default; echo "${prefix#/*}/${_sysconfdir}/ssh/$i config(noupdate)" >> $metadir/ops; done
