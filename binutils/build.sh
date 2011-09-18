@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=binutils
-version=2.21
+version=2.21.1a
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/binutils/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -20,6 +20,10 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CONFIG_SHELL=/bin/ksh
 configure_args="$configure_args --disable-nls --disable-werror"
+
+irix53 && PATH=/usr/tgcware/gcc45/bin:$PATH
+
+topsrcdir=binutils-2.21.1
 
 reg prep
 prep()
