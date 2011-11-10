@@ -25,7 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-I added the patches that I considered relevant from the FC5 src.rpm.
+I added the patches that I considered relevant from the Fedora git repo.
 
 The -autoconf25x and -newgt patches was necessary to allow an update
 of the libtool code. This update was required on Irix 5.3 otherwise

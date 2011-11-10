@@ -30,6 +30,9 @@ patch[13]=gtk+-underquoted.patch
 patch[14]=gtk+-1.2.10-autoconf25x.patch
 patch[15]=gtk+-1.2.10-newgt.patch
 patch[16]=gtk+-1.2.10-kpenter.patch
+patch[17]=gtk+-1.2.10-ctext.patch
+patch[18]=gtk+-1.2.10-utf8fontset.patch
+patch[19]=gtk+-1.2.10-gtkgdkdep.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -50,10 +53,10 @@ prep()
 {
     generic_prep
     setdir source
-    $RM -f ltconfig ltmain.sh acinclude.m4
+    ${__rm} -f ltconfig ltmain.sh acinclude.m4
     libtoolize -f -c
-    aclocal-1.10
-    automake-1.10 -a -f -c
+    aclocal-1.11
+    automake-1.11 -a -f -c
     autoheader
     autoconf
 }
@@ -73,6 +76,8 @@ install()
     doc examples
     ${__mv} ${stagedir}${prefix}/${_vdocdir}/docs/html ${stagedir}${prefix}/${_vdocdir}
     ${__rmdir} ${stagedir}${prefix}/${_vdocdir}/docs
+    irix62 && ${__gsed} -i 's|-L/usr/lib32||' ${stagedir}${prefix}/${_libdir}/pkgconfig/gdk.pc
+    irix62 && ${__gsed} -i 's|-L/usr/lib32||' ${stagedir}${prefix}/${_bindir}/gtk-config
 }
 
 reg pack
