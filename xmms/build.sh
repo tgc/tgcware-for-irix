@@ -10,13 +10,12 @@
 # Check the following 4 variables before running the script
 topdir=xmms
 version=1.2.10
-pkgver=4
+pkgver=5
 source[0]=$topdir-$version.tar.bz2
 source[1]=xmmsskins-1.0.tar.gz
 # If there are no patches, simply comment this
 patch[0]=xmms-underquoted.patch
 patch[1]=xmms-1.2.10-xmms-xpm.patch
-#patch[1]=xmms-1.2.10-ir.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -25,10 +24,9 @@ patch[1]=xmms-1.2.10-xmms-xpm.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
-mipspro=2
+mipspro=1
 if [ "$_os" = "irix62" ]; then
-    export CFLAGS="-O3 -mips3"
-    mipspro=1
+    export CFLAGS="-O3"
 fi
 configure_args="$configure_args --enable-static=no --disable-rpath --disable-oss --with-ogg=/usr/tgcware --with-vorbis=/usr/tgcware --with-esd-prefix=/usr/tgcware"
 
@@ -50,13 +48,13 @@ install()
     generic_install DESTDIR
     doc AUTHORS COPYING ChangeLog FAQ INSTALL NEWS TODO README
     setdir $stagedir
-    $FIND . -name '*.la' | $XARGS $RM -f
-    $MKDIR -p ${stagedir}${prefix}/${_sharedir}/xmms/Skins
+    #$FIND . -name '*.la' | $XARGS $RM -f
+    ${__mkdir} -p ${stagedir}${prefix}/${_sharedir}/xmms/Skins
     setdir ${stagedir}${prefix}/${_sharedir}/xmms/Skins
-    $TAR xzf $srcfiles/${source[1]}
-    $GINSTALL -D -m0644 $srcdir/$topdir-$version/xmms/xmms_logo.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/xmms_logo.xpm
-    $GINSTALL -D -m0644 $srcdir/$topdir-$version/xmms/xmms.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/xmms.xpm
-    $GINSTALL -D -m0644 $srcdir/$topdir-$version/xmms/xmms_mini.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/mini/xmms.xpm
+    ${__tar} xzf $srcfiles/${source[1]}
+    ${__install} -D -m0644 $srcdir/$topdir-$version/xmms/xmms_logo.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/xmms_logo.xpm
+    ${__install} -D -m0644 $srcdir/$topdir-$version/xmms/xmms.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/xmms.xpm
+    ${__install} -D -m0644 $srcdir/$topdir-$version/xmms/xmms_mini.xpm ${stagedir}${prefix}/${_sharedir}/pixmaps/mini/xmms.xpm
 }
 
 reg pack
