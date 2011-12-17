@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libogg
-version=1.1.3
+version=1.3.0
 pkgver=3
-source[0]=$topdir-$version.tar.gz
+source[0]=http://downloads.xiph.org/releases/ogg/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
