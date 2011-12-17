@@ -21,6 +21,7 @@ $_vdocdir/*.html
 $_vdocdir/*.xml
 $_vdocdir/vorbisenc
 $_vdocdir/vorbisfile
+$_vdocdir/libvorbis
 
 [devel]
 subsys=sw.dev

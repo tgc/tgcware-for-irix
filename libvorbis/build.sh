@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libvorbis
-version=1.2.0
+version=1.3.2
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=http://downloads.xiph.org/releases/vorbis/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -39,6 +39,7 @@ install()
 {
     generic_install DESTDIR
     doc AUTHORS COPYING
+    ${__rm} -f ${stagedir}${prefix}/${_vdocdir}/*.stamp
 }
 
 reg pack
