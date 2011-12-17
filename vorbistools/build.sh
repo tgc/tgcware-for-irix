@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=vorbis-tools
 version=1.1.1
-pkgver=3
+pkgver=4
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=vorbis-tools-1.1.1-needstrio.patch
@@ -30,8 +30,9 @@ reg prep
 prep()
 {
     generic_prep
-    aclocal-1.9 -I m4
-    automake-1.9
+    libtoolize -f
+    aclocal -I m4
+    automake
     autoheader
     autoconf
 }
