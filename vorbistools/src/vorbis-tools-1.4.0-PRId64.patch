@@ -1,0 +1,21 @@
+--- vorbis-tools-1.4.0/vcut/vcut.c.orig	2011-12-17 16:12:00.291600000 +0100
++++ vorbis-tools-1.4.0/vcut/vcut.c	2011-12-17 16:15:07.691600000 +0100
+@@ -33,9 +33,7 @@
+ 
+ #ifdef HAVE_INTTYPES_H
+ #include <inttypes.h>
+-#define FORMAT_INT64 "%" PRId64
+-#define FORMAT_INT64_TIME "+%" PRId64
+-#else
++#endif
+ 
+ #ifdef _WIN32
+ #define FORMAT_INT64	  "%I64d"
+@@ -49,7 +47,6 @@
+ #define FORMAT_INT64_TIME "+%lld"
+ #endif
+ #endif
+-#endif
+ 
+ static void clear_packet(vcut_packet *p)
+ {

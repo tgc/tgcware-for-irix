@@ -9,13 +9,13 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=vorbis-tools
-version=1.1.1
+version=1.4.0
 pkgver=4
-source[0]=$topdir-$version.tar.gz
+source[0]=http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz
 # If there are no patches, simply comment this
 patch[0]=vorbis-tools-1.1.1-needstrio.patch
 patch[1]=vorbis-tools-1.1.1-include.patch
-patch[2]=vorbis-tools-r12202-build-with-modern-curl-versions.patch
+patch[2]=vorbis-tools-1.4.0-PRId64.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
