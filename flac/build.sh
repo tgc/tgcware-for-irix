@@ -10,33 +10,33 @@
 # Check the following 4 variables before running the script
 topdir=flac
 version=1.2.1
-pkgver=2
+pkgver=3
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=flac-1.2.1-needstrio.patch
 patch[1]=flac-1.2.1-no-stdint_h.patch
+patch[2]=flac-1.2.1-missing_fseeko_ftello.patch
+patch[3]=flac-1.2.1-libtool-xmms-plugin.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
-[ "$_os" = "irix53" ] && patch[2]=flac-1.2.1-missing_fseeko_ftello.patch
-
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-rpath --disable-xmms-plugin --enable-static=no'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-rpath --enable-static=no'
+subsysconf=$metadir/subsys.conf
 
 reg prep
 prep()
 {
     generic_prep
     libtoolize -f
-    aclocal-1.10 -I m4
-    automake-1.10
+    aclocal -I m4
+    automake
     autoheader
     autoconf
     # The libiconv stuff is broken :(
-    # This needs GNU sed with inplace editing!
     ${__find} . -name 'Makefile.in' -print | ${__xargs} -n1 ${__gsed} -i 's/@LIBICONV@/@LTLIBICONV@/g'
 }
 

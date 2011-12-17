@@ -1,0 +1,11 @@
+--- flac-1.2.1.prepped/src/plugin_xmms/Makefile.am.orig	2011-12-16 20:04:04.266032000 +0100
++++ flac-1.2.1.prepped/src/plugin_xmms/Makefile.am	2011-12-16 20:04:13.766032000 +0100
+@@ -40,7 +40,7 @@
+ endif
+ 
+ # Don't build a static library
+-LIBTOOL = $(top_builddir)/libtool-disable-static
++LIBTOOL = $(top_builddir)/libtool
+ 
+ xmmsinputplugin_LTLIBRARIES = libxmms-flac.la
+ 
