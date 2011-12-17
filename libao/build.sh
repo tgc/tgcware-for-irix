@@ -9,14 +9,14 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libao
-version=0.8.6
-pkgver=5
-source[0]=$topdir-$version.tar.gz
+version=1.1.0
+pkgver=1
+source[0]=http://downloads.xiph.org/releases/ao/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=libao-0.8.6-oldirix-support.patch
-patch[1]=libao-0.8.6-irixcheck.patch
-patch[2]=libao-0.8.6-needstrio.patch
-patch[3]=libao-0.8.6-trio-include.patch
+patch[0]=libao-1.1.0-oldirix.patch
+patch[1]=libao-1.1.0-needs-trio.patch
+patch[2]=libao-0.8.6-trio-include.patch
+#patch[1]=libao-0.8.6-irixcheck.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -24,14 +24,15 @@ patch[3]=libao-0.8.6-trio-include.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --disable-esd --disable-polyp'
+configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --disable-esd'
 
 reg prep
 prep()
 {
     generic_prep
-    aclocal-1.9
-    automake-1.9 --foreign -a -c
+    libtoolize -f
+    aclocal
+    automake -a -c
     autoconf
 }
 
