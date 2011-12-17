@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=rdesktop
-version=1.5.0
+version=1.7.0
 pkgver=1
 source[0]=$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=rdesktop-1.5.0-trio.patch
+patch[0]=rdesktop-1.7.0-trio.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

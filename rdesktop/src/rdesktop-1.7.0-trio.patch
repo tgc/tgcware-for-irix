@@ -1,0 +1,22 @@
+--- rdesktop-1.7.0/configure.ac~	2011-04-13 13:49:09.000000000 +0200
++++ rdesktop-1.7.0/configure.ac	2011-12-17 16:35:45.061600000 +0100
+@@ -789,6 +789,9 @@
+ AC_CHECK_MEMBERS([struct statfs.f_namelen],,,[$statxfs_includes])
+ AC_CHECK_MEMBERS([struct statvfs.f_namelen],,,[$statxfs_includes])
+ 
++dnl Do we need trio for snprintf
++NEED_TRIO_CHECK
++
+ #
+ # Large file support
+ #
+--- rdesktop-1.7.0/rdesktop.h~	2011-04-18 13:21:57.000000000 +0200
++++ rdesktop-1.7.0/rdesktop.h	2011-12-17 16:37:42.281600000 +0100
+@@ -212,3 +212,7 @@
+ #ifndef MAKE_PROTO
+ #include "proto.h"
+ #endif
++
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
