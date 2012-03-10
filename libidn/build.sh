@@ -9,7 +9,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.22
+version=1.24
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -50,7 +50,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc README TODO NEWS COPYING COPYING.LIB FAQ THANKS AUTHORS
+    doc README TODO NEWS COPYING* FAQ THANKS AUTHORS
 }
 
 reg pack
