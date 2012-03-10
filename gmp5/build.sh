@@ -9,13 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gmp
-version=5.0.1
-pkgver=2
+version=5.0.4
+pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=gmp-5.0.1-use-ldflags-during-configure.patch
-patch[1]=gmp-5.0.1-use-ldflags-during-configure-cxx.patch
-patch[2]=gmp-5.0.1-limb-type.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -29,10 +27,9 @@ if [ "$_os" = "irix62" ]; then
     export CC=cc
     export CXX=g++
     export CXXFLAGS="-O2 -mabi=$ABI"
-    configure_args="$configure_args --with-readline=no"
 fi
-# Leave out C++ interface until libstdc++ ABI issue is fixed
-irix53 && configure_args="$configure_args --disable-cxx --with-readline=no"
+configure_args="$configure_args --with-readline=no"
+conf_flags=1
 
 reg prep
 prep()
@@ -43,7 +40,7 @@ prep()
 reg build
 build()
 {
-    generic_build	
+    generic_build
 }
 
 reg check
