@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0e
-pkgver=4
+version=1.0.0g
+pkgver=5
 source[0]=http://www.openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-1.0.0a-no-multilib.patch
