@@ -1,0 +1,10 @@
+--- git-1.7.9.3/git-compat-util.h.orig	2012-03-10 22:11:50.503600000 +0100
++++ git-1.7.9.3/git-compat-util.h	2012-03-10 22:12:35.203600000 +0100
+@@ -603,3 +603,7 @@
+ #ifndef SHUT_WR
+ #define SHUT_WR 1
+ #endif
++
++#ifndef INET_ADDRSTRLEN
++#define INET_ADDRSTRLEN 16
++#endif

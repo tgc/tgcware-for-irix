@@ -1,0 +1,12 @@
+--- git-1.7.9.3/git-compat-util.h.trio	2012-03-05 23:42:15.000000000 +0100
++++ git-1.7.9.3/git-compat-util.h	2012-03-10 21:13:59.475208000 +0100
+@@ -593,3 +593,9 @@
+ int remove_or_warn(unsigned int mode, const char *path);
+ 
+ #endif
++
++#ifndef HAVE_SNPRINTF
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++#endif
