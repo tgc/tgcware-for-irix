@@ -6,11 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.22.0
-pkgver=1
+version=7.24.0
+pkgver=2
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=curl-7.24.0-shutrdwr.patch
+patch[1]=curl-7.24.0-testtrace-curlx.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions

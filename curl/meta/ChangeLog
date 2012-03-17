@@ -1,5 +1,11 @@
 CHANGELOG
 ---------
+* Sat Mar 17 2012 Tom G. Christensen <irixpkg@jupiterrise.com> - 7.24.0-2
+- Fix the testsuite build (missing snprintf)
+
+* Sat Mar 10 2012 Tom G. Christensen <irixpkg@jupiterrise.com> - 7.24.0-1
+- Update to 7.24.0
+
 * Sun Sep 18 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 7.22.0-1
 - Update to 7.22.0
 

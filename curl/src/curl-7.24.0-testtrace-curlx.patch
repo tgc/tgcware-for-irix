@@ -1,0 +1,12 @@
+--- curl-7.24.0/tests/libtest/testtrace.c.curlx	2012-01-23 16:31:30.000000000 +0100
++++ curl-7.24.0/tests/libtest/testtrace.c	2012-03-17 10:41:11.269600000 +0100
+@@ -26,6 +26,9 @@
+ #include "testtrace.h"
+ #include "memdebug.h"
+ 
++#define ENABLE_CURLX_PRINTF
++#include "curlx.h"
++
+ struct libtest_trace_cfg libtest_debug_config;
+ 
+ static time_t epoch_offset; /* for test time tracing */
