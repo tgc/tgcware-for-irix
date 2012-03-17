@@ -79,6 +79,8 @@ COMPAT_CFLAGS += -Icompat/fnmatch
 COMPAT_OBJS += compat/fnmatch/fnmatch.o
 FREAD_READS_DIRECTORIES=UnfortunatelyYes
 NO_PREAD=YesPlease
+# We have nl_langinfo but not CODESET
+HAVE_LIBCHARSET_H=Yes
 EOF
     fi
 }
