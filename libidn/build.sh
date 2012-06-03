@@ -1,15 +1,12 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.24
+version=1.25
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -19,7 +16,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-if [ "$_os" = "irix53" ]; then 
+if [ "$_os" = "irix53" ]; then
     NO_RQS="-Wl,-no_rqs"
 fi
 mipspro=1
@@ -32,6 +29,9 @@ reg prep
 prep()
 {
     generic_prep
+    # "Fix" libtool
+    setdir source
+    ${__gsed} -i 's/fast_install=no/fast_install=yes/g' configure
 }
 
 reg build
