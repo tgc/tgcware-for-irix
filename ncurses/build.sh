@@ -1,8 +1,5 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
@@ -10,10 +7,10 @@
 # Check the following 4 variables before running the script
 topdir=ncurses
 version=5.6
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+pkgver=3
+source[0]=ftp://ftp.sunet.se/pub/gnu/ncurses/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=ncurses-5.5-destdir.patch
+#patch[0]=ncurses-5.5-destdir.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -21,7 +18,7 @@ patch[0]=ncurses-5.5-destdir.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-shared --without-debug --with-install-prefix=${stagedir} --with-manpage-symlinks --disable-rpath --enable-symlinks --with-manpage-format=normal --with-manpage-symlinks --enable-symlinks --without-ada --with-libtool'
+configure_args='--prefix=$prefix --with-shared --without-debug --disable-rpath --with-manpage-format=normal --with-manpage-symlinks --enable-symlinks --without-ada --with-libtool'
 
 reg prep
 prep()

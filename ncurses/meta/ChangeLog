@@ -1,4 +1,7 @@
 CHANGELOG
 ---------
+* Sun Jun 03 2012 Tom G. Christensen <irixpkg@jupiterrise.com> - 5.6-3
+- Rebuild for IRIX 5.3
+
 * Thu Aug 11 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 5.6-2
 - Rebuild for libstdc++ ABI change on IRIX 5.3
