@@ -1,15 +1,12 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libtool
-version=2.4
+version=2.4.2
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libtool/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -45,6 +42,9 @@ install()
 {
     generic_install DESTDIR
     doc README NEWS TODO COPYING THANKS AUTHORS TODO
+
+    # DESTDIR installs require fast_install=yes
+    ${__gsed} -i 's/^fast_install=no/fast_install=yes/' ${stagedir}${prefix}/${_bindir}/libtool
 }
 
 reg pack
