@@ -6,8 +6,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.24.0
-pkgver=2
+version=7.26.0
+pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=curl-7.24.0-shutrdwr.patch
@@ -36,6 +36,8 @@ prep()
     ${__gsed} -i '/inet_pton \\/d' configure
     # Disable building/installing examples, they depend on snprintf
     ${__gsed} -i 's/examples//' docs/Makefile.in
+    # "Fix" libtool
+    ${__gsed} -i 's/fast_install=no/fast_install=yes/g' configure
 }
 
 reg build
@@ -55,12 +57,6 @@ install()
 
     # Install libcurl.m4
     ${__install} -D -m 644 docs/libcurl/libcurl.m4 ${stagedir}${prefix}/${_sharedir}/aclocal/libcurl.m4
-
-    # Install curl binary
-    # This is a terrible hack but libtool won't install it because libcurl
-    # was not in it's final destination :(
-    ${__rm} -f ${stagedir}${prefix}/${_bindir}/curl
-    ${__install} -D -m 755 src/.libs/curl ${stagedir}${prefix}/${_bindir}/curl
 }
 
 reg check
