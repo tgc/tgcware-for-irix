@@ -17,8 +17,8 @@ Environment:
 %%ENVIRONMENT%%
 
 Configure:
-make -f Makefile LDFLAGS="-Wl,-rpath,/usr/tgcware/lib"
 make -f Makefile-libbz2_so CC="gcc -Wl,-rpath,/usr/tgcware/lib"
+make -f Makefile LDFLAGS="-Wl,-rpath,/usr/tgcware/lib"
 
 KNOWN DEPENDENCIES
 ------------------
