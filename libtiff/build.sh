@@ -1,19 +1,16 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tiff
-version=3.8.2
+version=3.9.6
 pkgver=1
-source[0]=$topdir-$version.tar.gz
+source[0]=ftp://ftp.remotesensing.org/pub/libtiff/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=tiff-3.7.4-trio.patch
+patch[0]=tiff-3.9.6-trio.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -28,10 +25,9 @@ reg prep
 prep()
 {
     generic_prep
+    # "Fix" libtool
     setdir source
-    aclocal-1.9 -I m4 -I /usr/tgcware/share/aclocal
-    autoheader
-    autoconf
+    ${__gsed} -i 's/fast_install=no/fast_install=yes/g' configure
 }
 
 reg build
