@@ -25,12 +25,7 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-Added a patch from upstream CVS that add additional INET6 guard defines
-around in6_addr usage.
-Here's the upstream description:
-From Markus Schoepflin: don't use "struct in6_addr" if INET6 isn't
-defined, because, in that case, "struct in6_addr" probably isn't
-defined, either.
-
-Check for too-large bit lengths in TLVs.
---
+Because libpcap cannot determine the MTU on IRIX it is unable to scale back
+the default snaplen of 65535 to a size supported by the interface requested.
+To make it work by default I've changed the default snaplen to 1514 which is
+the max allowed on the ec0 device found in Indy & Indigo2.

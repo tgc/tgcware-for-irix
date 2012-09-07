@@ -1,0 +1,10 @@
+--- tcpdump-4.2.1/interface.h.orig	2012-01-02 01:48:18.000000000 +0100
++++ tcpdump-4.2.1/interface.h	2012-09-05 21:42:28.608839000 +0200
+@@ -31,6 +31,7 @@
+ /* snprintf et al */
+ 
+ #include <stdarg.h>
++#include <sys/time.h>
+ 
+ #if HAVE_STDINT_H
+ #include <stdint.h>

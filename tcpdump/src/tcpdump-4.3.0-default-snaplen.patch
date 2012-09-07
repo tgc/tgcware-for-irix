@@ -1,0 +1,34 @@
+--- tcpdump-4.3.0/tcpdump.1.in.snaplen	2012-06-12 18:56:20.000000000 +0200
++++ tcpdump-4.3.0/tcpdump.1.in	2012-09-07 19:09:01.935630000 +0200
+@@ -488,7 +488,7 @@
+ .TP
+ .B \-s
+ Snarf \fIsnaplen\fP bytes of data from each packet rather than the
+-default of 65535 bytes.
++default of 1514 bytes.
+ Packets truncated because of a limited snapshot
+ are indicated in the output with ``[|\fIproto\fP]'', where \fIproto\fP
+ is the name of the protocol level at which the truncation has occurred.
+@@ -500,7 +500,7 @@
+ You should limit \fIsnaplen\fP to the smallest number that will
+ capture the protocol information you're interested in.
+ Setting
+-\fIsnaplen\fP to 0 sets it to the default of 65535,
++\fIsnaplen\fP to 0 sets it to the max of 65535,
+ for backwards compatibility with recent older versions of
+ .IR tcpdump .
+ .TP
+--- tcpdump-4.3.0/netdissect.h.snaplen	2012-04-05 16:12:12.000000000 +0200
++++ tcpdump-4.3.0/netdissect.h	2012-09-07 19:07:32.775630000 +0200
+@@ -197,9 +197,9 @@
+ #define MAXIMUM_SNAPLEN	65535
+ 
+ /*
+- * The default snapshot length is the maximum.
++ * The default snapshot length is 1514.
+  */
+-#define DEFAULT_SNAPLEN	MAXIMUM_SNAPLEN
++#define DEFAULT_SNAPLEN	1514
+ 
+ #define ESRC(ep) ((ep)->ether_shost)
+ #define EDST(ep) ((ep)->ether_dhost)
