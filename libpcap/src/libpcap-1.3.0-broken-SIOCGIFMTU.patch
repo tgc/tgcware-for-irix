@@ -1,0 +1,11 @@
+--- libpcap-1.3.0/pcap-snoop.c.orig	2012-03-29 14:57:32.000000000 +0200
++++ libpcap-1.3.0/pcap-snoop.c	2012-09-05 21:23:14.318839000 +0200
+@@ -311,7 +311,7 @@
+ 		return (PCAP_ERROR_RFMON_NOTSUP);
+ 	}
+ 
+-#ifdef SIOCGIFMTU
++#ifdef xxSIOCGIFMTU
+ 	/*
+ 	 * XXX - IRIX appears to give you an error if you try to set the
+ 	 * capture length to be greater than the MTU, so let's try to get

@@ -14,12 +14,16 @@ $_sharedir
 [mandev]
 subsys=man.dev
 files(-,root,sys)
+$_mandir/?a?1
 $_mandir/?a?3
+$_mandir/?a?4
+$_mandir/?a?5
 
 [devel]
 subsys=sw.dev
 files(-,root,sys)
+$_bindir/pcap-config
 $_includedir
-$_libdir/*.so
 $_libdir/*.a
+$_libdir/*.so
 

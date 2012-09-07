@@ -1,0 +1,33 @@
+--- libpcap-1.3.0/configure.orig	2012-09-07 17:50:46.000000000 +0200
++++ libpcap-1.3.0/configure	2012-09-07 17:51:45.849010000 +0200
+@@ -3482,7 +3482,7 @@
+ 	    aix*)
+ 		    ;;
+ 
+-	    freebsd*|netbsd*|openbsd*|dragonfly*|linux*|osf*)
++	    freebsd*|netbsd*|openbsd*|dragonfly*|linux*|osf*|irix)
+ 	    	    #
+ 		    # Platforms where the linker is the GNU linker
+ 		    # or accepts command-line arguments like
+@@ -3605,6 +3605,13 @@
+ 		    V_SONAME_OPT="-h "
+ 		    V_RPATH_OPT="-R"
+ 		    ;;
++	    irix*)
++		    V_CCOPT="$V_CCOPT -KPIC"
++		    V_SHLIB_CMD="\$(CC)"
++		    V_SHLIB_OPT="-shared"
++		    V_SONAME_OPT="-Wl,-soname,"
++		    V_RPATH_OPT="-Wl,-rpath,"
++		    ;;
+ 	    esac
+     fi
+ 
+@@ -6844,6 +6851,7 @@
+ 	#
+ 	MAN_FILE_FORMATS=4
+ 	MAN_MISC_INFO=5
++	DYEXT="so"
+ 	;;
+ 
+ linux*|freebsd*|netbsd*|openbsd*|dragonfly*|kfreebsd*|gnu*)

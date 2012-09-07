@@ -1,19 +1,17 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpcap
-version=0.9.4
-pkgver=1
-source[0]=$topdir-$version.tar.gz
+version=1.3.0
+pkgver=2
+source[0]=http://www.tcpdump.org/release/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=libpcap-shared.patch
+patch[0]=libpcap-1.3.0-broken-SIOCGIFMTU.patch
+patch[1]=libpcap-1.3.0-irix-shared.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -21,17 +19,14 @@ patch[0]=libpcap-shared.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-major=0
-minor=9
-subminor=4
+export CC=cc
+mipspro=1
+configure_args="$configure_args --disable-ipv6"
 
 reg prep
 prep()
 {
     generic_prep
-    setdir source
-    $GSED -e "/^MAJOR/s|\$(LIBMAJOR)|$major|" -e "/^MINOR/s|\$(LIBMINOR)|$minor|" -e "/^SUBMINOR/s|\$(LIBSUBMINOR)|$subminor|" Makefile.in > Makefile.in.new
-    $MV Makefile.in.new Makefile.in
 }
 
 reg build

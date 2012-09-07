@@ -25,5 +25,12 @@ KNOWN DEPENDENCIES
 
 ERRORS/MISCELLANEOUS
 --------------------
-The libpcap-shared patch was borrowed from Fedora Core 5.
-The only change is the addition of a -set_version argument to the linker.
+On IRIX libpcap tries to get the MTU size via SIOCGIFMTU, unfortunately that
+does not seem to be working on my Indigo2 and Indy machines instead it just
+fails with EINVAL.
+There are two options, either don't try to get the MTU size or assume a
+default. I've gone for the first option and libpcap will not try to
+assume anything about the MTU. This means that libpcap clients need to tell
+libpcap the packet size and make sure it does not exceed the
+actual MTU.
+The current MTU size can be found from netstat -in.
