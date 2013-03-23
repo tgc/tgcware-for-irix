@@ -1,0 +1,17 @@
+On IRIX killpg requires _BSD_SIGNALS or _BSD_COMPAT to be defined.
+Mixing it with the regular SysV signal semantics causes unpredictable
+behaviour.
+kill(0, sig) should do the same thing, killing all processes in the
+same processgroup as the current process.
+
+--- openssh/sshd.c.killpg	2013-03-02 09:24:12.000000000 +0100
++++ openssh/sshd.c	2013-03-02 09:25:30.320000000 +0100
+@@ -365,7 +365,7 @@
+ 	 */
+ 	if (getpgid(0) == getpid()) {
+ 		signal(SIGTERM, SIG_IGN);
+-		killpg(0, SIGTERM);
++		kill(0, SIGTERM);
+ 	}
+ 
+ 	/* Log error and exit. */

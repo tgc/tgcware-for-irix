@@ -6,11 +6,12 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=6.0p1
+version=6.2p1
 pkgver=1
 source[0]=http://ftp.openbsd.dk/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssh-5.9p1-includes.patch
+patch[1]=openssh-6.2p1-no-killpg.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -51,6 +52,7 @@ reg check
 check()
 {
     setdir source
+    export TEST_SSH_TRACE=yes
     ${__make} tests
 }
 
