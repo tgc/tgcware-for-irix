@@ -2,15 +2,15 @@
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
-# 
+#
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0j
-pkgver=8
+version=1.0.0k
+pkgver=9
 source[0]=http://www.openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=openssl-1.0.0a-no-multilib.patch
@@ -23,13 +23,12 @@ ignore_deps="tgc_perl5.sw.base"
 check_ac=0
 __configure="./Configure"
 shared_args="--prefix=$prefix --openssldir=$prefix/ssl zlib shared"
+mipspro=1
 if [ "$_os" == "irix53" ]; then
     configure_args="irix-cc $shared_args"
-    mipspro=1
 fi
 if [ "$_os" == "irix62" ]; then
     configure_args="irix-mips3-cc $shared_args"
-    mipspro=1
 fi
 make_check_target=test
 
