@@ -6,11 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.26.0
+version=7.29.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
-patch[0]=curl-7.24.0-shutrdwr.patch
+patch[0]=curl-7.29.0-shutrdwr.patch
 patch[1]=curl-7.24.0-testtrace-curlx.patch
 
 # Source function library
@@ -57,6 +57,12 @@ install()
 
     # Install libcurl.m4
     ${__install} -D -m 644 docs/libcurl/libcurl.m4 ${stagedir}${prefix}/${_sharedir}/aclocal/libcurl.m4
+
+    # Install curl binary
+    # This is a terrible hack but libtool won't install it because libcurl
+    # was not in its final destination :(
+    ${__rm} -f ${stagedir}${prefix}/${_bindir}/curl
+    ${__install} -D -m 755 src/.libs/curl ${stagedir}${prefix}/${_bindir}/curl
 }
 
 reg check

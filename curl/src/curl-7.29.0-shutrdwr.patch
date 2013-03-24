@@ -1,0 +1,19 @@
+--- curl-7.29.0/tests/server/sws.c.orig	2013-03-23 20:20:33.000000000 +0100
++++ curl-7.29.0/tests/server/sws.c	2013-03-24 15:00:30.540000000 +0100
+@@ -56,6 +56,16 @@
+ /* include memdebug.h last */
+ #include "memdebug.h"
+ 
++#ifndef SHUT_RDWR
++#define SHUT_RDWR 2
++#endif
++#ifndef SHUT_WR
++#define SHUT_WR 1
++#endif
++#ifndef SHUT_RD
++#define SHUT_RD 0
++#endif
++
+ #ifdef USE_WINSOCK
+ #undef  EINTR
+ #define EINTR    4 /* errno.h value */
