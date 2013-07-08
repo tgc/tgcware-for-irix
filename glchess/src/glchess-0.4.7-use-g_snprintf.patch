@@ -1,0 +1,254 @@
+--- glchess-0.4.7/src/texture.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/texture.c	2013-07-08 20:43:47.387200000 +0200
+@@ -21,6 +21,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "texture.h"
+@@ -164,7 +165,7 @@
+       strlen(player->texture_dir) + strlen(player->piece_texture_file) + 1;
+   file_name = realloc(NULL, length * sizeof(char));
+ 
+-  snprintf(file_name, length, "%s%s", player->texture_dir,
++  g_snprintf(file_name, length, "%s%s", player->texture_dir,
+ 	   player->piece_texture_file);
+   player->piece_texture = load_texture(file_name, FALSE);
+ 
+@@ -173,7 +174,7 @@
+       strlen(player->selected_piece_texture_file) + 1;
+   file_name = realloc(file_name, length * sizeof(char));
+ 
+-  snprintf(file_name, length, "%s%s", player->texture_dir,
++  g_snprintf(file_name, length, "%s%s", player->texture_dir,
+ 	   player->selected_piece_texture_file);
+   player->selected_piece_texture = load_texture(file_name, FALSE);
+ 
+@@ -181,7 +182,7 @@
+       strlen(player->texture_dir) + strlen(player->board_texture_file) + 1;
+   file_name = realloc(file_name, length * sizeof(char));
+ 
+-  snprintf(file_name, length, "%s%s", player->texture_dir,
++  g_snprintf(file_name, length, "%s%s", player->texture_dir,
+ 	   player->board_texture_file);
+   player->board_texture = load_texture(file_name, FALSE);
+ 
+@@ -215,7 +216,7 @@
+ 
+   for (i = 0; i < 8; i++)
+   {
+-    snprintf(file_name, length, "%s%c.rgb", game->texture_dir, '1' + i);
++    g_snprintf(file_name, length, "%s%c.rgb", game->texture_dir, '1' + i);
+     game->number_textures[i] = load_texture(file_name, TRUE);
+   }
+   free(file_name);
+@@ -246,7 +247,7 @@
+ 
+   for (i = 'a'; i <= 'h'; i++)
+   {
+-    snprintf(file_name, length, "%s%c.rgb", game->texture_dir, (char) i);
++    g_snprintf(file_name, length, "%s%c.rgb", game->texture_dir, (char) i);
+     game->letter_textures[i - 'a'] = load_texture(file_name, TRUE);
+   }
+   free(file_name);
+--- glchess-0.4.7/src/san.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/san.c	2013-07-08 20:56:20.722914000 +0200
+@@ -25,6 +25,7 @@
+ #include <stdlib.h>
+ #include <ctype.h>
+ #include <string.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "engine.h"
+@@ -112,7 +113,7 @@
+   /* Let's do castling check first */
+   if ((castling = san_check_castling(san_str)) != 0)
+   {
+-    snprintf(move, 5, "e%d%c%d", 8 * (1 - start_color),
++    g_snprintf(move, 5, "e%d%c%d", 8 * (1 - start_color),
+ 	     (castling == 1) ? 'g' : 'c', 8 * (1 - start_color));
+ 
+     return g_strdup(move);
+@@ -205,7 +206,7 @@
+       }
+     }
+ 
+-    snprintf(move, 5, "%c%d%c%d",
++    g_snprintf(move, 5, "%c%d%c%d",
+ 	     start[0] + 'a', start[1] + 1, target[0] + 'a', target[1] + 1);
+ 
+     if (game->cecp.debug)
+@@ -225,7 +226,7 @@
+ 	  if (check_move(game, start, target, start_piece, start_color,
+ 			 target_piece, target_color, 1) != -1)
+ 	  {
+-	    snprintf(move, 5, "%c%d%c%d",
++	    g_snprintf(move, 5, "%c%d%c%d",
+ 		     start[0] + 'a', start[1] + 1,
+ 		     target[0] + 'a', target[1] + 1);
+ 
+--- glchess-0.4.7/src/interface.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/interface.c	2013-07-08 20:55:48.502914000 +0200
+@@ -25,6 +25,7 @@
+ #include <stdlib.h>
+ #include <gtkgl/gtkglarea.h>
+ #include <sys/select.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "interface.h"
+@@ -183,7 +184,7 @@
+     time = game->current_player->time;
+     nhours = (int) (time / 3600.0);
+     nmins = (int) (time / 60.0);
+-    snprintf(time_string, 10, "%02d:%02d:%02d",
++    g_snprintf(time_string, 10, "%02d:%02d:%02d",
+ 	     nhours, nmins, (int) (time - 60.0 * nmins - 3600.0 * nhours));
+     gtk_label_set_text(GTK_LABEL(glcwidget->time_label), time_string);
+ 
+--- glchess-0.4.7/src/splash.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/splash.c	2013-07-08 20:43:47.367200000 +0200
+@@ -23,6 +23,7 @@
+ 
+ #include <stdio.h>
+ #include <gtkgl/gtkglarea.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "splash.h"
+@@ -182,7 +183,7 @@
+   {
+     char fps_string[10];
+ 
+-    snprintf(fps_string, 10, "%d fps", *nframes);
++    g_snprintf(fps_string, 10, "%d fps", *nframes);
+     *nframes = 0;
+     gtk_label_set_text(GTK_LABEL(glcwidget->fps_label), fps_string);
+   }
+--- glchess-0.4.7/src/main.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/main.c	2013-07-08 20:55:57.292914000 +0200
+@@ -22,6 +22,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "main.h"
+@@ -80,7 +81,7 @@
+   char rc_name[50] = "";
+ 
+   /* Load the rc file */
+-  snprintf(rc_name, 50, "%s/.glchessrc", getenv("HOME"));
++  g_snprintf(rc_name, 50, "%s/.glchessrc", getenv("HOME"));
+ 
+   if (open_rc(game, rc_name) == -1)
+     exit(-1);
+--- glchess-0.4.7/src/menu.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/menu.c	2013-07-08 20:47:13.867360000 +0200
+@@ -21,6 +21,7 @@
+ 
+ #include <stdio.h>
+ #include <string.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "menu.h"
+@@ -344,7 +345,7 @@
+   Game *game = glcwidget->game;
+   char fname[50];
+ 
+-  snprintf(fname, 50, "%s/.glchessrc", getenv("HOME"));
++  g_snprintf(fname, 50, "%s/.glchessrc", getenv("HOME"));
+   save_rc(game, fname);
+ }
+ 
+--- glchess-0.4.7/src/prefs.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/prefs.c	2013-07-08 20:56:13.352914000 +0200
+@@ -27,6 +27,7 @@
+ #include <string.h>
+ #include <gtkgl/gtkglarea.h>
+ #include <GL/glu.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "menu.h"
+@@ -120,7 +121,7 @@
+ 				    (fentry->filesel), fname);
+   else
+   {
+-    snprintf(full_fname, 100, "%s%s",
++    g_snprintf(full_fname, 100, "%s%s",
+ 	     fentry->page->player->texture_dir, fname);
+     gtk_file_selection_set_filename(GTK_FILE_SELECTION
+ 				    (fentry->filesel), full_fname);
+--- glchess-0.4.7/src/engine.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/engine.c	2013-07-08 20:55:42.042914000 +0200
+@@ -28,6 +28,7 @@
+ #include <sys/poll.h>
+ #include <sys/types.h>
+ #include <signal.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "san.h"
+@@ -195,11 +196,11 @@
+   if (engine == CRAFTY)
+   {
+     /* Set the search depth */
+-    snprintf(sd, 10, "sd %d", game->cecp.search_depth);
++    g_snprintf(sd, 10, "sd %d", game->cecp.search_depth);
+     write_to_engine(sd, game);
+   } else if (engine == GNUCHESSX)
+   {
+-    snprintf(sd, 10, "%d", game->cecp.search_depth);
++    g_snprintf(sd, 10, "%d", game->cecp.search_depth);
+     write_to_engine("depth", game);
+     write_to_engine(sd, game);
+   }
+@@ -340,12 +341,12 @@
+ 	     __FILE__, __LINE__, promotion);
+       break;
+     }
+-    snprintf(move, 6, "%c%d%c%d%c",
++    g_snprintf(move, 6, "%c%d%c%d%c",
+ 	     'a' + game->selected[0], 1 + game->selected[1],
+ 	     'a' + target[0], 1 + target[1], c);
+   } else
+   {
+-    snprintf(move, 6, "%c%d%c%d",
++    g_snprintf(move, 6, "%c%d%c%d",
+ 	     'a' + game->selected[0], 1 + game->selected[1],
+ 	     'a' + target[0], 1 + target[1]);
+   }
+@@ -515,7 +516,7 @@
+     }
+ 
+     fullpath = malloc(strlen(str) + strlen(bin) + 2);
+-    snprintf(fullpath, strlen(str) + strlen(bin) + 2, "%s/%s", str, bin);
++    g_snprintf(fullpath, strlen(str) + strlen(bin) + 2, "%s/%s", str, bin);
+ 
+     if (fopen(fullpath, "r") != NULL)
+       return fullpath;
+--- glchess-0.4.7/src/dialog.c.snprintf	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/dialog.c	2013-07-08 20:55:34.492914000 +0200
+@@ -22,6 +22,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <glib.h>
+ 
+ #include "global.h"
+ #include "engine.h"
+@@ -350,7 +351,7 @@
+ {
+   char fname[50];
+ 
+-  snprintf(fname, 50, "%s/.glchessrc", getenv("HOME"));
++  g_snprintf(fname, 50, "%s/.glchessrc", getenv("HOME"));
+   save_rc(game, fname);
+ }
+ 

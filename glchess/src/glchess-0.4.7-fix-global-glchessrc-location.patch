@@ -1,0 +1,31 @@
+--- glchess-0.4.7/src/config.c.glchessrc	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/config.c	2013-07-08 21:30:11.436914000 +0200
+@@ -95,11 +95,11 @@
+   rc = fopen(file_name, "r");
+   if (rc == NULL)
+   {
+-    fprintf(stderr, "%s not found trying /etc/glchessrc\n", file_name);
+-    rc = fopen("/etc/glchessrc", "r");
++    fprintf(stderr, "%s not found trying /usr/tgcware/etc/glchessrc\n", file_name);
++    rc = fopen("/usr/tgcware/etc/glchessrc", "r");
+     if (rc == NULL)
+     {
+-      fprintf(stderr, "/etc/glchessrc not found, trying ./glchessrc\n");
++      fprintf(stderr, "/usr/tgcware/etc/glchessrc not found, trying ./glchessrc\n");
+       rc = fopen("./glchessrc", "r");
+     }
+   }
+--- glchess-0.4.7/Makefile.am.glchessrc	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/Makefile.am	2013-07-08 21:30:33.516914000 +0200
+@@ -4,7 +4,8 @@
+ SUBDIRS 		= src man textures
+ 
+ install:
+-	cp glchessrc /etc/
++	mkdir -p $(DESTDIR)$(prefix)/etc
++	cp glchessrc $(DESTDIR)$(prefix)/etc
+ 
+ uninstall:
+-	rm /etc/glchessrc
+\ No newline at end of file
++	rm /etc/glchessrc

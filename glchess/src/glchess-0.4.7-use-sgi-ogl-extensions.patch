@@ -1,0 +1,113 @@
+--- glchess-0.4.7/src/prefs.c.sgigl	2013-07-08 20:56:13.000000000 +0200
++++ glchess-0.4.7/src/prefs.c	2013-07-08 21:00:38.602914000 +0200
+@@ -250,7 +250,7 @@
+     glEnable(GL_TEXTURE_2D);
+     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, white_texture_colour);
+-    glBindTexture(GL_TEXTURE_2D, player->piece_texture);
++    glBindTextureEXT(GL_TEXTURE_2D, player->piece_texture);
+   } else
+   {
+     glDisable(GL_TEXTURE_2D);
+--- glchess-0.4.7/src/splash.c.sgigl	2013-07-08 20:43:47.000000000 +0200
++++ glchess-0.4.7/src/splash.c	2013-07-08 21:00:57.472914000 +0200
+@@ -131,7 +131,7 @@
+   {
+     glEnable(GL_TEXTURE_2D);
+     glMaterialfv(GL_FRONT, GL_DIFFUSE, white_texture_colour);
+-    glBindTexture(GL_TEXTURE_2D, player->piece_texture);
++    glBindTextureEXT(GL_TEXTURE_2D, player->piece_texture);
+   } else
+   {
+     /* FIXME: this _shouldn't be required -- the properties dialog seems
+--- glchess-0.4.7/src/texture.c.sgigl	2013-07-08 20:43:47.000000000 +0200
++++ glchess-0.4.7/src/texture.c	2013-07-08 21:08:39.786190000 +0200
+@@ -96,8 +96,8 @@
+ 
+   /* Generate the texture */
+   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+-  glGenTextures(1, (GLuint *) & texture_name);
+-  glBindTexture(GL_TEXTURE_2D, texture_name);
++  glGenTexturesEXT(1, (GLuint *) & texture_name);
++  glBindTextureEXT(GL_TEXTURE_2D, texture_name);
+ 
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+@@ -192,9 +192,9 @@
+ /* Frees the textures for a player */
+ void free_player_textures(Player * player)
+ {
+-  glDeleteTextures(1, &player->piece_texture);
+-  glDeleteTextures(1, &player->selected_piece_texture);
+-  glDeleteTextures(1, &player->board_texture);
++  glDeleteTexturesEXT(1, &player->piece_texture);
++  glDeleteTexturesEXT(1, &player->selected_piece_texture);
++  glDeleteTexturesEXT(1, &player->board_texture);
+ }
+ 
+ /* Reloads a players textures */
+@@ -225,7 +225,7 @@
+ /* Frees the number textures */
+ void free_number_textures(Game * game)
+ {
+-  glDeleteTextures(8, game->number_textures);
++  glDeleteTexturesEXT(8, game->number_textures);
+ }
+ 
+ /* Reload the numbers */
+@@ -256,7 +256,7 @@
+ /* Frees the letter textures */
+ void free_letter_textures(Game * game)
+ {
+-  glDeleteTextures(8, game->letter_textures);
++  glDeleteTexturesEXT(8, game->letter_textures);
+ }
+ 
+ /* Reload the letters */
+--- glchess-0.4.7/src/draw.c.sgigl	2002-09-09 11:32:43.000000000 +0200
++++ glchess-0.4.7/src/draw.c	2013-07-08 21:00:00.472914000 +0200
+@@ -113,7 +113,7 @@
+ 	else
+ 	  glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+ 
+-	glBindTexture(GL_TEXTURE_2D, player->board_texture);
++	glBindTextureEXT(GL_TEXTURE_2D, player->board_texture);
+       } else
+       {
+ 	if (game->is_light)
+@@ -165,7 +165,7 @@
+   glMaterialfv(GL_FRONT, GL_DIFFUSE, number_colour);
+   for (cols = 0; cols < 8; cols++)
+   {
+-    glBindTexture(GL_TEXTURE_2D, game->number_textures[cols]);
++    glBindTextureEXT(GL_TEXTURE_2D, game->number_textures[cols]);
+ 
+     glBegin(GL_QUADS);
+     glTexCoord2f(0.0f, 0.0f);
+@@ -195,7 +195,7 @@
+   glMaterialfv(GL_FRONT, GL_DIFFUSE, letter_colour);
+   for (rows = 0; rows < 8; rows++)
+   {
+-    glBindTexture(GL_TEXTURE_2D, game->letter_textures[rows]);
++    glBindTextureEXT(GL_TEXTURE_2D, game->letter_textures[rows]);
+ 
+     glBegin(GL_QUADS);
+     glTexCoord2f(0.0f, 0.0f);
+@@ -282,7 +282,7 @@
+ 	  glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+ 	  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+ 		       white_texture_colour);
+-	  glBindTexture(GL_TEXTURE_2D, player->piece_texture);
++	  glBindTextureEXT(GL_TEXTURE_2D, player->piece_texture);
+ 	}
+ 
+ 	glPushMatrix();
+@@ -316,7 +316,7 @@
+     glMaterialfv(GL_FRONT, GL_DIFFUSE, white_texture_colour);
+     glEnable(GL_TEXTURE_2D);
+     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+-    glBindTexture(GL_TEXTURE_2D, player->selected_piece_texture);
++    glBindTextureEXT(GL_TEXTURE_2D, player->selected_piece_texture);
+   } else
+   {
+     glColor4fv(player->selected_colour);

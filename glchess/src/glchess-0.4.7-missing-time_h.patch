@@ -1,0 +1,10 @@
+--- glchess-0.4.7/src/interface.c.time_h	2013-07-08 20:55:48.000000000 +0200
++++ glchess-0.4.7/src/interface.c	2013-07-08 20:57:22.552914000 +0200
+@@ -25,6 +25,7 @@
+ #include <stdlib.h>
+ #include <gtkgl/gtkglarea.h>
+ #include <sys/select.h>
++#include <sys/time.h>
+ #include <glib.h>
+ 
+ #include "global.h"

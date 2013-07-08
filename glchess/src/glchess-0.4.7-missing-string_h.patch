@@ -1,0 +1,10 @@
+--- glchess-0.4.7/src/texture.c.string_h	2013-07-08 21:08:39.000000000 +0200
++++ glchess-0.4.7/src/texture.c	2013-07-08 21:09:56.365783000 +0200
+@@ -21,6 +21,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <glib.h>
+ 
+ #include "global.h"
