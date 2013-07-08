@@ -1,0 +1,21 @@
+[common]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://change/me/please"
+shortdesc="A GL widget for GTK"
+
+[lib]
+subsys=sw.lib
+files(-,root,sys)
+$_docdir
+$_libdir/*.so.*
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_libdir/*.so
+$_libdir/*.a
+$_sharedir/aclocal/gtkgl.m4
+
