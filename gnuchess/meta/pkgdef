@@ -1,0 +1,13 @@
+[common]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="http://www.gnu.org/software/chess/"
+shortdesc="GNU Chess"
+
+[base]
+subsys=sw.base
+files(-,root,sys)
+$_bindir
+$_docdir
+
