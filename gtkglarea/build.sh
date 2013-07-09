@@ -16,7 +16,7 @@ patch[0]=gtkglarea-1.2.3-fix-underquoting.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-CPPFLAGS="-I$prefix/include"
+export CPPFLAGS="-I$prefix/include"
 export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
 
 reg prep
