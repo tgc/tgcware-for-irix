@@ -22,7 +22,7 @@ patch[1]=aspell-0.60.2-includes.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --enable-docdir=$prefix/${_vdocdir}'
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --enable-docdir=$prefix/${_vdocdir})
 
 reg prep
 prep()

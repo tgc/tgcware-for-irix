@@ -18,7 +18,7 @@ source[0]=http://subversion.tigris.org/downloads/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-neon=${prefix} --with-apr=${prefix} --with-apr-util=${prefix} --without-jdk --disable-static"
+configure_args+=(--with-neon=${prefix} --with-apr=${prefix} --with-apr-util=${prefix} --without-jdk --disable-static)
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket_socket=no"
 
 reg prep

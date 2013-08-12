@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.bz2
 # Global settings
 export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
 export CPPFLAGS="-I$prefix/include"
-configure_args="$configure_args --without-python"
+configure_args+=(--without-python)
 
 reg prep
 prep()

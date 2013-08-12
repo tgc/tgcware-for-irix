@@ -21,7 +21,7 @@ patch[2]=libwmf-0.2.8.4-intoverflow.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 [ "$_os" = "irix62" ] && xlib=/usr/lib32 || xlib=/usr/lib
-configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-libxml2 --with-sysfontmap=${prefix}/${_sharedir}/fonts/fontmap --with-gsfontmap=${prefix}/${_sharedir}/ghostscript/8.15/lib/Fontmap --with-gsfontdir=${prefix}/${_sharedir}/fonts/default/ghostscript --x-libraries=$xlib"
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-libxml2 --with-sysfontmap=${prefix}/${_sharedir}/fonts/fontmap --with-gsfontmap=${prefix}/${_sharedir}/ghostscript/8.15/lib/Fontmap --with-gsfontdir=${prefix}/${_sharedir}/fonts/default/ghostscript --x-libraries=$xlib)
 
 META_CLEAN="$META_CLEAN ops"
 

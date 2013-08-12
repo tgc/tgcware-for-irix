@@ -30,7 +30,7 @@ patch[9]=kdelibs-3.5.7-noisinf.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/qt-3.3/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/qt-3.3/lib -Wl,-rpath,/usr/tgcware/qt-3.3/lib" 
-configure_args='--prefix=$prefix --disable-rpath --disable-pie --with-extra-includes=/usr/tgcware/include --with-extra-libs=/usr/tgcware/lib --enable-libsuffix='
+configure_args=(--prefix=$prefix --disable-rpath --disable-pie --with-extra-includes=/usr/tgcware/include --with-extra-libs=/usr/tgcware/lib --enable-libsuffix=)
 ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
 
 autonuke=0

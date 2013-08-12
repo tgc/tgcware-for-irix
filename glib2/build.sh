@@ -20,9 +20,9 @@ export PERL=/usr/tgcware/bin/perl
 export PERL_PATH=/usr/tgcware/bin/perl
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-pcre=system --with-libiconv=gnu"
+configure_args+=(--with-pcre=system --with-libiconv=gnu)
 # Don't build with pth on 5.3
-[ "$_os" = "irix53" ] && configure_args="$configure_args --with-threads=none"
+[ "$_os" = "irix53" ] && configure_args+=(--with-threads=none)
 
 reg prep
 prep()

@@ -21,8 +21,8 @@ patch[0]=doxygen-1.4.5-rpath.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix $prefix --perl /usr/tgcware/bin/perl --docdir ${prefix}${_sharedir}/doc --platform irix-g++ --shared --release"
-[ "$_os" != "irix53" ] && configure_args="$configure_args --dot /usr/tgcware/bin/dot"
+configure_args=(--prefix $prefix --perl /usr/tgcware/bin/perl --docdir ${prefix}${_sharedir}/doc --platform irix-g++ --shared --release)
+[ "$_os" != "irix53" ] && configure_args+=(--dot /usr/tgcware/bin/dot)
 check_ac=0
 shortroot=1
 

@@ -24,12 +24,12 @@ patch[2]=xsnow-1.42-ldpostlib.patch
 __configure="xmkmf"
 check_ac=0
 if [ "$_os" = "irix62" ]; then
-    configure_args="-n32 -mips3 -a"
+    configure_args=(-n32 -mips3 -a)
     mipspro=1
 fi
 if [ "$_os" = "irix53" ]; then
     patch[3]=xsnow-1.42-no_rqs.patch
-    configure_args="-32 -a"
+    configure_args=(-32 -a)
     mipspro=2
 fi
 

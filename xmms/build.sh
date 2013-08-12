@@ -28,7 +28,7 @@ mipspro=1
 if [ "$_os" = "irix62" ]; then
     export CFLAGS="-O3"
 fi
-configure_args="$configure_args --enable-static=no --disable-rpath --disable-oss --with-ogg=/usr/tgcware --with-vorbis=/usr/tgcware --with-esd-prefix=/usr/tgcware"
+configure_args+=(--enable-static=no --disable-rpath --disable-oss --with-ogg=/usr/tgcware --with-vorbis=/usr/tgcware --with-esd-prefix=/usr/tgcware)
 
 reg prep
 prep()

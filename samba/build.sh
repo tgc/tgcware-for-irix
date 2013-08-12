@@ -24,7 +24,7 @@ patch[1]=samba-3.0.28-replace-pread_pwrite.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -rpath /usr/tgcware/lib"
 
-configure_args="--with-manpages-langs=en --with-libsmbclient \
+configure_args=(--with-manpages-langs=en --with-libsmbclient \
 		--prefix=$prefix --mandir=${prefix}/${_mandir} \
 		--with-lockdir=${prefix}/var/locks --with-piddir=${prefix}/var/run \
 		--with-privatedir=${prefix}/${_sysconfdir}/samba \
@@ -32,18 +32,18 @@ configure_args="--with-manpages-langs=en --with-libsmbclient \
 		--with-libdir=${prefix}/${_libdir}/samba \
 		--with-configdir=${prefix}/${_sysconfdir}/samba \
 		--with-swatdir=${prefix}/${_sharedir}/swat \
-		--with-libiconv=/usr/tgcware"
+		--with-libiconv=/usr/tgcware)
 
 if [ "$_os" = "irix53" ]; then
     patch[2]=samba-3.0.28-use-included-fnmatch.patch
     ac_overrides="ac_cv_func__pread=no ac_cv_func_pread=no ac_cv_func__pwrite=no ac_cv_func_pwrite=no samba_stat_hires=no samba_cv_fpie=no"
-    configure_args="$configure_args --with-ldap=no --with-ads=no --with-cups=no"
+    configure_args+=(--with-ldap=no --with-ads=no --with-cups=no)
 fi
 if [ "$_os" = "irix62" ]; then
     patch[2]=samba-3.0.11-ld.patch
     patch[3]=samba-3.0.25a-no-tcp.h.patch
     ac_overrides="samba_stat_hires=no samba_cv_fpie=no"
-    configure_args="$configure_args --with-ldap --with-ads --with-cups"
+    configure_args+=(--with-ldap --with-ads --with-cups)
 fi
 
 topinstalldir=/

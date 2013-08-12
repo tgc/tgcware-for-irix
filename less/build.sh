@@ -26,7 +26,7 @@ if [ "$_os" = "irix53" ]; then
     mipspro=2
     export LDFLAGS="-Wl,-no_rqs"
 fi
-configure_args="$configure_args --with-editor=/bin/vi"
+configure_args+=(--with-editor=/bin/vi)
 
 reg prep
 prep()

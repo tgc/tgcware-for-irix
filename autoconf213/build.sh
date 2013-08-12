@@ -30,7 +30,7 @@ patch[9]=autoconf-2.13-versioning.patch
 # Global settings
 export PERL=/usr/tgcware/bin/perl
 shortroot=1
-configure_args='--prefix=$prefix --program-suffix=-$version'
+configure_args=(--prefix=$prefix --program-suffix=-$version)
 
 reg prep
 prep()

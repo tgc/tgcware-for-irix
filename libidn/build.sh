@@ -23,7 +23,7 @@ mipspro=1
 export CC=cc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static"
+configure_args+=(--disable-static)
 
 reg prep
 prep()

@@ -19,7 +19,7 @@ patch[0]=libgcrypt-1.4.4-trio.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --disable-dev-random --enable-random=egd --with-egd-socket=/var/run/egd-pool"
+configure_args+=(--disable-dev-random --enable-random=egd --with-egd-socket=/var/run/egd-pool)
 ac_overrides="ac_cv_lib_socket_socket=no"
 #[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"

@@ -29,7 +29,7 @@ export CXX=g++
 export LDSHARED="$CC -shared -all"
 unset SGI_ABI
 ac_overrides="ac_cv_lib_socket_socket=no"
-configure_args="$configure_args --enable-shared --disable-ipv6"
+configure_args+=(--enable-shared --disable-ipv6)
 
 reg prep
 prep()

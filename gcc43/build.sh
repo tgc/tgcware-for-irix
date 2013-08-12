@@ -32,7 +32,7 @@ datestamp()
     date +%Y%m%d%H%M
 }
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware"
+configure_args=(--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware)
 
 if [ "$_os" = "irix53" ]; then
     export CONFIG_SHELL=/bin/ksh
@@ -42,19 +42,19 @@ if [ "$_os" = "irix53" ]; then
     withjava=0
     objdir=cccfoo_gtools
     [ $withada -eq 1 ] && export GNAT_ROOT=$HOME/gcc-3.4.0-20040204-mips-sgi-irix5.3 # Location of gnatbind
-    configure_args="$global_config_args --enable-shared=libstdc++ $gnuas $gnuld"
+    configure_args+=(--enable-shared=libstdc++ $gnuas $gnuld)
 fi
 if [ "$_os" = "irix62" ]; then
-    configure_args="$global_config_args --enable-shared --enable-threads=posix95"
+    configure_args+=(--enable-shared --enable-threads=posix95)
     export CONFIG_SHELL=/usr/tgcware/bin/bash
     gas=1
     objdir=all_gas_pthreads
     #[ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.2/bin
-    [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
+    [ $withjava -eq 1 ] && configure_args+=(--with-system-zlib --enable-java-awt=gtk)
 fi
 
 [ $withjava -eq 1 ] && langs="$langs,java"
-configure_args="$configure_args $asld $langs"
+configure_args+=($asld $langs)
 
 
 # Setup tools
@@ -99,7 +99,7 @@ build()
     datestamp
     setdir source
     mkdir -p ../$objdir
-    echo "$__configure $configure_args"
+    echo $__configure "${configure_args[@]}"
     generic_build ../$objdir
     datestamp
 }

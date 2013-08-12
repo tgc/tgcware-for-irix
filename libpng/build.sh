@@ -22,7 +22,7 @@ patch[1]=libpng-1.2.22-trio.patch
 [ "$_os" = "irix53" ] && patch[2]=libpng-1.2.22-norqs.patch
 
 # Global settings
-configure_args="-f scripts/makefile.sgi"
+configure_args=(-f scripts/makefile.sgi)
 __configure="$(basename ${__make})"
 mipspro=1
 # Not using configure

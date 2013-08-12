@@ -19,7 +19,7 @@ patch[0]=zlib-1.2.5-irixcc.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args='--shared --prefix=$prefix' 
+configure_args=(--shared --prefix=$prefix) 
 check_ac=0
 shortroot=1
 mipspro=1

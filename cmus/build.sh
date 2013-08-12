@@ -21,7 +21,7 @@ patch[0]=cmus-2.0.2-irix.patch
 # Global settings
 export CFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --disable-arts"
+configure_args+=(--disable-arts)
 __configure="bash configure"
 check_ac=0
 
@@ -36,7 +36,7 @@ build()
 {
 #    generic_build
     setdir source
-    $__configure $configure_args
+    $__configure "${configure_args[@]}"
     $MAKE_PROG V=2
 }
 

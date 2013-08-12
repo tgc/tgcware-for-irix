@@ -24,7 +24,7 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
 mipspro=1
-configure_args="$configure_args --with-confdir=$prefix/${_sysconfdir} --with-docdir=${prefix}/${_docdir}/${topdir}-${version} --with-cache-dir=$prefix/var/cache/fontconfig"
+configure_args+=(--with-confdir=$prefix/${_sysconfdir} --with-docdir=${prefix}/${_docdir}/${topdir}-${version} --with-cache-dir=$prefix/var/cache/fontconfig)
 
 reg prep
 prep()

@@ -50,11 +50,10 @@ gld=0
 objdir=cccfoa_ntools
 
 # Default configure arguments for all platforms
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --enable-shared"
+configure_args=(--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --enable-shared)
 # Platform specific settings
 if [ "$_os" = "irix53" ]; then
     export CONFIG_SHELL=/bin/ksh
-    platform_configure_args=""
     withada=0
     objdir=cccfo_ntools_ldflags
     gas=0
@@ -78,7 +77,7 @@ if [ "$_os" = "irix62" ]; then
 	export GNAT_ROOT=/usr/tgcware/gcc-3.4.6/bin
     fi
     export CC=$compiler_path/gcc
-    platform_configure_args="--disable-multilib"
+    configure_args+=(--disable-multilib)
 fi
 # End of platform specific settings now setup the final configure_args
 [ $withcc -eq 1 ] && langs="$langs,c++"
@@ -86,8 +85,8 @@ fi
 [ $withobjc -eq 1 ] && langs="$langs,objc"
 [ $withada -eq 1 ] && langs="$langs,ada"
 [ $withjava -eq 1 ] && langs="$langs,java"
-[ $gas -eq 1 ] && global_config_args="$global_config_args $gnuas"
-[ $gld -eq 1 ] && global_config_args="$global_config_args $gnuld"
+[ $gas -eq 1 ] && configure_args+=($gnuas)
+[ $gld -eq 1 ] && configure_args+=($gnuld)
 
 # For GNU tools we need a few extras
 #if [ $gld -eq 1 -o $gas -eq 1 ]; then
@@ -100,7 +99,7 @@ fi
 #fi
 
 # Finally
-configure_args="$global_config_args $langs $platform_configure_args"
+configure_args+=($langs)
 
 # Make sure our desired host compiler is first in the path
 # This mostly matters for the Ada builds where using gnatbind
@@ -125,9 +124,9 @@ build()
 {
     setdir source
     ${__mkdir} -p ../$objdir
-    echo "$__configure $configure_args"
+    echo $__configure "${configure_args[@]}"
     setdir $srcdir/$objdir
-    ${__configure} $configure_args
+    ${__configure} "${configure_args[@]}"
     if [ "$_os" = "irix53" ]; then
 	# Hack it up to add no_rqs and proper rpath.
 	${__sed} -i "/^archive_cmds=/ s;so_locations;so_locations $MY_LDFLAGS;" mips-sgi-${os}/libobjc/libtool

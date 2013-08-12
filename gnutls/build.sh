@@ -18,7 +18,7 @@ source[0]=ftp://ftp.gnutls.org/pub/gnutls/$topdir-$version.tar.bz2
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --disable-ld-version-script --disable-openssl-compatibility --disable-guile"
+configure_args+=(--disable-static --disable-ld-version-script --disable-openssl-compatibility --disable-guile)
 ac_overrides="ac_cv_func_inet_ntop=no ac_cv_func_inet_pton=no"
 
 irix53 && patch[0]=gnutls-2.8.3-missing-siginterrupt.patch

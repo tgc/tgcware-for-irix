@@ -31,7 +31,7 @@ if [ "$_os" = "irix53" ]; then
     mipspro=2
 fi
 __configure="make"
-configure_args="CC=$CC CFLAGS=\\\"$cflags_os\\\" DEFS=\\\"-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\"\\\""
+configure_args=(CC=$CC CFLAGS="$cflags_os" DEFS="-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\"")
 
 reg prep
 prep()
@@ -44,7 +44,7 @@ build()
 {
     #generic_build
     setdir source
-    $MAKE_PROG CC=$CC CFLAGS="$cflags_os" DEFS="-DRANDSAVENAME=\\\"${prefix}/${_sysconfdir}/prngd/prngd-seed\\\" -DCONFIGFILE=\\\"${prefix}/${_sysconfdir}/prngd/prngd.conf\\\""
+    $MAKE_PROG "${configure_args[@]}"
 }
 
 reg install

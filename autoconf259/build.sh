@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.bz2
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --program-suffix=-$version"
+configure_args+=(--program-suffix=-$version)
 
 reg prep
 prep()

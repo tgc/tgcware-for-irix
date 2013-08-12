@@ -27,7 +27,7 @@ patch[5]=x11vnc-0.9.3-usleep.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 ac_overrides="ac_cv_lib_socket_socket=no"
-configure_args="$configure_args --without-xkeyboard --x-libraries= --without-xfixes --without-xrandr --without-pthread"
+configure_args+=(--without-xkeyboard --x-libraries= --without-xfixes --without-xrandr --without-pthread)
 
 reg prep
 prep()

@@ -21,7 +21,7 @@ patch[0]=xpdf-3.01-includes.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/freetype2"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-freetype2-library=/usr/tgcware/lib --with-freetype2-includes=/usr/tgcware/include"
+configure_args=(--prefix=$prefix --with-freetype2-library=/usr/tgcware/lib --with-freetype2-includes=/usr/tgcware/include)
 
 reg prep
 prep()

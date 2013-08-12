@@ -22,7 +22,7 @@ patch[1]=speex-1.0.5-underquoted.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --with-ogg-dir=$prefix'
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --with-ogg-dir=$prefix)
 
 reg prep
 prep()

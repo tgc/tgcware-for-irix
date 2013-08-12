@@ -19,7 +19,7 @@ patch[0]=findutils-4.2.33-assert.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware"
+configure_args+=(--disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware)
 if [ "$_os" = "irix62" ]; then
     export CC=cc
     mipspro=1

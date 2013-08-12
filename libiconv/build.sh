@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.gz
 
 # Global settings
 export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
-configure_args='--prefix=$prefix --mandir=$prefix/${_mandir} --enable-extra-encodings'
+configure_args=(--prefix=$prefix --mandir=$prefix/${_mandir} --enable-extra-encodings)
 
 reg prep
 prep()

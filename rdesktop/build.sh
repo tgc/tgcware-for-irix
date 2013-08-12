@@ -23,7 +23,7 @@ patch[0]=rdesktop-1.7.0-trio.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-openssl=$prefix --with-egd-socket=/var/run/egd-pool --with-sound=libao --with-libiconv-prefix=$prefix"
+configure_args=(--prefix=$prefix --with-openssl=$prefix --with-egd-socket=/var/run/egd-pool --with-sound=libao --with-libiconv-prefix=$prefix)
 
 reg prep
 prep()

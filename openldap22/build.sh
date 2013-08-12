@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tgz
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --disable-slapd --disable-slurpd'
+configure_args=(--prefix=$prefix --disable-slapd --disable-slurpd)
 
 reg prep
 prep()

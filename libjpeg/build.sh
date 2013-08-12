@@ -25,7 +25,7 @@ check_ac=0
 shortroot=1
 mipspro=1
 topsrcdir=jpeg-$version
-configure_args='--prefix=$prefix --disable-static --enable-shared'
+configure_args=(--prefix=$prefix --disable-static --enable-shared)
 export INSTALL="/usr/tgcware/bin/install -c -D"
 export CC=cc
 if [ "$_os" = "irix53" ]; then

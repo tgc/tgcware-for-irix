@@ -43,29 +43,29 @@ datestamp()
     date +%Y%m%d%H%M
 }
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware --with-mpc=/usr/tgcware --with-libelf=/usr/tgcware --enable-obsolete --enable-shared"
+configure_args=(--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware --with-mpc=/usr/tgcware --with-libelf=/usr/tgcware --enable-obsolete --enable-shared)
 
 if [ "$_os" = "irix53" ]; then
     export CC="/usr/tgcware/gcc-3.4.6/bin/gcc"
     withjava=0
     objdir=all
-    configure_args="$global_config_args --enable-libstdcxx-pch=no"
+    configure_args+=(--enable-libstdcxx-pch=no)
 fi
 if [ "$_os" = "irix62" ]; then
-    configure_args="$global_config_args --enable-threads=posix95"
+    configure_args+=(--enable-threads=posix95)
 #    objdir=crpath_pthreads
 #    make_build_target=""
-#    configure_args="$configure_args --disable-bootstrap"
+#    configure_args+=(--disable-bootstrap)
 #    langs="--enable-languages=c"
     objdir=all_pthreads
-    [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
+    [ $withjava -eq 1 ] && configure_args+=(--with-system-zlib --enable-java-awt=gtk)
 fi
 
 [ $withjava -eq 1 ] && langs="$langs,java"
-configure_args="$configure_args $asld $langs"
+configure_args+=($asld $langs)
 
 # Bugs go here
-configure_args="$configure_args --with-bugurl=http://jupiterrise.com/tgcware"
+configure_args+=(--with-bugurl=http://jupiterrise.com/tgcware)
 
 # Override broken test
 ac_overrides="gcc_cv_as_gnu_unique_object=no"
@@ -98,7 +98,7 @@ build()
     datestamp
     setdir source
     mkdir -p ../$objdir
-    echo "$__configure $configure_args"
+    echo $__configure "${configure_args[@]}"
     generic_build ../$objdir
     #setdir ../$objdir
     #${__make}

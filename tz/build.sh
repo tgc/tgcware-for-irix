@@ -26,7 +26,7 @@ export CC="gcc"
 # hackish for the sake of relnotes mostly
 __configure="${__make}"
 # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
-configure_args="CC=$CC TOPDIR=$prefix TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only"
+configure_args=(CC=$CC TOPDIR=$prefix TZDIR=/usr/lib/locale/TZ ETCDIR=$prefix/$_bindir REDO=right_only)
 check_ac=0
 
 reg prep
@@ -55,7 +55,7 @@ install()
 {	
     clean stage
     setdir source
-    ${__make} $configure_args DESTDIR=$stagedir install
+    ${__make} "${configure_args[@]}" DESTDIR=$stagedir install
     doc Theory README
     custom_install=1
     generic_install

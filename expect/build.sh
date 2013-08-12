@@ -31,7 +31,7 @@ fi
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 
-configure_args="--prefix=$prefix --with-tcl=${prefix}/${_libdir} --with-tclinclude=${prefix}/${_includedir}/tcl-private --with-tkinclude=${prefix}/${_includedir}/tk-private --with-tk=${prefix}/${_libdir} --enable-shared $with_gcc"
+configure_args=(--prefix=$prefix --with-tcl=${prefix}/${_libdir} --with-tclinclude=${prefix}/${_includedir}/tcl-private --with-tkinclude=${prefix}/${_includedir}/tk-private --with-tk=${prefix}/${_libdir} --enable-shared $with_gcc)
 
 shortroot=1
 topsrcdir=$topdir-${version%.*}

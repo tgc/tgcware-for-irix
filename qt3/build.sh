@@ -28,7 +28,7 @@ prefix=$prefix/$qt
 final_qtdir=$prefix
 #plugins_style="-qt-style-cde -qt-style-motifplus -qt-style-platinum -qt-style-sgi -qt-style-windows -qt-style-compact -qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng"
 #plugins_style="-qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng"
-configure_args='\
+configure_args=(\
     -platform irix-g++ \
     -prefix $final_qtdir \
     -release \ 
@@ -49,7 +49,7 @@ configure_args='\
     -L/usr/tgcware/lib \
     -R/usr/tgcware/lib \
     -L$final_qtdir/${_libdir} \
-    -R$final_qtdir/${_libdir}'
+    -R$final_qtdir/${_libdir})
 
 reg prep
 prep()
@@ -77,8 +77,8 @@ build()
     export QTDEST=$final_qtdir
     
     # Argh! It asks a question before running configure :(
-    echo $(_upls $configure_args)
-    echo yes | ./configure -v $(_upls $configure_args)
+    echo "${configure_args[@]}"
+    echo yes | ./configure -v "${configure_args[@]}"
     # Remove troublesome and uneeded -rpath from Makefiles before building
     $GSED -i '/^LFLAGS/s;\(.*mt.so.3\).*;\1;' src/Makefile
     cd tools

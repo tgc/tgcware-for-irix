@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --disable-rpath"
+configure_args=(--prefix=$prefix --disable-rpath)
 
 reg prep
 prep()

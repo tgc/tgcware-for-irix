@@ -24,7 +24,7 @@ patch[3]=flac-1.2.1-libtool-xmms-plugin.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-rpath --enable-static=no'
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-rpath --enable-static=no)
 subsysconf=$metadir/subsys.conf
 
 reg prep

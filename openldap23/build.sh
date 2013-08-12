@@ -24,9 +24,9 @@ patch[0]=openldap-2.3.21-find-needs-print.patch
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-slapd --disable-slurpd"
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --disable-slapd --disable-slurpd)
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_func_inet_ntop=no"
-[ "$_os" = "irix53" ] && configure_args="$configure_args --with-threads=no"
+[ "$_os" = "irix53" ] && configure_args+=(--with-threads=no)
 
 reg prep
 prep()

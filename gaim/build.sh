@@ -27,7 +27,7 @@ patch[6]=gaim-2.0.0-missing-X11.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-gnutls=yes --enable-nss=no --disable-gevolution"
+configure_args+=(--enable-gnutls=yes --enable-nss=no --disable-gevolution)
 ac_overrides="ac_cv_func_inet_ntop=no"
 
 reg prep

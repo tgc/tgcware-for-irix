@@ -28,7 +28,7 @@ if [ "$_os" = "irix62" ]; then
     export CXX=g++
     export CXXFLAGS="-O2 -mabi=$ABI"
 fi
-configure_args="$configure_args --with-readline=no"
+configure_args+=(--with-readline=no)
 conf_flags=1
 
 reg prep

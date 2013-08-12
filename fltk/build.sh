@@ -21,7 +21,7 @@ patch[0]=fltk-1.1.6-fontconfig.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-shared --enable-thread --enable-xft'
+configure_args=(--prefix=$prefix --enable-shared --enable-thread --enable-xft)
 
 reg prep
 prep()

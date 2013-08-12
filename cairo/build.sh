@@ -18,7 +18,7 @@ patch[0]=cairo-1.8.4-trio.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-xlib-xrender=no --disable-static"
+configure_args+=(--enable-xlib-xrender=no --disable-static)
 
 reg prep
 prep()

@@ -24,7 +24,7 @@ patch[3]=libao-0.8.6-trio-include.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --disable-esd --disable-polyp'
+configure_args=(--prefix=$prefix --disable-esd --disable-polyp)
 
 reg prep
 prep()

@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.bz2
 flavour=httpd22
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix/$flavour --with-apr=${prefix}/bin/apr-1-config --with-apr-util=${prefix}/bin/apu-1-config --with-pcre --with-z=${prefix} --with-mpm=prefork --enable-modules=all --enable-mods-shared=all --enable-suexec --with-suexec --with-suexec-uidmin=500 --with-suexec-gidmin=20 --enable-ssl --with-ssl --enable-proxy --enable-cache --enable-mem-cache --enable-file-cache --enable-disk-cache --enable-ldap --enable-authnz-ldap --enable-cgid --enable-authn-anon --enable-authn-alias"
+configure_args=(--prefix=$prefix/$flavour --with-apr=${prefix}/bin/apr-1-config --with-apr-util=${prefix}/bin/apu-1-config --with-pcre --with-z=${prefix} --with-mpm=prefork --enable-modules=all --enable-mods-shared=all --enable-suexec --with-suexec --with-suexec-uidmin=500 --with-suexec-gidmin=20 --enable-ssl --with-ssl --enable-proxy --enable-cache --enable-mem-cache --enable-file-cache --enable-disk-cache --enable-ldap --enable-authnz-ldap --enable-cgid --enable-authn-anon --enable-authn-alias)
 
 reg prep
 prep()

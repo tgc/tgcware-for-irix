@@ -27,7 +27,7 @@ patch[5]=glib-1.2.10-am16.patch
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-static=no"
+configure_args+=(--enable-static=no)
 if [ "$_os" = "irix62" ]; then
     export CC=cc
     mipspro=1

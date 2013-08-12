@@ -19,7 +19,7 @@ patch[0]=tiff-3.9.6-trio.patch
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 [ "$_os" = "irix62" ] && xlib=/usr/lib32 || xlib=/usr/lib
-configure_args='--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx --x-libraries=$xlib'
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --with-zlib-include-dir=/usr/tgcware/include --with-zlib-lib-dir=/usr/tgcware/lib --with-jpeg-include-dir=/usr/tgcware/include --with-jpeg-lib-dir=/usr/tgcware/lib --disable-cxx --x-libraries=$xlib)
 
 reg prep
 prep()

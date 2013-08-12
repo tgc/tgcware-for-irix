@@ -24,7 +24,7 @@ patch[3]=sylpheed-claws-2.2.0-setenv.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-gnomeprint --enable-ldap"
+configure_args+=(--disable-gnomeprint --enable-ldap)
 ac_overrides="ac_cv_lib_socket_bind=no"
 
 reg prep

@@ -21,7 +21,7 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
 mipspro=1
-configure_args="$configure_args --disable-static --enable-shared"
+configure_args+=(--disable-static --enable-shared)
 
 reg prep
 prep()

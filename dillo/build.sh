@@ -21,8 +21,8 @@ patch[0]=dillo-0.8.6-linkorder.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-dlgui"
-[ "$_os" = "irix53" ] && configure_args="$configure_args --disable-threaded-dns"
+configure_args+=(--disable-dlgui)
+[ "$_os" = "irix53" ] && configure_args+=(--disable-threaded-dns)
 
 reg prep
 prep()

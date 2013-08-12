@@ -21,7 +21,7 @@ patch[0]=mc-4.6.1-snprintf.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-screen=ncurses --disable-rpath"
+configure_args+=(--with-screen=ncurses --disable-rpath)
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_sun_getmntent=no ac_cv_lib_gen_getmntent=no ac_cv_lib_socket_socket=no"
 
 reg prep

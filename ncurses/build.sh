@@ -18,7 +18,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/ncurses/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-shared --without-debug --disable-rpath --with-manpage-format=normal --with-manpage-symlinks --enable-symlinks --without-ada --with-libtool'
+configure_args=(--prefix=$prefix --with-shared --without-debug --disable-rpath --with-manpage-format=normal --with-manpage-symlinks --enable-symlinks --without-ada --with-libtool)
 
 reg prep
 prep()

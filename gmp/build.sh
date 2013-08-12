@@ -21,7 +21,7 @@ patch[0]=gmp-4.2.4-use-ldflags-during-configure.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-cxx --with-readline=no"
+configure_args=(--prefix=$prefix --enable-cxx --with-readline=no)
 if [ "$_os" = "irix62" ]; then
     mipspro=1
     export ABI=n32

@@ -23,7 +23,7 @@ patch[3]=automake-1.5-subdirs-89619.patch
 
 # Global settings
 export PERL=/usr/tgcware/bin/perl
-configure_args="--prefix=$prefix --program-suffix=-$version"
+configure_args=(--prefix=$prefix --program-suffix=-$version)
 
 reg prep
 prep()

@@ -27,7 +27,7 @@ patch[6]=arts-1.5.0-assert.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/qt-3.3/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/qt-3.3/lib -Wl,-rpath,/usr/tgcware/qt-3.3/lib"
-configure_args='--prefix=$prefix --enable-libsuffix= --disable-rpath --disable-pie --with-extra-includes=/usr/tgcware/include --with-extra-libs=/usr/tgcware/lib'
+configure_args=(--prefix=$prefix --enable-libsuffix= --disable-rpath --disable-pie --with-extra-includes=/usr/tgcware/include --with-extra-libs=/usr/tgcware/lib)
 
 autonuke=0
 

@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --mandir=${prefix}/${_mandir} --disable-static --enable-shared"
+configure_args+=(--mandir=${prefix}/${_mandir} --disable-static --enable-shared)
 ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
 
 reg prep

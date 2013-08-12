@@ -21,7 +21,7 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=cc
 mipspro=1
-configure_args="$configure_args --disable-ipv6"
+configure_args+=(--disable-ipv6)
 
 reg prep
 prep()

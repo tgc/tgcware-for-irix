@@ -19,7 +19,7 @@ patch[1]=tcpdump-4.3.0-default-snaplen.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-ipv6"
+configure_args+=(--disable-ipv6)
 
 reg prep
 prep()

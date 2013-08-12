@@ -19,7 +19,7 @@ patch[1]=mpfr-2.4.2-patch01.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-gmp=$prefix --enable-shared"
+configure_args+=(--with-gmp=$prefix --enable-shared)
 export CC=gcc
 
 reg prep

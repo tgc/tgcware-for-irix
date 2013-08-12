@@ -277,7 +277,7 @@ export CC=cc
 export CPPFLAGS="-I/usr/tgcware/include"
 # What gui should we build?
 gui=motif
-configure_args='--prefix=$prefix --mandir=$prefix/man --enable-gui=$gui --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<irixpkg@jupiterrise.com>" --disable-netbeans'
+configure_args=(--prefix=$prefix --mandir=$prefix/man --enable-gui=$gui --with-features=huge --enable-multibyte --disable-perlinterp --disable-pythoninterp --disable-tclinterp --with-compiledby="<irixpkg@jupiterrise.com>" --disable-netbeans)
 configlog=src/auto/config.log
 
 if [ "$_os" = "irix53" ]; then

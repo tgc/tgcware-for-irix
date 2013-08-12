@@ -19,7 +19,7 @@ maketest=1
 perlpkgname="$(echo $pkgdir|sed -e 's/-/_/g')"
 distfile='$pkgdir-$version-$pkgver.tgc-$os-$cpu-$pkgdirdesig.tardist'
 __configure="perl"
-configure_args="Makefile.PL"
+configure_args=(Makefile.PL)
 
 reg prep
 prep()

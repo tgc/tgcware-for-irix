@@ -18,7 +18,7 @@ patch[0]=mpfr-3.1.0p7.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-gmp=$prefix --enable-shared"
+configure_args+=(--with-gmp=$prefix --enable-shared)
 CC=gcc
 if irix62; then
   mipspro=1

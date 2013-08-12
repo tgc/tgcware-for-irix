@@ -22,7 +22,7 @@ source[0]=$topdir-$version.tar.gz
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --disable-debugging --enable-fpm=mips'
+configure_args=(--prefix=$prefix --disable-debugging --enable-fpm=mips)
 
 reg prep
 prep()

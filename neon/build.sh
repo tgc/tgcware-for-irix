@@ -18,7 +18,7 @@ source[0]=http://webdav.org/neon/$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-ssl=gnutls --with-egd=/var/run/egd-pool --disable-static --enable-shared --enable-ld-version-script=no"
+configure_args+=(--with-ssl=gnutls --with-egd=/var/run/egd-pool --disable-static --enable-shared --enable-ld-version-script=no)
 
 reg prep
 prep()

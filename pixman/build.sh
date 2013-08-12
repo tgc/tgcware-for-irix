@@ -18,7 +18,7 @@ patch[0]=pixman-0.16.2-sgi.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --disable-gtk"
+configure_args+=(--disable-static --disable-gtk)
 
 reg prep
 prep()

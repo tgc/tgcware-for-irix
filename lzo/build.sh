@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-shared"
+configure_args+=(--enable-shared)
 [ "$_os" = "irix62" ] && export CC=cc && mipspro=1
 
 reg prep

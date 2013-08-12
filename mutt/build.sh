@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-imap --enable-pop --with-ssl --with-curses=/usr/tgcware"
+configure_args+=(--enable-imap --enable-pop --with-ssl --with-curses=/usr/tgcware)
 
 reg prep
 prep()

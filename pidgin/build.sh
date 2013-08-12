@@ -29,7 +29,7 @@ patch[8]=pidgin-2.0.0-finch-configh.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-gnutls=yes --enable-nss=no --disable-gevolution"
+configure_args+=(--enable-gnutls=yes --enable-nss=no --disable-gevolution)
 ac_overrides="ac_cv_func_inet_ntop=no"
 
 reg prep

@@ -19,7 +19,7 @@ source[0]=ftp://ftp.sunet.se/pub/gnu/binutils/$topdir-$version.tar.bz2
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CONFIG_SHELL=/bin/ksh
-configure_args="$configure_args --disable-nls --disable-werror"
+configure_args+=(--disable-nls --disable-werror)
 
 irix53 && PATH=/usr/tgcware/gcc45/bin:$PATH
 

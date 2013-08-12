@@ -18,7 +18,7 @@ source[0]=http://www.sqlite.org/${topdir}-${version}.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/readline"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --enable-threadsafe=no --disable-tcl"
+configure_args+=(--disable-static --enable-threadsafe=no --disable-tcl)
 
 reg prep
 prep()

@@ -24,7 +24,7 @@ patch[3]=perl-5.8.7-dbm.patch
 # Global settings
 check_ac=0
 __configure="sh Configure"
-configure_args="-Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'"
+configure_args=(-Dcc=gcc -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by="Tom G. Christensen" -Dcf_email=irixpkg@jupiterrise.com -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager=/usr/bin/more -Dlocincpth=/usr/tgcware/include -Dloclibpth=/usr/tgcware/lib -des -Dinc_version_list="5.8.7 5.8.8")
 [ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 
 reg prep
@@ -37,7 +37,7 @@ reg build
 build()
 {
     setdir source
-    $__configure -Dcc='gcc' -Darchname=${cpu}-irix -Dprefix=$prefix -Dmyhostname=localhost -Dcf_by='Tom G. Christensen' -Dcf_email='irixpkg@jupiterrise.com' -Dperladmin=root@localhost -Dinstallprefix=${stagedir}${prefix} -Dman3ext=3pm -Uinstallusrbinperl -Dpager='/usr/bin/more' -Dlocincpth='/usr/tgcware/include' -Dloclibpth='/usr/tgcware/lib' -des -Dinc_version_list='5.8.7 5.8.8'
+    $__configure "${configure_args[@]}"
     ${__make} LDDLFLAGS="-shared -L/usr/tgcware/lib -rpath /usr/tgcware/lib" CLDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 }
 

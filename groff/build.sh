@@ -26,7 +26,7 @@ patch[3]=groff-1.19.2-path.patch
 shortroot=1
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --with-x=no"
+configure_args+=(--with-x=no)
 # Glem alt om mipspro, det bygger fint men programmerne virker ikke
 #export CC=gcc
 #export CXX=g++

@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 export PERL=/usr/tgcware/bin/perl
-configure_args='--prefix=$prefix --program-suffix=-1.9'
+configure_args=(--prefix=$prefix --program-suffix=-1.9)
 
 reg prep
 prep()

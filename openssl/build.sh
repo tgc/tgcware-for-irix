@@ -22,13 +22,13 @@ source[0]=$topdir-$version.tar.gz
 ignore_deps="tgc_perl5.sw.base"
 check_ac=0
 __configure="./Configure"
-shared_args="--prefix=$prefix --openssldir=$prefix/ssl zlib shared"
+configure_args=(--prefix=$prefix --openssldir=$prefix/ssl zlib shared)
 if [ "$_os" == "irix53" ]; then
-    configure_args="irix-cc $shared_args"
+    configure_args+=(irix-cc)
     mipspro=2
 fi
 if [ "$_os" == "irix62" ]; then
-    configure_args="irix-mips3-cc $shared_args"
+    configure_args+=(irix-mips3-cc)
     mipspro=1
 fi
 
@@ -42,7 +42,7 @@ reg build
 build()
 {
     setdir source
-    $__configure $configure_args
+    $__configure "${configure_args[@]}"
     ${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/tgcware/include;' Makefile
     if [ "$_os" == "irix53" ]; then
 	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile

@@ -31,7 +31,7 @@ patch[10]=kdebase-3.5.7-nochown.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/qt-3.3/include" 
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/qt-3.3/lib -Wl,-rpath,/usr/tgcware/qt-3.3/lib"
-configure_args='--prefix=$prefix --disable-rpath --disable-pie --with-java=/usr/java --with-extra-includes=/usr/tgcware/include:/usr/java/include/irix --with-extra-libs=/usr/tgcware/lib --enable-libsuffix= --with-samba'
+configure_args=(--prefix=$prefix --disable-rpath --disable-pie --with-java=/usr/java --with-extra-includes=/usr/tgcware/include:/usr/java/include/irix --with-extra-libs=/usr/tgcware/lib --enable-libsuffix= --with-samba)
 
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_gen_getspent=no"
 autonuke=0

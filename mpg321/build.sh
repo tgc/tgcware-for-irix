@@ -22,7 +22,7 @@ patch[1]=mpg321-0.2.10-mapfailed.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-mpg123-symlink=no --with-default-audio=irix"
+configure_args+=(--enable-mpg123-symlink=no --with-default-audio=irix)
 
 reg prep
 prep()

@@ -33,7 +33,7 @@ gas=0
 gld=0
 
 
-global_config_args="--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware"
+configure_args=(--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware)
 
 if [ "$_os" = "irix53" ]; then
     export CONFIG_SHELL=/bin/ksh
@@ -46,20 +46,20 @@ if [ "$_os" = "irix53" ]; then
     withjava=0
     objdir=cccfoo_gtools
     [ $withada -eq 1 ] && export GNAT_ROOT=$HOME/gcc-3.4.0-20040204-mips-sgi-irix5.3 # Location of gnatbind
-    configure_args="$global_config_args --enable-shared=libstdc++"
+    configure_args+=(--enable-shared=libstdc++)
 fi
 if [ "$_os" = "irix62" ]; then
-    #configure_args="$global_config_args --disable-multilib $gnuas --enable-shared=libstdc++"
+    #configure_args+=(--disable-multilib $gnuas --enable-shared=libstdc++)
     #export CC='/usr/people/tgc/bin/cc -n32 -mips3'
-    #configure_args="$global_config_args --disable-shared"
-    configure_args="$global_config_args --enable-shared=libstdc++"
+    #configure_args+=(--disable-shared)
+    configure_args+=(--enable-shared=libstdc++)
     compiler_path=/usr/tgcware/gcc-3.4.6/bin
     export CC=$compiler_path/gcc
     withada=1
     gas=1
     objdir=cccfooa_gas_sh
     [ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-3.4.6/bin
-    [ $withjava -eq 1 ] && configure_args="$configure_args --with-system-zlib --enable-java-awt=gtk"
+    [ $withjava -eq 1 ] && configure_args+=(--with-system-zlib --enable-java-awt=gtk)
 fi
 
 if [ $gas -eq 1 -o $gld -eq 1 ]; then
@@ -75,11 +75,11 @@ if [ $gas -eq 1 -o $gld -eq 1 ]; then
 fi
 [ $withada -eq 1 ] && langs="$langs,ada"
 [ $withjava -eq 1 ] && langs="$langs,java"
-[ $gas -eq 1 ] && configure_args="$configure_args $gnuas"
-[ $gld -eq 1 ] && configure_args="$configure_args $gnuld"
+[ $gas -eq 1 ] && configure_args+=($gnuas)
+[ $gld -eq 1 ] && configure_args+=($gnuld)
 # Workaround http://gcc.gnu.org/bugzilla/show_bug.cgi?id=24345
 [ $gld -eq 0 ] && ac_overrides="gcc_cv_as_comdat_group=no gcc_cv_as_comdat_group_percent=no"
-configure_args="$configure_args $langs"
+configure_args+=($langs)
 
 # Define abbreviated version number
 abbrev_ver=$(echo $version|$SED -e 's/\.//g')

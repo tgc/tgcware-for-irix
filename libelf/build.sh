@@ -16,7 +16,7 @@ source[0]=http://www.mr511.de/software/$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --disable-nls --enable-compat=no"
+configure_args+=(--disable-nls --enable-compat=no)
 ac_overrides="ac_cv_header_elf_h=no ac_cv_header_sys_elf_h=no"
 
 reg prep

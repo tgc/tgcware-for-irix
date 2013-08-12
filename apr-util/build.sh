@@ -19,7 +19,7 @@ patch[0]=apr-util-1.3.7-no-nested-mutexes.patch
 apuver=1
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --with-apr=${prefix} --includedir=${prefix}/${_includedir}/apr-${apuver} --with-expat=${prefix} --with-berkeley-db=${prefix} --with-iconv=${prefix} --with-ldap --with-ldap-include=${prefix}/${_includedir} --with-ldap-lib=${prefix}/${_libdir}"
+configure_args+=(--disable-static --with-apr=${prefix} --includedir=${prefix}/${_includedir}/apr-${apuver} --with-expat=${prefix} --with-berkeley-db=${prefix} --with-iconv=${prefix} --with-ldap --with-ldap-include=${prefix}/${_includedir} --with-ldap-lib=${prefix}/${_libdir})
 
 reg prep
 prep()

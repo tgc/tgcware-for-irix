@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 perlpkgname="$(echo $pkgdir|sed -e 's/-/_/g')"
 __configure="perl"
-configure_args="Makefile.PL"
+configure_args=(Makefile.PL)
 
 reg prep
 prep()

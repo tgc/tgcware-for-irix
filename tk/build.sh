@@ -20,7 +20,7 @@ source[0]=$topdir$version-src.tar.gz
 
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
-configure_args="--prefix=$prefix --disable-symbols --enable-man-symlinks --with-tcl=${prefix}/${_libdir}"
+configure_args=(--prefix=$prefix --disable-symbols --enable-man-symlinks --with-tcl=${prefix}/${_libdir})
 topsrcdir=$topdir$version
 export CC=cc
 if [ "$_os" = "irix53" ]; then

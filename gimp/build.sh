@@ -23,7 +23,7 @@ export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket_socket=no"
 # Until a suitable gimp-print is available we need to disable printing
-configure_args="$configure_args --disable-print --x-libraries="
+configure_args+=(--disable-print --x-libraries=)
 
 reg prep
 prep()

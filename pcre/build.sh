@@ -21,7 +21,7 @@ patch[0]=pcre-7.8-no-linker-alias.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-unicode-properties"
+configure_args+=(--enable-unicode-properties)
 export CXX=g++
 export CC=cc
 mipspro=1

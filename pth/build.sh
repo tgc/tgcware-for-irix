@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --enable-pthread --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --enable-optimize"
+configure_args=(--prefix=$prefix --enable-pthread --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --enable-optimize)
 
 reg prep
 prep()

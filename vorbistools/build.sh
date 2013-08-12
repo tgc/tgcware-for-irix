@@ -22,7 +22,7 @@ patch[1]=vorbis-tools-1.1.1-include.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-nls --with-libiconv-prefix=/usr/tgcware"
+configure_args+=(--enable-nls --with-libiconv-prefix=/usr/tgcware)
 ac_overrides='ac_cv_lib_socket_socket=no'
 
 reg prep

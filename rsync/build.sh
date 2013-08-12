@@ -16,7 +16,7 @@ source[0]=http://www.samba.org/ftp/rsync/src/$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args='--prefix=${prefix} --mandir=${prefix}/${_mandir} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6 --disable-acl-support'
+configure_args=(--prefix=${prefix} --mandir=${prefix}/${_mandir} --with-rsyncd-conf=${prefix}/${_sysconfdir}/rsyncd.conf --disable-ipv6 --disable-acl-support)
 export CC=cc
 if [ "$_os" = "irix62" ]; then
     ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"

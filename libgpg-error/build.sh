@@ -20,7 +20,7 @@ patch[1]=libgpg-error-1.7-inline.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args='--prefix=$prefix --enable-nls --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware'
+configure_args=(--prefix=$prefix --enable-nls --disable-rpath --with-libiconv-prefix=/usr/tgcware --with-libintl-prefix=/usr/tgcware)
 export CC=cc
 mipspro=1
 [ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"

@@ -21,7 +21,7 @@ source[0]=$topdir-$version.zip
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --enable-shared'
+configure_args=(--prefix=$prefix --enable-shared)
 export CC=cc
 mipspro=1
 

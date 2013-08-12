@@ -27,7 +27,7 @@ patch[6]=libetpan-0.45-setenv.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-static --with-openssl=no --with-gnutls --disable-ipv6"
+configure_args+=(--disable-static --with-openssl=no --with-gnutls --disable-ipv6)
 
 reg prep
 prep()

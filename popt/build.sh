@@ -21,7 +21,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --with-libiconv-prefix=/usr/tgcware -with-libintl-prefix=/usr/tgcware"
+configure_args=(--prefix=$prefix --with-libiconv-prefix=/usr/tgcware -with-libintl-prefix=/usr/tgcware)
 
 reg prep
 prep()
@@ -34,7 +34,7 @@ reg build
 build()
 {
     setdir source
-    $__configure $configure_args
+    $__configure "${configure_args[@]}"
     # configure/libtool support for gettext is completely broken, this'll make
     # sure we link with the right libraries
     ${SED} -e '/^LIBS\ =/ s/=/=\ -liconv\ -lintl/g' Makefile > Makefile.fixed

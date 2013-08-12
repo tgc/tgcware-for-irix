@@ -24,7 +24,7 @@ source[0]=$topdir-$version.tar.gz
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/ncurses"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --enable-all --with-libiconv-prefix=$prefix --with-glib-prefix=$prefix"
+configure_args+=(--enable-all --with-libiconv-prefix=$prefix --with-glib-prefix=$prefix)
 
 reg prep
 prep()

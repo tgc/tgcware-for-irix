@@ -22,7 +22,7 @@ patch[0]=patch.4.3.29.1
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 export CC=gcc
-configure_args="$configure_args --enable-compat185"
+configure_args+=(--enable-compat185)
 __configure="../dist/configure"
 [ "$_os" = "irix62" ] && ac_overrides="ac_cv_lib_socket=no ac_cv_lib_socket_main=no"
 patch_prefix=-p0

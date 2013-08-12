@@ -19,7 +19,7 @@ source[0]=$topdir-$version.tar.gz
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args="$configure_args --sysconfdir=$prefix/${_sysconfdir} --with-logging=syslog --with-logfac=auth --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-insults --with-all-insults --with-timedir=/var/run/sudo"
+configure_args+=(--sysconfdir=$prefix/${_sysconfdir} --with-logging=syslog --with-logfac=auth --with-editor=/bin/vi --with-env-editor --with-ignore-dot --with-insults --with-all-insults --with-timedir=/var/run/sudo)
 ac_overrides="sudo_cv_func_isblank=no"
 
 topinstalldir=/

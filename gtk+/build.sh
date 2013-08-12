@@ -41,11 +41,11 @@ patch[19]=gtk+-1.2.10-gtkgdkdep.patch
 export CC=gcc
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --enable-static=no"
+configure_args=(--prefix=$prefix --mandir=${prefix}/${_mandir} --infodir=${prefix}/${_infodir} --enable-static=no)
 if [ "$_os" = "irix62" ]; then
     export CC=cc
     mipspro=1
-    configure_args="$configure_args --x-libraries=/usr/lib32"
+    configure_args+=(--x-libraries=/usr/lib32)
 fi
 
 reg prep

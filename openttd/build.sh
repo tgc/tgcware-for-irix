@@ -23,7 +23,7 @@ patch[3]=openttd-0.4.8-sa_len.patch
 
 # Global settings
 export CC=gcc
-configure_args="CC=gcc CFLAGS=\"-I/usr/tgcware/include -I/usr/tgcware/include/SDL\" INSTALL=1 PREFIX=$prefix BINARY_DIR=${_bindir} USE_HOMEDIR=1 ICON_DIR=${_sharedir}/pixmaps LDFLAGS=\"-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -ltrio\" DATA_DIR=share/openttd PERSONAL_DIR=.openttd"
+configure_args=(CC=gcc CFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/SDL" INSTALL=1 PREFIX=$prefix BINARY_DIR=${_bindir} USE_HOMEDIR=1 ICON_DIR=${_sharedir}/pixmaps LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -ltrio" DATA_DIR=share/openttd PERSONAL_DIR=.openttd VERBOSE=1)
 __configure=$MAKE_PROG
 
 reg prep
@@ -36,7 +36,7 @@ reg build
 build()
 {
     setdir source
-    $MAKE_PROG CC=gcc CFLAGS="-I/usr/tgcware/include -I/usr/tgcware/include/SDL" INSTALL=1 PREFIX=$prefix BINARY_DIR=${_bindir} USE_HOMEDIR=1 ICON_DIR=${_sharedir}/pixmaps LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -ltrio" DATA_DIR=share/openttd PERSONAL_DIR=.openttd VERBOSE=1
+    $MAKE_PROG "${configure_args[@]}"
 }
 
 reg install

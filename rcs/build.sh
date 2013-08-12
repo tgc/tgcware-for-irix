@@ -20,7 +20,7 @@ source[0]=$topdir-$version.tar.gz
 
 # Global settings
 shortroot=1
-configure_args="--prefix=$prefix --with-diffutils"
+configure_args=(--prefix=$prefix --with-diffutils)
 
 reg prep
 prep()

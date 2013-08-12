@@ -21,7 +21,7 @@ patch[0]=openntpd-3.7p1-nochown.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args='--prefix=$prefix --with-privsep-user=_ntp --with-privsep-path=/var/empty/ntpd'
+configure_args=(--prefix=$prefix --with-privsep-user=_ntp --with-privsep-path=/var/empty/ntpd)
 ac_overrides="ac_cv_func_inet_pton=no"
 
 reg prep

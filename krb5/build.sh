@@ -26,7 +26,7 @@ patch_prefix="-p0"
 export PERL="/usr/tgcware/bin/perl"
 kerbdir=krb5
 prefix=${prefix}/${kerbdir}
-configure_args='--prefix=$prefix --without-krb4 --disable-ipv6 --disable-thread-support'
+configure_args=(--prefix=$prefix --without-krb4 --disable-ipv6 --disable-thread-support)
 ac_overrides="ac_cv_func_inet_pton=no ac_cv_func_inet_ntop=no"
 
 reg prep

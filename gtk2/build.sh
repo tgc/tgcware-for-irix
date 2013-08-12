@@ -18,7 +18,7 @@ patch[0]=gtk+-2.16.6-use-g_snprintf.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args="$configure_args --disable-visibility"
+configure_args+=(--disable-visibility)
 
 reg prep
 prep()
