@@ -13,7 +13,7 @@ if [ "$(uname -r)" = "5.3" ]; then
 else
   topdir=libstdcxx_7
   version=1
-  pkgver=3
+  pkgver=4
 fi
 # If there are no patches, simply comment this
 #patch[0]=
