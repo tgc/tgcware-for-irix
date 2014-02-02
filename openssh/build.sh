@@ -6,15 +6,21 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssh
-version=6.4p1
+version=6.5p1
 pkgver=1
 source[0]=http://ftp.openbsd.dk/pub/OpenBSD/OpenSSH/portable/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssh-5.9p1-includes.patch
-patch[1]=openssh-6.2p1-no-killpg.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
+
+# Needs some patches for IRIX 5.3
+if irix53; then
+    patch[0]=0001-IRIX-5.3-IDO-compiler-needs-BROKEN_READV_COMPARISON.patch
+    patch[1]=0002-Include-sys-param.h-to-get-MAXPATHLEN-defined.patch
+    patch[2]=0003-Workaround-for-IRIX-5.3-header-issues.patch
+fi
 
 # Custom subsystems...
 subsysconf=$metadir/subsys.conf
@@ -23,10 +29,6 @@ subsysconf=$metadir/subsys.conf
 mipspro=1
 CC=cc
 configure_args=(--prefix=$prefix --sysconfdir=$prefix/${_sysconfdir}/ssh --datadir=$prefix/${_sharedir}/openssh --mandir=$prefix/${_mandir} --with-default-path=$prefix/bin:/usr/bsd:/usr/bin --with-mantype=man --with-privsep-user=sshd --with-privsep-path=/var/empty/sshd --with-superuser-path=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11:$prefix/bin --with-prngd-socket=/var/run/egd-pool)
-if [ "$_os" = "irix53" ]; then
-    CC=gcc
-    mipspro=0
-fi
 [ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
 export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"

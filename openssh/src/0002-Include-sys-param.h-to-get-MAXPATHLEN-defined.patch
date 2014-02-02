@@ -1,0 +1,24 @@
+From e61706b9da130bcebb6be6887e37741685a47660 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Thu, 30 Jan 2014 12:02:53 +0100
+Subject: [PATCH 2/3] Include <sys/param.h> to get MAXPATHLEN defined
+
+---
+ defines.h |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/defines.h b/defines.h
+index 354d5b6..e2891dd 100644
+--- a/defines.h
++++ b/defines.h
+@@ -93,6 +93,7 @@ enum
+ # endif
+ #endif
+ 
++#include <sys/param.h>
+ #ifndef MAXPATHLEN
+ # ifdef PATH_MAX
+ #  define MAXPATHLEN PATH_MAX
+-- 
+1.7.9.4
+

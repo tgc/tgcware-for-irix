@@ -1,0 +1,74 @@
+From 59300387baafe491d92904e7f7574a2d9361b056 Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Thu, 30 Jan 2014 12:04:09 +0100
+Subject: [PATCH 3/3] Workaround for IRIX 5.3 header issues
+
+If the includes are left in the compiler will stop with errors like this:
+cfe: Error: /usr/include/netinet/in_systm.h, line 28: redeclaration of 'n_short'; previous declaration at line 28 in file '/usr/incl
+ude/netinet/in_systm.h'
+ typedef u_short n_short;
+ ----------------^
+---
+ defines.h  |    4 ++--
+ misc.c     |    2 +-
+ readconf.c |    2 +-
+ servconf.c |    2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/defines.h b/defines.h
+index e2891dd..b8ebfb1 100644
+--- a/defines.h
++++ b/defines.h
+@@ -45,8 +45,8 @@ enum
+ /*
+  * Definitions for IP type of service (ip_tos)
+  */
+-#include <netinet/in_systm.h>
+-#include <netinet/ip.h>
++/* #include <netinet/in_systm.h>
++#include <netinet/ip.h> */
+ #ifndef IPTOS_LOWDELAY
+ # define IPTOS_LOWDELAY          0x10
+ # define IPTOS_THROUGHPUT        0x08
+diff --git a/misc.c b/misc.c
+index e4c8c32..cfd7bd6 100644
+--- a/misc.c
++++ b/misc.c
+@@ -39,7 +39,7 @@
+ #include <unistd.h>
+ 
+ #include <netinet/in.h>
+-#include <netinet/in_systm.h>
++/* #include <netinet/in_systm.h> */
+ #include <netinet/ip.h>
+ #include <netinet/tcp.h>
+ 
+diff --git a/readconf.c b/readconf.c
+index 9c7e73d..0dd7232 100644
+--- a/readconf.c
++++ b/readconf.c
+@@ -20,7 +20,7 @@
+ #include <sys/wait.h>
+ 
+ #include <netinet/in.h>
+-#include <netinet/in_systm.h>
++/* #include <netinet/in_systm.h> */
+ #include <netinet/ip.h>
+ 
+ #include <ctype.h>
+diff --git a/servconf.c b/servconf.c
+index 9bcd05b..9673369 100644
+--- a/servconf.c
++++ b/servconf.c
+@@ -17,7 +17,7 @@
+ #include <sys/socket.h>
+ 
+ #include <netinet/in.h>
+-#include <netinet/in_systm.h>
++/* #include <netinet/in_systm.h> */
+ #include <netinet/ip.h>
+ 
+ #include <ctype.h>
+-- 
+1.7.9.4
+

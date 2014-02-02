@@ -1,0 +1,37 @@
+From d5cac74b348de2ac370a812292467b149ecbb36c Mon Sep 17 00:00:00 2001
+From: "Tom G. Christensen" <tgc@jupiterrise.com>
+Date: Thu, 30 Jan 2014 12:02:00 +0100
+Subject: [PATCH 1/3] IRIX 5.3 IDO compiler needs BROKEN_READV_COMPARISON
+
+---
+ atomicio.c |    7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/atomicio.c b/atomicio.c
+index 2bac36c..8a12521 100644
+--- a/atomicio.c
++++ b/atomicio.c
+@@ -113,10 +113,6 @@ atomiciov6(ssize_t (*f) (int, const struct iovec *, int), int fd,
+ 	/* Make a copy of the iov array because we may modify it below */
+ 	memcpy(iov, _iov, iovcnt * sizeof(*_iov));
+ 
+-#ifndef BROKEN_READV_COMPARISON
+-	pfd.fd = fd;
+-	pfd.events = f == readv ? POLLIN : POLLOUT;
+-#endif
+ 	for (; iovcnt > 0 && iov[0].iov_len > 0;) {
+ 		res = (f) (fd, iov, iovcnt);
+ 		switch (res) {
+@@ -124,9 +120,6 @@ atomiciov6(ssize_t (*f) (int, const struct iovec *, int), int fd,
+ 			if (errno == EINTR)
+ 				continue;
+ 			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+-#ifndef BROKEN_READV_COMPARISON
+-				(void)poll(&pfd, 1, -1);
+-#endif
+ 				continue;
+ 			}
+ 			return 0;
+-- 
+1.7.9.4
+
