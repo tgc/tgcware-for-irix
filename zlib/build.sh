@@ -1,17 +1,14 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=zlib
-version=1.2.5
+version=1.2.8
 pkgver=1
-source[0]=http://zlib.net/$topdir-$version.tar.bz2
+source[0]=http://zlib.net/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]=zlib-1.2.5-irixcc.patch
 
@@ -19,7 +16,7 @@ patch[0]=zlib-1.2.5-irixcc.patch
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-configure_args=(--shared --prefix=$prefix) 
+configure_args=(--shared --prefix=$prefix)
 check_ac=0
 shortroot=1
 mipspro=1
@@ -46,7 +43,7 @@ reg install
 install()
 {
     generic_install prefix
-    doc README ChangeLog minigzip.c example.c FAQ doc
+    doc README ChangeLog FAQ doc examples
     ${__mv} ${stagedir}${prefix}/share/${_mandir} ${stagedir}${prefix}
     ${__rm} -f ${stagedir}${prefix}/${_libdir}/libz.a
 }

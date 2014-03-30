@@ -21,7 +21,7 @@ subsys=man.doc
 files(-,root,sys)
 $_vdocdir/FAQ
 $_vdocdir/ChangeLog
-$_vdocdir/*.c
+$_vdocdir/examples
 $_vdocdir/doc
 
 [devel]
