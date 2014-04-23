@@ -1,6 +1,6 @@
---- libpng-1.2.22/scripts/makefile.sgi.trio	2007-11-06 17:41:56.130000000 +0100
-+++ libpng-1.2.22/scripts/makefile.sgi	2007-11-06 17:42:44.090000000 +0100
-@@ -47,8 +47,8 @@
+--- libpng-1.2.51/scripts/makefile.sgi.trio	2014-04-23 10:55:30.883221000 +0200
++++ libpng-1.2.51/scripts/makefile.sgi	2014-04-23 10:56:02.923221000 +0200
+@@ -50,8 +50,8 @@
  # Note: -KPIC is the default anyhow
  #CFLAGS= $(ABI) -I$(ZLIBINC) -O $(WARNMORE) -KPIC -DPNG_NO_MMX_CODE # -g -DPNG_DEBUG=5
  CFLAGS=$(ABI) -I$(ZLIBINC) -O $(WARNMORE) -DPNG_NO_MMX_CODE
@@ -11,7 +11,7 @@
  LDSHARED=cc $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -soname $(LIBSOMAJ) \
    -set_version sgi$(PNGMAJ).0
  LDLEGACY=cc $(ABI) -Wl,-rpath,/usr/tgcware/lib -shared -soname $(OLDSOMAJ) \
-@@ -93,7 +93,7 @@
+@@ -96,7 +96,7 @@
  	-e s!@exec_prefix@!$(exec_prefix)! \
  	-e s!@libdir@!$(LIBPATH)! \
  	-e s!@includedir@!$(INCPATH)! \
@@ -20,15 +20,15 @@
  
  libpng-config:
  	( cat scripts/libpng-config-head.in; \
---- libpng-1.2.22/pngconf.h.trio	2007-11-06 17:35:40.020000000 +0100
-+++ libpng-1.2.22/pngconf.h	2007-11-06 17:41:46.780000000 +0100
-@@ -19,6 +19,9 @@
+--- libpng-1.2.51/pngconf.h.trio	2014-02-06 04:52:35.000000000 +0100
++++ libpng-1.2.51/pngconf.h	2014-04-23 10:56:48.753221000 +0200
+@@ -22,6 +22,9 @@
  
  #define PNG_1_2_X
  
 +#include <trio.h>
 +#define snprintf trio_snprintf
 +
- /* 
+ /*
   * PNG_USER_CONFIG has to be defined on the compiler command line. This
   * includes the resource compiler for Windows DLL configurations.

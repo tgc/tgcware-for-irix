@@ -1,20 +1,17 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libpng
-version=1.2.33
+version=1.2.51
 pkgver=1
 source[0]=http://prdownloads.sourceforge.net/libpng/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=libpng-1.2.22-tgcware.patch
-patch[1]=libpng-1.2.22-trio.patch
+patch[1]=libpng-1.2.51-trio.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -40,7 +37,7 @@ build()
     setdir source
     ${__cp} scripts/makefile.sgi Makefile
     ${__gsed} -i "/^prefix/s;=.*;=${prefix};" Makefile
-    ${__make} 
+    ${__make}
 }
 
 reg install
