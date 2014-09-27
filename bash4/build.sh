@@ -7,7 +7,7 @@
 # Check the following 4 variables before running the script
 topdir=bash
 version=4.0
-pkgver=2
+pkgver=3
 source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 patch[0]= #
@@ -49,6 +49,10 @@ patch[35]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-035
 patch[36]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-036
 patch[37]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-037
 patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-038
+patch[39]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-039
+patch[40]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-040
+patch[41]=bash-4.0-cve-2014-7169-1.patch
+patch[42]=bash-4.0-cve-2014-7169-2.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
