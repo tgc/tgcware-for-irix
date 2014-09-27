@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=curl
-version=7.37.1
+version=7.38.0
 pkgver=1
 source[0]=http://curl.haxx.se/download/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -32,9 +32,12 @@ reg prep
 prep()
 {
     generic_prep
-    # We can't use inet_pton on Irix 6.2 even though it's in libc.
     setdir source
+    # We can't use inet_pton on Irix 6.2 even though it's in libc.
     ${__gsed} -i '/inet_pton \\/d' configure
+    # getpwuid_r is not POSIX compliant on IRIX 5.3 but curl configure won't
+    # leave well enough alone
+    irix53 && ${__gsed} -i '/getpwuid_r \\/d' configure
     # Disable building/installing examples, they depend on snprintf
     ${__gsed} -i 's/examples//' docs/Makefile.in
     # "Fix" libtool
