@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sun Sep 28 2014 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.0-4
+- Update to 4.0.41 (replaces a RedHat patch with identical from upstream)
+
 * Sat Sep 27 2014 Tom G. Christensen <irixpkg@jupiterrise.com> - 4.0-3
 - Update to 4.0.40 to fix CVE-2014-6172, CVE-2014-7169
 - Add patches from RedHat that provides more hardening against ShellShock
