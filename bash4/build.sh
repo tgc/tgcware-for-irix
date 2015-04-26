@@ -6,9 +6,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=bash
-version=4.0
-pkgver=4
-source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$version.tar.gz
+real_version=4.0
+patch_level=44
+version=${real_version}.${patch_level}
+pkgver=1
+source[0]=ftp://ftp.sunet.se/pub/gnu/bash/$topdir-$real_version.tar.gz
 # If there are no patches, simply comment this
 patch[0]= #
 patch[1]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-001
@@ -52,7 +54,9 @@ patch[38]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-038
 patch[39]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-039
 patch[40]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-040
 patch[41]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-041
-patch[42]=bash-4.0-cve-2014-7169-2.patch
+patch[42]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-042
+patch[43]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-043
+patch[44]=ftp://ftp.sunet.se/pub/gnu/bash/bash-4.0-patches/bash40-044
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -60,6 +64,7 @@ patch[42]=bash-4.0-cve-2014-7169-2.patch
 # Global settings
 patchdir=$srcfiles
 patch_prefix=-p0
+topsrcdir=$topdir-$real_version
 
 export CPPFLAGS="-I/usr/tgcware/include"
 export CC=cc
