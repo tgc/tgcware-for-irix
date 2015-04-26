@@ -5,12 +5,14 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=fltk
-version=1.3.3
+topdir=librsync
+version=0.9.7
 pkgver=1
-source[0]=$topdir-$version-source.tar.gz
+source[0]=http://downloads.sourceforge.net/librsync/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=fltk-1.3.3-ldflags.patch
+patch[0]=librsync-0.9.7-lfs_overflow.patch
+patch[1]=librsync-0.9.7-getopt.patch
+patch[2]=librsync-0.9.7-man_pages.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -18,7 +20,6 @@ patch[0]=fltk-1.3.3-ldflags.patch
 # Global settings
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args=(--prefix=$prefix --enable-shared)
 
 reg prep
 prep()
@@ -32,14 +33,16 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
-    doc ANNOUNCEMENT CHANGES COPYING CREDITS README
-    # Clean up the madness :(
-    ${RM} -rf ${stagedir}${prefix}/${_mandir}/cat*
-    ${MV} ${stagedir}${prefix}/${_docdir}/${topdir} ${stagedir}${prefix}/${_vdocdir}/html
 }
 
 reg pack

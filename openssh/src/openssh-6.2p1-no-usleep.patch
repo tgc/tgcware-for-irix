@@ -1,0 +1,13 @@
+IRIX 5.3 does not have usleep.
+
+--- openssh/sshd.c.usleep	2013-02-12 01:04:48.000000000 +0100
++++ openssh/sshd.c	2013-03-02 09:22:11.690000000 +0100
+@@ -1188,7 +1188,7 @@
+ 					error("accept: %.100s",
+ 					    strerror(errno));
+ 				if (errno == EMFILE || errno == ENFILE)
+-					usleep(100 * 1000);
++					sginap((100 * 1000 * CLK_TCK) / 1000000l);
+ 				continue;
+ 			}
+ 			if (unset_nonblock(*newsock) == -1) {

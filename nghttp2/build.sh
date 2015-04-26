@@ -5,20 +5,21 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=fltk
-version=1.3.3
+topdir=nghttp2
+version=0.3.2
 pkgver=1
-source[0]=$topdir-$version-source.tar.gz
+source[0]=https://github.com/tatsuhiro-t/nghttp2/releases/download/v${version}/nghttp2-${version}.tar.gz
 # If there are no patches, simply comment this
-patch[0]=fltk-1.3.3-ldflags.patch
+#patch[0]=
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
-
 # Global settings
-export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args=(--prefix=$prefix --enable-shared)
+mipspro=1
+export CC=cc
+export CPPFLAGS="-I/usr/tgcware/include/openssl -I/usr/tgcware/include"
+export LDFLAGS="-Wl,-rpath,/usr/tgcware/lib -L/usr/tgcware/lib $NO_RQS"
+configure_args+=(--enable-maintainer-mode=no --disable-static)
 
 reg prep
 prep()
@@ -32,14 +33,16 @@ build()
     generic_build
 }
 
+reg check
+check()
+{
+    generic_check
+}
+
 reg install
 install()
 {
     generic_install DESTDIR
-    doc ANNOUNCEMENT CHANGES COPYING CREDITS README
-    # Clean up the madness :(
-    ${RM} -rf ${stagedir}${prefix}/${_mandir}/cat*
-    ${MV} ${stagedir}${prefix}/${_docdir}/${topdir} ${stagedir}${prefix}/${_vdocdir}/html
 }
 
 reg pack

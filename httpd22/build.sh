@@ -1,17 +1,14 @@
 #!/usr/tgcware/bin/bash
-#
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
+# This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=httpd
-version=2.2.4
+version=2.2.26
 pkgver=1
-source[0]=$topdir-$version.tar.bz2
+source[0]=http://mirrors.dotsrc.org/apache/httpd/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 #patch[0]=
 
@@ -20,16 +17,20 @@ source[0]=$topdir-$version.tar.bz2
 
 # Global settings
 flavour=httpd22
+#export CC=cc
+#mipspro=1
+#[ "$_os" = "irix53" ] && NO_RQS="-Wl,-no_rqs"
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-configure_args=(--prefix=$prefix/$flavour --with-apr=${prefix}/bin/apr-1-config --with-apr-util=${prefix}/bin/apu-1-config --with-pcre --with-z=${prefix} --with-mpm=prefork --enable-modules=all --enable-mods-shared=all --enable-suexec --with-suexec --with-suexec-uidmin=500 --with-suexec-gidmin=20 --enable-ssl --with-ssl --enable-proxy --enable-cache --enable-mem-cache --enable-file-cache --enable-disk-cache --enable-ldap --enable-authnz-ldap --enable-cgid --enable-authn-anon --enable-authn-alias)
+configure_args=(--prefix=$prefix/$flavour --with-apr=$prefix --with-apr-util=$prefix --with-pcre --with-z=${prefix} --with-mpm=prefork --enable-modules=all --enable-mods-shared=all --enable-suexec --with-suexec --with-suexec-uidmin=500 --with-suexec-gidmin=20 --enable-ssl --with-ssl --enable-proxy --enable-cache --enable-mem-cache --enable-file-cache --enable-disk-cache --enable-ldap --enable-authnz-ldap --enable-cgid --enable-authn-anon --enable-authn-alias)
+
 
 reg prep
 prep()
 {
     generic_prep
     setdir source
-    $RM -rf srclib/{apr,apr-util,pcre}
+    ${__rm} -rf srclib/{apr,apr-util,pcre}
 }
 
 reg build
@@ -42,7 +43,7 @@ reg install
 install()
 {
     generic_install DESTDIR
-    doc ABOUT_APACHE CHANGES LICENSE NOTICE VERSIONING README 
+    doc ABOUT_APACHE CHANGES LICENSE NOTICE VERSIONING README
 
     setdir source
     $MKDIR -p ${stagedir}/${_sysconfdir}/init.d

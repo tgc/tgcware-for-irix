@@ -1,0 +1,55 @@
+--- tz-2013d/Makefile.destdir	2013-07-09 19:17:55.660000000 +0200
++++ tz-2013d/Makefile	2013-07-09 19:20:08.460000000 +0200
+@@ -336,22 +336,16 @@
+ 
+ install:	all $(DATA) $(REDO) $(TZLIB) $(MANS) $(TABDATA)
+ 		$(ZIC) -y $(YEARISTYPE) \
+-			-d $(TZDIR) -l $(LOCALTIME) -p $(POSIXRULES)
+-		-rm -f $(TZDIR)/iso3166.tab $(TZDIR)/zone.tab
+-		cp iso3166.tab zone.tab $(TZDIR)/.
+-		-mkdir $(TOPDIR) $(ETCDIR)
+-		cp tzselect zic zdump $(ETCDIR)/.
+-		-mkdir $(TOPDIR) $(MANDIR) \
+-			$(MANDIR)/man3 $(MANDIR)/man5 $(MANDIR)/man8
+-		-rm -f $(MANDIR)/man3/newctime.3 \
+-			$(MANDIR)/man3/newtzset.3 \
+-			$(MANDIR)/man5/tzfile.5 \
+-			$(MANDIR)/man8/tzselect.8 \
+-			$(MANDIR)/man8/zdump.8 \
+-			$(MANDIR)/man8/zic.8
+-		cp newctime.3 newtzset.3 $(MANDIR)/man3/.
+-		cp tzfile.5 $(MANDIR)/man5/.
+-		cp tzselect.8 zdump.8 zic.8 $(MANDIR)/man8/.
++			-d $(DESTDIR)$(TZDIR) -l $(LOCALTIME) -p $(POSIXRULES)
++		-rm -f $(DESTDIR)$(TZDIR)/iso3166.tab $(DESTDIR)$(TZDIR)/zone.tab
++		cp iso3166.tab zone.tab $(DESTDIR)$(TZDIR)/.
++		-mkdir -p $(DESTDIR)$(TOPDIR) $(DESTDIR)$(ETCDIR)
++		cp tzselect zic zdump $(DESTDIR)$(ETCDIR)/.
++		-mkdir -p $(DESTDIR)$(TOPDIR) $(DESTDIR)$(MANDIR) \
++			$(DESTDIR)$(MANDIR)/man3 $(DESTDIR)$(MANDIR)/man5 $(DESTDIR)$(MANDIR)/man8
++		cp newctime.3 newtzset.3 $(DESTDIR)$(MANDIR)/man3/.
++		cp tzfile.5 $(DESTDIR)$(MANDIR)/man5/.
++		cp tzselect.8 zdump.8 zic.8 $(DESTDIR)$(MANDIR)/man8/.
+ 
+ INSTALL:	ALL install date.1
+ 		-mkdir $(TOPDIR) $(BINDIR)
+@@ -379,7 +373,7 @@
+ 		$(ZIC) -y $(YEARISTYPE) -d $(TZDIR) -L /dev/null $(TDATA)
+ 
+ right_only:	zic leapseconds $(TDATA)
+-		$(ZIC) -y $(YEARISTYPE) -d $(TZDIR) -L leapseconds $(TDATA)
++		$(ZIC) -y $(YEARISTYPE) -d $(DESTDIR)$(TZDIR) -L leapseconds $(TDATA)
+ 
+ # In earlier versions of this makefile, the other two directories were
+ # subdirectories of $(TZDIR).  However, this led to configuration errors.
+@@ -402,8 +396,8 @@
+ zones:		$(REDO)
+ 
+ $(TZLIB):	$(LIBOBJS)
+-		-mkdir $(TOPDIR) $(LIBDIR)
+-		ar ru $@ $(LIBOBJS)
++		-mkdir -p $(DESTDIR)$(TOPDIR) $(DESTDIR)$(LIBDIR)
++		ar ru $(DESTDIR)$@ $(DESTDIR)$(LIBOBJS)
+ 		if [ -x /usr/ucb/ranlib ] || [ -x /usr/bin/ranlib ]; \
+ 			then ranlib $@ ; fi
+ 

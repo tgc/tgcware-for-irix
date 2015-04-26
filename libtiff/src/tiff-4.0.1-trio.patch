@@ -1,0 +1,47 @@
+--- tiff-4.0.1/tools/Makefile.in.trio	2012-02-18 23:02:56.000000000 +0100
++++ tiff-4.0.1/tools/Makefile.in	2012-06-10 17:20:38.150000000 +0200
+@@ -395,7 +395,7 @@
+ tiff2bw_SOURCES = tiff2bw.c
+ tiff2bw_LDADD = $(LIBTIFF) $(LIBPORT)
+ tiff2pdf_SOURCES = tiff2pdf.c
+-tiff2pdf_LDADD = $(LIBTIFF) $(LIBPORT)
++tiff2pdf_LDADD = $(LIBTIFF) $(LIBPORT) -ltrio
+ tiff2ps_SOURCES = tiff2ps.c
+ tiff2ps_LDADD = $(LIBTIFF) $(LIBPORT)
+ tiff2rgba_SOURCES = tiff2rgba.c
+@@ -420,7 +420,7 @@
+ tiffsplit_LDADD = $(LIBTIFF) $(LIBPORT)
+ tiffgt_SOURCES = tiffgt.c
+ tiffgt_CFLAGS = $(CFLAGS) $(GLUT_CFLAGS) $(AM_CFLAGS)
+-tiffgt_LDADD = $(LIBTIFF) $(LIBPORT) $(X_LIBS) $(GLUT_LIBS)
++tiffgt_LDADD = $(LIBTIFF) $(LIBPORT) $(X_LIBS) $(GLUT_LIBS) -ltrio
+ INCLUDES = -I$(top_srcdir)/libtiff
+ all: all-am
+ 
+--- tiff-4.0.1/tools/tiff2pdf.c.trio	2012-06-10 17:23:38.000000000 +0200
++++ tiff-4.0.1/tools/tiff2pdf.c	2012-06-10 17:24:07.220000000 +0200
+@@ -26,6 +26,10 @@
+ 
+ #include "tif_config.h"
+ 
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+--- tiff-4.0.1/tools/tiffgt.c.trio	2010-07-08 18:10:24.000000000 +0200
++++ tiff-4.0.1/tools/tiffgt.c	2012-06-10 17:24:20.650000000 +0200
+@@ -26,6 +26,11 @@
+  */
+ 
+ #include "tif_config.h"
++
++#include <trio.h>
++#define snprintf trio_snprintf
++#define vsnprintf trio_vsnprintf
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>

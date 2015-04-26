@@ -1,20 +1,17 @@
 #!/usr/tgcware/bin/bash
 #
-# This is a generic build.sh script
-# It can be used nearly unmodified with many packages
-# 
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
 #
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=tz
-version=2009k
+version=2015d
 pkgver=1 # Increase for each lettered release within the same year!
-source[0]=ftp://elsie.nci.nih.gov/pub/${topdir}code${version}.tar.gz
-source[1]=ftp://elsie.nci.nih.gov/pub/${topdir}data${version}.tar.gz
+source[0]=http://www.iana.org/time-zones/repository/releases/${topdir}code${version}.tar.gz
+source[1]=http://www.iana.org/time-zones/repository/releases/${topdir}data${version}.tar.gz
 # If there are no patches, simply comment this
-patch[0]=tz2004g-makefile.patch
+patch[0]=tz-2013d-destdir.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -22,7 +19,8 @@ patch[0]=tz2004g-makefile.patch
 # Global settings
 # Irix 5.3 needs an extra define
 [ "$_os" = "irix53" ] && CDEF="-D_XOPEN_SOURCE"
-export CC="gcc"
+# We must use gcc 4.5 which provides a working stdint.h
+export CC="/usr/tgcware/gcc45/bin/gcc"
 # hackish for the sake of relnotes mostly
 __configure="${__make}"
 # Note that REDO=right_only disables strict POSIX compatibility since leap-seconds are counted
@@ -32,16 +30,16 @@ check_ac=0
 reg prep
 prep()
 {
-    fetch_source 0
-    fetch_source 1
+    fetch_source ${source[0]}
+    fetch_source ${source[1]}
     clean source
     # No topleveldir in the tarballs :(
     ${__mkdir} -p $srcdir/tz-$version
     setdir $srcdir/tz-$version
-    ${__gzip} -dc $srcfiles/$(get_source_filename 0) | ${__tar} -xf -
-    ${__gzip} -dc $srcfiles/$(get_source_filename 1) | ${__tar} -xf -
+    ${__gzip} -dc $srcfiles/$(get_source_filename ${source[0]}) | ${__tar} -xf -
+    ${__gzip} -dc $srcfiles/$(get_source_filename ${source[1]}) | ${__tar} -xf -
     patch 0
-    ${__gsed} -i "/^CFLAGS/s/=.*/=$CDEF/" Makefile
+    ${__gsed} -i "/^CFLAGS/s/=.*/=$CDEF -DHAVE_STDINT_H=1/" Makefile
 }
 
 reg build
@@ -52,7 +50,7 @@ build()
 
 reg install
 install()
-{	
+{
     clean stage
     setdir source
     ${__make} "${configure_args[@]}" DESTDIR=$stagedir install

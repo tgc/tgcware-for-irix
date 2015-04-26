@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=libidn
-version=1.25
+version=1.28
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/libidn/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
@@ -20,7 +20,7 @@ if [ "$_os" = "irix53" ]; then
     NO_RQS="-Wl,-no_rqs"
 fi
 mipspro=1
-export CC=cc
+export CC="cc -Xcpluscomm"
 export CPPFLAGS="-I/usr/tgcware/include"
 export LDFLAGS="$NO_RQS -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
 configure_args+=(--disable-static)

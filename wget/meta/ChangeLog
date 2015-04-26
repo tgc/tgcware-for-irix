@@ -1,5 +1,8 @@
 CHANGELOG
 ---------
+* Sun Mar 30 2014 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.15-1
+- Update to 1.15
+
 * Sat Feb  5 2011 Tom G. Christensen <irixpkg@jupiterrise.com> - 1.12-2
 - Fix build with MIPSpro 7.3.x (no-decl-after-stmt)
 

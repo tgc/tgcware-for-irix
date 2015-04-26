@@ -1,0 +1,23 @@
+--- perl-5.14.2/hints/irix_6.sh.hints	2010-12-30 03:07:16.000000000 +0100
++++ perl-5.14.2/hints/irix_6.sh	2012-06-03 16:31:46.000000000 +0200
+@@ -189,20 +189,6 @@
+ 	# It seems gcc can build Irix shlibs, but of course it needs
+ 	# -shared.  Otherwise you get link errors looking for main().
+ 	lddlflags="$lddlflags -shared"
+-	case "`uname -s`" in
+-	# Without the -mabi=64 gcc in 64-bit IRIX has problems passing
+-	# and returning small structures.  This affects inet_*() and semctl().
+-	# See http://groups.google.com/group/comp.sys.sgi.admin/msg/3ad8353bc4ce3cb0
+-	# for more information.  Reported by Lionel Cons <lionel.cons@cern.ch>.
+-	IRIX64)	ccflags="$ccflags -mabi=64"
+-		ldflags="$ldflags -mabi=64 -L/usr/lib64"
+-		lddlflags="$lddlflags -mabi=64"
+-		;;
+-	*)	ccflags="$ccflags -DIRIX32_SEMUN_BROKEN_BY_GCC"
+-                # XXX Note: It is possible that turning off usemallocwrap is
+-                # needed here; insufficient data! - Allen
+-		;;
+-	esac
+ 	;;
+ *)
+ 	# this is needed to force the old-32 paths
