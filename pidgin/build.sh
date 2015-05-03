@@ -10,7 +10,7 @@
 # Check the following 4 variables before running the script
 topdir=pidgin
 version=2.0.1
-pkgver=1
+pkgver=2
 source[0]=$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
 patch[0]=pidgin-2.0.0-trio.patch
@@ -22,6 +22,7 @@ patch[5]=pidgin-2.0.0-zephyr-needs-gnulib.patch
 patch[6]=pidgin-2.0.0-missing-X11.patch
 patch[7]=pidgin-2.0.1-natpmp-fixes.patch
 patch[8]=pidgin-2.0.0-finch-configh.patch
+patch[9]=pidgin-2.0.1-gnutls-pkgconfig.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -37,15 +38,16 @@ prep()
 {
     generic_prep
     setdir source
-    $RM -f pidgin/getopt*
-    $RM -f finch/getopt*
+    ${__rm} -f pidgin/getopt*
+    ${__rm} -f finch/getopt*
+    libtoolize -f -c
     aclocal-1.9 -I m4macros -I gl/m4
-    automake-1.9
     autoheader
     autoconf
+    automake-1.9
 
     # We can't use the non-blocking DNS resolver code
-    $GSED -i 's/__unix__/__lunix__/g' libpurple/dnsquery.c
+    ${__gsed} -i 's/__unix__/__lunix__/g' libpurple/dnsquery.c
 }
 
 reg build
@@ -57,14 +59,14 @@ build()
 reg install
 install()
 {
-    MAKE_PROG="make SHELL=/usr/tgcware/bin/bash"
+    __make="${__make} SHELL=/usr/tgcware/bin/bash"
     generic_install DESTDIR
     doc COPYING COPYRIGHT AUTHORS NEWS README
-    $FIND ${stagedir} -name '.packlist' -o -name 'perllocal.pod' -o -name '*.bs' | $XARGS -i $RM -f {}
+    ${__find} ${stagedir} -name '.packlist' -o -name 'perllocal.pod' -o -name '*.bs' | ${__xargs} -i ${__rm} -f {}
     setdir $stagedir
-    $MV auto ${stagedir}${prefix}/${_libdir}/perl5/5.8.8/mips3-irix/
-    $MKDIR -p ${stagedir}${prefix}/${_mandir}/man3
-    $MV *pm ${stagedir}${prefix}/${_mandir}/man3
+    ${__mv} auto ${stagedir}${prefix}/${_libdir}/perl5/5.8.8/mips3-irix/
+    ${__mkdir} -p ${stagedir}${prefix}/${_mandir}/man3
+    ${__mv} *pm ${stagedir}${prefix}/${_mandir}/man3
 }
 
 reg pack

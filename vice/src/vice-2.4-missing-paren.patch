@@ -1,0 +1,11 @@
+--- vice-2.4/src/platform/platform.c.paren	2012-08-18 21:24:52.000000000 +0200
++++ vice-2.4/src/platform/platform.c	2014-05-14 19:38:14.302000000 +0200
+@@ -54,7 +54,7 @@
+     int major = (int)(version / major_mask);
+     int minor = (int)((version - (major * major_mask)) / minor_mask);
+ #ifdef PLATFORM_COMPILER_PATCHLEVEL_MASK
+-    int patchlevel = (int)((version - ((major * major_mask) + (minor * minor_mask)) / patchlevel_mask);
++    int patchlevel = (int)((version - ((major * major_mask) + (minor * minor_mask))) / patchlevel_mask);
+ 
+     sprintf(platform_compiler_version, "%s %d.%d.%d", PLATFORM_COMPILER_NAME, major, minor, patchlevel);
+ #else

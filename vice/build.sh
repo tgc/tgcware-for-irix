@@ -5,28 +5,24 @@
 #
 ###########################################################
 # Check the following 4 variables before running the script
-topdir=gmp
-version=5.1.3
-pkgver=1
-source[0]=ftp://ftp.sunet.se/pub/gnu/gmp/$topdir-$version.tar.bz2
+topdir=vice
+version=2.4
+pkgver=2
+source[0]=http://prdownloads.sourceforge.net/vice-emu/releases/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-#patch[0]=
+patch[0]=vice-2.4-old-sgi-openGL.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
 
 # Global settings
-export CPPFLAGS="-I/usr/tgcware/include"
-export LDFLAGS="-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib"
-if [ "$_os" = "irix62" ]; then
-    mipspro=1
-    export ABI=n32
-    export CC=cc
-    export CXX=g++
-    export CXXFLAGS="-O2 -mabi=$ABI"
-fi
-configure_args+=(--with-readline=no --enable-cxx)
-conf_flags=1
+export CPPFLAGS="-I$prefix/include"
+export LDFLAGS="-L$prefix/lib -Wl,-rpath,$prefix/lib"
+ac_overrides="ac_cv_lib_socket_gethostbyname=no ac_cv_lib_bsd_gethostbyname=no ac_cv_lib_bsd_gettimeofday=no"
+configure_args+=(--enable-sdlui)
+export CC=cc
+export CXX=CC
+mipspro=1
 
 reg prep
 prep()
@@ -43,15 +39,18 @@ build()
 reg check
 check()
 {
-    setdir source
-    ${__make} -k check
+    generic_check
 }
 
 reg install
 install()
 {
     generic_install DESTDIR
-    doc AUTHORS COPYING COPYING.LIB NEWS README
+    ${__mkdir} -p ${stagedir}${prefix}/share/doc
+    ${__mv} ${stagedir}${prefix}/${_libdir}/vice/doc ${stagedir}${prefix}/${_vdocdir}
+    ${__mv} ${stagedir}${prefix}/${_infodir}/vice.txt ${stagedir}${prefix}/${_vdocdir}
+    doc README
+    ${__rm} -f ${stagedir}${prefix}/${_vdocdir}/vice.{guide,chm,inf,info,hlp}
 }
 
 reg pack

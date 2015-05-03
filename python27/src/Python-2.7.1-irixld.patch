@@ -1,0 +1,19 @@
+--- Python-2.7.1/Makefile.pre.in.irixld	2010-10-14 13:37:30.000000000 +0200
++++ Python-2.7.1/Makefile.pre.in	2011-05-15 15:08:17.538000000 +0200
+@@ -161,6 +161,7 @@
+ DLLLIBRARY=	@DLLLIBRARY@
+ LDLIBRARYDIR=   @LDLIBRARYDIR@
+ INSTSONAME=	@INSTSONAME@
++SOVERSION=	@SOVERSION@
+ 
+ 
+ LIBS=		@LIBS@
+@@ -422,7 +423,7 @@
+ 
+ libpython$(VERSION).so: $(LIBRARY_OBJS)
+ 	if test $(INSTSONAME) != $(LDLIBRARY); then \
+-		$(BLDSHARED) -Wl,-h$(INSTSONAME) -o $(INSTSONAME) $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
++		$(BLDSHARED) -Wl,-soname,$(INSTSONAME) -Wl,-set_version,sgi$(SOVERSION) -o $(INSTSONAME) $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
+ 		$(LN) -f $(INSTSONAME) $@; \
+ 	else \
+ 		$(BLDSHARED) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \

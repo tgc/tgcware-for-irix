@@ -1,0 +1,13 @@
+--- Python-2.7.1/Modules/mmapmodule.c.anon	2011-05-15 17:38:09.560000000 +0200
++++ Python-2.7.1/Modules/mmapmodule.c	2011-05-15 17:51:20.110000000 +0200
+@@ -50,6 +50,10 @@
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+ 
++#ifdef HAVE_FCNTL_H
++#include <fcntl.h>
++#endif
++
+ #if defined(HAVE_SYSCONF) && defined(_SC_PAGESIZE)
+ static int
+ my_getpagesize(void)

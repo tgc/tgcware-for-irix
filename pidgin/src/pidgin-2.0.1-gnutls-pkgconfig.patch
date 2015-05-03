@@ -1,0 +1,11 @@
+--- pidgin-2.0.1/configure.ac.tls28	2013-11-10 10:23:26.000000000 +0100
++++ pidgin-2.0.1/configure.ac	2013-11-10 10:39:28.808400000 +0100
+@@ -1326,7 +1326,7 @@
+ dnl # Check for GnuTLS if it's specified.
+ dnl #
+ if test x$enable_gnutls = xyes; then
+-AM_PATH_LIBGNUTLS([1.0.0], [
++PKG_CHECK_MODULES(LIBGNUTLS, gnutls >= 1.0.0, [
+ 		          AC_DEFINE([HAVE_GNUTLS], 1, [Define to 1 when using GNU TLS library])
+ 		       ])
+ fi

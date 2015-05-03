@@ -1,0 +1,43 @@
+PACKAGE DETAILS
+---------------
+Name:	    %%PKGNAME%%
+Version:    %%SOURCE_AND_VER%%
+Vendor:	    %%VENDOR%%
+Packager:   %%PKGEDBY%%
+
+Source (sha1sum):
+%%SOURCE_SHA1SUM%%
+
+BUILD DETAILS
+-------------
+Compiler:
+%%COMPILER%%
+
+Environment:
+%%ENVIRONMENT%%
+
+Configure:
+%%CONFIGURE%%
+
+KNOWN DEPENDENCIES
+------------------
+%%DEPENDENCIES%%
+
+ERRORS/MISCELLANEOUS
+--------------------
+I've added a patch to allow building libpython as a shared library on Irix.
+This is not normally supported but the change is trivial so I see no reason
+not to do it. It's also much nicer to deal with dependency wise when building
+packages.
+There is a related patch that adds the correct params to the link stage. It
+defaults to -h for setting the soname unfortunately that is not supported with
+Irix ld. I changed it to -soname and added -set_version for good measure.
+In a similar vein there's some tool param fixes in unixcompiler.py in distutils.
+The only patch that was a bit tricky is for ncurses support. Irix 5.3 & 6.2
+curses is not sufficient for the curses module and the checks for ncurses are
+inadequate. The problem is that the tests seem to expect that ncurses is the
+system curses. I've modified the tests to look for ncurses headers in ncurses/
+instead and this gets the curses module built.
+
+The Irix 5.3 build fails several tests and the .pyc testrun actually ends up
+hanging seemingly forever.

@@ -1,0 +1,11 @@
+--- vice-2.4/src/arch/sdl/video.c.sgiogl	2012-10-28 20:38:08.000000000 +0100
++++ vice-2.4/src/arch/sdl/video.c	2014-04-23 20:59:24.464575000 +0200
+@@ -791,7 +791,7 @@
+ #endif
+ 
+         glEnable(GL_TEXTURE_RECTANGLE_EXT);
+-        glBindTexture(GL_TEXTURE_RECTANGLE_EXT, screen_texture);
++        glBindTextureEXT(GL_TEXTURE_RECTANGLE_EXT, screen_texture);
+         glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+         glTexImage2D (GL_TEXTURE_RECTANGLE_EXT, 0, sdl_gl_mode, canvas->width, canvas->height, 0, sdl_gl_mode, GL_UNSIGNED_BYTE, canvas->screen->pixels);

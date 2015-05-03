@@ -6,7 +6,7 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=gcc
-version=4.5.3
+version=4.5.4
 pkgver=1
 source[0]=ftp://ftp.sunet.se/pub/gnu/gcc/releases/$topdir-$version/$topdir-$version.tar.bz2
 # If there are no patches, simply comment this
@@ -37,11 +37,6 @@ withjava=0
 gas=1
 
 export CONFIG_SHELL=/usr/tgcware/bin/bash
-
-datestamp()
-{
-    date +%Y%m%d%H%M
-}
 
 configure_args=(--prefix=$prefix --with-local-prefix=$prefix --disable-nls --with-libiconv-prefix=/usr/tgcware --with-gmp=/usr/tgcware --with-mpfr=/usr/tgcware --with-mpc=/usr/tgcware --with-libelf=/usr/tgcware --enable-obsolete --enable-shared)
 
@@ -87,22 +82,22 @@ export PATH=$srcdir/tools:$PATH
 reg prep
 prep()
 {
-    datestamp
     generic_prep
-    datestamp
+    setdir source
+    # Set bugurl and vendor version
+    ${__gsed} -i "/BUGURL=.*bugs.html.*/ s|http://gcc.gnu.org/bugs.html|$gccbugurl|" gcc/configure
+    ${__gsed} -i "/PKGVERSION=.*GCC.*/ s|GCC|$gccpkgversion|" gcc/configure
 }
 
 reg build
 build()
 {
-    datestamp
     setdir source
     mkdir -p ../$objdir
     echo $__configure "${configure_args[@]}"
     generic_build ../$objdir
     #setdir ../$objdir
     #${__make}
-    datestamp
 }
 
 reg install
@@ -132,7 +127,7 @@ install()
     ${__mv} ${stagedir}${prefix}/${_sharedir} ${stagedir}${lprefix}
     # Nuke python stuff
     ${__rm} -rf ${stagedir}${lprefix}/${sharedir}/${topdir}-${version}
-    
+
     # Relocate man and info
     ${__mv} ${stagedir}${lprefix}/${_sharedir}/${_mandir} ${stagedir}${prefix}
     ${__mv} ${stagedir}${lprefix}/${_sharedir}/${_infodir} ${stagedir}${prefix}
@@ -141,7 +136,6 @@ install()
 reg check
 check()
 {
-    datestamp
     setdir source
     setdir ../$objdir
     # Single ABI
@@ -149,7 +143,6 @@ check()
     # Three ABIs
     irix62 && ${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check
     #${__make} -k RUNTESTFLAGS="--target_board='unix{-mabi=n32,-mabi=32,-mabi=64}'" check-target-libstdc++-v3
-    datestamp
 }
 
 reg pack

@@ -1,0 +1,31 @@
+--- vice-2.4/src/drive/iec/pc8477.h.ie	2012-09-07 10:36:13.000000000 +0200
++++ vice-2.4/src/drive/iec/pc8477.h	2014-05-14 19:05:03.770000000 +0200
+@@ -42,7 +42,7 @@
+ extern void pc8477d_store(struct drive_context_s *drv, WORD addr, BYTE byte);
+ extern BYTE pc8477d_read(struct drive_context_s *drv, WORD addr);
+ extern void pc8477_reset(pc8477_t *drv, int is8477);
+-extern inline int pc8477_irq(pc8477_t *drv);
++extern int pc8477_irq(pc8477_t *drv);
+ 
+ extern int pc8477_attach_image(struct disk_image_s *image, unsigned int unit);
+ extern int pc8477_detach_image(struct disk_image_s *image, unsigned int unit);
+--- vice-2.4/src/drive/iec/wd1770.h.ie	2012-06-29 07:32:46.000000000 +0200
++++ vice-2.4/src/drive/iec/wd1770.h	2014-05-14 19:04:57.460000000 +0200
+@@ -40,12 +40,12 @@
+ extern int wd1770_attach_image(struct disk_image_s *image, unsigned int unit);
+ extern int wd1770_detach_image(struct disk_image_s *image, unsigned int unit);
+ 
+-extern inline int wd1770_disk_change(wd1770_t *drv);
+-extern inline void wd1770d_store(struct drive_context_s *drv, WORD addr, BYTE byte);
+-extern inline BYTE wd1770d_read(struct drive_context_s *drv, WORD addr);
++extern int wd1770_disk_change(wd1770_t *drv);
++extern void wd1770d_store(struct drive_context_s *drv, WORD addr, BYTE byte);
++extern BYTE wd1770d_read(struct drive_context_s *drv, WORD addr);
+ extern void wd1770_reset(wd1770_t *drv);
+-extern inline void wd1770_set_side(wd1770_t *drv, int side);
+-extern inline void wd1770_set_motor(wd1770_t *drv, int on);
++extern void wd1770_set_side(wd1770_t *drv, int side);
++extern void wd1770_set_motor(wd1770_t *drv, int on);
+ 
+ #endif 
+ 

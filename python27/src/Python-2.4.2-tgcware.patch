@@ -1,0 +1,15 @@
+--- Python-2.4.2/setup.py.tgcware	2005-12-28 22:34:47.492175248 +0100
++++ Python-2.4.2/setup.py	2005-12-28 22:36:06.040040572 +0100
+@@ -238,9 +238,9 @@
+         return sys.platform
+ 
+     def detect_modules(self):
+-        # Ensure that /usr/local is always used
+-        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
+-        add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
++        # Ensure that /usr/tgcware is always used
++        add_dir_to_list(self.compiler.library_dirs, '/usr/tgcware/lib')
++        add_dir_to_list(self.compiler.include_dirs, '/usr/tgcware/include')
+ 
+         # Add paths to popular package managers on OS X/darwin
+         if sys.platform == "darwin":
